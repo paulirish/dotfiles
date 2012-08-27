@@ -12,9 +12,8 @@ git clone https://github.com/troyharvey/dotfiles.git
 
 3. Run the bootstrap shell script
 
-	```bash
-$ cd dotfiles
-$ ./bootstrap.sh
+```bash
+cd dotfiles && ./bootstrap.sh
 ```
 
 To update later on, just run that command again.
