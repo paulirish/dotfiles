@@ -1,4 +1,6 @@
-# Paul's dotfiles.
+# Simon's dotfiles.
+
+Ripped from [Paul Irish](https://github.com/paulirish/dotfiles)
 
 [mathias's readme](https://github.com/mathiasbynens/dotfiles/) is awesome. Go read it.
 
@@ -78,7 +80,7 @@ I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/m
 ## Installation
 
 ```bash
-git clone https://github.com/paulirish/dotfiles.git && cd dotfiles && ./sync.sh
+git clone https://github.com/simonowendesign/dotfiles.git && cd dotfiles && ./sync.sh
 ```
 
 To update later on, just run the sync again.
