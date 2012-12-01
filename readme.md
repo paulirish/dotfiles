@@ -1,14 +1,14 @@
 # Paul's dotfiles.
 
-[mathias's readme](https://github.com/mathiasbynens/dotfiles/) is awesome. go read it.
+[mathias's readme](https://github.com/mathiasbynens/dotfiles/) is awesome. Go read it.
 
 This repo is mostly for me but you're welcome to make suggestions. Mathias's is the project to fork.  I'm mostly catching up to him, @cowboy, and @gf3.
 
-## install the neccessary apps
+## Install the necessary apps
 
 My basic setup is captured in `install-deps.sh` which adds homebrew, z, nave, etc.
 
-## private config
+## Private config
 
 Toss it into a file called `.extra` which you do not commit to this repo and just keep in your `~/`
 
@@ -28,7 +28,7 @@ export PATH
 
 ## Syntax highlighting
 
-…is really important. even for these files.
+…is really important. Even for these files.
 
 Install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Sublime Text 2 Package Control](http://wbond.net/sublime_packages/package_control)
 
@@ -46,16 +46,13 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/master/.jshintrc) and [`.editorconfig`](http://editorconfig.org/) defined for all your projects.
 
 
-
-
-
-## overview of files
+## Overview of files
 
 ####  Automatic config
 * `.ackrc` - for ack (better than grep)
 * `.vimrc`, `.vim` - vim config, obv.
 
-#### shell environement
+#### Shell environment
 * `.aliases`
 * `.bash_profile`
 * `.bash_prompt`
@@ -64,12 +61,12 @@ I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/m
 * `.functions`
 * `.extra` - not included, explained above
 
-#### manual run
-* `install-deps.sh` - random apps i need installed
+#### Manual run
+* `install-deps.sh` - random apps I need installed
 * `.osx` - run on a fresh osx machine
 * `.brew` - homebrew intialization
 
-#### git, brah
+#### Git, brah
 * `.git`
 * `.gitattributes`
 * `.gitconfig`
