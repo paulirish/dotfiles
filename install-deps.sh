@@ -33,8 +33,8 @@ chmod +x ~/code/z/z.sh
 #   . ~/code/z/z.sh
 
 
-cd ~/code
-git clone git://github.com/dronir/SpotifyControl.git
+# cd ~/code
+# git clone git://github.com/dronir/SpotifyControl.git
 
 
 
