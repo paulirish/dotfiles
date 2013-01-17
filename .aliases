@@ -80,7 +80,7 @@ alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Shortcuts
 alias d="cd ~/Documents/Dropbox"
-alias p="cd ~/Projects"
+alias p="cd ~/prj"
 alias g="git"
 alias v="vim"
 alias m="mate ."
