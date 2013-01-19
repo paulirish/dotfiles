@@ -55,7 +55,6 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
 
-
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
@@ -89,6 +88,19 @@ alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 # Shortcuts
 alias g="git"
 alias v="vim"
+alias st="status"
+alias ci="commit"
+alias br="branch"
+alias co="checkout"
+alias df="diff"
+alias dc="diff --cached"
+alias lg="log -p"
+alias lol="log --graph --decorate --pretty=oneline --abbrev-commit"
+alias lola= "log --graph --decorate --pretty=oneline --abbrev-commit --all"
+alias ls= "ls-files"
+
+# Show files ignored by git:
+alias ign = ls-files -o -i --exclude-standard
 
 # File size
 alias fs="stat -f \"%z bytes\""
