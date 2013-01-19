@@ -102,6 +102,9 @@ alias ls= "ls-files"
 # Show files ignored by git:
 alias ign = ls-files -o -i --exclude-standard
 
+# Start up a jekyll server
+alias js="jekyll --server"
+
 # File size
 alias fs="stat -f \"%z bytes\""
 

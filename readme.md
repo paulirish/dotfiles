@@ -1,5 +1,7 @@
 # Simon's dotfiles.
 
+Wrote some blog articles on this [Mother Effing Dotfiles](http://www.simonowendesign.co.uk/mother-effing-dotfiles/), [Mac OS X Dotfile](http://www.simonowendesign.co.uk/mac-os-x-osx-dotfile/).
+
 Ripped from [Paul Irish](https://github.com/paulirish/dotfiles)
 
 [mathias's readme](https://github.com/mathiasbynens/dotfiles/) is awesome. Go read it.
