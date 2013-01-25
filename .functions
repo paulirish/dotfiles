@@ -1,3 +1,23 @@
+# Cool formated ls
+function lsl() {
+	ls -1 --group-directories-first --color "$@"
+}
+
+# Repeat a command n times waiting s seconds between each
+function repeat () {
+	local repeatTime=$1
+        local waitTime=$2
+
+        shift
+        shift
+
+        while [ $repeatTime -ge 0 ]; do
+            let repeatTime-=1
+            "$@"
+            sleep $waitTime
+        done
+}
+
 # Create a new directory and enter it
 function md() {
 	mkdir -p "$@" && cd "$@"
