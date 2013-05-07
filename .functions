@@ -16,11 +16,11 @@ cdf() {  # short for cdfinder
 
 
 # lets toss an image onto my server and pbcopy that bitch.
-function scpp() {
-    scp "$1" aurgasm@aurgasm.us:~/paulirish.com/i;
-    echo "http://paulirish.com/i/$1" | pbcopy;
-    echo "Copied to clipboard: http://paulirish.com/i/$1"
-}
+# function scpp() {
+#     scp "$1" aurgasm@aurgasm.us:~/simonowendesign.co.uk/i;
+#     echo "http://simonowendesign.co.uk/i/$1" | pbcopy;
+#     echo "Copied to clipboard: http://simonowendesign.co.uk/i/$1"
+# }
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
