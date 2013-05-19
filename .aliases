@@ -1,4 +1,5 @@
 # Easier navigation: .., ..., ~ and -
+alias cd..='cd ..'
 alias ..="cd .."
 alias cd..="cd .."
 alias ...="cd ../.."
@@ -20,6 +21,8 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 # handy things
 alias bunyip='node ~/code/bunyip/cli.js'
 alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
+
+alias cls='clear'
 
 
 # Detect which `ls` flavor is in use
@@ -117,3 +120,17 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# goto my folders
+alias edpr='subl ~/.bash_profile'
+alias gtwk='cd ~/Projects/wiki'
+alias gtdb='cd ~/DropBox'
+alias gtd='cd ~/DropBox/Develop'
+alias gtb='cd ~/Projects/blog'
+alias gtpr='cd ~/Projects'
+alias gtswk='cd ~/Projects/github/swk'
+
+if [ $UID -ne 0 ]; then
+    alias reboot='sudo reboot'
+    alias update='sudo apt-get upgrade'
+fi

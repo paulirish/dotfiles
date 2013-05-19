@@ -1,3 +1,6 @@
+[user]
+	name = Jan Baer
+	email = jan@janbaer.de
 [alias]
 	c = commit -am
 	up = pull
@@ -5,6 +8,7 @@
 	s = status -s
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	pom = push origin master	
 [color]
 	ui = always
 [core]
@@ -25,6 +29,14 @@
 	untracked = cyan
 [merge]
 	log = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true	
+[push]
+	default = tracking	
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
@@ -40,5 +52,7 @@
 
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:paulirish/"]
-  insteadOf = "git://github.com/paulirish/"
+[url "git@github.com:janbaer/"]
+  insteadOf = "git://github.com/janbaer/"
+
+
