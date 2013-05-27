@@ -6,7 +6,9 @@ done
 unset file
 
 # init z   https://github.com/rupa/z
-. ~/code/z/z.sh
+# . ~/code/z/z.sh
+# for z installed using homebrew:
+. `brew --prefix`/etc/profile.d/z.sh
 
 # init rvm
 source ~/.rvm/scripts/rvm
