@@ -19,10 +19,8 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 
 # handy things
 alias cleanmenu='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
-alias ecp="ssh -i ~/.ssh/amio.pem ec2-user@ec2-54-248-0-233.ap-northeast-1.compute.amazonaws.com -D 7070"
 alias esp="ssh amiocn1@198.52.106.2 -D 7070"
 alias ~~='cd /Volumes/HD500/Amio'
-alias ip='ifconfig | grep broadcast'
 
 
 # Detect which `ls` flavor is in use
@@ -36,7 +34,7 @@ fi
 alias l="ls -l ${colorflag}"
 
 # List all files colorized in long format, including dot files
-alias la="ls -la ${colorflag}"
+alias la="ls -Al ${colorflag}"
 
 
 # List only directories
