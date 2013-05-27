@@ -18,8 +18,11 @@ alias please=sudo
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 # handy things
-alias bunyip='node ~/code/bunyip/cli.js'
-alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
+alias cleanmenu='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+alias ecp="ssh -i ~/.ssh/amio.pem ec2-user@ec2-54-248-0-233.ap-northeast-1.compute.amazonaws.com -D 7070"
+alias esp="ssh amiocn1@198.52.106.2 -D 7070"
+alias ~~='cd /Volumes/HD500/Amio'
+alias ip='ifconfig | grep broadcast'
 
 
 # Detect which `ls` flavor is in use
