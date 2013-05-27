@@ -1,3 +1,8 @@
+[user]
+	name = Amio
+	email = amio.cn@gmail.com
+[push]
+	default = simple
 [alias]
 	c = commit -am
 	up = pull
@@ -40,5 +45,5 @@
 
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:paulirish/"]
-  insteadOf = "git://github.com/paulirish/"
+[url "git@github.com:amio/"]
+  insteadOf = "git://github.com/amio/"
