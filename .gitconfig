@@ -13,6 +13,7 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+	autocrlf = input
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -40,3 +41,6 @@
 	pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
+[user]
+	name = Troy Harvey
+	email = troyharvey@gmail.com

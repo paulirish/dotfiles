@@ -83,7 +83,6 @@ alias d="cd ~/Documents/Dropbox"
 alias p="cd ~/prj"
 alias g="git"
 alias v="vim"
-alias m="mate ."
 
 # File size
 alias fs="stat -f \"%z bytes\""
