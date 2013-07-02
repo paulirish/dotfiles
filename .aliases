@@ -5,11 +5,10 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # ssh!
-alias shh='ssh aurgasm@aurgasm.us'
-alias shhve='ssh paul@javascriptbattle.com'
+alias shh='ssh troyharvey.com'
 
 # programs
-alias slt='open -a "Sublime Text 2"'
+alias slt='open -a "Sublime Text"'
 # also do this:
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
@@ -41,12 +40,11 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 
 # GIT STUFF
 
+alias gpod="git pull origin develop"
+alias gcb="git checkout -b"
+
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
-
-# hub override.
-# alias git=hub  # not crazy about this..
-
 
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
@@ -82,7 +80,7 @@ alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 alias d="cd ~/Documents/Dropbox"
 alias p="cd ~/prj"
 alias g="git"
-alias v="vim"
+alias w="cd ~/prj/woodport_doors"
 
 # File size
 alias fs="stat -f \"%z bytes\""
