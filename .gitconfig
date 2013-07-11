@@ -8,7 +8,13 @@
 	s = status -s
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	pom = push origin master	
+	pom = push origin master
+	lga = log --oneline --graph --all
+	unstage = reset head --
+	undo = checkout --
+	aa = !git add -u && git add . && git status
+	pp = !git pull && git push
+	tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
 [color]
 	ui = always
 [core]
