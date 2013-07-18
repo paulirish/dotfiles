@@ -131,6 +131,7 @@ alias gtmh='cd ~/Projects/WebSites/myhomepage'
 alias gtpr='cd ~/Projects'
 alias gtswk='cd ~/Projects/github/swk'
 alias gtgs='cd ~/Projects/NodeProjects/gitsync'
+alias gtmdw='cd ~/Projects/NodeProjects/mdwiki'
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
