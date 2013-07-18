@@ -130,9 +130,7 @@ alias gtb='cd ~/Projects/WebSites/blog'
 alias gtmh='cd ~/Projects/WebSites/myhomepage'
 alias gtpr='cd ~/Projects'
 alias gtswk='cd ~/Projects/github/swk'
-alias gtgs='cd ~/Projects/gitsync'
-alias gtgss='cd ~/Projects/gitsync/server'
-alias gtgsc='cd ~/Projects/gitsync/client'
+alias gtgs='cd ~/Projects/NodeProjects/gitsync'
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'

@@ -160,9 +160,9 @@ gifify() {
 
 # call the node js project to pull automatically the latest version for all defined git repositories 
 function gs() {
-  pushd /Users/jan/Projects/NodeProjects/gitupdate
+  pushd /Users/jan/Projects/NodeProjects/gitsync
 
-  node gitupdate.js
+  ./gs.sh
 
   popd
 }
