@@ -12,9 +12,12 @@
 	lga = log --oneline --graph --all
 	unstage = reset head --
 	undo = checkout --
+	undoall = reset -hard
 	aa = !git add -u && git add . && git status
 	pp = !git pull && git push
 	tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+	undopush = git push -f origin HEAD^:master
+
 [color]
 	ui = always
 [core]
