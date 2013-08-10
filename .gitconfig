@@ -12,7 +12,9 @@
 	lga = log --oneline --graph --all
 	unstage = reset head --
 	undo = checkout --
-	undoall = reset -hard
+	ffs = flow feature start
+	fff = flow feature finish
+	undoall = reset --hard
 	aa = !git add -u && git add . && git status
 	pp = !git pull && git push
 	tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
@@ -40,12 +42,12 @@
 	log = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true	
+	trustExitCode = true
 [push]
-	default = tracking	
+	default = tracking
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
@@ -62,6 +64,6 @@
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
 [url "git@github.com:janbaer/"]
-  insteadOf = "git://github.com/janbaer/"
+	insteadOf = "git://github.com/janbaer/"
 
 
