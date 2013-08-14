@@ -7,18 +7,24 @@
 	p = push
 	s = status -s
 	df = diff --color --color-words --abbrev
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	pom = push origin master
+	psom = push origin master
+	plom = pull origin master	
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	lga = log --oneline --graph --all
+	lge = log --graph --all --format=email
+	last = log -1 HEAD
 	unstage = reset head --
 	undo = checkout --
+	undopush = git push -f origin HEAD^:master
 	ffs = flow feature start
-	fff = flow feature finish
+	fff = flow feature finish -F
+	ffr = flow feature rebase
+	editconfig = config --global -e
 	undoall = reset --hard
 	aa = !git add -u && git add . && git status
 	pp = !git pull && git push
 	tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
-	undopush = git push -f origin HEAD^:master
 
 [color]
 	ui = always
@@ -46,8 +52,12 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+	keepBackup = false
 [push]
 	default = tracking
+[pull]
+	rebase = true
+	
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
