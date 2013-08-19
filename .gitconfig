@@ -42,3 +42,5 @@
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
 [url "git@github.com:paulirish/"]
   insteadOf = "git://github.com/paulirish/"
+[help]
+	autocorrect = 1
