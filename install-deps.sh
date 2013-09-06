@@ -9,6 +9,7 @@ ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
 # https://github.com/rupa/z
 # z, awesome directory auto complete
 # z binary is already referenced from .bash_profile
+mkdir ~/Util
 cd ~/Util
 git clone https://github.com/rupa/z.git
 chmod +x ~/Util/z/z.sh
