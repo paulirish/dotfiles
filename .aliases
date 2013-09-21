@@ -132,6 +132,7 @@ alias swk='cd ~/Projects/github/swk'
 alias gtgs='cd ~/Projects/NodeProjects/gitsync'
 alias mdw='cd ~/Projects/NodeProjects/mdwiki'
 alias logfiles='cd ~/Projects/logfiles'
+alias dotfiles='cd ~/Projects/dotfiles'
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
