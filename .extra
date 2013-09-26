@@ -1,6 +1,15 @@
-# Python virtualenvwrapper init
-export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+# Python
+PATH=${PATH}:/usr/local/share/python
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+else
+    echo "WARNING: Can't find virtualenvwrapper.sh"
+fi
 
 # Git credentials
 GIT_AUTHOR_NAME="Troy Harvey"
@@ -15,7 +24,5 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 # Git Bash Completion
 source ~/.git-completion
 
-PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
-
-# rbenv Homebrew install
+# rbenv
 eval "$(rbenv init -)"
