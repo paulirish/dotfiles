@@ -3,9 +3,9 @@ set nocompatible
 
 " Set syntax highlighting options.
 set t_Co=256
-set background=dark
+set background=light
 syntax on
-colorscheme badwolf
+colorscheme github
 
 " Enabled later, after Pathogen
 filetype off
