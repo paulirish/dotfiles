@@ -3,6 +3,7 @@
 	up = pull
 	p = push
 	st = status -s
+  a = add -i
 	d = diff --color --color-words --abbrev
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 [color]
@@ -42,3 +43,8 @@
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
 [url "git@github.com:richistron/"]
   insteadOf = "git://github.com/richistron/"
+[user]
+	name = Ricardo Rivas G.
+	email = richistron@gmail.com
+[push]
+	default = simple
