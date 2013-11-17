@@ -1,79 +1,100 @@
 [user]
-	name = Jan Baer
-	email = jan@janbaer.de
+  name = Jan Baer
+  email = jan@janbaer.de
+
 [alias]
-	c = commit -am
-	up = pull
-	p = push
-	s = status -s
-	df = diff --color --color-words --abbrev
-	pom = push origin master
-	psom = push origin master
-	plom = pull origin master	
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	lga = log --oneline --graph --all
-	lge = log --graph --all --format=email
-	last = log -1 HEAD
-	unstage = reset head --
-	undo = checkout --
-	undopush = git push -f origin HEAD^:master
-	ffs = flow feature start
-	fff = flow feature finish -F
-	ffr = flow feature rebase
-	editconfig = config --global -e
-	undoall = reset --hard
-	aa = !git add -u && git add . && git status
-	pp = !git pull && git push
-	tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+  a = add
+  aa = !git add -u && git add . && git status
+  b = branch
+  ba = checkout -b
+  ca = commit --amend
+  chan = commit --amend --reset-author --no-edit
+  c = commit -am
+  dt = difftool -y
+  editconfig = config --global -e
+  ffs = flow feature start
+  fff = flow feature finish -F
+  ffr = flow feature rebase
+  df = diff --color --color-words --abbrev
+  gs = "!f() { git grep --heading --color -I -n -e $1; }; f"
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  lga = log --oneline --graph --all
+  lge = log --graph --all --format=email
+  last = log -1 HEAD
+  ls1 = log --oneline --stat -1
+  ls = "!f() { n=10; [ -n \"$1\" ] && n=$1; git log --oneline --graph --stat -$n; }; f"
+  l = "!f() { n=10; [ -n \"$1\" ] && n=$1; git log --oneline --graph -$n; }; f"
+  m = merge --no-commit
+  mt = mergetool -y
+  p = push
+  pp = !git pull && git push
+  pom = push origin master
+  psom = push origin master
+  plom = pull origin master
+  ri = rebase -i
+  rin = "!f() { n=2; [ -n \"$1\" ] && n=$1; git rebase -i HEAD~$n; }; f"
+  rn = rebase --continue
+  rq = rebase --abort
+  remotes = remote -v show
+  s = status -s
+  tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+  unstage = reset head --
+  undo = checkout --
+  undopush = git push -f origin HEAD^:master
+  undoall = reset --hard
+  up = pull
 
 [color]
-	ui = always
-[core]
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
-[color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
-[color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
-[merge]
-	log = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-	keepBackup = false
-[push]
-	default = tracking
-[pull]
-	rebase = true
-	
-[url "git@github.com:"]
-	insteadOf = "gh:"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-[url "git://github.com/"]
-	insteadOf = "github:"
-[url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-	insteadOf = "gist:"
+  ui = always
 
-# Any GitHub repo with my username should be checked out r/w by default
-# http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:janbaer/"]
-	insteadOf = "git://github.com/janbaer/"
+[core]
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[merge]
+  log = true
+  tool = kdiff3
+
+[diff]
+  tool = kdiff3
+
+[difftool "kdiff3"]
+  path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+  trustExitCode = false
+
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+
+[mergetool "kdiff3"]
+  path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+  trustExitCode = false
+  keepBackup = false
+
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+  keepBackup = false
+
+[push]
+  default = tracking
+[pull]
+  rebase = true
 
 
