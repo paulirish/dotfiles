@@ -31,6 +31,9 @@
   pom = push origin master
   psom = push origin master
   plom = pull origin master
+  rblh = reset --hard HEAD^
+  rbls = reset --soft HEAD^
+  rb = reset --soft HEAD^
   ri = rebase -i
   rin = "!f() { n=2; [ -n \"$1\" ] && n=$1; git rebase -i HEAD~$n; }; f"
   rn = rebase --continue
