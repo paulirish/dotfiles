@@ -1,11 +1,12 @@
 [alias]
-	c = commit -a
+	c = commit
 	up = pull
 	p = push
-	st = status -s
-  a = add -i
-	d = diff --color --color-words --abbrev
+        st = status -s
+        a = add -i
+        d = diff --color --color-words --abbrev
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	rt = reset HEAD --hard
 [color]
 	ui = always
 [core]
