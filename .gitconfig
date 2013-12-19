@@ -7,6 +7,8 @@
         d = diff --color --color-words --abbrev
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	rt = reset HEAD --hard
+	am = commit --amend
+	rollback = reset HEAD~10 --hard
 [color]
 	ui = always
 [core]
@@ -47,5 +49,3 @@
 [user]
 	name = Ricardo Rivas G.
 	email = richistron@gmail.com
-[push]
-	default = simple
