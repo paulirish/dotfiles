@@ -30,6 +30,7 @@
 	untracked = cyan
 [merge]
 	log = true
+	tool = vimdiff
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
