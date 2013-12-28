@@ -11,6 +11,8 @@
 	rollback = reset HEAD~10 --hard
         ch = checkout
         b = branch
+        find = rev-list -n 1 HEAD
+        sub = submodule
 [color]
 	ui = always
 [core]
@@ -52,3 +54,5 @@
 [user]
 	name = Ricardo Rivas G.
 	email = richistron@gmail.com
+[push]
+	default = simple
