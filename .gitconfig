@@ -9,7 +9,8 @@
 	rt = reset HEAD --hard
 	am = commit --amend
 	rollback = reset HEAD~10 --hard
-	ch = checkout
+        ch = checkout
+        b = branch
 [color]
 	ui = always
 [core]
