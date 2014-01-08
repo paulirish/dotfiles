@@ -1,7 +1,8 @@
 [alias]
 	c = commit
-	up = pull
-	p = push
+	up = fetch --all --prune
+        p = push
+        m = merge
         st = status -s
         a = add -i
         d = diff --color --color-words --abbrev
