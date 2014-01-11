@@ -371,8 +371,8 @@ defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\\U21a9"
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
-defaults write com.apple.Terminal NSUserKeyEquivalents -dict-add "N\\U00e4chsten Tab ausw\\U00e4hlen" "@\\U2192"
-defaults write com.apple.Terminal NSUserKeyEquivalents -dict-add "Vorherigen Tab ausw\\U00e4hlen" "@\\U2190"
+defaults write com.apple.Terminal NSUserKeyEquivalents -dict-add "N\\U00e4chsten Tab ausw\\U00e4hlen" "^\\U2192"
+defaults write com.apple.Terminal NSUserKeyEquivalents -dict-add "Vorherigen Tab ausw\\U00e4hlen" "^\\U2190"
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
