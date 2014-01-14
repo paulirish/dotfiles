@@ -25,3 +25,5 @@ export CHROME_BIN="/Applications/Google Chrome Canary.app/Contents/MacOS/Google 
 complete -W "NSGlobalDomain" defaults
 
 [[ -s /Users/jan/.nvm/nvm.sh ]] && . /Users/jan/.nvm/nvm.sh # This loads NVM
+
+export EDITOR="vim"
