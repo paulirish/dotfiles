@@ -1,0 +1,5 @@
+[
+	{ "keys": ["super+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
+	{ "keys": ["super+b"], "command": "toggle_side_bar" },
+	{ "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" }
+]
