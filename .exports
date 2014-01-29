@@ -1,5 +1,9 @@
 # Make vim the default editor
 export EDITOR="vim"
+
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="$ORANGE"
+
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
@@ -15,3 +19,6 @@ export HISTTIMEFORMAT
 
 # Make some commands not show up in history
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
+
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
