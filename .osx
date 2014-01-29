@@ -287,7 +287,7 @@ defaults write com.apple.dock wvous-tl-modifier -int 0
 defaults write com.apple.dock wvous-tr-corner -int 4
 defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
+defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ###############################################################################
@@ -375,6 +375,11 @@ defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\\U21a9"
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
+# Use a Solarized Dark by default in Terminal.app https://github.com/tomislav/osx-terminal.app-colors-solarized
+open "$HOME/init/SolarizedDark.terminal"
+sleep 1 # Wait a bit to make sure the theme is loaded
+defaults write com.apple.terminal "Default Window Settings" -string "SolarizedDark"
+defaults write com.apple.terminal "Startup Window Settings" -string "SolarizedDark"
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
