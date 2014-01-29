@@ -17,7 +17,8 @@ npm install -g nave
 
 # homebrew!
 # you need the code CLI tools YOU FOOL.
-ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
+# github was returning the html view instead of the raw install script
+ruby <(curl -fsSkL https://raw.github.com/mxcl/homebrew/go/install)
 
 
 
