@@ -1,5 +1,7 @@
 [alias]
 	c = commit
+        aa = add .
+	tool = mergetool 
 	up = fetch --all --prune
         p = push
         m = merge
