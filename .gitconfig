@@ -10,6 +10,7 @@
   ca = commit --amend
   chan = commit --amend --reset-author --no-edit
   c = commit -am
+  co = checkout
   dt = difftool -y
   editconfig = config --global -e
   ffs = flow feature start
