@@ -158,11 +158,15 @@ gifify() {
   fi
 }
 
-# call the node js project to pull automatically the latest version for all defined git repositories 
+# call the node js project to pull automatically the latest version for all defined git repositories
 function gs() {
   pushd /Users/jan/Projects/NodeProjects/gitsync
 
   ./gs.sh
 
   popd
+}
+
+function findin() {
+  find $1 -exec grep -i --color $2 {} \; -print
 }
