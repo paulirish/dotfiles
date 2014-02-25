@@ -1,5 +1,13 @@
 --ignore-dir=log
 --ignore-dir=tmp
 --ignore-dir=vendor
+--ignore-dir=build
+--ignore-dir=dist
+--ignore-dir=doc
 --ignore-dir=public/generated
 --sort-files
+--smart-case
+--follow
+--type-add=html=.hbs
+--type-set=hbs=.hbs,.html
+
