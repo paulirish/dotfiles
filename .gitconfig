@@ -10,6 +10,7 @@
   ca = commit --amend
   chan = commit --amend --reset-author --no-edit
   c = commit -am
+  cp = cherry-pick -xn
   co = checkout
   dt = difftool -y
   editconfig = config --global -e
