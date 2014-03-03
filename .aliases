@@ -134,6 +134,7 @@ alias mdw='cd ~/Projects/NodeProjects/mdwiki'
 alias logfiles='cd ~/Projects/logfiles'
 alias dotfiles='cd ~/Projects/dotfiles'
 alias sublime-settings='cd ~/DropBox/_AppSettings/SublimeText'
+alias dupl='cd ~/Projects/NodeProjects/duplicatesongfinder/'
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
