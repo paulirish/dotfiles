@@ -9,7 +9,7 @@
   ba = checkout -b
   ca = commit --amend
   chan = commit --amend --reset-author --no-edit
-  c = commit -am
+  c = commit -m
   cp = cherry-pick -xn
   co = checkout
   dt = difftool -y
