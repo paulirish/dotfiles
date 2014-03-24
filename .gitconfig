@@ -42,6 +42,7 @@
   rq = rebase --abort
   remotes = remote -v show
   s = status -s
+  showfiles = diff-tree --no-commit-id --name-only -r
   tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
   unstage = reset head --
   undo = checkout --
