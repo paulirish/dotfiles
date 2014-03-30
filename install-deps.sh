@@ -25,19 +25,19 @@ ruby < (curl -fsSkL raw.github.com/mxcl/homebrew/go)
 
 # https://github.com/rupa/z
 # z binary is already referenced from .bash_profile
-mkdir -p ~/code
-cd ~/code
+mkdir -p 
+cd 
 git clone https://github.com/rupa/z.git
-chmod +x ~/code/z/z.sh
+chmod +x /z/z.sh
 
 # https://github.com/dronir/SpotifyControl
 # Spotify Controll Script
-cd ~/code
+cd 
 git clone git://github.com/dronir/SpotifyControl.git
 
 # https://github.com/jeroenbegyn/VLCControl
 # VLC Controll Script
-cd ~/code
+cd 
 git clone git://github.com/jeroenbegyn/VLCControl.git
 
 # for the c alias (syntax highlighted cat)

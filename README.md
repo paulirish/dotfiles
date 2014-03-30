@@ -20,7 +20,7 @@ I do something nice with my `PATH` there:
 PATH=$PATH:/opt/local/sbin
 PATH=$PATH:/bin
 PATH=$PATH:~/.rvm/bin
-PATH=$PATH:~/code/git-friendly
+PATH=$PATH:/git-friendly
 # ...
 
 export PATH
