@@ -116,6 +116,7 @@ noremap <leader>W :w !sudo tee %<CR>
 
 " Remap :W to :w
 command W w
+command Wq wq
 
 " Better mark jumping (line + col)
 nnoremap ' `
