@@ -122,7 +122,7 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # goto my folders
 alias edpr='subl ~/.bash_profile'
-alias ccat='pygmentize -g'
+alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edit='subl'
 alias wiki='cd ~/Projects/wiki'
 alias dropbox='cd ~/DropBox'
