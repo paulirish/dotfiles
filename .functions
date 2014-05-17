@@ -7,7 +7,6 @@ function rd() {
 	rm -r -f -d "$1"
 }
 
-
 # find shorthand
 function f() {
     find . -name "$1"
@@ -140,7 +139,6 @@ function extract() {
     echo "'$1' is not a valid file"
   fi
 }
-
 
 # animated gifs from any video
 # from alex sexton   gist.github.com/SlexAxton/4989674

@@ -27,3 +27,10 @@ complete -W "NSGlobalDomain" defaults
 [[ -s /Users/jan/.nvm/nvm.sh ]] && . /Users/jan/.nvm/nvm.sh # This loads NVM
 
 export EDITOR="vim"
+
+LESSPIPE=`which src-hilite-lesspipe.sh`
+
+export LESSOPEN="| ${LESSPIPE} %s"
+export LESS='-R'LESSPIPE=`which src-hilite-lesspipe.sh`
+export LESSOPEN="| ${LESSPIPE} %s"
+export LESS='-R'
