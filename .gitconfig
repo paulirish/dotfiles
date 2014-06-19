@@ -60,4 +60,4 @@
 	name = Ricardo Rivas G.
 	email = richistron@gmail.com
 [push]
-	default = simple
+	default = current
