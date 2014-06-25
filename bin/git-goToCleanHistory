@@ -1,0 +1,12 @@
+#! /bin/bash
+if [ -z $1 ]
+then
+  echo "you did not send a branch name"
+  exit
+fi
+# switch branch
+git checkout $1
+# reset history 5 commits back
+git reset HEAD~5 --hard
+# pull new history
+git pull origin $1
