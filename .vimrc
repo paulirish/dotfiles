@@ -5,7 +5,7 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme badwolf
+colorscheme molokai
 
 " Enabled later, after Pathogen
 filetype off
