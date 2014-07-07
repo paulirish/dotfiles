@@ -53,7 +53,6 @@ I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/m
 
 ####  Automatic config
 * `.ackrc` - for ack (better than grep)
-* `.vimrc`, `.vim` - vim config, obv.
 
 #### shell environment
 * `.aliases`
