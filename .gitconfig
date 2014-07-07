@@ -40,7 +40,16 @@
 
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:paulirish/"]
-  insteadOf = "git://github.com/paulirish/"
+[url "git@github.com:maxhakansson/"]
+  insteadOf = "git://github.com/maxhakansson/"
 [help]
 	autocorrect = 1
+
+[user]
+	name = Max Håkansson
+	email = max.hakansson@gmail.com
+[mergetool "diffmerge"]
+	cmd = diffmerge --merge\n--result=$MERGED $LOCAL $BASE $REMOTE
+	trustExitCode = true
+[mergetool]
+	keepBackup = false
