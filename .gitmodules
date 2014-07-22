@@ -1,0 +1,3 @@
+[submodule ".vim/bundle/clojure.vim"]
+	path = .vim/bundle/clojure.vim
+	url = https://github.com/guns/vim-clojure-static
