@@ -1,3 +1,6 @@
 [submodule ".vim/bundle/clojure.vim"]
 	path = .vim/bundle/clojure.vim
 	url = https://github.com/guns/vim-clojure-static
+[submodule ".vim/bundle/cocoa.vim"]
+	path = .vim/bundle/cocoa.vim
+	url = https://github.com/msanders/cocoa.vim
