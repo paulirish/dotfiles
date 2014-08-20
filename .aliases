@@ -119,7 +119,5 @@ alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
-# docker aliales
+# docker
 alias docker_container="docker ps -a"
-alias docker_remove_old="docker ps -a | grep -i exited | awk '{print $1}' | xargs docker rm"
-alias docker_remove_none_images="docker images | grep none | awk '{print $3}' | xargs docker rmi"
