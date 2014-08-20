@@ -167,7 +167,7 @@ docker_search() {
 docker_search_delete() {
   if [[ -n $1 ]]
   then
-    docker stop $(docker ps -a | grep -i $1 | awk '{print $1}')
-    docker rm $(docker ps -a | grep -i $1 | awk '{print $1}')
+    docker ps -a | grep -i $1 | awk '{print $1}' | xargs docker stop
+    docker ps -a | grep -i $1 | awk '{print $1}' | xargs docker rm
   fi
 }
