@@ -121,3 +121,5 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # docker aliales
 alias docker_container="docker ps -a"
+alias docker_remove_old="docker rm $(docker ps -a | grep -i exited | awk '{print $1}')"
+alias docker_remove_none_images="docker rmi $(docker images | grep none | awk '{print $3}')"
