@@ -31,15 +31,10 @@ chmod +x ~/code/z/z.sh
 # z binary is already referenced from .bash_profile
 
 
-# https://github.com/dronir/SpotifyControl
-# Spotify Controll Script
+# https://github.com/thebitguru/play-button-itunes-patch
+# disable itunes opening on media keys
 cd ~/code
-git clone git://github.com/dronir/SpotifyControl.git
-
-# https://github.com/jeroenbegyn/VLCControl
-# VLC Controll Script
-cd ~/code
-git clone git://github.com/jeroenbegyn/VLCControl.git
+git clone https://github.com/thebitguru/play-button-itunes-patch
 
 
 # my magic photobooth symlink -> dropbox. I love it.
