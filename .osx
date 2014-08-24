@@ -239,7 +239,7 @@ defaults write com.apple.frameworks.diskimages skip-verify true
 ###############################################################################
 
 # Enable highlight hover effect for the grid view of a stack (Dock)
-defaults write com.apple.dock mouse-over-hilte-stack -bool true
+defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Enable spring loading for all Dock items
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
