@@ -168,3 +168,11 @@ function gs() {
 function findin() {
   find $1 -exec grep -i --color $2 {} \; -print
 }
+
+function findandremove() {
+  find -E . -regex $1 -exec rm -rf {} \;
+}
+
+function findmp3andremove() {
+  find -E . -regex '^.*\([1-9]\).mp3$' -exec rm -rf {} \;
+}
