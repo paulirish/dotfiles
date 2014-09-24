@@ -1,0 +1,29 @@
+{
+  "preset": "jquery",
+  "plugins": [
+        "esformatter-quotes",
+        "esformatter-semicolons",
+        "esformatter-braces"
+    ],
+    "quotes": {
+        "type": "single",
+        "avoidEscape": false
+    },
+    "indent": {
+        "value": "    "
+    },
+    "whiteSpace": {
+        "before": {
+            "ArgumentList": 1,
+            "ArgumentListObjectExpression": 1,
+            "ArgumentListFunctionExpression": 1,
+            "ArgumentListArrayExpression": 1
+        },
+        "after": {
+            "ArgumentList": 1,
+            "ArgumentListObjectExpression": 1,
+            "ArgumentListFunctionExpression": 1,
+            "ArgumentListArrayExpression": 1
+        }
+    }
+}

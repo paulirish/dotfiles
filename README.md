@@ -46,7 +46,11 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/master/.jshintrc) and [`.editorconfig`](http://editorconfig.org/) defined for all your projects.
 
 
+## NPM things
 
+```bash
+npm install -g jsfmt bower yo
+```
 
 
 ## overview of files
