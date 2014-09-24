@@ -25,10 +25,14 @@
 	untracked = cyan
 [merge]
 	log = true
+
+
+# rewrites
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
 	pushInsteadOf = "git://github.com/"
+    pushInsteadOf = "https://github.com/"
 [url "git://github.com/"]
 	insteadOf = "github:"
 [url "git@gist.github.com:"]
@@ -38,8 +42,10 @@
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
+
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
+
 [url "git@github.com:paulirish/"]
   insteadOf = "git://github.com/paulirish/"
 [help]
