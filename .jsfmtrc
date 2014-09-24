@@ -1,4 +1,10 @@
 {
+
+
+  "// docs, basically" : "https://github.com/millermedeiros/esformatter/tree/master/lib/preset",
+
+
+
   "preset": "jquery",
   "plugins": [
         "esformatter-quotes",
@@ -10,7 +16,7 @@
         "avoidEscape": false
     },
     "indent": {
-        "value": "    "
+        "value": "    "  // four spaces, b.
     },
     "whiteSpace": {
         "before": {
