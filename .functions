@@ -181,6 +181,6 @@ function node-version() {
   curl -s http://nodejs.org | grep "Current Version" | awk '{ print substr($4,0,8) }'
 }
 
-function nmplsg() {
+function npmlsg() {
   npm ls -g --depth=0
 }
