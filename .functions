@@ -176,3 +176,7 @@ function findandremove() {
 function findmp3andremove() {
   find -E . -regex '^.*\([1-9]\).mp3$' -exec rm -rf {} \;
 }
+
+function node-version() {
+  curl -s http://nodejs.org | grep "Current Version" | awk '{ print substr($4,0,8) }'
+}
