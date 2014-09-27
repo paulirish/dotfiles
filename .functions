@@ -180,3 +180,7 @@ function findmp3andremove() {
 function node-version() {
   curl -s http://nodejs.org | grep "Current Version" | awk '{ print substr($4,0,8) }'
 }
+
+function nmplsg() {
+  npm ls -g --depth=0
+}
