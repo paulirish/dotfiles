@@ -8,8 +8,10 @@ unset file
 # init z   https://github.com/rupa/z
 . ~/code/z/z.sh
 
-# init rvm
-source ~/.rvm/scripts/rvm
+# bash completion.
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
