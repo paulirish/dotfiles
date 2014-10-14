@@ -12,7 +12,7 @@ curl --progress -L https://get.rvm.io | bash -s stable --ruby
 # http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz
 # nodejs
 mkdir -p /tmp/nodejs-install && cd /tmp/nodejs-install
-curl --progress http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz | tar zx
+curl --progress http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz | tar zx
 
 # https://github.com/isaacs/nave
 # needs npm, obviously.
