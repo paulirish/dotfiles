@@ -24,7 +24,7 @@
 	changed = green
 	untracked = cyan
 [merge]
-	log = true
+    tool = opendiff
 
 
 # rewrites
