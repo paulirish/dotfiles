@@ -102,6 +102,7 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 
 # mute all sounds, incl volume change feedback
 defaults write "com.apple.sound.beep.feedback" -int 0
+defaults write com.apple.systemsound 'com.apple.sound.beep.volume' -float 0
 defaults write "com.apple.systemsound" "com.apple.sound.uiaudio.enabled" -int 0
 
 # Enable full keyboard access for all controls
