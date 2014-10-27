@@ -9,5 +9,7 @@
 --smart-case
 --follow
 --type-add=html=.hbs
+--type-add=html=.erb
 --type-set=hbs=.hbs,.html
+--type-add=css=.scss
 
