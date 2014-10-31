@@ -40,6 +40,7 @@ install pv
 install rename
 install tree
 install zopfli
+install ffmpeg --with-libvpx
 
 # Remove outdated versions from the cellar
 cleanup
