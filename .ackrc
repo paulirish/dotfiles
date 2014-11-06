@@ -11,5 +11,6 @@
 --type-add=html=.hbs
 --type-add=html=.erb
 --type-set=hbs=.hbs,.html
+--type-set=js=.js,.coffee
 --type-add=css=.scss
 
