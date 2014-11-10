@@ -41,6 +41,7 @@ install rename
 install tree
 install zopfli
 install ffmpeg --with-libvpx
+install android-platform-tools
 
 # Remove outdated versions from the cellar
 cleanup
