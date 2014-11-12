@@ -7,9 +7,11 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-# the subl symlink was probably set up already but in case it wasn't…
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
-
+# setting up the sublime symlink
+if [ ! -L ~/bin/subl ]
+then
+    ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+fi
 
 # i <3 u cask
 alias cask='brew cask'
