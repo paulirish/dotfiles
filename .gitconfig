@@ -5,6 +5,9 @@
 [alias]
   a = add
   aa = !git add -u && git add . && git status
+  alias = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
+  aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'  
+  amend = !git add -u && git add . && git commit --amend --no-edit -n
   b = branch
   ba = checkout -b
   ca = commit --amend
@@ -18,6 +21,11 @@
   ffs = flow feature start
   fff = flow feature finish -F
   ffr = flow feature rebase
+  fft = flow feature track
+  ffp = flow feature publish
+  frf = flow release finish -Fmp
+  find = "!f() { git log --graph --all --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(green)%d %Creset' --grep=$1; }; f"
+  finda = "!f() { git log --graph --all --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(green)%d %Creset'  --author=$1; }; f"
   df = diff --color --color-words --abbrev
   gs = "!f() { git grep --heading --color -I -n -e $1; }; f"
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
@@ -43,13 +51,16 @@
   rq = rebase --abort
   remotes = remote -v show
   s = status -s
+  save = !git aa && git commit -n -m
   showfiles = diff-tree --no-commit-id --name-only -r
   tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
   unstage = reset head --
   undo = checkout --
+  undolastcommit = reset --hard HEAD~1
   undopush = git push -f origin HEAD^:master
   undoall = reset --hard
   up = pull
+  whereis = "!f() { git branch -r --contains $1; }; f"
 
 [color]
   ui = always
