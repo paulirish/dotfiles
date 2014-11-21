@@ -14,6 +14,7 @@ then
   git clone https://github.com/mustache/vim-mustache-handlebars.git
   git clone https://github.com/MattesGroeger/vim-bookmarks
   git clone https://github.com/Shougo/unite.vim
+  git clone https://github.com/JarrodCTaylor/vim-js2coffee.git
 else
   echo 'Please got to https://github.com/carlhuda/janus'
 fi
