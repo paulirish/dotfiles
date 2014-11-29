@@ -171,3 +171,7 @@ function node-version() {
 function npmlsg() {
   npm ls -g --depth=0
 }
+
+function reload() {
+  source ~/.zshrc
+}

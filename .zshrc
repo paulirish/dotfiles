@@ -11,7 +11,7 @@ ZSH_THEME="robbyrussell"
 # CASE_SENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -45,7 +45,8 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitflow git-prompt common-aliases copyfile copydir dirhistory extract git-extras nvm heroku web-search)
+plugins=(common-aliases git gitflow copyfile copydir dirhistory extract git-extras nvm heroku web-search)
+
 
 # User configuration
 
@@ -53,6 +54,10 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+
+# https://github.com/olivierverdier/zsh-git-prompt
+source ~/.zsh-git-prompt/zshrc.sh
+PROMPT='%{$fg[yellow]%}%~%{$reset_color%} $(git_super_status) '
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -70,7 +75,7 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-source ~/.exports
+# source ~/.exports
 source ~/.functions
 
 # aliases

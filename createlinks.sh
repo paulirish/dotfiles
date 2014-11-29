@@ -4,12 +4,12 @@ function createlink {
 	source_file=$1
 
 	target_file="$HOME/$source_file"
-	
+
 	if [[ -f $target_file ]]; then
 		rm $target_file
 	fi
 
-	ln $source_file $target_file
+	ln -s $source_file $target_file
 }
 
 createlink ".extra"
@@ -22,3 +22,4 @@ createlink ".gitconfig"
 createlink ".gitignore"
 createlink ".bashrc"
 createlink ".viminfo"
+createlink ".zshrc"
