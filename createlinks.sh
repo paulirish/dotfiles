@@ -9,7 +9,7 @@ function createlink {
 		rm $target_file
 	fi
 
-	ln -s $source_file $target_file
+	ln $source_file $target_file
 }
 
 createlink ".extra"
