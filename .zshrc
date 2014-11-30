@@ -45,7 +45,10 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases git gitflow copyfile copydir dirhistory extract git-extras nvm heroku web-search)
+#
+# https://github.com/emallson/gulp-zsh-completion.git
+# https://github.com/yonchu/grunt-zsh-completion.git
+plugins=(common-aliases git git-flow grunt gulp copyfile copydir dirhistory extract git-extras nvm heroku web-search)
 
 
 # User configuration
@@ -74,6 +77,11 @@ PROMPT='%{$fg[yellow]%}%~%{$reset_color%} $(git_super_status) '
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+#
+export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
+export LESS=" -R "
+alias less='less -m -N -g -i -J --underline-special --SILENT'
+alias more='less'
 
 # source ~/.exports
 source ~/.functions
