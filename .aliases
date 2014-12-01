@@ -49,12 +49,14 @@ fi
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
 
+# Checkout with "go"
+alias go="git checkout"
 
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
 # git log from head to master
-git log --date=short --pretty=format:"%s" master..HEAD
+alias changelog='git log --date=short --pretty=format:"%s" master..HEAD'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
