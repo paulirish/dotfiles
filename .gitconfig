@@ -50,3 +50,7 @@
   insteadOf = "git://github.com/paulirish/"
 [help]
 	autocorrect = 1
+
+# push easily. http://stackoverflow.com/a/23918418/89484
+[push]
+	default = current
