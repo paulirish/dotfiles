@@ -6,12 +6,13 @@ set t_Co=256
 set background=dark
 syntax on
 colorscheme molokai
+set colorcolumn=80
 
 " Enabled later, after Pathogen
 filetype off
 
 " Change mapleader
-let mapleader=","
+let mapleader="\\"
 
 " Local dirs
 set backupdir=~/.vim/backups
@@ -187,11 +188,11 @@ nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace ()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace ()<CR>
 
@@ -213,9 +214,9 @@ imap <PageDown> <C-O><C-D>
 
 " Restore cursor position
 autocmd BufReadPost *
-  \ if line("'\"") > 1 && line("'\"") <= line("$") |
-  \   exe "normal! g`\"" |
-  \ endif
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 
 " Set relative line numbers
 set relativenumber " Use relative line numbers. Current line is still in status bar.
@@ -260,8 +261,15 @@ nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " NERDTree
 map <F2> :NERDTreeToggle<CR>
+set autochdir
+let NERDTreeChDirMode=2
+nnoremap <leader>n :NERDTreeToggle .<CR>
 
 " tabs
 map <F3> :tabp<CR>
 map <F4> :tabn<CR>
 map <F5> :tabnew<CR>
+
+" ack 
+nnoremap <C-S-F> :Ack<space>
+
