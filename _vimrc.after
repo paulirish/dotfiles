@@ -100,5 +100,17 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 
 " unite file
 noremap <leader>uf :Unite file<CR>
-noremap <leader>ub :Unite file<CR>
+noremap <leader>ub :Unite buffer<CR>
 
+" line numbers
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunction
+
+set relativenumber
+
+noremap <leader> :call NumberToggle()<CR>
