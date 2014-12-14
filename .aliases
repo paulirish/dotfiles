@@ -8,12 +8,6 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-# programs
-alias slt='open -a "Sublime Text 2"'
-# also/or do this:
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
-
-
 # be nice
 alias please=sudo
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
@@ -21,8 +15,6 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 # handy things
 alias bunyip='node ~/code/bunyip/cli.js'
 alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
-
-alias cls='clear'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -114,10 +106,13 @@ alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
-# goto my folders
+alias cls='clear'
+alias cat='pygmentize -O style=monokai -f console256 -g'
 alias edpr='subl ~/.bash_profile'
-alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edit='subl'
+alias rd='rm -rf'
+
+# goto my folders
 alias wiki='cd ~/Projects/wiki'
 alias dropbox='cd ~/DropBox'
 alias dev='cd ~/DropBox/Develop'
