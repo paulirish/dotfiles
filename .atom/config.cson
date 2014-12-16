@@ -13,7 +13,6 @@
       'monokai'
     ]
     'projectHome': '/Users/richistron/lab'
-  'vim-mode':
-    'startInInsertMode': true
-    'useSmartcaseForSearch': true
-  'autoprefixer': {}
+  'sync-settings':
+    'personalAccessToken': '5c410e24e104d3f57ff4f6fb2b1dcb437d186a15'
+    'gistId': 'a5c28b6e618cfd775c36'
