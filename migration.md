@@ -13,11 +13,11 @@
 * [ ] Timestats stats
   * ??
 * [x] Documents folder
-* [ ] Photobooth pics (in dropbox)
+* [x] Photobooth pics (in dropbox)  : ~/Dropbox/Public/cam
 * [x] current tabs (via onetab)
 * [ ] Chrome profiles and config flags 
 * [ ] Finder settings and TotalFinder settings
-* [ ] .osx settings
+* [x] .osx settings
   * more? https://github.com/hjuutilainen/dotfiles/blob/master/bin/osx-user-defaults.sh
   * symlink https://github.com/mathiasbynens/dotfiles/pull/301
   * great stuff https://github.com/paulmillr/dotfiles
