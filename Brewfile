@@ -21,6 +21,9 @@ install gnu-sed --default-names
 install bash
 install bash-completion
 
+# generic colouriser  http://kassiopeia.juls.savba.sk/~garabik/software/grc/
+install grc
+
 # Install wget with IRI support
 install wget --enable-iri
 
