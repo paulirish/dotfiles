@@ -1,70 +1,162 @@
-# @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
-# Shamelessly copied from https://github.com/gf3/dotfiles
+# This prompt inspired by gf3, sindresorhus, alrra, and mathiasbynens.
+# but customized to me. <3
 
 default_username='paulirish'
 
+
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM=gnome-256color
+    export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM=xterm-256color
-fi
-
-if tput setaf 1 &> /dev/null; then
-	tput sgr0
-	if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-		MAGENTA=$(tput setaf 9)
-		ORANGE=$(tput setaf 172)
-		GREEN=$(tput setaf 190)
-		PURPLE=$(tput setaf 141)
-		WHITE=$(tput setaf 256)
-	else
-		MAGENTA=$(tput setaf 5)
-		ORANGE=$(tput setaf 4)
-		GREEN=$(tput setaf 2)
-		PURPLE=$(tput setaf 1)
-		WHITE=$(tput setaf 7)
-	fi
-	BOLD=$(tput bold)
-	RESET=$(tput sgr0)
-else
-	MAGENTA="\033[1;31m"
-	ORANGE="\033[1;33m"
-	GREEN="\033[1;32m"
-	PURPLE="\033[1;35m"
-	WHITE="\033[1;37m"
-	BOLD=""
-	RESET="\033[m"
+    export TERM=xterm-256color
 fi
 
 
-function git_info() {
-	# check if we're in a git repo
-	git rev-parse --is-inside-work-tree &>/dev/null || return
+function prompt_git() {
+    # this is 3x faster than mathias's. has to be for working in Chromium & Blink.
 
-	# quickest check for what branch we're on
-	branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
+    # check if we're in a git repo
+    git rev-parse --is-inside-work-tree &>/dev/null || return
 
-	# check if it's dirty (via github.com/sindresorhus/pure)
-	dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
+    # quickest check for what branch we're on
+    branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
 
-	echo $WHITE" on "$PURPLE$branch$dirty
-}
+    # check if it's dirty (via github.com/sindresorhus/pure)
+    dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
 
-# Only show username/host if not default
-function usernamehost() {
-	if [ $USER != "$default_username" ]; then echo "${MAGENTA}$USER ${WHITE}at ${ORANGE}$HOSTNAME ${WHITE}in "; fi
+    echo $WHITE" on "$PURPLE$branch$dirty
 }
 
 
-# iTerm Tab and Title Customization and prompt customization
-# http://sage.ucsc.edu/xtal/iterm_tab_customization.html
+set_prompts() {
 
-# Put the string " [bash]   hostname::/full/directory/path"
-# in the title bar using the command sequence
-# \[\e]2;[bash]   \h::\]$PWD\[\a\]
+    local black="" blue="" bold="" cyan="" green="" orange="" \
+          purple="" red="" reset="" white="" yellow=""
 
-# Put the penultimate and current directory
-# in the iterm tab
-# \[\e]1;\]$(basename $(dirname $PWD))/\W\[\a\]
+    local dateCmd=""
 
-PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$(usernamehost)\[$GREEN\]\w\$(git_info)\[$WHITE\]\n\$ \[$RESET\]"
+    if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null; then
+
+        tput sgr0 # Reset colors
+
+        bold=$(tput bold)
+        reset=$(tput sgr0)
+
+        # Solarized colors
+        # (https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized#the-values)
+        black=$(tput setaf 0)
+        blue=$(tput setaf 33)
+        cyan=$(tput setaf 37)
+        green=$(tput setaf 190)
+        orange=$(tput setaf 172)
+        purple=$(tput setaf 141)
+        red=$(tput setaf 124)
+        violet=$(tput setaf 61)
+        magenta=$(tput setaf 9)
+        white=$(tput setaf 256)
+        yellow=$(tput setaf 136)
+
+    else
+
+        bold=""
+        reset="\e[0m"
+
+        black="\e[1;30m"
+        blue="\e[1;34m"
+        cyan="\e[1;36m"
+        green="\e[1;32m"
+        orange="\e[1;33m"
+        purple="\e[1;35m"
+        red="\e[1;31m"
+        magenta="\e[1;31m"
+        violet="\e[1;35m"
+        white="\e[1;37m"
+        yellow="\e[1;33m"
+
+    fi
+
+    # Only show username/host if not default
+    function usernamehost() {
+        
+        # Highlight the user name when logged in as root.
+        if [[ "${USER}" == *"root" ]]; then
+            userStyle="${red}";
+        else
+            userStyle="${magenta}";
+        fi;
+
+        userhost=""
+        userhost+="\[${userStyle}\]$USER "
+        userhost+="${white}at "
+        userhost+="${orange}$HOSTNAME "
+        userhost+="${white}in"
+
+        if [ $USER != "$default_username" ]; then echo $userhost ""; fi
+    }
+
+
+    # ------------------------------------------------------------------
+    # | Prompt string                                                  |
+    # ------------------------------------------------------------------
+
+    PS1="\[\033]0;\w\007\]"                   # terminal title (set
+                                              # to the current working
+                                              # directory)
+    PS1+="\[$bold\]"
+    PS1+="\[$(usernamehost)\]"                # username at host
+    PS1+="\[$white\]"
+    PS1+="\[$green\]\w"                       # working directory
+    PS1+="\$(prompt_git \"$white on $cyan\")" # git repository details
+    PS1+="\n"
+    PS1+="\[$reset$white\]\$ \[$reset\]"
+
+    export PS1
+
+    # ------------------------------------------------------------------
+    # | Subshell prompt string                                         |
+    # ------------------------------------------------------------------
+
+    PS2="⚡ "
+
+    export PS2
+
+    # ------------------------------------------------------------------
+    # | Debug prompt string                                            |
+    # ------------------------------------------------------------------
+
+    # e.g:
+    #
+    # The GNU `date` command has the `%N` interpreted sequence while
+    # other implementations don't (on OS X `gdate` can be used instead
+    # of the native `date` if the `coreutils` package was installed)
+    #
+    # if [ "$(date +%N)" != "N" ] || \
+    #    [ ! -x "$(command -v 'gdate')" ]; then
+    #    dateCmd="date +%s.%N"
+    # else
+    #    dateCmd="gdate +%s.%N"
+    # fi
+    #
+    # PS4="+$( tput cr && tput cuf 6 &&
+    #          printf "$yellow %s $green%6s $reset" "$($dateCmd)" "[$LINENO]" )"
+    #
+    # PS4 output:
+    #
+    #   ++    1357074705.875970000  [123] '[' 1 == 0 ']'
+    #   └──┬─┘└────┬───┘ └───┬───┘ └──┬─┘ └──────┬─────┘
+    #      │       │         │        │          │
+    #      │       │         │        │          └─ command
+    #      │       │         │        └─ line number
+    #      │       │         └─ nanoseconds
+    #      │       └─ seconds since 1970-01-01 00:00:00 UTC
+    #      └─ depth-level of the subshell
+
+    PS4="+$( tput cr && tput cuf 6 && printf "%s $reset" )"
+
+    export PS4
+
+}
+
+
+
+set_prompts
+unset set_prompts
