@@ -1,0 +1,19 @@
+'global':
+  'exception-reporting':
+    'userId': 'e80ae107-7559-6477-32cf-c5727c5cd9e9'
+  'welcome':
+    'showOnStartup': false
+  'metrics':
+    'userId': '8145f43c3aa3b360f1c00f57df0fcfb704c7cec4'
+  'editor':
+    'fontSize': 12
+  'core':
+    'themes': [
+      'atom-dark-ui'
+      'monokai'
+    ]
+    'projectHome': '/Users/richistron/lab'
+  'vim-mode':
+    'startInInsertMode': true
+    'useSmartcaseForSearch': true
+  'autoprefixer': {}
