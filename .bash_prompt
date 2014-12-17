@@ -85,17 +85,15 @@ set_prompts() {
         git rev-parse --is-inside-work-tree &>/dev/null || return
 
         # quickest check for what branch we're on
-        branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
+        branch=`git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'`
 
         # check if it's dirty (via github.com/sindresorhus/pure)
         dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
 
-        gitstatus=""
-        gitstatus+="${white} on "
-        gitstatus+="${purple}$branch"
-        gitstatus+="${cyan}$dirty"
-
-        echo $gitstatus;
+        [ -n "$s" ] && s=" [$s]"
+        printf "%s" "$1$branch$2$dirty"
+        
+        return
     }
 
 
@@ -108,7 +106,7 @@ set_prompts() {
     PS1+="\[$bold\]"
     PS1+="\[$(usernamehost)\]"                # username at host
     PS1+="\[$green\]\w"                       # working directory 
-    PS1+="\[$(prompt_git)\]"                  # git repository details
+    PS1+="\$(prompt_git \"$white on $purple\" \"$cyan\")"                  # git repository details
     PS1+="\n"
     PS1+="\[$reset$white\]\\$ \[$reset\]"
 
