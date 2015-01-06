@@ -16,10 +16,15 @@ install moreutils
 install findutils
 # Install GNU `sed`, overwriting the built-in `sed`
 install gnu-sed --default-names
+
+
 # Install Bash 4
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before running `chsh`.
 install bash
-install bash-completion
+# regular bash-completion package is held back to an older release, so we get latest from versions.
+#   github.com/Homebrew/homebrew/blob/master/Library/Formula/bash-completion.rb#L3-L4
+tap homebrew/versions
+install homebrew/versions/bash-completion2
 
 # generic colouriser  http://kassiopeia.juls.savba.sk/~garabik/software/grc/
 install grc
