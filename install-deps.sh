@@ -16,11 +16,12 @@ npm install -g nave
 
 
 # homebrew!
-# you need the code CLI tools YOU FOOL.
-
-# google machines are funny so i have to do this. everyone else should use the regular thang
+# (google machines are funny so i have to do this. everyone else should use the regular thang)
 mkdir $HOME/.homebrew && curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C $HOME/.homebrew
 export PATH=$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH
+# install all the things
+./brew.sh
+./brew-cask.sh
 
 
 # https://github.com/rupa/z
