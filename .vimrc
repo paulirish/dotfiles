@@ -12,7 +12,7 @@ set colorcolumn=80
 filetype off
 
 " Change mapleader
-let mapleader="\\"
+let mapleader=","
 
 " Local dirs
 set backupdir=~/.vim/backups
