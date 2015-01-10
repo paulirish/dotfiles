@@ -12,6 +12,9 @@ unset file
 if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
     . $(brew --prefix)/share/bash-completion/bash_completion
 fi
+# homebrew completion
+source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+
 
 # generic colouriser
 GRC=`which grc`
