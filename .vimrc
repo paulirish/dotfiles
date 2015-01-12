@@ -261,7 +261,7 @@ nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " NERDTree
 map <F2> :NERDTreeToggle<CR>
-set autochdir
+" set autochdir
 let NERDTreeChDirMode=2
 nnoremap <leader>n :NERDTreeToggle .<CR>
 
