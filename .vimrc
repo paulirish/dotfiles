@@ -273,3 +273,10 @@ map <F5> :tabnew<CR>
 " ack 
 nnoremap <C-S-F> :Ack<space>
 
+" NerdCommneter
+filetype plugin on
+
+" Unite file
+nnoremap <leader>uf :Unite file<CR> 
+nnoremap <leader>ub :Unite buffer<CR> 
+
