@@ -66,7 +66,17 @@ alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup 
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+alias localip="(\
+	(echo '${white}wired   ' && \
+		([ ! -z $(ipconfig getifaddr en0) ] && echo '${green}•${blue}' && ipconfig getifaddr en0 && echo '${reset}') || \
+		echo '${red}•${reset} -' \
+	) | tr '\n' ' '\
+) && echo '' && (\
+	(echo '${white}wireless' && \
+		([ ! -z $(ipconfig getifaddr en1) ] && echo '${green}•${blue}' && ipconfig getifaddr en1 && echo '${reset}') || \
+		echo '${red}•${reset} -' \
+	) | tr '\n' ' '\
+) && echo ''"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 # Enhanced WHOIS lookups
