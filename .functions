@@ -6,7 +6,7 @@ function md() {
 
 # find shorthand
 function f() {
-    find . -name "$1"
+    find . -name "*$1*"
 }
 
 # cd into whatever is the forefront Finder window.
