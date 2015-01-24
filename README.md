@@ -1,12 +1,9 @@
 # Paul's dotfiles
 
-[mathias's readme](https://github.com/mathiasbynens/dotfiles/) is awesome. go read it.
+This repo is mostly for me but you're welcome to make suggestions. [mathias's readme](https://github.com/mathiasbynens/dotfiles/) is the project to fork.  I'm mostly catching up to him, @alrra, and @gf3.
 
-This repo is mostly for me but you're welcome to make suggestions. Mathias's is the project to fork.  I'm mostly catching up to him, @cowboy, and @gf3.
 
-## install the necessary apps
-
-My basic setup is captured in `install-deps.sh` which adds homebrew, z, nave, etc.
+My basic new machine setup is captured in `setup-a-new-machine.sh` which adds homebrew, z, nave, etc.
 
 ## private config
 
@@ -46,13 +43,6 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/master/.jshintrc) and [`.editorconfig`](http://editorconfig.org/) defined for all your projects.
 
 
-## NPM things
-
-```bash
-npm install -g jsfmt bower yo
-```
-
-
 ## overview of files
 
 ####  Automatic config
@@ -69,9 +59,9 @@ npm install -g jsfmt bower yo
 * `.extra` - not included, explained above
 
 #### manual run
-* `install-deps.sh` - random apps i need installed
-* `.osx` - run on a fresh osx machine
-* `.brew` - homebrew initialization
+* `setup-a-new-machine.sh` - random apps i need installed
+* `.osx` - run on a fresh osx setup
+* `brew.sh` & `brew-cask.sh` - homebrew initialization
 
 #### git, brah
 * `.git`
@@ -82,10 +72,11 @@ npm install -g jsfmt bower yo
 * `.inputrc` - config for bash readline
 
 
-## Installation
+## install
 
+Running sync copies from your dotfiles repo into `~/`. I'd prefer to do proper symlink but haven't gotten that far yet.
 ```bash
-git clone https://github.com/paulirish/dotfiles.git && cd dotfiles && ./sync.sh
+./sync.sh
 ```
 
 To update later on, just run the sync again.
