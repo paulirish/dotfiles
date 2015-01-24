@@ -1,6 +1,6 @@
 # Paul's dotfiles
 
-This repo is mostly for me but you're welcome to make suggestions. [mathias's readme](https://github.com/mathiasbynens/dotfiles/) is the project to fork.  I'm mostly catching up to him, @alrra, and @gf3.
+This repo is mostly for me but you're welcome to make suggestions. [mathias's readme](https://github.com/mathiasbynens/dotfiles/) is the project to fork.  I'm mostly catching up to him, @alrra, @paulmillr, @gf3.
 
 
 My basic new machine setup is captured in `setup-a-new-machine.sh` which adds homebrew, z, nave, etc.
@@ -37,10 +37,6 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 ```bash
 ./.osx
 ```
-
-## Similar projects
-
-I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/master/.jshintrc) and [`.editorconfig`](http://editorconfig.org/) defined for all your projects.
 
 
 ## overview of files

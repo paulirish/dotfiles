@@ -1,4 +1,7 @@
-# up to you (me) if you want to run this as a file or copy paste at your leisure
+# copy paste this file in bit by bit.
+
+
+# read migration.md where more migrationy tips are.
 
 
 # https://github.com/jamiew/git-friendly
