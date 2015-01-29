@@ -58,8 +58,7 @@
 	insteadOf = "gst:"
 	pushInsteadOf = "gist:"
 	pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-	insteadOf = "gist:"
+	pushInsteadOf = "https://gist.github.com/"
 
 
 # Any GitHub repo with my username should be checked out r/w by default
