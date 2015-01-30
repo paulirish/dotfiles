@@ -61,3 +61,5 @@
 	email = richistron@gmail.com
 [push]
 	default = current
+[pull]
+	default = current
