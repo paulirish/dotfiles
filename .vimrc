@@ -261,7 +261,7 @@ nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " NERDTree
 map <F2> :NERDTreeToggle<CR>
-set autochdir
+" set autochdir
 let NERDTreeChDirMode=2
 nnoremap <leader>n :NERDTreeToggle .<CR>
 
@@ -291,4 +291,3 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " find conflict
 nnoremap <leader>fc /<<<<<<<<CR>
 
-let g:gitgutter_realtime = 0
