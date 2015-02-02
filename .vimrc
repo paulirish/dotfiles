@@ -291,3 +291,5 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " find conflict
 nnoremap <leader>fc /<<<<<<<<CR>
 
+" removes git buffer
+let g:gitgutter_realtime = 0
