@@ -179,3 +179,7 @@ function reload() {
 function install-global-npms() {
   npm install -g bower cordova growl grunt-cli gulp karma-cli mocha live-server nodemon yo jshint generator-kata
 }
+
+function clip() {
+  more $1 | pbcopy
+}
