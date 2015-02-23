@@ -79,7 +79,7 @@ set_prompts() {
 
 
     function prompt_git() {
-        # this is 3x faster than mathias's. has to be for working in Chromium & Blink.
+        # this is >5x faster than mathias's. has to be for working in Chromium & Blink.
 
         # check if we're in a git repo. (fast)
         git rev-parse --is-inside-work-tree &>/dev/null || return
@@ -87,9 +87,9 @@ set_prompts() {
         # check for what branch we're on. (fast)
         branch=`git symbolic-ref -q --short HEAD`
 
-        # check if it's dirty. (slow)
-        #   technique via github.com/sindresorhus/pure
-        dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
+        # check if it's dirty (slow)
+        #   technique via github.com/git/git/blob/355d4e173/contrib/completion/git-prompt.sh#L472-L475
+        dirty=$(git diff --no-ext-diff --quiet --ignore-submodules --exit-code || echo -e "*")
 
         [ -n "$s" ] && s=" [$s]"
         printf "%s" "$1$branch$2$dirty"
