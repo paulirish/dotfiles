@@ -56,6 +56,10 @@ plugins=(common-aliases git git-flow grunt gulp copyfile copydir dirhistory extr
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
+if [ -d "/Applications/VMware Fusion.app/Contents/Library" ]; then
+  export PATH=$PATH:"/Applications/VMware Fusion.app/Contents/Library"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # https://github.com/olivierverdier/zsh-git-prompt
