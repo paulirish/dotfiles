@@ -52,14 +52,6 @@ plugins=(common-aliases git git-flow grunt gulp copyfile copydir dirhistory extr
 
 
 # User configuration
-
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
-
-if [ -d "/Applications/VMware Fusion.app/Contents/Library" ]; then
-  export PATH=$PATH:"/Applications/VMware Fusion.app/Contents/Library"
-fi
-
 source $ZSH/oh-my-zsh.sh
 
 # https://github.com/olivierverdier/zsh-git-prompt
@@ -87,7 +79,7 @@ export LESS=" -R "
 alias less='less -m -N -g -i -J --underline-special --SILENT'
 alias more='less'
 
-# source ~/.exports
+source ~/.exports
 source ~/.functions
 
 # aliases

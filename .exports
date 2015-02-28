@@ -17,6 +17,7 @@ export HISTTIMEFORMAT
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
 export PATH=~/bin:/usr/local/bin:/usr/local/OpenIDE.binaries:$PATH
+# export MANPATH="/usr/local/man:$MANPATH"
 
 # VMware Fusion
 if [ -d "/Applications/VMware Fusion.app/Contents/Library" ]; then
