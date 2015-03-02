@@ -54,11 +54,6 @@ function gz() {
 	gzip -c "$1" | wc -c
 }
 
-# All the dig info
-function digga() {
-	dig +nocmd "$1" any +multiline +noall +answer
-}
-
 
 # Extract archives - use: extract <file>
 # Based on http://dotfiles.org/~pseup/.bashrc

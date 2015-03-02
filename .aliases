@@ -72,6 +72,9 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
+# All the dig info
+alias dig="dig +nocmd any +multiline +noall +answer"
+
 # Enhanced WHOIS lookups
 alias whois="whois -h whois.internic.net"
 
