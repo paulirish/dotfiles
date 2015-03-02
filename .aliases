@@ -75,9 +75,6 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 # All the dig info
 alias dig="dig +nocmd any +multiline +noall +answer"
 
-# Enhanced WHOIS lookups
-alias whois="whois -h whois.internic.net"
-
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache"
 

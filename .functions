@@ -54,6 +54,20 @@ function gz() {
 	gzip -c "$1" | wc -c
 }
 
+function whois() {
+	local domain=$(echo "$1" | awk -F/ '{print $3}')
+	if [ -z $domain ] ; then
+		domain=$1
+	fi
+	echo "Getting whois record for: $domain …"
+
+	# avoid recursion
+					# this is the best whois server
+													# strip extra fluff
+	/usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
+}
+
+
 
 # Extract archives - use: extract <file>
 # Based on http://dotfiles.org/~pseup/.bashrc
