@@ -29,6 +29,9 @@ fi
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 
+# append history for each tab instead of overwriting.
+shopt -s histappend
+
 
 
 
