@@ -1,2 +1,0 @@
-apply-template
-do-template
