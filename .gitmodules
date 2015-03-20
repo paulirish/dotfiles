@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/tabular"]
 	path = .vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
+[submodule ".vim/bundle/jshint.vim"]
+	path = .vim/bundle/jshint.vim
+	url = git@github.com:walm/jshint.vim.git
