@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/jshint.vim"]
 	path = .vim/bundle/jshint.vim
 	url = git@github.com:walm/jshint.vim.git
+[submodule ".vim/bundle/vim-js2coffee"]
+	path = .vim/bundle/vim-js2coffee
+	url = https://github.com/JarrodCTaylor/vim-js2coffee
