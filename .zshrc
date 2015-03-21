@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,8 +55,8 @@ plugins=(common-aliases git git-flow grunt gulp copyfile copydir dirhistory extr
 source $ZSH/oh-my-zsh.sh
 
 # https://github.com/olivierverdier/zsh-git-prompt
-source ~/.zsh-git-prompt/zshrc.sh
-PROMPT='%{$fg[yellow]%}%~%{$reset_color%} $(git_super_status) '
+# source ~/.zsh-git-prompt/zshrc.sh
+# PROMPT='%{$fg[yellow]%}%~%{$reset_color%} $(git_super_status) '
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
