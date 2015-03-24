@@ -4,6 +4,8 @@
 * [x] .app's I really want and aren't in my caskfile.
 * [ ] read `brew list` and `brew cask list` to see whats worth reinstalling
 
+* [ ] read `npm list -g --depth=0` to see global npm packages
+
 * [ ] bash history?
 * [x] Wifi Settings and passwords
   *  `/Volumes/MacintoshHD/Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist`
