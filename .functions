@@ -183,3 +183,15 @@ function install-global-npms() {
 function clip() {
   more $1 | pbcopy
 }
+
+function combine_mp3() {
+  cat *.mp3 > ../all.mp3
+  avconv -i ../all.mp3 -acodec copy $1.mp3
+  rm -f ../all.mp3
+}
+
+function combine_recursive_mp3() {
+  find -ds . -name '*.mp3' -print0 | xargs -0 cat >> ../all.mp3
+  avconv -i ../all.mp3 -acodec copy $1.mp3
+  rm -f ../all.mp3
+}
