@@ -50,7 +50,7 @@
   rn = rebase --continue
   rq = rebase --abort
   remotes = remote -v show
-  s = status -s
+  s = status
   save = !git aa && git commit -n -m
   showfiles = diff-tree --no-commit-id --name-only -r
   tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all

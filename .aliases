@@ -107,7 +107,7 @@ alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 alias cls='clear'
-alias cat='pygmentize -O style=monokai -f console256 -g'
+alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edpr='subl ~/.bash_profile'
 alias edit='subl'
 alias rd='rm -rf'

@@ -23,3 +23,6 @@ export PATH=~/bin:/usr/local/bin:/usr/local/OpenIDE.binaries:$PATH
 if [ -d "/Applications/VMware Fusion.app/Contents/Library" ]; then
   export PATH=$PATH:"/Applications/VMware Fusion.app/Contents/Library"
 fi
+
+# export JAVA_HOME=`/usr/libexec/java_home`
+export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
