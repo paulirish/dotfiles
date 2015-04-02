@@ -28,4 +28,4 @@ complete -W "NSGlobalDomain" defaults
 # brew path
 export PATH=/usr/local/sbin:$PATH
 # node bin
-export PATH=~/.node/bin/:$PATH
+export PATH=~/.node/bin:$PATH
