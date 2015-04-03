@@ -195,3 +195,8 @@ function combine_recursive_mp3() {
   avconv -i ../all.mp3 -acodec copy $1.mp3
   rm -f ../all.mp3
 }
+
+function coreos() {
+  cd '/Volumes/Macintosh HD 2/VMWare/coreos_production_vmware_insecure'
+  ./run.sh
+}
