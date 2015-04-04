@@ -85,3 +85,6 @@ source ~/.functions
 
 # aliases
 source ~/.aliases
+
+# use the default version of node.js
+nvm use default
