@@ -1,7 +1,11 @@
 # copy paste this file in bit by bit.
+# don't run it.
+  echo "do not run this script in one go. hit ctrl-c NOW"
+  read -n 1
 
 
-# read migration.md where more migrationy tips are.
+
+# read migration.md where more migrationy tips are!
 
 
 # https://github.com/jamiew/git-friendly
@@ -63,4 +67,10 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 
 # Later, confirm iterm settings aren't conflicting.
 
+
+
+
+
+# symlinks!
+./symlink-setup.sh
 
