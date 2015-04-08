@@ -71,3 +71,9 @@
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
 	default = current
+
+
+
+[include]
+  # For username / github token / etc
+  path = ~/.gitconfig.local

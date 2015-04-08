@@ -72,5 +72,7 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 
 
 # symlinks!
+#   put/move git credentials into ~/.gitconfig.local
+#   http://stackoverflow.com/a/13615531/89484
 ./symlink-setup.sh
 
