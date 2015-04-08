@@ -49,11 +49,10 @@
 # rewrites
 [url "git@github.com:"]
 	insteadOf = "gh:"
+	insteadOf = "git://github.com"
 	pushInsteadOf = "github:"
 	pushInsteadOf = "git://github.com/"
     pushInsteadOf = "https://github.com/"
-[url "git://github.com/"]
-	insteadOf = "github:"
 [url "git@gist.github.com:"]
 	insteadOf = "gst:"
 	pushInsteadOf = "gist:"
