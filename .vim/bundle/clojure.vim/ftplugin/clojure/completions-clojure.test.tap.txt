@@ -1,6 +1,0 @@
-print-tap-diagnostic
-print-tap-fail
-print-tap-pass
-print-tap-plan
-tap-report
-with-tap-output
