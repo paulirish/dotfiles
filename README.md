@@ -1,42 +1,52 @@
 # Paul's dotfiles
 
-This repo is mostly for me but you're welcome to make suggestions. [mathias's readme](https://github.com/mathiasbynens/dotfiles/) is the project to fork.  I'm mostly catching up to him, @alrra, @paulmillr, @gf3.
+* I maintain this repo as *my* dotfiles, but I'm keenly aware people are using it for theirs.
+* You're quite welcome to make suggestions, however I may decline if it's not of personal value to me.
+* If you're starting off consider forking [mathias](https://github.com/mathiasbynens/dotfiles/) or [alrra](https://github.com/alrra/dotfiles/). paulmillr and gf3 also have great setups
+
+## Setup
+#### installing & using
+
+* fork this to your own acct
+* clone that repo
+* read and run parts of `setup-a-new-machine.sh`
+* read and run `symlink-setup.sh` 
+  * git config needs attention, read the notes.
+* use it. yay!
+
+#### maintenance
+
+* commit/push changes you want.
+* you can also hypothetically cherry-pick commits from me and mathias and our fork ecosystem.
 
 
-My basic new machine setup is captured in `setup-a-new-machine.sh` which adds homebrew, z, nave, etc.
 
-## private config
+## my favorite parts.
 
-Toss it into a file called `.extra` which you do not commit to this repo and just keep in your `~/`
 
-I do something nice with my `PATH` there:
+### The "readline config" (`.inputtrc`)
+Basically it makes typing into the prompt amazing.  
 
-```shell
-# PATH like a bawss
-      PATH=/opt/local/bin
-PATH=$PATH:/opt/local/sbin
-PATH=$PATH:/bin
-PATH=$PATH:~/.rvm/bin
-PATH=$PATH:~/code/git-friendly
-# ...
+* tab like crazy for autocompletion that doesnt suck. tab all the things. srsly.
+* no more <tab><tab> that says "Display all 1745 possibilities? (y or n)" YAY
+* type `cat <uparrow>` to see your previous `cat`s and use them.  
+* case insensitivity.
+* tab all the livelong day.
 
-export PATH
+
+
+### Moving around in folders (`z`, `...`, `cdf`)
+`z` helps you jump around to whatever folder. It uses actual real magic to determine where you should jump to. Seperately there's some `...` aliases to shorten `cd ../..` and `..`, `....` etc. Then, if you have a folder open in Finder, `cdf` will bring you to it.
+```sh
+z dotfiles
+z blog
+....      # drop back equivalent to cd ../../..
+z public
+cdf       # cd to whatever's up in Finder
 ```
+`z` learns only once its installed so you'll have to cd around for a bit to get it taught.
+Lastly, I use `open .` to open Finder from this path. (That's just available normally.)
 
-## Syntax highlighting
-
-…is really important. even for these files.
-
-Install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Sublime Text 2 Package Control](http://wbond.net/sublime_packages/package_control)
-
-
-### Sensible OS X defaults
-
-When setting up a new Mac, you may want to set some sensible OS X defaults:
-
-```bash
-./.osx
-```
 
 
 ## overview of files
@@ -44,6 +54,7 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 ####  Automatic config
 * `.ackrc` - for ack (better than grep)
 * `.vimrc`, `.vim` - vim config, obv.
+* `.inputrc` - behavior of the actual prompt line
 
 #### shell environment
 * `.aliases`
@@ -56,6 +67,7 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
+* `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
 * `.osx` - run on a fresh osx setup
 * `brew.sh` & `brew-cask.sh` - homebrew initialization
 
@@ -65,14 +77,39 @@ When setting up a new Mac, you may want to set some sensible OS X defaults:
 * `.gitconfig`
 * `.gitignore`
 
-* `.inputrc` - config for bash readline
 
+### `.extra` for your private configuration
 
-## install
+There will be items that don't belong to be committed to a git repo, because either 1) it shoudn't be the same across your machines or 2) it shouldn't be in a git repo. Kick it off like this:
 
-Running sync copies from your dotfiles repo into `~/`. I'd prefer to do proper symlink but haven't gotten that far yet.
-```bash
-./sync.sh
+`touch ~/.extra && $EDITOR $_` 
+
+I have some EXPORTS, my PATH construction, and a few aliases for ssh'ing into my servers in there.
+
+I don't know how other folks manage their $PATH, but this is how I do mine:
+
+```shell
+# The top-most paths override here.
+      PATH=/opt/local/bin
+PATH=$PATH:/opt/local/sbin
+PATH=$PATH:/bin
+PATH=$PATH:~/.rvm/bin
+PATH=$PATH:~/code/git-friendly
+# ...
+
+export PATH
 ```
 
-To update later on, just run the sync again.
+
+### Sensible OS X defaults
+
+Mathias's repo is the canonical for this, but you should probably run his or mine after reviewing it.
+
+```bash
+./.osx
+```
+
+
+### Syntax highlighting for these files
+
+If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Package Control](http://wbond.net/sublime_packages/package_control)
