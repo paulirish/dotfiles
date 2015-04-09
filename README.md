@@ -23,6 +23,9 @@
 
 ## my favorite parts.
 
+### [`.aliases`](https://github.com/paulirish/dotfiles/blob/master/.aliases) and [`.functions`](https://github.com/paulirish/dotfiles/blob/master/.functions)
+
+So many goodies.
 
 ### The "readline config" (`.inputtrc`)
 Basically it makes typing into the prompt amazing.  
