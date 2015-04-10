@@ -107,6 +107,13 @@ function extract() {
 	fi
 }
 
+# who is using the laptop's iSight camera?
+camerausedby() {
+    echo "Checking to see who is using the iSight camera… 📷"
+    usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
+    echo -e "Recent camera uses:\n$usedby"
+}
+
 
 # animated gifs from any video
 # from alex sexton   gist.github.com/SlexAxton/4989674
