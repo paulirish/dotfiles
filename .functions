@@ -204,3 +204,7 @@ function coreos() {
 function free() {
   top -l 1 | head -n 10 | grep PhysMem
 }
+
+function dirSize() {
+  du -hsx * | sort -r | head -6
+}
