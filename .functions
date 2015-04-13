@@ -200,3 +200,7 @@ function coreos() {
   cd '/Volumes/Macintosh HD 2/VMWare/coreos_production_vmware_insecure'
   ./run.sh
 }
+
+function free() {
+  top -l 1 | head -n 10 | grep PhysMem
+}
