@@ -26,13 +26,24 @@ then
     alias traceroute='colourify /usr/sbin/traceroute'
 fi
 
-# Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
+##
+## gotta tune that bash_history…
+##
 
-# append history for each tab instead of overwriting.
-shopt -s histappend
+# timestamps for later analysis. www.debian-administration.org/users/rossen/weblog/1
+export HISTTIMEFORMAT='%F %T '
 
+# keep history up to date, across sessions, in realtime
+#  http://unix.stackexchange.com/a/48113
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=100000                   # big big history (default is 500)
+export HISTFILESIZE=$HISTSIZE            # big big history
+shopt -s histappend                      # append to history, don't overwrite it
 
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
 
 
 ##
@@ -52,3 +63,7 @@ source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
+
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob

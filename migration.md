@@ -6,7 +6,7 @@
 
 * [ ] read `npm list -g --depth=0` to see global npm packages
 
-* [ ] bash history?
+* [ ] archive .bash_history, probably don't want to import it.
 * [x] Wifi Settings and passwords
   *  `/Volumes/MacintoshHD/Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist`
 * [x] `.extra`
