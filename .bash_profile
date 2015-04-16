@@ -7,16 +7,13 @@ unset file
 
 # generic colouriser
 GRC=`which grc`
-if [ "$TERM" != dumb ] && [ -n "$GRC" ] then
-    alias colourify="$GRC -es --colour=auto"
-    alias configure='colourify ./configure'
-    alias diff='colourify diff'
-    alias make='colourify make'
-    alias gcc='colourify gcc'
-    alias g++='colourify g++'
-    alias mtr='colourify mtr'
-    alias ping='colourify ping'
-    alias traceroute='colourify /usr/sbin/traceroute'
+if [ "$TERM" != dumb ] && [ -n "$GRC" ] 
+    then
+        alias colourify="$GRC -es --colour=auto"
+        alias configure='colourify ./configure' 
+        for app in {diff,make,gcc,g++,mtr,ping,traceroute}; do
+            alias "$app"='colourify '$app
+        done
 fi
 
 ##
