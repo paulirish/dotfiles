@@ -5,23 +5,16 @@ for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
 done
 unset file
 
-# init z   https://github.com/rupa/z
-. ~/code/z/z.sh
-
 # generic colouriser
 GRC=`which grc`
-if [ "$TERM" != dumb ] && [ -n "$GRC" ]
-then
+if [ "$TERM" != dumb ] && [ -n "$GRC" ] then
     alias colourify="$GRC -es --colour=auto"
     alias configure='colourify ./configure'
     alias diff='colourify diff'
     alias make='colourify make'
     alias gcc='colourify gcc'
     alias g++='colourify g++'
-    alias as='colourify as'
-    alias gas='colourify gas'
-    alias ld='colourify ld'
-    alias netstat='colourify netstat'
+    alias mtr='colourify mtr'
     alias ping='colourify ping'
     alias traceroute='colourify /usr/sbin/traceroute'
 fi
@@ -38,7 +31,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history (default is 500)
 export HISTFILESIZE=$HISTSIZE            # big big history
-shopt -s histappend                      # append to history, don't overwrite it
+shopt -s histappend;                     # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
@@ -51,11 +44,19 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 ##
 
 # bash completion.
-if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-    . $(brew --prefix)/share/bash-completion/bash_completion
-fi
+if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+    source "$(brew --prefix)/share/bash-completion/bash_completion";
+elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion;
+fi;
+
 # homebrew completion
 source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+
+# Enable tab completion for `g` by marking it as an alias for `git`
+if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    complete -o default -o nospace -F _git g;
+fi;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
@@ -65,5 +66,17 @@ source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 complete -W "NSGlobalDomain" defaults
 
 
+##
+## better `cd`'ing
+## 
+
 # Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
+shopt -s nocaseglob;
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+
+# z beats cd most of the time.
+#   github.com/rupa/z
+source ~/code/z/z.sh
+
