@@ -30,7 +30,7 @@
 	url = https://github.com/tpope/Vim-fugitive
 [submodule ".vim/bundle/vim-javascript-syntax"]
 	path = .vim/bundle/vim-javascript-syntax
-	url = https://github.com/coyotevz/vim-javascript-syntax
+	url = https://github.com/jelera/vim-javascript-syntax.git
 [submodule ".vim/bundle/vim-less"]
 	path = .vim/bundle/vim-less
 	url = https://github.com/groenewege/vim-less
@@ -67,3 +67,9 @@
 [submodule ".vim/bundle/vim-js2coffee"]
 	path = .vim/bundle/vim-js2coffee
 	url = https://github.com/JarrodCTaylor/vim-js2coffee
+[submodule ".vim/bundle/vim-javascript"]
+	path = .vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule ".vim/bundle/vim-jsbeautify"]
+	path = .vim/bundle/vim-jsbeautify
+	url = https://github.com/maksimr/vim-jsbeautify.git
