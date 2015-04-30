@@ -27,7 +27,7 @@
 
 So many goodies.
 
-### The "readline config" (`.inputtrc`)
+### The "readline config" (`.inputrc`)
 Basically it makes typing into the prompt amazing.  
 
 * tab like crazy for autocompletion that doesnt suck. tab all the things. srsly.
