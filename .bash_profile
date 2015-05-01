@@ -77,3 +77,11 @@ shopt -s cdspell;
 #   github.com/rupa/z
 source ~/code/z/z.sh
 
+
+
+##
+## hooking in other apps…
+##
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
