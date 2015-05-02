@@ -1,11 +1,16 @@
 #!/bin/bash
 
+# this symlinks all the dotfiles (and .vim/) to ~/
+# it also symlinks ~/bin for easy updating
+
 
 # this is a messy edit of alrra's nice work here:
-# https://raw.githubusercontent.com/alrra/dotfiles/master/os/create_symbolic_links.sh
-# it should and needs to be improved to be less of a hack.
+#   https://raw.githubusercontent.com/alrra/dotfiles/master/os/create_symbolic_links.sh
+#   it should and needs to be improved to be less of a hack.
 
 
+
+# jump down to line ~140 for the start.
 
 
 
@@ -135,9 +140,9 @@ print_success() {
 #
 
 
-
+# finds all .dotfiles in this folder
 declare -a FILES_TO_SYMLINK=$(find . -type f -maxdepth 1 -name ".*" -not -name .DS_Store -not -name .git -not -name .osx | sed -e 's|//|/|' | sed -e 's|./.|.|')
-FILES_TO_SYMLINK="$FILES_TO_SYMLINK .vim" # add in vim action.
+FILES_TO_SYMLINK="$FILES_TO_SYMLINK .vim bin" # add in vim and the binaries
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
