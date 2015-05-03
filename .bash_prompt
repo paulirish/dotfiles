@@ -4,6 +4,11 @@
 default_username='paulirish'
 
 
+if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
+    return 1 2> /dev/null || exit 1;
+fi;
+
+
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
     export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
@@ -120,7 +125,7 @@ set_prompts() {
     # ------------------------------------------------------------------
 
     PS1="\[\033]0;\w\007\]"                                 # terminal title (set to the current working directory)
-    PS1+="\[$bold\]"
+    PS1+="\n\[$bold\]"
     PS1+="\[$(usernamehost)\]"                              # username at host
     PS1+="\[$green\]\w"                                     # working directory 
     PS1+="\$(prompt_git \"$white on $purple\" \"$cyan\")"   # git repository details

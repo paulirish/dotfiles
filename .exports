@@ -1,4 +1,4 @@
-# Make vim the default editor
+# vim as default
 export EDITOR="vim"
 
 # Don’t clear the screen after quitting a manual page

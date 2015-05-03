@@ -148,3 +148,9 @@ code () {
         open -a "Visual Studio Code" --args "$F"
     fi
 }
+
+# `shellswitch bash`
+# `shellswitch zsh`
+shellswitch () {
+	chsh -s $(brew --prefix)/bin/$1
+}

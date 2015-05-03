@@ -8,7 +8,6 @@ done
 unset file
 
 
-
 # generic colouriser
 GRC=`which grc`
 if [ "$TERM" != dumb ] && [ -n "$GRC" ]
