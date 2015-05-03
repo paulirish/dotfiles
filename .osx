@@ -44,7 +44,7 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.5
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 # Always show scrollbars
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+# defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
 # Disable smooth scrolling
@@ -102,14 +102,14 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Restart automatically if the computer freezes
 sudo systemsetup -setrestartfreeze on
 
-# Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+# go into computer sleep mode after 20min
+sudo systemsetup -setcomputersleep 20
 
 # Check for software updates daily, not just once per week
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Disable Notification Center and remove the menu bar icon
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
@@ -134,11 +134,11 @@ sudo tmutil disablelocal
 sudo pmset -a hibernatemode 0
 
 # Remove the sleep image file to save disk space
-sudo rm /Private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /Private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /Private/var/vm/sleepimage
+# sudo rm /Private/var/vm/sleepimage
+  # Create a zero-byte file instead…
+  # sudo touch /Private/var/vm/sleepimage
+  # …and make sure it can’t be rewritten
+  # sudo chflags uchg /Private/var/vm/sleepimage
 
 # Disable the sudden motion sensor as it’s not useful for SSDs
 sudo pmset -a sms 0
@@ -198,10 +198,14 @@ defaults write com.apple.BezelServices kDimTime -int 300
 
 
 # Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# I LOVE ME SOME speling autocorrect!!!
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
+
 
 # Stop iTunes from responding to the keyboard media keys
-#launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
 ###############################################################################
 # Screen                                                                      #
@@ -645,8 +649,8 @@ defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool 
 defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
 
 # Use the system-native print preview dialog
-defaults write com.google.Chrome DisablePrintPreview -bool true
-defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+#defaults write com.google.Chrome DisablePrintPreview -bool true
+#defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 
 # Expand the print dialog by default
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
