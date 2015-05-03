@@ -41,14 +41,14 @@ fi
 alias ls='CLICOLOR_FORCE=1 $lscmd -aFh ${colorflag}'
 
 # List ALL files (colorized() in long format, show permissions in octal
-alias la="ls -la | awk '
+alias la="ls -l | awk '
 {
   k=0;
   for (i=0;i<=8;i++)
     k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));
   if (k)
     printf(\"%0o \",k);
-  print
+  printf(\" %9s  %3s %2s %5s  %6s  %3s\n\", \$3, \$6, \$7, \$8, \$5, \$9);
 }'"
 
 # List only directories
