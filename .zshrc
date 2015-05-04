@@ -1,80 +1,77 @@
+# zmodload zsh/zprof
 
-
-
-# Lines configured by zsh-newuser-install
+# history
 SAVEHIST=100000
-bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/Users/paulirish/.zshrc'
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# vim bindings
+bindkey -v
+
+
+# zstyle :compinstall filename '/Users/paulirish/.zshrc'
+# autoload -Uz compinit
+# compinit
 
 
 fpath=( "$HOME/.zfunctions" $fpath )
 
-autoload -U promptinit && promptinit
-prompt pure
 
 
+# antigen time!
 source ~/code/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-# Bundles from the default repo declared above.
-antigen bundles <<EOBUNDLES
 
-lein
-pip
-sharat87/autoenv
-nvm
+local b="antigen-bundle"
 
 # Guess what to install when running an unknown command.
-command-not-found
+$b command-not-found
 
 # Helper for extracting different types of archives.
-extract
+$b extract
 
 # atom editor
-atom
+$b atom
 
-# homebrew something
-brew
+# homebrew  - autocomplete on `brew install`
+$b brew
+$b brew-cask
 
 # Tracks your most used directories, based on 'frecency'. 
-z
+$b z
+
+# suggestion as you type
+$b tarruda/zsh-autosuggestions
 
 # nicoulaj's moar completion files for zsh
-zsh-users/zsh-completions src
+# $b zsh-users/zsh-completions src
 
-# ZSH port of Fish shell's history search feature.
-zsh-users/zsh-history-substring-search
-
-# Syntax highlighting bundle.
-zsh-users/zsh-syntax-highlighting
+# Syntax highlighting on the readline
+$b zsh-users/zsh-syntax-highlighting
 
 # colors for all files!
-trapd00r/zsh-syntax-highlighting-filetypes
-
-EOBUNDLES
+$b trapd00r/zsh-syntax-highlighting-filetypes
 
 # dont set a theme, because pure does it all
-antigen bundle sindresorhus/pure
+$b sindresorhus/pure
 
-
+# history search
+$b zsh-users/zsh-history-substring-search
 
 
 # Tell antigen that you're done.
 antigen apply
 
-# Load default dotfiles
-source ~/.bash_profile
 
 
 # Automatically list directory contents on `cd`.
 auto-ls () { ls; }
 chpwd_functions=( auto-ls $chpwd_functions )
+
+
+# zprof
+
+# Load default dotfiles
+source ~/.bash_profile
 
