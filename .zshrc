@@ -64,6 +64,10 @@ $b zsh-users/zsh-history-substring-search
 antigen apply
 
 
+# bind UP and DOWN arrow keys for history search
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Automatically list directory contents on `cd`.
 auto-ls () { ls; }
