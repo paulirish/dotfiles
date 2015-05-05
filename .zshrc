@@ -69,12 +69,20 @@ zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
+export PURE_GIT_UNTRACKED_DIRTY=0
+
 # Automatically list directory contents on `cd`.
 auto-ls () { ls; }
 chpwd_functions=( auto-ls $chpwd_functions )
 
 
 # zprof
+
+# history mgmt
+# http://www.refining-linux.org/archives/49/ZSH-Gem-15-Shared-history/
+setopt inc_append_history
+setopt share_history
+
 
 # Load default dotfiles
 source ~/.bash_profile

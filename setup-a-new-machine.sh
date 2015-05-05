@@ -110,6 +110,8 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/ 
 
+# software licenses like sublimetext
+
 
 
 # go read mathias, paulmillr, gf3, alraa's dotfiles to see what to update with.

@@ -28,17 +28,17 @@ alias please=sudo
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 # use coreutils `ls` if possible…
-[ $(which gls) > /dev/null ] && lscmd="gls" || lscmd="ls"
+command -v gls >/dev/null 2>&1 || alias gls="ls"
 
 # Detect which `ls` flavor is in use
-if $lscmd --color > /dev/null 2>&1; then # GNU `ls`
+if gls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
 else # OS X `ls`
 	colorflag="-G"
 fi
 
 # ls options: F = put `/` after folders, h = byte unit suffixes, color! (even with piping to awk) 
-alias ls='CLICOLOR_FORCE=1 $lscmd -aFh ${colorflag}'
+alias ls='CLICOLOR_FORCE=1 gls -aFh ${colorflag}'
 
 # List ALL files (colorized() in long format, show permissions in octal
 alias la="ls -l | awk '

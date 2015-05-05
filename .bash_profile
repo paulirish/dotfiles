@@ -64,7 +64,9 @@ elif [ -f /etc/bash_completion ]; then
 fi;
 
 # homebrew completion
-source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+if  which brew > /dev/null; then
+    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
