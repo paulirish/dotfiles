@@ -1,9 +1,6 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-git pull
-git submodule init
-git submodule update
-git submodule foreach git pull origin master
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "sync.sh" --exclude "README.md" -av . ~
 }

@@ -14,6 +14,40 @@ filetype off
 " Change mapleader
 let mapleader=","
 
+" vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'guns/vim-clojure-static'
+Plugin 'sanders/cocoa.vim'
+Plugin 'hrisbra/histwin.vim'
+Plugin 'pope/vim-pastie'
+Plugin 'ileszs/ack.vim'
+Plugin 'ycats/nerdtree'
+Plugin 'hougo/unite.vim'
+Plugin 'attesGroeger/vim-bookmarks'
+Plugin 'chmck/vim-coffee-script'
+Plugin 'pope/Vim-fugitive'
+Plugin 'elera/vim-javascript-syntax.git'
+Plugin 'roenewege/vim-less'
+Plugin 'ustache/vim-mustache-handlebars.git'
+Plugin 'ling/vim-airline'
+Plugin 'erryma/vim-multiple-cursors.git'
+Plugin 'crooloose/nerdcommenter.git'
+Plugin 'nwhiteh/vim-golang'
+Plugin 'atih/vim-go.git'
+Plugin 'pope/vim-unimpaired.git'
+Plugin 'orodinskiy/vim-coloresque.git'
+Plugin 'odlygeek/tabular.git'
+Plugin 'alm/jshint.vim.git'
+Plugin 'arrodCTaylor/vim-js2coffee'
+Plugin 'angloss/vim-javascript.git'
+Plugin 'aksimr/vim-jsbeautify.git'
+Plugin 'pope/vim-surround.git'
+Plugin 'enmills/vimux.git'
+call vundle#end()
+filetype plugin indent on
+
 " Local dirs
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
