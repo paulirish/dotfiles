@@ -141,44 +141,24 @@ set_prompts() {
     # | Subshell prompt string                                         |
     # ------------------------------------------------------------------
 
-    PS2="⚡ "
-
-    export PS2
+    export PS2="⚡ "
 
     # ------------------------------------------------------------------
-    # | Debug prompt string                                            |
+    # | Debug prompt string  (when using `set -x`)                     |
     # ------------------------------------------------------------------
 
-    # e.g:
-    #
-    # The GNU `date` command has the `%N` interpreted sequence while
-    # other implementations don't (on OS X `gdate` can be used instead
-    # of the native `date` if the `coreutils` package was installed)
-    #
-    # if [ "$(date +%N)" != "N" ] || \
-    #    [ ! -x "$(command -v 'gdate')" ]; then
-    #    dateCmd="date +%s.%N"
-    # else
-    #    dateCmd="gdate +%s.%N"
-    # fi
-    #
-    # PS4="+$( tput cr && tput cuf 6 &&
-    #          printf "$yellow %s $green%6s $reset" "$($dateCmd)" "[$LINENO]" )"
-    #
-    # PS4 output:
-    #
-    #   ++    1357074705.875970000  [123] '[' 1 == 0 ']'
-    #   └──┬─┘└────┬───┘ └───┬───┘ └──┬─┘ └──────┬─────┘
-    #      │       │         │        │          │
-    #      │       │         │        │          └─ command
-    #      │       │         │        └─ line number
-    #      │       │         └─ nanoseconds
-    #      │       └─ seconds since 1970-01-01 00:00:00 UTC
-    #      └─ depth-level of the subshell
+    # When debugging a shell script via `set -x` this tricked-out prompt is used.
 
-    PS4="+$( tput cr && tput cuf 6 && printf "%s $reset" )"
+    # The first character (+) is used and repeated for stack depth
+    # Then, we log the current time, filename and line number, followed by function name, followed by actual source line
 
-    export PS4
+    # FWIW, I have spent hours attempting to get time-per-command in here, but it's not possible. ~paul
+    export PS4='+ \011\e[1;30m\t\011\e[1;34m${BASH_SOURCE}\e[0m:\e[1;36m${LINENO}\e[0m \011 ${FUNCNAME[0]:+\e[0;35m${FUNCNAME[0]}\e[1;30m()\e[0m:\011\011 }'
+
+
+    # shoutouts:
+    #   https://github.com/dholm/dotshell/blob/master/.local/lib/sh/profile.sh is quite nice. 
+    #   zprof is also hot.
 
 }
 
