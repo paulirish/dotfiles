@@ -10,10 +10,6 @@ alias -- -="cd -"
 
 alias rm="rm -i"
 
-
-# setting up the sublime symlink
-ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
-
 # i <3 u cask
 alias cask='brew cask'
 
@@ -28,7 +24,7 @@ alias please=sudo
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 # use coreutils `ls` if possible…
-command -v gls >/dev/null 2>&1 || alias gls="ls"
+hash gls >/dev/null 2>&1 || alias gls="ls"
 
 # Detect which `ls` flavor is in use
 if gls --color > /dev/null 2>&1; then # GNU `ls`

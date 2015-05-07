@@ -47,6 +47,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 
+# z beats cd most of the time.
+#   github.com/rupa/z
+source ~/code/z/z.sh
+
+
 
 ##
 ## Completion…
@@ -91,9 +96,6 @@ shopt -s nocaseglob;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-# z beats cd most of the time.
-#   github.com/rupa/z
-source ~/code/z/z.sh
 
 
 
