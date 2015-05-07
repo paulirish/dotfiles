@@ -84,6 +84,10 @@ setopt inc_append_history
 setopt share_history
 
 
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+
+
 # Load default dotfiles
 source ~/.bash_profile
 
