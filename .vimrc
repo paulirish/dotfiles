@@ -337,6 +337,7 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 " vimux
 nmap <leader>vg :call VimuxRunCommand('grunt tests')<CR>
 nmap <leader>vt :call VimuxRunCommand('rake teaspoon')<CR>
+nmap <leader>vr :call VimuxRunCommand('rake')<CR>
 nmap <leader>vc :call VimuxCloseRunner()<CR>
 nmap <leader>vst :call VimuxRunCommand('g st')<CR>
 
