@@ -164,8 +164,12 @@ function findmp3andremove() {
   find -E . -regex '^.*\([1-9]\).mp3$' -exec rm -rf {} \;
 }
 
-function node-version() {
-  curl -s http://nodejs.org | grep "Current Version" | awk '{ print substr($4,0,8) }'
+function get-nodejs-version() {
+  curl -s https://nodejs.org | grep "Current Version" | awk '{ print substr($4,0,8) }'
+}
+
+function get-iojs-version() {
+  curl -s https://iojs.org/en/index.html | grep "Version" | awk '{ print substr($3,0,5) }'
 }
 
 function npmlsg() {
