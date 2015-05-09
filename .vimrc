@@ -1,19 +1,3 @@
-" Make vim more useful
-set nocompatible
-
-" Set syntax highlighting options.
-set t_Co=256
-set background=dark
-syntax on
-colorscheme molokai
-set colorcolumn=80
-
-" Enabled later, after Pathogen
-filetype off
-
-" Change mapleader
-let mapleader=","
-
 " vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -45,8 +29,28 @@ Plugin 'pangloss/vim-javascript.git'
 Plugin 'maksimr/vim-jsbeautify.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'benmills/vimux.git'
+Plugin 'noahfrederick/vim-hemisu'
 call vundle#end()
 filetype plugin indent on
+
+" Make vim more useful
+set nocompatible
+
+" Set syntax highlighting options.
+set t_Co=256
+set background=light
+syntax on
+colorscheme hemisu
+" colorscheme molokai
+set colorcolumn=80
+
+" Enabled later, after Pathogen
+filetype off
+
+" Change mapleader
+let mapleader=","
+
+
 
 " Local dirs
 set backupdir=~/.vim/backups
