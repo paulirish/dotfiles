@@ -1,3 +1,4 @@
+#!/bin/bash
 
 
 # to maintain cask .... 
@@ -27,6 +28,7 @@ brew cask install imageoptim
 # fun
 brew cask install limechat
 brew cask install miro-video-converter
+brew cask install horndis               # usb tethering
 
 # browsers
 brew cask install google-chrome-canary
