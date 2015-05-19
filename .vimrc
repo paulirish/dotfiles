@@ -354,6 +354,10 @@ if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 
+" esc
+imap jj <Esc>
+imap kk <Esc>
+imap ii <Esc>
 
 
 
