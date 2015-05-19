@@ -30,6 +30,7 @@ Plugin 'maksimr/vim-jsbeautify.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'benmills/vimux.git'
 Plugin 'noahfrederick/vim-hemisu'
+Plugin 'airblade/vim-gitgutter'
 call vundle#end()
 filetype plugin indent on
 
@@ -358,7 +359,4 @@ endif
 imap jj <Esc>
 imap kk <Esc>
 imap ii <Esc>
-
-
-
 
