@@ -349,3 +349,12 @@ nmap <leader>vst :call VimuxRunCommand('g st')<CR>
 " next and do again
 nnoremap Q :normal n.<CR>
 
+" clipboard
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
+
+
+
+
+
