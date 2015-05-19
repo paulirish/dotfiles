@@ -345,3 +345,7 @@ nmap <leader>vr :call VimuxRunCommand('rake')<CR>
 nmap <leader>vc :call VimuxCloseRunner()<CR>
 nmap <leader>vst :call VimuxRunCommand('g st')<CR>
 
+
+" next and do again
+nnoremap Q :normal n.<CR>
+
