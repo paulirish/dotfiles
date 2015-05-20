@@ -171,6 +171,7 @@ imap aa λ
 set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
 set fcs=fold:-
 nnoremap <silent> <leader>c :set nolist!<CR>
+set nolist!
 
 " Clear last search (,qs)
 map <silent> <leader>qs <Esc>:noh<CR>
