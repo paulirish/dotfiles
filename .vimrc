@@ -351,9 +351,10 @@ nmap <leader>vst :call VimuxRunCommand('g st')<CR>
 nnoremap Q :normal n.<CR>
 
 " clipboard
-if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
-endif
+set clipboard=unnamed
+" if has('unnamedplus')
+  " set clipboard=unnamed,unnamedplus
+" endif
 
 " esc
 imap jj <Esc>
