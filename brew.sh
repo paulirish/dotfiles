@@ -50,7 +50,10 @@ brew install rename
 brew install tree
 brew install zopfli
 brew install ffmpeg --with-libvpx
+
 brew install android-platform-tools
+brew install pidcat   # colored logcat guy
+
 
 # Remove outdated versions from the cellar
 brew cleanup
