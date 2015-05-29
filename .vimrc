@@ -362,3 +362,14 @@ imap jj <Esc>
 imap kk <Esc>
 imap ii <Esc>
 
+" Coffee
+map <leader>co :CoffeeBuffer2JS<CR>
+map <leader>cs :CoffeeSelection2JS<CR>
+
+" fugitive
+map <leader>gs :Gstatus<CR>
+map <leader>gd :Gdiff<CR>
+map <leader>gb :Gblame<CR>
+map <leader>gc :Gcommit<CR>
+map <leader>gl :Glog -10<CR>
+map <leader>gla :Glog -10 --<CR>
