@@ -51,7 +51,8 @@ cp ~/.bash_history ~/migration # back it up for fun?
 
 # Current Chrome tabs via OneTab
 
-# iTerm settings - not sure how to safely migrate yet.
+# iTerm settings.
+  # Prefs, General, Use settings from Folder
 
 # Finder settings and TotalFinder settings
 #   Not sure how to do this yet. Really want to.
