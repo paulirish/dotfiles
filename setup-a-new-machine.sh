@@ -10,33 +10,44 @@
 ##    grab the good stuff.
 ##
 
+
+mkdir -p ~/migration/home
+cd ~/migration
+
+
 # what is worth reinstalling
-brew list
-brew cask list
-npm list -g --depth=0 
+brew leaves      		> brew-list.txt    # all top-level brew installs
+brew cask list 			> cask-list.txt
+npm list -g --depth=0 	> npm-g-list.txt
+
+
+# then compare brew-list to what's in `brew.sh`
+#   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
 
 # let's hold on to these
 
-dest="~/migration" # make this and ./~
+cp ~/.extra ~/migration/home
+cp ~/.z ~/migration/home
 
-cp ~/.extra $dest/~
-cp ~/.z $dest/~
+cp -R ~/.ssh ~/migration/home
+cp -R ~/.gnupg ~/migration/home
 
-cp ~/.ssh $dest/~
-cp ~/.gnupg $dest/~
+cp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration  # wifi
 
-cp /Volumes/MacintoshHD/Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist $dest  # wifi
+cp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration
 
-cp ~/Library/Preferences/net.limechat.LimeChat.plist $dest
+cp -R ~/Library/Services ~/migration # automator stuff
 
-cp ~/Library/Services $dest # automator stuff
+cp -R ~/Documents ~/migration
 
-cp ~/Documents $dest
-
-cp ~/.bash_history $dest # back it up for fun?
+cp ~/.bash_history ~/migration # back it up for fun?
 
 # Timestats chrome extension stats
-# 	gotta export into JSON through their UI. save somewhere hilarious
+#   chrome-extension://ejifodhjoeeenihgfpjijjmpomaphmah/options.html#_options
+# 	gotta export into JSON through devtools:
+#     copy(JSON.stringify(localStorage, null, '  '))
+#     pbpaste > timestats-canary.json.txt
+
 
 # Current Chrome tabs via OneTab
 
@@ -108,7 +119,7 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 # Later, confirm iterm settings aren't conflicting.
 
 
-# iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/ 
+# iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
 
 # software licenses like sublimetext
 
