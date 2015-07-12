@@ -3,6 +3,8 @@
 # this symlinks all the dotfiles (and .vim/) to ~/
 # it also symlinks ~/bin for easy updating
 
+# this is safe to run multiple times and will prompt you about anything unclear
+
 
 # this is a messy edit of alrra's nice work here:
 #   https://raw.githubusercontent.com/alrra/dotfiles/master/os/create_symbolic_links.sh
@@ -16,7 +18,7 @@
 
 #
 # utils !!!
-# 
+#
 
 
 answer_is_yes() {
