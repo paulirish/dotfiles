@@ -77,9 +77,13 @@ if [ $(xcode-select -p &> /dev/null; printf $?) -ne 0 ]; then
     while [ $(xcode-select -p &> /dev/null; printf $?) -ne 0 ]; do
         sleep 5
     done
+	xcode-select -p &> /dev/null
+	if [ $? -eq 0 ]; then
+        # Prompt user to agree to the terms of the Xcode license
+        # https://github.com/alrra/dotfiles/issues/10
+       sudo xcodebuild -license
+   fi
 fi
-# Prompt user to agree to the terms of the Xcode license  github.com/alrra/dotfiles/issues/10
-sudo xcodebuild -license
 ###
 ##############################################################################################################
 
