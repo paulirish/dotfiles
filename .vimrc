@@ -257,3 +257,9 @@ let g:vimclojure#FuzzyIndent = 1 " Names beginning in 'def' or 'with' to be inde
 
 " Rainbow Parenthesis
 nnoremap <leader>rp :RainbowParenthesesToggle<CR>
+
+" Autoreload vimrc when it's changed
+augroup reload_vimrc " {
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
