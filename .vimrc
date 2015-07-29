@@ -31,6 +31,7 @@ Plugin 'tpope/vim-surround.git'
 Plugin 'benmills/vimux.git'
 Plugin 'noahfrederick/vim-hemisu'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'sotte/presenting.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -375,3 +376,6 @@ map <leader>gb :Gblame<CR>
 map <leader>gc :Gcommit<CR>
 map <leader>gl :Glog -10<CR>
 map <leader>gla :Glog -10 --<CR>
+
+" presenting.vim
+au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
