@@ -5,12 +5,10 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # ssh!
-alias shh='ssh troyharvey.com'
+alias th='troyharvey.com'
 
 # programs
 alias slt='open -a "Sublime Text"'
-# also do this:
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
 # be nice
 alias please=sudo
@@ -38,10 +36,27 @@ fi
 # 							   sudo easy_install Pygments
 alias c='pygmentize -O style=monokai -f console256 -g'
 
+## PHP
+
+alias c="composer"
+alias cda="composer dump-autoload"
+alias art="php artisan"
+
+
 # GIT STUFF
 
-alias gpod="git pull origin develop"
+alias g="git"
+alias ga="git add ."
+alias gc="git checkout"
+alias gcam="git commit -am"
 alias gcb="git checkout -b"
+alias gcd="git checkout develop"
+alias gcm="git commit -m"
+alias gf="git fetch"
+alias gpo="git push origin"
+alias gpod="git pull origin develop"
+alias gs="git status"
+alias git-branches-by-date="for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r"
 
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
@@ -78,9 +93,7 @@ alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Shortcuts
 alias d="cd ~/Documents/Dropbox"
-alias p="cd ~/prj"
-alias g="git"
-alias w="cd ~/prj/woodport_doors"
+alias p="cd ~/Projects"
 
 # File size
 alias fs="stat -f \"%z bytes\""
