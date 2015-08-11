@@ -315,6 +315,7 @@ map <F5> :tabnew<CR>
 
 " ack 
 nnoremap <C-S-F> :Ack<space>
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:Ack<CR>
 
 " NerdCommneter
 filetype plugin on
