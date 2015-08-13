@@ -380,3 +380,6 @@ map <leader>gla :Glog -10 --<CR>
 
 " presenting.vim
 au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
+
+" close all tabs
+nnoremap <leader>ca :tabonly<CR>
