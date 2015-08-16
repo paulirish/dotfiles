@@ -184,6 +184,8 @@ defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool false
+# Zoom should use nearest neighbor instead of smoothing.
+defaults write com.apple.universalaccess 'closeViewSmoothImages' -bool false
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -219,7 +221,7 @@ defaults write com.apple.screencapture location -string "${HOME}/Desktop"
 defaults write com.apple.screencapture type -string "png"
 
 # Hide all desktop icons because who need 'em'
-defaults write com.apple.finder CreateDesktop -bool false 
+defaults write com.apple.finder CreateDesktop -bool false
 
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
