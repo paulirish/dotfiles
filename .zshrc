@@ -40,14 +40,17 @@ $b brew-cask
 # Tracks your most used directories, based on 'frecency'.
 $b robbyrussell/oh-my-zsh plugins/z
 
-# suggestion as you type
-$b tarruda/zsh-autosuggestions
-
-# nicoulaj's moar completion files for zsh
+# nicoulaj's moar completion files for zsh -- not sure why disabled.
 # $b zsh-users/zsh-completions src
 
 # Syntax highlighting on the readline
 $b zsh-users/zsh-syntax-highlighting
+
+# history search
+$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+# suggestions
+$b tarruda/zsh-autosuggestions
 
 # colors for all files!
 $b trapd00r/zsh-syntax-highlighting-filetypes
@@ -56,11 +59,8 @@ $b trapd00r/zsh-syntax-highlighting-filetypes
 $b mafredri/zsh-async
 $b sindresorhus/pure
 
-# history search
-$b zsh-users/zsh-history-substring-search
-
 # Tell antigen that you're done.
-antigen apply
+#antigen apply
 
 ###
 #################################################################################################
@@ -72,6 +72,9 @@ zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
+# config for suggestions
+AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
+
 export PURE_GIT_UNTRACKED_DIRTY=0
 
 # Automatically list directory contents on `cd`.
@@ -81,6 +84,15 @@ auto-ls () {
 	hash gls >/dev/null 2>&1 && CLICOLOR_FORCE=1 gls -aFh --color --group-directories-first || ls
 }
 chpwd_functions=( auto-ls $chpwd_functions )
+
+
+# Enable autosuggestions automatically
+zle-line-init() {
+    zle autosuggest-start
+}
+
+zle -N zle-line-init
+
 
 # history mgmt
 # http://www.refining-linux.org/archives/49/ZSH-Gem-15-Shared-history/
@@ -99,3 +111,5 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # Load default dotfiles
 source ~/.bash_profile
 
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
