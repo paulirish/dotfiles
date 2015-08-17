@@ -63,3 +63,5 @@
 	default = current
 [pull]
 	default = current
+[gc]
+	auto = 0
