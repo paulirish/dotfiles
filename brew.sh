@@ -32,6 +32,18 @@ brew install bash
 brew tap homebrew/versions
 brew install bash-completion2
 
+# Virtualbox + Vagrant
+brew tap phinze/homebrew-cask
+brew install brew-cask
+brew cask install virtualbox
+brew cask install vagrant
+brew cask install vagrant-manager
+
+# Docker
+brew install docker
+brew install docker-compose
+brew install docker-machine
+
 # Install `wget` with IRI support.
 brew install wget --with-iri
 
