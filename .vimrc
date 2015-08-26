@@ -389,4 +389,4 @@ au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
 nnoremap <leader>ca :tabonly<CR>
 
 " set file type for hbs.erb files
-set filetype=hbs.erb syntax=mustache
+set filetype=hbs.erb syntax=html
