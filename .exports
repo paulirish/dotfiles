@@ -16,7 +16,7 @@ export HISTTIMEFORMAT
 # Make some commands not show up in history
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
-export PATH=~/bin:/usr/local/Cellar/git/2.4.1/bin/:/usr/local/bin:/usr/local/OpenIDE.binaries:/Applications/mongodb-osx-x86_64-3.0.5/bin:$PATH
+export PATH=~/bin:/usr/local/Cellar/git/2.5.1/bin/:/usr/local/bin:/usr/local/OpenIDE.binaries:/Applications/mongodb-osx-x86_64-3.0.5/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # VMware Fusion
