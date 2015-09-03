@@ -23,7 +23,12 @@
   ffr = flow feature rebase
   fft = flow feature track
   ffp = flow feature publish
+  frs = flow release start
+  frp = flow release publish
+  frp = flow release track
   frf = flow release finish -Fmp
+  featurecommits = cherry -v develop
+  featurediff = diff develop..
   find = "!f() { git log --graph --all --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(green)%d %Creset' --grep=$1; }; f"
   finda = "!f() { git log --graph --all --no-merges --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(green)%d %Creset'  --author=$1; }; f"
   df = diff --color --color-words --abbrev
