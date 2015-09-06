@@ -42,7 +42,7 @@ function server() {
 function nodedebug() {
   local port="${2:-8080}"
   open "http://localhost:${port}/debug?port=5858"
-  nodemon --debug $1 $port
+  nodemon --harmony --debug $1 $port
 }
 
 
@@ -165,7 +165,7 @@ function findmp3andremove() {
 }
 
 function get-nodejs-version() {
-  curl -s https://nodejs.org | grep "Current Version" | awk '{ print substr($4,0,8) }'
+  curl -s https://nodejs.org/en/ | grep "Current Version" | awk '{ print substr($4,0,8) }'
 }
 
 function get-iojs-version() {
