@@ -32,6 +32,7 @@ Plugin 'benmills/vimux.git'
 Plugin 'noahfrederick/vim-hemisu'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'sotte/presenting.vim'
+Plugin 'tpope/vim-bundler'
 call vundle#end()
 filetype plugin indent on
 
@@ -376,7 +377,8 @@ map <leader>gs :Gstatus<CR>
 map <leader>gd :Gdiff<CR>
 map <leader>gb :Gblame<CR>
 map <leader>gc :Gcommit<CR>
-map <leader>gl :Glog -10 --<CR>
+map <leader>gl :Glog -10<CR>
+map <leader>gla :Glog -10 --<CR>
 map <leader>ge :Gedit<CR>
 map <leader>gr :Gread<CR>
 map <leader>gw :Gwrite<CR>
