@@ -31,6 +31,8 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
+	# insanely beautiful diffs
+	pager = bash -lc 'diff-highlight | strip_diff_leading_symbols | less -r' -
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -47,6 +49,12 @@
 [merge]
     tool = opendiff
 
+
+[color "diff-highlight"]
+	oldNormal = "red bold"
+	oldHighlight = "red bold 52"
+	newNormal = "green bold"
+	newHighlight = "green bold 22"
 
 # rewrites
 [url "git@github.com:"]

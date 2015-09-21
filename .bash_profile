@@ -13,6 +13,8 @@ case $- in
 esac
 
 
+ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" ~/bin/diff-highlight
+
 # generic colouriser
 GRC=`which grc`
 if [ "$TERM" != dumb ] && [ -n "$GRC" ]
