@@ -185,7 +185,7 @@ function install-global-npms() {
 }
 
 function clip() {
-  more $1 | pbcopy
+  cat $1 | pbcopy
 }
 
 function combine_mp3() {
