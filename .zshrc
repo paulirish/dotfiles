@@ -86,5 +86,8 @@ source ~/.functions
 # aliases
 source ~/.aliases
 
+# I want to have the history for each tab separately
+setopt no_share_history
+
 # use the default version of node.js
 nvm use default
