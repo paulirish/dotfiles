@@ -212,3 +212,9 @@ function free() {
 function dirSize() {
   du -hsx * | sort -r | head -6
 }
+
+function watchTests() {
+  export PATH=$PATH:"/Library/Frameworks/Python.framework/Versions/3.5/bin"
+
+  nosetests --with-mocha-reporter --with-watch -s .
+}
