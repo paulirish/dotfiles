@@ -1,265 +1,257 @@
-" Make vim more useful
-set nocompatible
+set encoding=utf-8
+autocmd! bufwritepost .vimrc source %
+call pathogen#infect()
 
-" Set syntax highlighting options.
-set t_Co=256
-set background=light
-syntax on
-colorscheme github
-
-" Enabled later, after Pathogen
 filetype off
-
-" Change mapleader
-let mapleader=","
-
-" Local dirs
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-set undodir=~/.vim/undo
-
-" Set some junk
-set autoindent " Copy indent from last line when starting new line.
-set backspace=indent,eol,start
-set cursorline " Highlight current line
-set diffopt=filler " Add vertical spaces to keep right and left aligned
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set encoding=utf-8 nobomb " BOM often causes trouble
-set esckeys " Allow cursor keys in insert mode.
-set expandtab " Expand tabs to spaces
-set foldcolumn=4 " Column to show folds
-set foldenable
-set foldlevel=2
-" set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
-set foldmethod=syntax " Markers are used to specify folds.
-set foldminlines=0 " Allow folding single lines
-set foldnestmax=3 " Set max fold nesting level
-set formatoptions=
-set formatoptions+=c " Format comments
-set formatoptions+=r " Continue comments by default
-set formatoptions+=o " Make comment when using o or O from comment line
-set formatoptions+=q " Format comments with gq
-set formatoptions+=n " Recognize numbered lists
-set formatoptions+=2 " Use indent from 2nd line of a paragraph
-set formatoptions+=l " Don't break lines that are already long
-set formatoptions+=1 " Break before 1-letter words
-set gdefault " By default add g flag to search/replace. Add g to toggle.
-set hidden " When a buffer is brought to foreground, remember undo history and marks.
-set history=1000 " Increase history from 20 default to 1000
-set hlsearch " Highlight searches
-set ignorecase " Ignore case of searches.
-set incsearch " Highlight dynamically as pattern is typed.
-set laststatus=2 " Always show status line
-set lispwords+=defroutes " Compojure
-set lispwords+=defpartial,defpage " Noir core
-set lispwords+=defaction,deffilter,defview,defsection " Ciste core
-set lispwords+=describe,it " Speclj TDD/BDD
-set magic " Enable extended regexes.
-set mouse=a " Enable moouse in all in all modes.
-set noerrorbells " Disable error bells.
-set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command.
-set nostartofline " Don't reset cursor to start of line when moving around.
-set nowrap " Do not wrap lines.
-set nu " Enable line numbers.
-set ofu=syntaxcomplete#Complete " Set omni-completion method.
-set report=0 " Show all changes.
-set ruler " Show the cursor position
-set scrolloff=3 " Start scrolling three lines before horizontal border of window.
-set shiftwidth=2 " The # of spaces for indenting.
-set shortmess=atI " Don't show the intro message when starting vim.
-set showmode " Show the current mode.
-set showtabline=2 " Always show tab bar.
-set sidescrolloff=3 " Start scrolling three columns before vertical border of window.
-set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters.
-set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
-set softtabstop=2 " Tab key results in 2 spaces
-set splitbelow " New window goes below
-set splitright " New windows goes right
-set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
-set title " Show the filename in the window titlebar.
-set ttyfast " Send more characters at a given time.
-set ttymouse=xterm " Set mouse type to xterm.
-set undofile " Persistent Undo.
-set visualbell " Use visual bell instead of audible bell (annnnnoying)
-set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
-set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
-set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*
-set wildmenu " Hitting TAB in command mode will show possible completions above command line.
-set wildmode=list:longest " Complete only until point of ambiguity.
-set winminheight=0 "Allow splits to be reduced to a single line.
-set wrapscan " Searches wrap around end of file
-
-" Status Line
-" hi User1 guibg=#455354 guifg=fg      ctermbg=238 ctermfg=fg  gui=bold,underline cterm=bold,underline term=bold,underline
-" hi User2 guibg=#455354 guifg=#CC4329 ctermbg=238 ctermfg=196 gui=bold           cterm=bold           term=bold
-" set statusline=[%n]\ %1*%<%.99t%*\ %2*%h%w%m%r%*%y[%{&ff}→%{strlen(&fenc)?&fenc:'No\ Encoding'}]%=%-16(\ L%l,C%c\ %)%P
-let g:Powerline_symbols = 'fancy'
-
-" Speed up viewport scrolling
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
-" Faster split resizing (+,-)
-if bufwinnr(1)
-  map + <C-W>+
-  map - <C-W>-
-endif
-
-" Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l)
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-H> <C-W>h
-map <C-L> <C-W>l
-
-" Sudo write (,W)
-noremap <leader>W :w !sudo tee %<CR>
-
-" Remap :W to :w
-command W w
-
-" Better mark jumping (line + col)
-nnoremap ' `
-
-" Hard to type things
-imap >> →
-imap << ←
-imap ^^ ↑
-imap VV ↓
-imap aa λ
-
-" Toggle show tabs and trailing spaces (,c)
-set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
-set fcs=fold:-
-nnoremap <silent> <leader>c :set nolist!<CR>
-
-" Clear last search (,qs)
-map <silent> <leader>qs <Esc>:noh<CR>
-" map <silent> <leader>qs <Esc>:let @/ = ""<CR>
-
-" Vim on the iPad
-if &term == "xterm-ipad"
-  nnoremap <Tab> <Esc>
-  vnoremap <Tab> <Esc>gV
-  onoremap <Tab> <Esc>
-  inoremap <Tab> <Esc>`^
-  inoremap <Leader><Tab> <Tab>
-endif
-
-" Remap keys for auto-completion, disable arrow keys
-" I still need these cuz im nub. so nub.
-" inoremap <expr>  <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-" inoremap <expr>  <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <expr>  <Down>     pumvisible() ? "\<C-n>" : "\<NOP>"
-" inoremap <expr>  <Up>       pumvisible() ? "\<C-p>" : "\<NOP>"
-" inoremap <Left>  <NOP>
-" inoremap <Right> <NOP>
-
-" Indent/unident block (,]) (,[)
-nnoremap <leader>] >i{<CR>
-nnoremap <leader>[ <i{<CR>
-
-" Paste toggle (,p)
-set pastetoggle=<leader>p
-map <leader>p :set invpaste paste?<CR>
-
-" NERD Commenter
-let NERDSpaceDelims=1
-let NERDCompactSexyComs=1
-let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
-
-" Buffer navigation (,,) (,]) (,[) (,ls)
-map <Leader>, <C-^>
-" :map <Leader>] :bnext<CR>
-" :map <Leader>[ :bprev<CR>
-map <Leader>ls :buffers<CR>
-
-" Close Quickfix window (,qq)
-map <leader>qq :cclose<CR>
-
-" Yank from cursor to end of line
-nnoremap Y y$
-
-" Insert newline
-map <leader><Enter> o<ESC>
-
-" Search and replace word under cursor (,*)
-nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
-
-" Strip trailing whitespace (,ss)
-function! StripWhitespace ()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace ()<CR>
-
-" Save and restore folds
-" :au BufWinLeave * mkview
-" :au BufWinEnter * silent loadview
-
-" Join lines and restore cursor location (J)
-nnoremap J mjJ`j
-
-" Toggle folds (<Space>)
-nnoremap <silent> <space> :exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>
-
-" Fix page up and down
-map <PageUp> <C-U>
-map <PageDown> <C-D>
-imap <PageUp> <C-O><C-U>
-imap <PageDown> <C-O><C-D>
-
-" Restore cursor position
-autocmd BufReadPost *
-  \ if line("'\"") > 1 && line("'\"") <= line("$") |
-  \   exe "normal! g`\"" |
-  \ endif
-
-" Set relative line numbers
-set relativenumber " Use relative line numbers. Current line is still in status bar.
-au BufReadPost,BufNewFile * set relativenumber
-
-" Emulate bundles, allow plugins to live independantly. Easier to manage.
-call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
+syntax on
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType java set completeopt-=preview
+autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+au BufRead,BufNewFile *.scss set filetype=scss.css
 
-" JSON
-au BufRead,BufNewFile *.json set ft=json syntax=javascript
 
-" Jade
-au BufRead,BufNewFile *.jade set ft=jade syntax=jade
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
 
-" Common Ruby files
-au BufRead,BufNewFile Rakefile,Capfile,Gemfile,.autotest,.irbrc,*.treetop,*.tt set ft=ruby syntax=ruby
+set grepprg=ack\ -k
 
-" Nu
-au BufNewFile,BufRead *.nu,*.nujson,Nukefile setf nu
+" Javascript
+" ==========
+let jshint2_save = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:jsx_ext_required = 0
+set smarttab
+set cindent
 
-" Coffee Folding
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+" DelimitMate
+" ===========
+let delimitMate_expand_cr = 1
 
-" ZSH
-au BufRead,BufNewFile .zsh_rc,.functions,.commonrc set ft=zsh
 
-" CtrlP
-let g:ctrlp_match_window_bottom = 0 " Show at top of window
-let g:ctrlp_working_path_mode = 2 " Smart path mode
-let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
-let g:ctrlp_jump_to_buffer = 2 " Jump to tab AND buffer if already open
-let g:ctrlp_split_window = 1 " <CR> = New Tab
+" No bullshit folding magic
+" =========================
+set foldmethod=syntax
+set foldnestmax=2
+nnoremap <space> zA
+vnoremap <space> zA
+au BufRead * normal zR
 
-" Clojure.vim
-let g:vimclojure#ParenRainbow = 1 " Enable rainbow parens
-let g:vimclojure#DynamicHighlighting = 1 " Dynamic highlighting
-let g:vimclojure#FuzzyIndent = 1 " Names beginning in 'def' or 'with' to be indented as if they were included in the 'lispwords' option
+" When opening the file, unfold all. Fold all with zM
+" au BufRead * normal zR
 
-" Rainbow Parenthesis
-nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
-" Autoreload vimrc when it's changed
-augroup reload_vimrc " {
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+" UltiSnips
+" =========
+set runtimepath+=~/.vim/bundle/UltiSnips
+set runtimepath+=~/.vim/ulti_snippets
+let g:UltiSnipsSnippetsDir = "~/.vim/ulti_snippets/"
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'ulti_snippets']
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" Tagbar
+" ======
+nmap <F8> :TagbarToggle<CR>
+
+" General option
+" ===============
+let mapleader = "," " rebind <Leader> key
+nnoremap . <NOP>
+set wildmode=list:longest " make TAB behave like in a shell
+set autoread " reload file when changes happen in other editors
+set tags=./tags
+
+set mouse=a
+set bs=2 " make backspace behave like normal again
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
+
+
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
+
+
+" make yank copy to the global system clipboard
+set clipboard=unnamed
+
+
+" Omnicomplete related stuff
+set completeopt=longest,menuone
+inoremap <c-space> <C-x><C-o>
+inoremap <c-@> <C-x><C-o>
+
+
+" found here: http://stackoverflow.com/a/2170800/70778
+function! OmniPopup(action)
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
+endfunction
+inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+
+
+" Quicksave command
+noremap <Leader>w :update<CR>
+vnoremap <Leader>w <C-C>:update<CR>
+inoremap <Leader>w <C-O>:update<CR>
+
+
+" Quick quit command
+noremap <Leader>e :quit<CR>
+
+
+" Bind nohl
+noremap <Leader>h :nohl<CR>
+
+set history=700
+set undolevels=700
+
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
+" disable formatting when pasting large chunks of code
+set pastetoggle=<F2>
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set nowrap " don't automatically wrap on load
+set tw=79  " width of document (used by gd)
+set fo-=t  " don't automatically wrap text when typing
+
+" Awesome line number magic
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <Leader>l :call NumberToggle()<cr>
+:au FocusLost * set number
+:au FocusGained * set relativenumber
+autocmd InsertEnter * set number
+autocmd InsertLeave * set relativenumber
+set relativenumber
+
+" center the cursor vertically
+:nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+
+" easier formatting of paragraphs
+vmap Q gq
+nmap Q gqap
+
+
+" Settings for jedi-vim
+" =====================
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+
+" Settings for vim-powerline
+" ===========================
+set laststatus=2
+" let g:Powerline_symbols = 'fancy'
+
+
+" Settings for vim-markdown
+" ==========================
+" let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_initial_foldlevel=1
+
+
+" Settings for ctrlp
+" ===================
+let g:ctrlp_max_height = 30
+let g:ctrlp_user_command = [
+    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+    \ 'find %s -type f'
+    \ ]
+
+"
+" Movement
+" =========
+" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
+
+map <Leader>, <esc>:tabprevious<CR>
+map <Leader>. <esc>:tabnext<CR>
+vnoremap <Leader>s :sort<CR>
+
+
+" Custom mappings
+" ================
+vnoremap < <gv  " better indentation
+vnoremap > >gv  " better indentation
+map <Leader>a ggVG  " select all
+
+
+" Fixing the copy & paste madness
+" ================================
+vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+imap <C-v> <Esc><C-v>a
+
+
+" Show trailing whitespace
+" =========================
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+map <Leader>x :%s/\s\+$//
+
+
+" Color scheme
+" =============
+set t_Co=256
+color wombat256mod
+" color mayansmoke
+
+set colorcolumn=80
+highlight ColorColumn ctermbg=233
+map <Leader>v :source ~/.vimrc
+
+" Compile bootstrap.css when saving a .less file
+func! s:CompileLess()
+    lcd %:p:h
+    let static_dir = finddir('static', ';')
+    let l:cmd = "cd " . l:static_dir . " && lessc css/bootstrap.less css/bootstrap.css"
+    " let l:cmd = "cd " . l:static_dir . " && lessc css2/bootstrap.less css2/bootstrap.css"
+    " let l:cmd = "cd " . l:static_dir . " && lessc css3/bootstrap.less css3/bootstrap.css"
+    let l:errs = system(l:cmd)
+    if (!empty(l:errs))
+        echo l:errs
+    endif
+endfunc
+" autocmd! BufWritePost,FileWritePost *.less call s:CompileLess()
+
+" source ~/.vim/vimrc/vimrc_python.vim
+" source ~/.vim/bundle/pydiction/vimrc_pydiction.vim

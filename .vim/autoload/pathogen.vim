@@ -1,15 +1,34 @@
 " pathogen.vim - path option manipulation
-" Maintainer:   Tim Pope <vimNOSPAM@tpope.org>
-" Version:      1.2
+" Maintainer:   Tim Pope <http://tpo.pe/>
+" Version:      2.0
 
 " Install in ~/.vim/autoload (or ~\vimfiles\autoload).
 "
-" API is documented below.
+" For management of individually installed plugins in ~/.vim/bundle (or
+" ~\vimfiles\bundle), adding `call pathogen#infect()` to your .vimrc
+" prior to `fileype plugin indent on` is the only other setup necessary.
+"
+" The API is documented inline below.  For maximum ease of reading,
+" :set foldmethod=marker
 
 if exists("g:loaded_pathogen") || &cp
   finish
 endif
 let g:loaded_pathogen = 1
+
+" Point of entry for basic default usage.  Give a directory name to invoke
+" pathogen#runtime_append_all_bundles() (defaults to "bundle"), or a full path
+" to invoke pathogen#runtime_prepend_subdirectories().  Afterwards,
+" pathogen#cycle_filetype() is invoked.
+function! pathogen#infect(...) abort " {{{1
+  let source_path = a:0 ? a:1 : 'bundle'
+  if source_path =~# '[\\/]'
+    call pathogen#runtime_prepend_subdirectories(source_path)
+  else
+    call pathogen#runtime_append_all_bundles(source_path)
+  endif
+  call pathogen#cycle_filetype()
+endfunction " }}}1
 
 " Split a path into a list.
 function! pathogen#split(path) abort " {{{1
@@ -81,12 +100,32 @@ function! pathogen#glob_directories(pattern) abort " {{{1
   return filter(pathogen#glob(a:pattern),'isdirectory(v:val)')
 endfunction "}}}1
 
-" Prepend all subdirectories of path to the rtp, and append all after
+" Turn filetype detection off and back on again if it was already enabled.
+function! pathogen#cycle_filetype() " {{{1
+  if exists('g:did_load_filetypes')
+    filetype off
+    filetype on
+  endif
+endfunction " }}}1
+
+" Checks if a bundle is 'disabled'. A bundle is considered 'disabled' if
+" its 'basename()' is included in g:pathogen_disabled[]' or ends in a tilde.
+function! pathogen#is_disabled(path) " {{{1
+  if a:path =~# '\~$'
+    return 1
+  elseif !exists("g:pathogen_disabled")
+    return 0
+  endif
+  let sep = pathogen#separator()
+  return index(g:pathogen_disabled, strpart(a:path, strridx(a:path, sep)+1)) != -1
+endfunction "}}}1
+
+" Prepend all subdirectories of path to the rtp, and append all 'after'
 " directories in those subdirectories.
 function! pathogen#runtime_prepend_subdirectories(path) " {{{1
   let sep    = pathogen#separator()
-  let before = pathogen#glob_directories(a:path.sep."*[^~]")
-  let after  = pathogen#glob_directories(a:path.sep."*[^~]".sep."after")
+  let before = filter(pathogen#glob_directories(a:path.sep."*"), '!pathogen#is_disabled(v:val)')
+  let after  = filter(pathogen#glob_directories(a:path.sep."*".sep."after"), '!pathogen#is_disabled(v:val[0:-7])')
   let rtp = pathogen#split(&rtp)
   let path = expand(a:path)
   call filter(rtp,'v:val[0:strlen(path)-1] !=# path')
@@ -108,9 +147,9 @@ function! pathogen#runtime_append_all_bundles(...) " {{{1
   let list = []
   for dir in pathogen#split(&rtp)
     if dir =~# '\<after$'
-      let list +=  pathogen#glob_directories(substitute(dir,'after$',name.sep.'*[^~]'.sep.'after','')) + [dir]
+      let list +=  filter(pathogen#glob_directories(substitute(dir,'after$',name,'').sep.'*[^~]'.sep.'after'), '!pathogen#is_disabled(v:val[0:-7])') + [dir]
     else
-      let list +=  [dir] + pathogen#glob_directories(dir.sep.name.sep.'*[^~]')
+      let list +=  [dir] + filter(pathogen#glob_directories(dir.sep.name.sep.'*[^~]'), '!pathogen#is_disabled(v:val)')
     endif
   endfor
   let &rtp = pathogen#join(pathogen#uniq(list))
@@ -122,11 +161,70 @@ let s:done_bundles = ''
 
 " Invoke :helptags on all non-$VIM doc directories in runtimepath.
 function! pathogen#helptags() " {{{1
+  let sep = pathogen#separator()
   for dir in pathogen#split(&rtp)
-    if dir[0 : strlen($VIM)-1] !=# $VIM && isdirectory(dir.'/doc') && (!filereadable(dir.'/doc/tags') || filewritable(dir.'/doc/tags'))
+    if (dir.sep)[0 : strlen($VIMRUNTIME)] !=# $VIMRUNTIME.sep && filewritable(dir.'/doc') == 2 && !empty(glob(dir.'/doc/*')) && (!filereadable(dir.'/doc/tags') || filewritable(dir.'/doc/tags'))
       helptags `=dir.'/doc'`
     endif
   endfor
 endfunction " }}}1
+
+command! -bar Helptags :call pathogen#helptags()
+
+" Like findfile(), but hardcoded to use the runtimepath.
+function! pathogen#rtpfindfile(file,count) "{{{1
+  let rtp = pathogen#join(1,pathogen#split(&rtp))
+  return fnamemodify(findfile(a:file,rtp,a:count),':p')
+endfunction " }}}1
+
+function! s:find(count,cmd,file,...) " {{{1
+  let rtp = pathogen#join(1,pathogen#split(&runtimepath))
+  let file = pathogen#rtpfindfile(a:file,a:count)
+  if file ==# ''
+    return "echoerr 'E345: Can''t find file \"".a:file."\" in runtimepath'"
+  elseif a:0
+    let path = file[0:-strlen(a:file)-2]
+    execute a:1.' `=path`'
+    return a:cmd.' '.fnameescape(a:file)
+  else
+    return a:cmd.' '.fnameescape(file)
+  endif
+endfunction " }}}1
+
+function! s:Findcomplete(A,L,P) " {{{1
+  let sep = pathogen#separator()
+  let cheats = {
+        \'a': 'autoload',
+        \'d': 'doc',
+        \'f': 'ftplugin',
+        \'i': 'indent',
+        \'p': 'plugin',
+        \'s': 'syntax'}
+  if a:A =~# '^\w[\\/]' && has_key(cheats,a:A[0])
+    let request = cheats[a:A[0]].a:A[1:-1]
+  else
+    let request = a:A
+  endif
+  let pattern = substitute(request,'\'.sep,'*'.sep,'g').'*'
+  let found = {}
+  for path in pathogen#split(&runtimepath)
+    let matches = split(glob(path.sep.pattern),"\n")
+    call map(matches,'isdirectory(v:val) ? v:val.sep : v:val')
+    call map(matches,'v:val[strlen(path)+1:-1]')
+    for match in matches
+      let found[match] = 1
+    endfor
+  endfor
+  return sort(keys(found))
+endfunction " }}}1
+
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Ve       :execute s:find(<count>,'edit<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vedit    :execute s:find(<count>,'edit<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vsplit   :execute s:find(<count>,'split<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vvsplit  :execute s:find(<count>,'vsplit<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vtabedit :execute s:find(<count>,'tabedit<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vpedit   :execute s:find(<count>,'pedit<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vread    :execute s:find(<count>,'read<bang>',<q-args>)
+command! -bar -bang -count=1 -nargs=1 -complete=customlist,s:Findcomplete Vopen    :execute s:find(<count>,'edit<bang>',<q-args>,'lcd')
 
 " vim:set ft=vim ts=8 sw=2 sts=2:
