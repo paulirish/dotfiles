@@ -92,7 +92,6 @@ alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-
 # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 alias plistbuddy="/usr/libexec/PlistBuddy"
 
@@ -127,6 +126,7 @@ alias dotfiles='cd ~/Projects/dotfiles'
 alias sublime-settings='cd ~/DropBox/_AppSettings/SublimeText'
 alias dupl='cd ~/Projects/NodeProjects/duplicatesongfinder/'
 alias howcani='cd ~/Projects/WebApps/howcani'
+alias myKatas='cd ~/Projects/Katas/MyKatas'
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
@@ -135,4 +135,5 @@ fi
 
 alias swift="/Applications/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift"
 
-
+# aliases for my own functions
+alias runTests=watchTests
