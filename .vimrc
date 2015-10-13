@@ -1,7 +1,7 @@
 set encoding=utf-8
 autocmd! bufwritepost .vimrc source %
 call pathogen#infect()
-call pathoden#helptags()
+call pathogen#helptags()
 
 filetype off
 filetype plugin indent on
