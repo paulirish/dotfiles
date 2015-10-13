@@ -1,19 +1,18 @@
 set encoding=utf-8
 autocmd! bufwritepost .vimrc source %
 call pathogen#infect()
+call pathoden#helptags()
 
 filetype off
 filetype plugin indent on
 syntax on
+
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType java set completeopt-=preview
-autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
-autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-au BufRead,BufNewFile *.scss set filetype=scss.css
 
+au BufRead,BufNewFile *.scss set filetype=scss.css
 
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
@@ -32,7 +31,6 @@ set cindent
 " DelimitMate
 " ===========
 let delimitMate_expand_cr = 1
-
 
 " No bullshit folding magic
 " =========================
@@ -74,7 +72,6 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
 set nobackup
@@ -85,12 +82,10 @@ set noswapfile
 " make yank copy to the global system clipboard
 set clipboard=unnamed
 
-
 " Omnicomplete related stuff
 set completeopt=longest,menuone
 inoremap <c-space> <C-x><C-o>
 inoremap <c-@> <C-x><C-o>
-
 
 " found here: http://stackoverflow.com/a/2170800/70778
 function! OmniPopup(action)
@@ -111,7 +106,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 noremap <Leader>w :update<CR>
 vnoremap <Leader>w <C-C>:update<CR>
 inoremap <Leader>w <C-O>:update<CR>
-
 
 " Quick quit command
 noremap <Leader>e :quit<CR>
