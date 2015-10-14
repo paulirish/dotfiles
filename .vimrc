@@ -383,6 +383,8 @@ map <leader>ge :Gedit<CR>
 map <leader>gr :Gread<CR>
 map <leader>gw :Gwrite<CR>
 map <leader>gb :Gbrowse<CR>
+map <leader>dg :diffget<CR>
+map <leader>dp :diffput<CR>
 
 " presenting.vim
 au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
