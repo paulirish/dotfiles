@@ -181,7 +181,7 @@ function reload() {
 }
 
 function install-global-npms() {
-  npm install -g bower cordova growl grunt-cli gulp karma-cli mocha live-server nodemon yo jshint ionic phantomjs node-inspector
+  npm install -g bower gulp-cli growl grunt-cli gulp karma-cli mocha live-server nodemon yo eslint phantomjs 
 }
 
 function clip() {
