@@ -16,3 +16,6 @@ git submodule add https://github.com/SirVer/ultisnips ./.vim/bundle/ultisnips
 git submodule add https://github.com/tomtom/vimtlib ./.vim/bundle/tlib_vim
 git submodule add https://github.com/MarcWeber/vim-addon-mw-utils ./.vim/bundle/vim-addon-mw-utils
 git submodule add https://github.com/garbas/vim-snipmate ./.vim/bundle/vim-snipmate
+
+git submodule add https://github.com/tpope/vim-surround ./.vim/bundle/vim-surround
+git submodule add https://github.com/scrooloose/nerdcommenter ./.vim/bundle/nerdcommenter
