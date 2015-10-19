@@ -19,3 +19,4 @@ git submodule add https://github.com/garbas/vim-snipmate ./.vim/bundle/vim-snipm
 
 git submodule add https://github.com/tpope/vim-surround ./.vim/bundle/vim-surround
 git submodule add https://github.com/scrooloose/nerdcommenter ./.vim/bundle/nerdcommenter
+git submodule add https://github.com/kien/ctrlp.vim .vim/bundle/ctrlp
