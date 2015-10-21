@@ -1,16 +1,26 @@
 set encoding=utf-8
 autocmd! bufwritepost .vimrc source %
-call pathogen#infect()
+" call pathogen#infect()
 
+set nocompatible
 filetype off
-filetype plugin indent on
-syntax on
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+
+call vundle#end()
+filetype plugin indent on
+syntax on
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
 let g:html_indent_inctags = "html,body,head,tbody"
