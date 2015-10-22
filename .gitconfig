@@ -32,7 +32,7 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	# insanely beautiful diffs
-	pager = bash -lc 'diff-highlight | diff-so-fancy | less -r' -
+	pager = diff-highlight | diff-so-fancy | less -r 
 [color "branch"]
 	current = yellow reverse
 	local = yellow
