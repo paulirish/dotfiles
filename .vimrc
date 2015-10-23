@@ -1,6 +1,5 @@
 set encoding=utf-8
 autocmd! bufwritepost .vimrc source %
-" call pathogen#infect()
 
 set nocompatible
 filetype off
@@ -17,9 +16,29 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
+Plugin 'bling/vim-airline'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'klen/python-mode'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'groenewege/vim-less'
+Plugin 'tpope/vim-fugitive'
+Plugin 'chase/vim-ansible-yaml'
+Plugin 'SirVer/ultisnips'
+Plugin 'tomtom/vimtlib'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'garbas/vim-snipmate'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'kien/ctrlp.vim'
+Plugin 'joonty/vdebug'
 
 call vundle#end()
 filetype plugin indent on
+
 syntax on
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
@@ -158,7 +177,7 @@ nnoremap <Leader>l :call NumberToggle()<cr>
 :au FocusGained * set relativenumber
 autocmd InsertEnter * set number
 autocmd InsertLeave * set relativenumber
-set relativenumber
+set number
 
 " center the cursor vertically
 :nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
@@ -177,17 +196,10 @@ let g:jedi#popup_select_first = 0
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 
-" Settings for vim-powerline
-" ===========================
-set laststatus=2
-" let g:Powerline_symbols = 'fancy'
-
-
 " Settings for vim-markdown
 " ==========================
 " let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_initial_foldlevel=1
-
 
 " Settings for ctrlp
 " ===================
@@ -221,9 +233,7 @@ map <Leader>a ggVG  " select all
 " Fixing the copy & paste madness
 " ================================
 vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
-nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 imap <C-v> <Esc><C-v>a
-
 
 " Show trailing whitespace
 " =========================
@@ -236,11 +246,10 @@ map <Leader>x :%s/\s\+$//
 " =============
 set t_Co=256
 color wombat256mod
-" color mayansmoke
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
-map <Leader>v :source ~/.vimrc
+map <Leader>v :source ~/.vimrc<CR>
 
 " Compile bootstrap.css when saving a .less file
 func! s:CompileLess()
@@ -258,3 +267,12 @@ endfunc
 
 " source ~/.vim/vimrc/vimrc_python.vim
 " source ~/.vim/bundle/pydiction/vimrc_pydiction.vim
+
+set guioptions=egmrt
+set background=light
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_powerline_fonts=0
+let g:airline_theme='solarized'
+set laststatus=2
+
