@@ -51,7 +51,6 @@ alias g="git"
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
 
-
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
