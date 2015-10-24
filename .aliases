@@ -58,32 +58,27 @@ alias undopush="git push -f origin HEAD^:master"
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
 
-# IP addresses
+# Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
-alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-
-# All the dig info
 alias dig="dig +nocmd any +multiline +noall +answer"
 
-# Flush Directory Service cache
-alias flush="dscacheutil -flushcache"
-
-# Trim new lines and copy to clipboard
-alias trimcopy="tr -d '\n' | pbcopy"
-
 # Recursively delete `.DS_Store` files
-alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
+alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Shortcuts
 alias g="git"
 alias v="vim"
+alias ungz="gunzip -k"
 
 # File size
 alias fs="stat -f \"%z bytes\""
 
 # Empty the Trash on all mounted volumes and the main HDD. then clear the useless sleepimage
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
+
+# Update installed Ruby gems, Homebrew, npm, and their installed packages
+alias brew_update="brew -v update; brew -v upgrade --all; brew cleanup; brew cask cleanup; brew prune; brew doctor"
+alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-rdoc --no-ri'
 
 
 # One of @janmoesen’s ProTip™s
