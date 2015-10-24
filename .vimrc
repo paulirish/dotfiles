@@ -35,11 +35,17 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'joonty/vdebug'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 filetype plugin indent on
 
 syntax on
+set showcmd
+set list
+set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
+
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
 let g:html_indent_inctags = "html,body,head,tbody"
@@ -138,6 +144,10 @@ inoremap <Leader>w <C-O>:update<CR>
 " Quick quit command
 noremap <Leader>e :quit<CR>
 
+" Show NERDTree with a leader key
+noremap <Leader>t :NERDTree<CR>
+inoremap <Leader>t :NERDTree<CR>
+vnoremap <Leader>t :NERDTree<CR>
 
 " Bind nohl
 noremap <Leader>h :nohl<CR>
@@ -245,28 +255,11 @@ map <Leader>x :%s/\s\+$//
 " Color scheme
 " =============
 set t_Co=256
-color wombat256mod
+color desert
 
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
-map <Leader>v :source ~/.vimrc<CR>
-
-" Compile bootstrap.css when saving a .less file
-func! s:CompileLess()
-    lcd %:p:h
-    let static_dir = finddir('static', ';')
-    let l:cmd = "cd " . l:static_dir . " && lessc css/bootstrap.less css/bootstrap.css"
-    " let l:cmd = "cd " . l:static_dir . " && lessc css2/bootstrap.less css2/bootstrap.css"
-    " let l:cmd = "cd " . l:static_dir . " && lessc css3/bootstrap.less css3/bootstrap.css"
-    let l:errs = system(l:cmd)
-    if (!empty(l:errs))
-        echo l:errs
-    endif
-endfunc
-" autocmd! BufWritePost,FileWritePost *.less call s:CompileLess()
-
-" source ~/.vim/vimrc/vimrc_python.vim
-" source ~/.vim/bundle/pydiction/vimrc_pydiction.vim
+" set colorcolumn=80
+"highlight ColorColumn ctermbg=233
+:"map <Leader>v :source ~/.vimrc<CR>
 
 set guioptions=egmrt
 set background=light
