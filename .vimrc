@@ -135,6 +135,13 @@ endfunction
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
+set <S-down>=^[[1;2B]]
+
+" ****** Mappings ****
+nmap <C-k> ddkP
+nmap <C-j> ddp
+vmap <C-k> xKP`[V`]
+vmap <C-j> xp`[V`]
 
 " Quicksave command
 noremap <Leader>w :update<CR>
@@ -182,7 +189,7 @@ function! NumberToggle()
   endif
 endfunc
 
-nnoremap <Leader>l :call NumberToggle()<cr>
+nnoremap <Leader>l :call NumberToggle()<CR>
 :au FocusLost * set number
 :au FocusGained * set relativenumber
 autocmd InsertEnter * set number
@@ -219,26 +226,17 @@ let g:ctrlp_user_command = [
     \ 'find %s -type f'
     \ ]
 
-"
 " Movement
 " =========
-" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
 map <Leader>, <esc>:tabprevious<CR>
 map <Leader>. <esc>:tabnext<CR>
 vnoremap <Leader>s :sort<CR>
-
 
 " Custom mappings
 " ================
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 map <Leader>a ggVG  " select all
-
 
 " Fixing the copy & paste madness
 " ================================
@@ -268,4 +266,16 @@ let g:airline_right_sep=''
 let g:airline_powerline_fonts=0
 let g:airline_theme='solarized'
 set laststatus=2
+
+" ***** Some useful functions *****
+
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
 
