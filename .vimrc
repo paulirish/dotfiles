@@ -33,6 +33,7 @@ Plugin 'noahfrederick/vim-hemisu'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'sotte/presenting.vim'
 Plugin 'tpope/vim-bundler'
+Plugin 'junegunn/vim-emoji'
 call vundle#end()
 filetype plugin indent on
 
@@ -394,3 +395,17 @@ nnoremap <leader>cat :tabonly<CR>
 
 " set file type for hbs.erb files
 set filetype=hbs.erb syntax=html
+
+" show emojis
+function ShowEmojis()
+  for e in emoji#list()
+    call append(line('$'), printf('%s (%s)', emoji#for(e), e))
+  endfor
+endfunction
+
+function CompileEmojis()
+  %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+endfunction
+
+map <leader>se :call ShowEmojis()<CR>
+map <leader>em :call CompileEmojis()<CR>
