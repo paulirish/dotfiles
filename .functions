@@ -1,15 +1,15 @@
 # Create a new directory and enter it
 function md() {
-	mkdir -p "$@" && cd "$@"
+  mkdir -p "$@" && cd "$@"
 }
 
 function rd() {
-	rm -r -f -d "$1"
+  rm -r -f -d "$1"
 }
 
 # find shorthand
 function f() {
-    find . -name "$1"
+  find . -name "$1"
 }
 
 # cd into whatever is the forefront Finder window.
@@ -25,9 +25,9 @@ function tree() {
 
 # lets toss an image onto my server and pbcopy that bitch.
 function scpp() {
-    scp "$1" aurgasm@aurgasm.us:~/paulirish.com/i;
-    echo "http://paulirish.com/i/$1" | pbcopy;
-    echo "Copied to clipboard: http://paulirish.com/i/$1"
+  scp "$1" aurgasm@aurgasm.us:~/paulirish.com/i;
+  echo "http://paulirish.com/i/$1" | pbcopy;
+  echo "Copied to clipboard: http://paulirish.com/i/$1"
 }
 
 # Start an HTTP server from a directory, optionally specifying the port
@@ -75,8 +75,6 @@ function gitexport(){
   mkdir -p "$1"
   git archive master | tar -x -C "$1"
 }
-
-
 
 # get gzipped size
 function gz() {
@@ -181,7 +179,7 @@ function reload() {
 }
 
 function install-global-npms() {
-  npm install -g bower gulp-cli growl grunt-cli gulp karma-cli mocha live-server nodemon yo eslint phantomjs 
+  npm install -g bower gulp-cli growl grunt-cli gulp karma-cli mocha live-server nodemon yo eslint phantomjs
 }
 
 function clip() {
@@ -219,6 +217,18 @@ function watchTests() {
   nosetests --with-mocha-reporter --with-watch -s .
 }
 
-function git-purge () {
+function git-purge() {
   git fetch -p | git branch --merged | grep -v "\*" | grep -v "master" | grep -v "develop" | xargs -n 1 git branch -d
+}
+
+function gdiff() {
+  vim $1 +Gdiff
+}
+
+function turnAppleKeyRepeatOff() {
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+}
+
+function turnAppleKeyRepeatOn() {
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 }
