@@ -37,12 +37,18 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'joonty/vdebug'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'gregsexton/gitv'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'mattn/emmet-vim'
 
 call vundle#end()
 filetype plugin indent on
 
 syntax on
 set showcmd
+
 set list
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 
@@ -68,15 +74,19 @@ let delimitMate_expand_cr = 1
 
 " No bullshit folding magic
 " =========================
-set foldmethod=syntax
+set foldmethod=indent
+set foldlevel=99
 set foldnestmax=2
 nnoremap <space> zA
-vnoremap <space> zA
+vnoremap <space>:x zA
 au BufRead * normal zR
 
 " When opening the file, unfold all. Fold all with zM
 " au BufRead * normal zR
 
+" Simplyfold
+" =========
+let g:SimpylFold_docstring_preview=1
 
 " UltiSnips
 " =========
@@ -95,7 +105,6 @@ nmap <F8> :TagbarToggle<CR>
 " General option
 " ===============
 let mapleader = "," " rebind <Leader> key
-nnoremap . <NOP>
 set wildmode=list:longest " make TAB behave like in a shell
 set autoread " reload file when changes happen in other editors
 set tags=./tags
@@ -135,13 +144,9 @@ endfunction
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
-set <S-down>=^[[1;2B]]
-
 " ****** Mappings ****
-nmap <C-k> ddkP
-nmap <C-j> ddp
-vmap <C-k> xKP`[V`]
-vmap <C-j> xp`[V`]
+nmap <C-j> ddp " Move line down
+nmap <C-k> ddkP " Move line up"
 
 " Quicksave command
 noremap <Leader>w :update<CR>
@@ -152,9 +157,9 @@ inoremap <Leader>w <C-O>:update<CR>
 noremap <Leader>e :quit<CR>
 
 " Show NERDTree with a leader key
-noremap <Leader>t :NERDTree<CR>
-inoremap <Leader>t :NERDTree<CR>
-vnoremap <Leader>t :NERDTree<CR>
+noremap <Leader>t :NERDTreeToggle<CR>
+inoremap <Leader>t :NERDTreeToggle<CR>
+vnoremap <Leader>t :NERDTreeToggle<CR>
 
 " Bind nohl
 noremap <Leader>h :nohl<CR>
@@ -183,17 +188,16 @@ set fo-=t  " don't automatically wrap text when typing
 " Awesome line number magic
 function! NumberToggle()
   if(&relativenumber == 1)
+    set norelativenumber
     set number
+    highlight LineNr ctermfg=yellow
   else
     set relativenumber
+    highlight LineNr ctermfg=green
   endif
 endfunc
 
 nnoremap <Leader>l :call NumberToggle()<CR>
-:au FocusLost * set number
-:au FocusGained * set relativenumber
-autocmd InsertEnter * set number
-autocmd InsertLeave * set relativenumber
 set number
 
 " center the cursor vertically
@@ -238,6 +242,10 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 map <Leader>a ggVG  " select all
 
+nmap ;s  :set invspell spelllang=en<CR>
+nnoremap <F6> <C-W>w
+map <F7> :tabnext<CR>
+
 " Fixing the copy & paste madness
 " ================================
 vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
@@ -257,7 +265,7 @@ color desert
 
 " set colorcolumn=80
 "highlight ColorColumn ctermbg=233
-:"map <Leader>v :source ~/.vimrc<CR>
+map <Leader>v :source ~/.vimrc<CR>
 
 set guioptions=egmrt
 set background=light
