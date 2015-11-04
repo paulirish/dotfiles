@@ -203,11 +203,9 @@ set number
 " center the cursor vertically
 :nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 
-
 " easier formatting of paragraphs
 vmap Q gq
 nmap Q gqap
-
 
 " Settings for jedi-vim
 " =====================
@@ -215,7 +213,6 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
 
 " Settings for vim-markdown
 " ==========================
@@ -229,7 +226,10 @@ let g:ctrlp_user_command = [
     \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
     \ 'find %s -type f'
     \ ]
-
+let g:ctrlp_custom_ignore = {
+            \ 'dir': '\.git$\|node_modules$\|bower_components$\|\bower$\',
+            \ 'file': '\.exe$\|\.so$'
+            \ }
 " Movement
 " =========
 map <Leader>, <esc>:tabprevious<CR>
@@ -257,14 +257,11 @@ autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 map <Leader>x :%s/\s\+$//
 
-
 " Color scheme
 " =============
 set t_Co=256
 color desert
 
-" set colorcolumn=80
-"highlight ColorColumn ctermbg=233
 map <Leader>v :source ~/.vimrc<CR>
 
 set guioptions=egmrt
@@ -272,7 +269,6 @@ set background=light
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_powerline_fonts=0
-let g:airline_theme='solarized'
 set laststatus=2
 
 " ***** Some useful functions *****
