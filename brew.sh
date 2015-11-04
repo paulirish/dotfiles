@@ -14,6 +14,9 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade --all
 
+# Install Homebrew Cask
+brew install caskroom/cask/brew-cask
+
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
@@ -32,9 +35,11 @@ brew install bash
 brew tap homebrew/versions
 brew install bash-completion2
 
+# Java
+brew cask install java
+
 # Virtualbox + Vagrant
 brew tap phinze/homebrew-cask
-brew install brew-cask
 brew cask install virtualbox
 brew cask install vagrant
 brew cask install vagrant-manager

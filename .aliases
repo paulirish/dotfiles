@@ -53,10 +53,7 @@ alias gf="git fetch"
 alias gpo="git push origin"
 alias gpod="git pull origin develop"
 alias gs="git status"
-alias git-branches-by-date="for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r"
 
-# Undo a `git push`
-alias undopush="git push -f origin HEAD^:master"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '

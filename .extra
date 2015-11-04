@@ -2,7 +2,7 @@ PATH=/usr/local/bin:${PATH}:./vendor/bin:~/.composer/vendor/bin
 
 # Git credentials
 GIT_AUTHOR_NAME="Troy Harvey"
-GIT_AUTHOR_EMAIL="troyharvey@gmail.com"
+GIT_AUTHOR_EMAIL="troy.harvey@seven-26.com"
 
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
