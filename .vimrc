@@ -395,6 +395,7 @@ nnoremap <leader>cat :tabonly<CR>
 
 " set file type for hbs.erb files
 set filetype=hbs.erb syntax=html
+set filetype=Vagrant syntax=ruby
 
 " show emojis
 function ShowEmojis()
