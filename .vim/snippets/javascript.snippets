@@ -1,3 +1,5 @@
+snippet clog
+	console.log(${1});${2}
 snippet console
 	console.log(${1});${2}
 # Prototype
@@ -7,10 +9,10 @@ snippet proto
 	  ${4:// body...}
 	};
 # Function
-snippet function
-	function ${1:function_name} (${2:argument}) {
-	  ${3:// body...}
-	}
+snippet func
+	function ${1}(${2}) {
+	  ${4:// body...}
+	}${3}
 # if
 snippet if
 	if (${1:true}) {
