@@ -29,7 +29,6 @@ alias l="ls -l ${colorflag}"
 # List all files colorized in long format, including dot files
 alias lsa="ls -la ${colorflag}"
 
-
 # List only directories
 alias lsd='ls -l | grep "^d"'
 
@@ -54,6 +53,9 @@ alias undopush="git push -f origin HEAD^:master"
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
+alias gs="git status"
+alias gc="git commit -m "
+
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
@@ -74,10 +76,6 @@ alias trimcopy="tr -d '\n' | pbcopy"
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
-
-# Shortcuts
-alias g="git"
-alias v="vim"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -105,11 +103,14 @@ alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
+# Some other Shortcuts
+alias v="vim"
 alias cls='clear'
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edpr='subl ~/.bash_profile'
 alias edit='subl'
-alias rd='rm -rf'
+alias rd='rm -rf' # Remove directories without asking me
+alias rm='rm -f' # Remove files without asking me
 
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
@@ -125,15 +126,15 @@ alias logfiles='cd ~/Projects/logfiles'
 alias dotfiles='cd ~/Projects/dotfiles'
 alias sublime-settings='cd ~/DropBox/_AppSettings/SublimeText'
 alias dupl='cd ~/Projects/NodeProjects/duplicatesongfinder/'
-alias howcani='cd ~/Projects/WebApps/howcani'
-alias myKatas='cd ~/Projects/Katas/MyKatas'
+alias howcani='cd ~/Projects/howcani'
+alias mykatas='cd ~/Projects/Katas/MyKatas'
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
     alias update='sudo apt-get upgrade'
 fi
 
-alias swift="/Applications/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift"
+alias swift="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift"
 
 # aliases for my own functions
 alias runTests=watchTests
