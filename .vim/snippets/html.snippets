@@ -139,7 +139,7 @@ snippet t
 # Embed QT Movie
 snippet movie
 	<object width="$2" height="$3" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
-	 codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+			codebase="http://www.apple.com/qtactivex/qtplugin.cab">
 		<param name="src" value="$1"`Close()`>
 		<param name="controller" value="$4"`Close()`>
 		<param name="autoplay" value="$5"`Close()`>
@@ -203,3 +203,14 @@ snippet daily
 	- ${3:none}
 snippet trans
 	{% trans %}${1:key}{% endtrans %}${2}
+snippet html5
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>$1</title>
+		<link rel="stylesheet" href="/css/style.css">
+	</head>
+	<body>
+	$3
+	</body>
+	</html>
