@@ -8,9 +8,6 @@ unset file
 # init z   https://github.com/rupa/z
 . ~/lab/z/z.sh
 
-# init rvm
-source ~/.rvm/scripts/rvm
-
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 
@@ -25,7 +22,9 @@ export LANG="en_US"
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
 
-# brew path
-export PATH=/usr/local/sbin:$PATH
-# node bin
-export PATH=~/.node/bin:$PATH
+# home brew
+export PATH="/usr/local/bin:$PATH"
+
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
