@@ -2,8 +2,6 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'guns/vim-clojure-static'
-Plugin 'msanders/cocoa.vim'
 Plugin 'chrisbra/histwin.vim'
 Plugin 'tpope/vim-pastie'
 Plugin 'mileszs/ack.vim'
@@ -16,15 +14,11 @@ Plugin 'jelera/vim-javascript-syntax.git'
 Plugin 'groenewege/vim-less'
 Plugin 'mustache/vim-mustache-handlebars.git'
 Plugin 'bling/vim-airline'
-Plugin 'terryma/vim-multiple-cursors.git'
 Plugin 'scrooloose/nerdcommenter.git'
-Plugin 'jnwhiteh/vim-golang'
-Plugin 'fatih/vim-go.git'
 Plugin 'tpope/vim-unimpaired.git'
 Plugin 'gorodinskiy/vim-coloresque.git'
 Plugin 'godlygeek/tabular.git'
 Plugin 'walm/jshint.vim.git'
-Plugin 'JarrodCTaylor/vim-js2coffee'
 Plugin 'pangloss/vim-javascript.git'
 Plugin 'maksimr/vim-jsbeautify.git'
 Plugin 'tpope/vim-surround.git'
@@ -42,7 +36,7 @@ set nocompatible
 
 " Set syntax highlighting options.
 set t_Co=256
-set background=light
+set background=dark
 syntax on
 colorscheme hemisu
 " colorscheme molokai
@@ -370,8 +364,7 @@ imap kk <Esc>
 imap ii <Esc>
 
 " Coffee
-map <leader>co :CoffeeBuffer2JS<CR>
-map <leader>cs :CoffeeSelection2JS<CR>
+map <leader>co :CoffeeCompile<CR>
 
 " fugitive
 map <leader>gs :Gstatus<CR>
