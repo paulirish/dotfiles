@@ -1,4 +1,5 @@
-PATH=/usr/local/bin:${PATH}:./vendor/bin:~/.composer/vendor/bin
+PATH=/usr/local/sbin:${PATH}:./vendor/bin:~/.composer/vendor/bin
+PATH={$PATH}:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
 # Git credentials
 GIT_AUTHOR_NAME="Troy Harvey"
@@ -9,3 +10,9 @@ GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/troyharvey/google-cloud-sdk/path.bash.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/troyharvey/google-cloud-sdk/completion.bash.inc'
