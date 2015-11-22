@@ -27,21 +27,20 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'groenewege/vim-less'
 Plugin 'tpope/vim-fugitive'
 Plugin 'chase/vim-ansible-yaml'
-Plugin 'SirVer/ultisnips'
-Plugin 'tomtom/vimtlib'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'garbas/vim-snipmate'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'joonty/vdebug'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'editorconfig/editorconfig-vim'
+"Plugin 'editorconfig/editorconfig-vim'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'jelera/vim-javascript-syntax'
+"Plugin 'jelera/vim-javascript-syntax'
 Plugin 'gregsexton/gitv'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mattn/emmet-vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'msanders/snipmate.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -79,24 +78,13 @@ set foldlevel=99
 set foldnestmax=2
 nnoremap <space> zA
 vnoremap <space>:x zA
-au BufRead * normal zR
 
 " When opening the file, unfold all. Fold all with zM
-" au BufRead * normal zR
+au BufRead * normal zR
 
 " Simplyfold
 " =========
 let g:SimpylFold_docstring_preview=1
-
-" UltiSnips
-" =========
-set runtimepath+=~/.vim/bundle/UltiSnips
-set runtimepath+=~/.vim/ulti_snippets
-let g:UltiSnipsSnippetsDir = "~/.vim/ulti_snippets/"
-let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'ulti_snippets']
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Tagbar
 " ======
@@ -120,7 +108,6 @@ set wildignore+=*/coverage/*
 set nobackup
 set nowritebackup
 set noswapfile
-
 
 " make yank copy to the global system clipboard
 set clipboard=unnamed
@@ -282,4 +269,17 @@ function! StripWhitespace()
     call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
+
+" Emmet settings
+let g:user_emmet_mode='in'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+" Typescript settings
+let g:typescript_compiler_options = '-sourcemap'
+
+" Compilesettings
+map <Leader>j :make<CR>
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
