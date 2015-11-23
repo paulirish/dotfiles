@@ -20,7 +20,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
 Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+"Plugin 'mxw/vim-jsx'
 Plugin 'klen/python-mode'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'plasticboy/vim-markdown'
@@ -41,6 +41,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'msanders/snipmate.vim'
+Plugin 'dkprice/vim-easygrep'
 
 call vundle#end()
 filetype plugin indent on
