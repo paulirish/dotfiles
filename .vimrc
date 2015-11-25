@@ -50,7 +50,7 @@ syntax on
 set showcmd
 
 set list
-set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
+set listchars=space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
