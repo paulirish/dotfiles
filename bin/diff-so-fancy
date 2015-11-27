@@ -15,7 +15,7 @@
 #   git diff | diff-highlight | diff-so-fancy
 #
 # Add to .gitconfig so all `git diff` uses it.
-#   git config --global core.pager "bash -lc 'diff-highlight | diff-so-fancy | less -r'
+#   git config --global core.pager "diff-highlight | diff-so-fancy | less -r"
 ###############
 
 
