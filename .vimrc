@@ -7,7 +7,7 @@ filetype off
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+"autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -32,7 +32,6 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'joonty/vdebug'
 Plugin 'jiangmiao/auto-pairs'
-"Plugin 'editorconfig/editorconfig-vim'
 Plugin 'tmhedberg/SimpylFold'
 "Plugin 'jelera/vim-javascript-syntax'
 Plugin 'gregsexton/gitv'
@@ -203,7 +202,7 @@ nmap Q gqap
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+"map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Settings for vim-markdown
 " ==========================
@@ -236,6 +235,9 @@ map <Leader>a ggVG  " select all
 nmap ;s  :set invspell spelllang=en<CR>
 nnoremap <F6> <C-W>w
 map <F7> :tabnext<CR>
+map <F8> :tabnew<CR>
+
+map <Leader>b :CtrlPBuffer<CR>
 
 " Fixing the copy & paste madness
 " ================================
