@@ -7,7 +7,6 @@ filetype off
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -20,7 +19,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
 Plugin 'pangloss/vim-javascript'
-"Plugin 'mxw/vim-jsx'
 Plugin 'klen/python-mode'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'plasticboy/vim-markdown'
@@ -64,7 +62,6 @@ set grepprg=ack\ -k
 " ==========
 let jshint2_save = 1
 let g:syntastic_javascript_checkers = ['eslint']
-let g:jsx_ext_required = 0
 set smarttab
 set cindent
 
@@ -238,6 +235,7 @@ map <F7> :tabnext<CR>
 map <F8> :tabnew<CR>
 
 map <Leader>b :CtrlPBuffer<CR>
+map <Leader>x :qa<CR>
 
 " Fixing the copy & paste madness
 " ================================
@@ -248,7 +246,7 @@ imap <C-v> <Esc><C-v>a
 " =========================
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
-map <Leader>x :%s/\s\+$//
+"map <Leader>x :%s/\s\+$//
 
 " Color scheme
 " =============
