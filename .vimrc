@@ -42,6 +42,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'msanders/snipmate.vim'
 Plugin 'dkprice/vim-easygrep'
+Plugin 'sgur/vim-editorconfig'
 
 call vundle#end()
 filetype plugin indent on
