@@ -40,6 +40,7 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'msanders/snipmate.vim'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'sgur/vim-editorconfig'
+Plugin 'myhere/vim-nodejs-complete'
 
 call vundle#end()
 filetype plugin indent on
