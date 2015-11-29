@@ -7,12 +7,18 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Dropbox"
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
+alias d="cd ~/Downloads"
 alias p="cd ~/Projects"
+alias dotfiles="cd ~/Projects/dotfiles"
 alias g="git"
 alias h="history"
+
+# Projects
+alias accounts="cd ~/Projects/g-accounts"
+alias events="cd ~/Projects/g-events"
+alias media="cd ~/Projects/g-media"
+alias products="cd ~/Projects/products"
+alias ui="cd ~/Projects/gen-tux-ui"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -39,6 +45,7 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 alias c="composer"
 alias cda="composer dump-autoload"
 alias art="php artisan"
+alias mrs="php artisan migrate:refresh --seed"
 
 # GIT STUFF
 
@@ -53,7 +60,7 @@ alias gf="git fetch"
 alias gpo="git push origin"
 alias gpod="git pull origin develop"
 alias gs="git status"
-
+alias gne="git commit --amend --no-edit"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '

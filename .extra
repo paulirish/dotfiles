@@ -16,3 +16,7 @@ source '/Users/troyharvey/google-cloud-sdk/path.bash.inc'
 
 # The next line enables shell command completion for gcloud.
 source '/Users/troyharvey/google-cloud-sdk/completion.bash.inc'
+
+# Node.js NVM
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
