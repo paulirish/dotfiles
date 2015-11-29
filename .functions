@@ -199,8 +199,8 @@ function combine_recursive_mp3() {
 }
 
 function coreos() {
-  cd '/Volumes/Macintosh HD 2/VMWare/coreos_production_vmware_insecure'
-  ./run.sh
+  cd '/Volumes/Macintosh HD 2/VMWare/'
+  ./runCoreOS.sh
 }
 
 function free() {
