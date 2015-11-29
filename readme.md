@@ -1,27 +1,19 @@
-# Troy's dotfiles... a fork of Paul's... a fork of Mathias'...
+# dotfiles
 
-## Installation
+![](http://i.giphy.com/KCh9Kkf2MILK0.gif)
 
-1. Follow [these instructions](http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/) to install Git, Ruby, and RVM.
+## Usage
 
-2. Clone this repo
+1. Prompt, bash completion, bash aliases, etc.
 
-```bash
-git clone https://github.com/troyharvey/dotfiles.git
-```
+    ./bootstrap.sh
 
-3. Run the bootstrap shell script
+> To update later on, just run that command again.
 
-```bash
-cd dotfiles && ./bootstrap.sh
-```
+2. Homebrew packages.
 
-To update later on, just run that command again.
+    ./brew.sh
 
-## Sensible OS X defaults
+3. OSX defaults.
 
-When setting up a new Mac, you may want to set some sensible OS X defaults:
-
-```bash
-./.osx
-```
+    ./.osx
