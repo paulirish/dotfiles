@@ -60,6 +60,8 @@ brew install node
 # PHP dev tools
 brew install php56 --with-postgresql --with-gmp
 brew install homebrew/php/php56-pdo-pgsql
+brew install memcached
+brew install php56-memcached
 brew install composer
 
 # Install font tools.
