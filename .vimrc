@@ -41,6 +41,7 @@ Plugin 'msanders/snipmate.vim'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'sgur/vim-editorconfig'
 Plugin 'myhere/vim-nodejs-complete'
+Plugin 'AndrewRadev/switch.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -237,6 +238,7 @@ map <F8> :tabnew<CR>
 
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>x :qa<CR>
+map <Leader>sw :Switch<CR>
 
 " Fixing the copy & paste madness
 " ================================
