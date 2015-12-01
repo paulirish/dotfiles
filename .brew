@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# install homebrew with the following command from the terminal prompt
+# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 # Make sure we’re using the latest Homebrew
 brew update
 
@@ -11,8 +14,10 @@ brew install coreutils
 echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
-# Install Bash 4
+
+# Install Bash 4 and ZShell
 brew install bash
+brew install zshell
 
 # Install wget with IRI support
 brew install wget --enable-iri
@@ -21,12 +26,21 @@ brew install wget --enable-iri
 brew tap homebrew/dupes
 brew install homebrew/dupes/grep
 brew tap josegonzalez/homebrew-php
+brew install macvim
 
 # Install everything else
 brew install ack
 brew install git
+brew install tig
 brew install rename
 brew install tree
+
+brew install reatach-to-user-namespace
+brew install tmux
+
+brew install httpie
+brew install htop-osx
+brew install source-highlight
 
 # Remove outdated versions from the cellar
 brew cleanup
