@@ -236,8 +236,9 @@ nnoremap <F6> <C-W>w
 map <F7> :tabnext<CR>
 map <F8> :tabnew<CR>
 
+map <Leader>x :x<CR>
 map <Leader>b :CtrlPBuffer<CR>
-map <Leader>x :qa<CR>
+map <Leader>xa :qa<CR>
 map <Leader>sw :Switch<CR>
 
 " Fixing the copy & paste madness
