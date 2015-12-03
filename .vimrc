@@ -291,3 +291,9 @@ map <Leader>j :make<CR>
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
+"Easygrep settings
+let g:EasyGrepMode=2
+let g:EasyGrepCommand=1
+let g:EasyGrepFilesToExclude=".svn,.git,node_modules,bower,bower_components"
+let g:EasyGrepRecursive=1
+let g:EasyGrepIgnoreCase=1
