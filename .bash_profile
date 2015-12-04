@@ -6,7 +6,10 @@ done
 unset file
 
 # init rvm
-source ~/.rvm/scripts/rvm
+if [ -f "~/.rvm/scripts/rvm" ]
+then
+  source ~/.rvm/scripts/rvm
+fi
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
