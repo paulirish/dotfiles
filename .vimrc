@@ -58,7 +58,8 @@ let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-set grepprg=ack\ -k
+set grepprg=ack\ --nogroup\ --column\ --ignore-dir=bower\ --ignore-dir=node_modules\ $*
+set grepformat=%f:%l:%c:%m
 
 " Javascript
 " ==========
