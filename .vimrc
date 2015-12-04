@@ -42,6 +42,7 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'sgur/vim-editorconfig'
 Plugin 'myhere/vim-nodejs-complete'
 Plugin 'AndrewRadev/switch.vim'
+Plugin 'tpope/vim-dispatch'
 
 call vundle#end()
 filetype plugin indent on
