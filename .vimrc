@@ -77,7 +77,7 @@ let delimitMate_expand_cr = 1
 " =========================
 set foldmethod=indent
 set foldlevel=99
-set foldnestmax=2
+set foldnestmax=6
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
