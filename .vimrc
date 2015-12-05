@@ -78,8 +78,8 @@ let delimitMate_expand_cr = 1
 set foldmethod=indent
 set foldlevel=99
 set foldnestmax=2
-nnoremap <space> zA
-vnoremap <space>:x zA
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " When opening the file, unfold all. Fold all with zM
 au BufRead * normal zR
