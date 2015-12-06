@@ -236,3 +236,7 @@ function turnAppleKeyRepeatOff() {
 function turnAppleKeyRepeatOn() {
   defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 }
+
+function findCode() {
+  ack "$1" -i --column --ignore-dir=node_modules --ignore-dir=jspm_packages --ignore-dir=bower_components --ignore-dir=dist $2
+}
