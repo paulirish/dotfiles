@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-# ~/.osx — https://mths.be/osx
+# ~/.osx
+# paul's slight fork of https://mths.be/osx
+
+
+# FWIW, this `defaults find` is good at finding some set preferences.
+# e.g.    defaults find com.apple.ActivityMonitor
+
 
 # Ask for the administrator password upfront
 sudo -v
@@ -81,8 +87,8 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
-# Disable automatic termination of inactive apps
-defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+# Edit: ALLOW automatic termination of inactive apps
+defaults write NSGlobalDomain NSDisableAutomaticTermination -bool false
 
 # Disable the crash reporter
 #defaults write com.apple.CrashReporter DialogType -string "none"
