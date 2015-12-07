@@ -56,6 +56,9 @@ alias dig="dig +nocmd any +multiline +noall +answer"
 # Recursively delete `.DS_Store` files
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
+alias diskspace_report="df -P -kHl"
+alias free_diskspace_report="diskspace_report"
+
 # Shortcuts
 alias g="git"
 alias v="vim"
