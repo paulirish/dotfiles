@@ -64,6 +64,11 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 *COPYRIGHT            38;5;220;1
 *AUTHORS              38;5;220;1
 *HISTORY              38;5;220;1
+*CONTRIBUTORS         38;5;220;1
+*PATENTS              38;5;220;1
+*VERSION              38;5;220;1
+*NOTICE               38;5;220;1
+*CHANGES              38;5;220;1
 .log                  38;5;190
 # plain-text {{{2
 .txt                  38;5;253
@@ -97,6 +102,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .doc                  38;5;111
 .docx                 38;5;111
 .eps                  38;5;111
+.ps                   38;5;111
 .odb                  38;5;111
 .odt                  38;5;111
 # presentation {{{3
@@ -171,6 +177,8 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .lisp                 38;5;81
 #   lua
 .lua                  38;5;81
+#   Moonscript
+.moon                 38;5;81
 #   C
 .c                    38;5;81
 .C                    38;5;81
@@ -192,6 +200,10 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .cp                   38;5;81
 .cpp                  38;5;81
 .cxx                  38;5;81
+#   Crystal
+.cr                   38;5;81
+#   Google golang
+.go                   38;5;81
 #   fortran
 .f                    38;5;81
 .for                  38;5;81
@@ -199,6 +211,8 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 #   pascal
 .s                    38;5;110
 .S                    38;5;110
+#   Rust
+.rs                   38;5;81
 #   ?
 .sx                   38;5;81
 #   interface file in GHC - https://github.com/trapd00r/LS_COLORS/pull/9
@@ -250,6 +264,9 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # automake
 .am                   38;5;242
 .in                   38;5;242
+.hin                  38;5;242
+.scan                 38;5;242
+.m4                   38;5;242
 .old                  38;5;242
 .out                  38;5;242
 .SKIP                 38;5;244
@@ -264,7 +281,6 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .TIFF                 38;5;97
 .cdr                  38;5;97
 .gif                  38;5;97
-.go                   38;5;97
 .ico                  38;5;97
 .jpeg                 38;5;97
 .JPG                  38;5;97
@@ -511,6 +527,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .BUP                  38;5;241
 .bak                  38;5;241
 .o                    38;5;241 #   *nix Object file (shared libraries, core dumps etc)
+.rlib                 38;5;241 #   Static rust library
 # temporary files
 .swp                  38;5;244
 .swo                  38;5;244
