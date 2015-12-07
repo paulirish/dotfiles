@@ -14,9 +14,9 @@ function grep     ; command grep --color=auto $argv ; end
 
 
 # mv, rm, cp
-alias mv 'command mv --interactive --verbose'
-alias rm 'command rm --interactive --verbose'
-alias cp 'command cp --interactive --verbose'
+alias mv 'command gmv --interactive --verbose'
+alias rm 'command grm --interactive --verbose'
+alias cp 'command gcp --interactive --verbose'
 
 
 alias cask='brew cask' # i <3 u cask
