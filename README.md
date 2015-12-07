@@ -10,7 +10,7 @@
 * fork this to your own acct
 * clone that repo
 * read and run parts of `setup-a-new-machine.sh`
-* read and run `symlink-setup.sh` 
+* read and run `symlink-setup.sh`
   * git config needs attention, read the notes.
 * use it. yay!
 
@@ -28,11 +28,11 @@
 So many goodies.
 
 ### The "readline config" (`.inputrc`)
-Basically it makes typing into the prompt amazing.  
+Basically it makes typing into the prompt amazing.
 
 * tab like crazy for autocompletion that doesnt suck. tab all the things. srsly.
 * no more <tab><tab> that says "Display all 1745 possibilities? (y or n)" YAY
-* type `cat <uparrow>` to see your previous `cat`s and use them.  
+* type `cat <uparrow>` to see your previous `cat`s and use them.
 * case insensitivity.
 * tab all the livelong day.
 
@@ -55,7 +55,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 ## overview of files
 
 ####  Automatic config
-* `.ackrc` - for ack (better than grep)
+* `.sift.conf` - sift (faster than grep, ack, ag)
 * `.vimrc`, `.vim` - vim config, obv.
 * `.inputrc` - behavior of the actual prompt line
 
@@ -85,7 +85,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 
 There will be items that don't belong to be committed to a git repo, because either 1) it shoudn't be the same across your machines or 2) it shouldn't be in a git repo. Kick it off like this:
 
-`touch ~/.extra && $EDITOR $_` 
+`touch ~/.extra && $EDITOR $_`
 
 I have some EXPORTS, my PATH construction, and a few aliases for ssh'ing into my servers in there.
 

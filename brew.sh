@@ -25,7 +25,9 @@ brew install bash
 # regular bash-completion package is held back to an older release, so we get latest from versions.
 #   github.com/Homebrew/homebrew/blob/master/Library/Formula/bash-completion.rb#L3-L4
 brew tap homebrew/versions
-brew install homebrew/versions/bash-completion2
+brew install bash-completion2
+
+brew install homebrew/completions/brew-cask-completion
 
 # generic colouriser  http://kassiopeia.juls.savba.sk/~garabik/software/grc/
 brew install grc
@@ -56,7 +58,7 @@ brew install mtr
 
 
 # Install other useful binaries
-brew install ack
+brew install sift
 brew install git
 brew install imagemagick --with-webp
 brew install node # This installs `npm` too using the recommended installation method
