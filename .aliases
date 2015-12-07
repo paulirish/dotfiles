@@ -7,48 +7,39 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+# mv, rm, cp
+alias mv='mv -v'
+alias rm='rm -i -v'
+alias cp='cp -v'
 
-alias rm="rm -i"  # safety first
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
 alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
+
+###
+# time to upgrade `ls`
+
 # use coreutils `ls` if possible…
 hash gls >/dev/null 2>&1 || alias gls="ls"
 
-# Detect which `ls` flavor is in use
-if gls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
-else # OS X `ls`
-	colorflag="-G"
-fi
+# always use color, even when piping (to awk,grep,etc)
+if gls --color > /dev/null 2>&1; then colorflag="--color"; else colorflag="-G"; fi;
+export CLICOLOR_FORCE=1
 
-# ls options: F = put `/` after folders, h = byte unit suffixes, color! (even with piping to awk)
-alias ls='CLICOLOR_FORCE=1 gls -aFh ${colorflag} --group-directories-first'
-
-# List ALL files (colorized() in long format, show permissions in octal
-alias la="ls -l | awk '
-{
-  k=0;
-  for (i=0;i<=8;i++)
-    k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));
-  if (k)
-    printf(\"%0o \",k);
-  printf(\" %9s  %3s %2s %5s  %6s  %s %s %s\n\", \$3, \$6, \$7, \$8, \$5, \$9,\$10, \$11);
-}'"
-
-# List only directories
-alias lsd='ls -l | grep "^d"'
+# ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
+alias ls='gls -AFh ${colorflag} --group-directories-first'
+alias lsd='ls -l | grep "^d"' # only directories
+#    `la` defined in .functions
+###
 
 
-
-# `cat` with beautiful colors. requires Pygments installed.
-# 							   sudo easy_install -U Pygments
+# `cat` with beautiful colors. requires: sudo easy_install -U Pygments
 alias c='pygmentize -O style=monokai -f console256 -g'
 
+###
 # GIT STUFF
 
 # Undo a `git push`
