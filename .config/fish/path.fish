@@ -1,11 +1,20 @@
 
-# grab my many PATH from my ~/.extra file
-set -l PATH_DIRS (cat ~/.extra | grep "^PATH" | sed "s/PATH=//" | sed "s/\\\$PATH://")
+# Grab my $PATHs from ~/.extra
+set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
+    # clean up bash PATH setting pattern
+    sed "s/PATH=//" | sed "s/\\\$PATH://" | \
+    # rewrite ~/ to use {$HOME}
+    sed "s/~\//{\$HOME}\//")
 
-for path_dir in (string split \n $PATH_DIRS)
- 	if test -d "$path_dir"
-    	set path_string $path_dir $path_string
-  	end
+
+set -l PA ""
+
+for entry in (string split \n $PATH_DIRS)
+    # resolve the {$HOME} substitutions
+    set -l resolved_path (eval echo $entry)
+    if test -d "$resolved_path"; # and not contains $resolved_path $PATH
+        set -x PA $PA "$resolved_path"
+    end
 end
 
-
+set -x PATH $PA
