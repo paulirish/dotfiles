@@ -55,7 +55,7 @@
     "space-before-function-paren": [2, "never"],
     "space-in-parens": [2, "never"],
     "spaced-line-comment": [2, "always"],
-    "strict": [2, "never"],
+    // "strict": [2, "never"],
     "use-isnan": 2,
     "valid-jsdoc": [2, {
         "prefer": { "returns": "return" },
