@@ -43,6 +43,7 @@ Plugin 'sgur/vim-editorconfig'
 Plugin 'myhere/vim-nodejs-complete'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-dispatch'
+Plugin 'terryma/vim-multiple-cursors'
 
 call vundle#end()
 filetype plugin indent on
