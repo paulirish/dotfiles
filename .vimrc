@@ -44,6 +44,7 @@ Plugin 'myhere/vim-nodejs-complete'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -281,6 +282,10 @@ function! StripWhitespace()
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
 " Emmet settings
 let g:user_emmet_mode='in'
 let g:user_emmet_install_global = 0
@@ -300,3 +305,12 @@ let g:EasyGrepCommand=1
 let g:EasyGrepFilesToExclude=".svn,.git,node_modules,bower,bower_components"
 let g:EasyGrepRecursive=1
 let g:EasyGrepIgnoreCase=1
+
+"Syntastic settings
+let g:syntastic_javascript_checkers = ['eslint', 'jshint']
+let g:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+
