@@ -200,13 +200,6 @@ set number
 vmap Q gq
 nmap Q gqap
 
-" Settings for jedi-vim
-" =====================
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-"map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
 " Settings for vim-markdown
 " ==========================
 " let g:vim_markdown_folding_disabled=1
