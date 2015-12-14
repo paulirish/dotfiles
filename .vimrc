@@ -92,7 +92,7 @@ let g:SimpylFold_docstring_preview=1
 
 " Tagbar
 " ======
-nmap <F8> :TagbarToggle<CR>
+nmap <F9> :TagbarToggle<CR>
 
 " General option
 " ===============
