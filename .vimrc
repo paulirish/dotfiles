@@ -136,13 +136,13 @@ inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 " ****** Mappings ****
-nmap <C-j> ddp " Move line down
-nmap <C-k> ddkP " Move line up"
+noremap <C-j> ddp " Move line down
+noremap <C-k> ddkP " Move line up"
 
 " Quicksave command
 noremap <Leader>w :update<CR>
 vnoremap <Leader>w <C-C>:update<CR>
-inoremap <Leader>w <C-O>:update<CR>
+inoremap <Leader>w <ESC>:update<CR>
 
 " Quick quit command
 noremap <Leader>e :quit<CR>
