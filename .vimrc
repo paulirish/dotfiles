@@ -152,7 +152,7 @@ noremap <Leader>t :NERDTreeToggle<CR>
 inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
 
-noremap <C-S-l> :NERDTreeFind<CR>
+noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
 " Bind nohl
 noremap <Leader>h :nohl<CR>
