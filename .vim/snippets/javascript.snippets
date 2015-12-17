@@ -78,3 +78,25 @@ snippet get
 # Get Element
 snippet gett
 	getElementBy${1:Id}('${2}')${3}
+# Describe
+snippet desc
+	describe('${1}', () => {
+	  ${2}
+	});
+snippet when
+	describe('When ${1}', () => {
+	  ${2}
+	});
+# BeforeEach
+snippet before
+	beforeEach(() => {
+	  ${1}
+	});
+# it
+snippet it
+	it('Should ${1}', () => {
+	  ${2}
+	});
+# strict
+snippet strict
+	'use strict';${1}
