@@ -408,3 +408,5 @@ endfunction
 
 map <leader>se :call ShowEmojis()<CR>
 map <leader>em :call CompileEmojis()<CR>
+
+map <leader>jsh :JSHint<CR>
