@@ -159,7 +159,7 @@ function findandremove() {
 }
 
 function findmp3andremove() {
-  find -E . -regex '^.*\([1-9]\).mp3$' -exec rm -rf {} \;
+  find -E . -regex '^.+\([1-9]+\).mp3$' -exec rm -rf {} \;
 }
 
 function get-nodejs-version() {
