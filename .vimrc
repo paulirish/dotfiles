@@ -238,6 +238,25 @@ map <Leader>b :CtrlPBuffer<CR>
 map <Leader>xa :qa<CR>
 map <Leader>sw :Switch<CR>
 
+" delete surrounding characters
+noremap ds{ F{xf}x
+noremap cs{ F{xf}xi
+noremap ds" F"x,x
+noremap cs" F"x,xi
+noremap ds' F'x,x
+noremap cs' F'x,xi
+noremap ds( F(xf)x
+noremap cs( F(xf)xi
+noremap ds) F(xf)x
+noremap cs) F(xf)xi
+
+"quick pairs
+imap <leader>' ''<ESC>i
+imap <leader>" ""<ESC>i
+imap <leader>( ()<ESC>i
+imap <leader>[ []<ESC>i
+imap <leader>{ {}<ESC>i
+
 " Fixing the copy & paste madness
 " ================================
 vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
