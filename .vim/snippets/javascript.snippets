@@ -80,21 +80,21 @@ snippet gett
 	getElementBy${1:Id}('${2}')${3}
 # Describe
 snippet desc
-	describe('${1}', () => {
+	describe('${1}', function() {
 	  ${2}
 	});
 snippet when
-	describe('When ${1}', () => {
+	describe('When ${1}', function() {
 	  ${2}
 	});
 # BeforeEach
 snippet before
-	beforeEach(() => {
+	beforeEach(function() {
 	  ${1}
 	});
 # it
 snippet it
-	it('Should ${1}', () => {
+	it('Should ${1}', function() {
 	  ${2}
 	});
 # strict
