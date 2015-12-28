@@ -12,6 +12,7 @@ alias p="cd ~/Projects"
 alias dotfiles="cd ~/Projects/dotfiles"
 alias g="git"
 alias h="history"
+alias hosts="cat /etc/hosts"
 
 # Projects
 alias accounts="cd ~/Projects/g-accounts"

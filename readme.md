@@ -7,10 +7,12 @@
     ```bash
     ./bootstrap.sh
     ```
-2. Homebrew packages.
+2. Additional packages.
 
     ```bash
     ./brew.sh
+    ./npm.sh
+    ./pip.sh
     ```
 3. OSX defaults.
 

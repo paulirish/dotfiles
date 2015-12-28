@@ -20,3 +20,6 @@ source '/Users/troyharvey/google-cloud-sdk/completion.bash.inc'
 # Node.js NVM
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
+
+# Python, virtualenvwrapper
+export WORKON_HOME=~/Envs

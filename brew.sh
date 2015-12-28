@@ -57,6 +57,9 @@ brew install homebrew/dupes/screen
 brew install nvm
 brew install node
 
+# Python dev tools
+brew install python
+
 # PHP dev tools
 brew install php56 --with-postgresql --with-gmp
 brew install homebrew/php/php56-pdo-pgsql
