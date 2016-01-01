@@ -55,6 +55,7 @@ alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup 
 
 alias gs="git status"
 alias gc="git commit -m "
+alias gp="git pull"
 alias ts="tig status"
 
 # IP addresses
