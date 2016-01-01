@@ -207,10 +207,15 @@ snippet html5
 	<!DOCTYPE html>
 	<html>
 	<head>
-		<title>$1</title>
+		<title>${1}</title>
 		<link rel="stylesheet" href="/css/style.css">
 	</head>
 	<body>
-	$3
+	${2}
 	</body>
 	</html>
+snippet template
+	<template>${1}</template>
+snippet require
+	<require from="${1}">${2}</require>
+
