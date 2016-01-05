@@ -30,6 +30,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'sotte/presenting.vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'junegunn/vim-emoji'
+Plugin 'leafgarland/typescript-vim'
 call vundle#end()
 filetype plugin indent on
 
