@@ -67,6 +67,10 @@ brew install memcached
 brew install php56-memcached
 brew install composer
 
+# Go dev tools
+brew install go
+brew install hugo
+
 # Install font tools.
 brew tap bramstein/webfonttools
 brew install sfnt2woff

@@ -23,3 +23,7 @@ source $(brew --prefix nvm)/nvm.sh
 
 # Python, virtualenvwrapper
 export WORKON_HOME=~/Envs
+
+# Go
+export GOPATH=$HOME/work
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
