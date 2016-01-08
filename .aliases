@@ -110,7 +110,7 @@ alias v="vim"
 alias cls='clear'
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edpr='subl ~/.bash_profile'
-alias edit='subl'
+alias edit='vim'
 alias rd='rm -rf' # Remove directories without asking me
 alias rm='rm -f' # Remove files without asking me
 
