@@ -228,6 +228,13 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 map <Leader>a ggVG  " select all
 
+" resize window with leader key 
+" (it's still possible with ctrl+w +/- or ctrl+w </> )
+map <Leader>vi :vertical resize +10<CR>
+map <Leader>vd :vertical resize -10<CR>
+map <Leader>hi :resize +10<CR>
+map <Leader>hd :resize -10<CR>
+
 nmap ;s  :set invspell spelllang=en<CR>
 nnoremap <F6> <C-W>w
 map <F7> :tabnext<CR>
