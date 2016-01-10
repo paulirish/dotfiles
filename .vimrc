@@ -21,7 +21,7 @@ Plugin 'bling/vim-airline'
 Plugin 'pangloss/vim-javascript'
 "Plugin 'klen/python-mode'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'plasticboy/vim-markdown'
+"Plugin 'plasticboy/vim-markdown'
 Plugin 'groenewege/vim-less'
 Plugin 'tpope/vim-fugitive'
 Plugin 'chase/vim-ansible-yaml'
@@ -45,6 +45,7 @@ Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
+Plugin 'sjl/gundo.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -333,3 +334,7 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_html_tidy_ignore_errors=["is not recognized", "discarding unexpected", "proprietary attribute \"ng-"]
+
+" Keymapping for gundo
+nnoremap <C-u> :GundoToggle<CR>
+
