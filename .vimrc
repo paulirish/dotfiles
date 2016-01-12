@@ -46,6 +46,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'sjl/gundo.vim'
+Plugin 'MarcWeber/vim-addon-local-vimrc'
 
 call vundle#end()
 filetype plugin indent on
