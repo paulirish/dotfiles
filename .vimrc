@@ -68,7 +68,6 @@ set grepformat=%f:%l:%c:%m
 " Javascript
 " ==========
 let jshint2_save = 1
-let g:syntastic_javascript_checkers = ['eslint']
 set smarttab
 set cindent
 
