@@ -335,6 +335,18 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_html_tidy_ignore_errors=["is not recognized", "discarding unexpected", "proprietary attribute \"ng-"]
 
+" Function to toggle on/off the quickfixlist
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        Errors
+    endif
+endfunction
+
+nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
+
 " Keymapping for gundo
 nnoremap <C-u> :GundoToggle<CR>
 
