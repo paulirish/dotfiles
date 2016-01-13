@@ -1,7 +1,5 @@
 snippet clog
 	console.log(${1});${2}
-snippet console
-	console.log(${1});${2}
 # Prototype
 snippet proto
 	${1:class_name}.prototype.${2:method_name} =
@@ -106,3 +104,28 @@ snippet etb
 # expect.toEqual
 snippet ee
 	expect(${1}).${2}toEqual(${3});${4}
+
+snippet ctor
+	constructor(${1}) {
+	  ${2}
+	}
+
+snippet require
+	const ${1} = require('${2}');
+
+snippet component
+	import {Component} from 'angular2/core';
+	
+	@component({
+	  selector: '${1}',
+	..template: '${2}',
+	  directives: [${3}]
+	})
+	export class ${4} {
+	  constructor(${5}) {
+	    ${6}
+	  }
+	}
+
+snippet import
+	import {${1}) from '${2}';
