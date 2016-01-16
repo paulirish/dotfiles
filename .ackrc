@@ -7,6 +7,10 @@
 --ignore-dir=bower_components
 --ignore-dir=bower
 --ignore-dir=dist
+
+--ignore-file=match:scripts.js
+--ignore-file=match:vendor.js
+
 --sort-files
 --smart-case
 --context
