@@ -9,7 +9,7 @@
 --ignore-dir=dist
 
 --ignore-file=match:scripts.js
---ignore-file=match:vendor.js
+--ignore-file=match:vendor.*
 
 --sort-files
 --smart-case
