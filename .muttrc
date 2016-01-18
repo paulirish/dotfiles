@@ -82,3 +82,5 @@ color signature  red          default
 color status     yellow       blue
 color tilde      magenta      default
 color tree       magenta      default
+
+source ~/.muttrc.local
