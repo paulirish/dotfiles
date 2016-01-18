@@ -83,4 +83,8 @@ color status     yellow       blue
 color tilde      magenta      default
 color tree       magenta      default
 
+# View Special Formats
+set mailcap_path=~/.mailcap
+auto_view text/html # auto-render html inline mutt
+
 source ~/.muttrc.local
