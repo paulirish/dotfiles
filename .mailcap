@@ -1,0 +1,8 @@
+text/html; w3m  %s; nametemplate=%s.html
+#text/html; ~/.open_attachment.sh %s html 
+text/html; w3m -I %{charset} -dump %s; nametemplate=%s.html; copiousoutput
+application/pdf; ~/.open_attachment.sh %s pdf
+image/gif; ~/.open_attachment.sh %s gif
+image/png; ~/.open_attachment.sh %s png
+image/jpg; ~/.open_attachment.sh %s jpg
+image/jpeg; ~/.open_attachment.sh %s jpeg
