@@ -212,11 +212,6 @@ let g:ctrlp_custom_ignore = {
             \ 'dir': '\.git$\|node_modules$\|bower_components$\|\bower$\',
             \ 'file': '\.exe$\|\.so$'
             \ }
-" Movement
-" =========
-map <Leader>, <esc>:tabprevious<CR>
-map <Leader>. <esc>:tabnext<CR>
-vnoremap <Leader>s :sort<CR>
 
 " Custom mappings
 " ================
