@@ -43,6 +43,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'sjl/gundo.vim'
 Plugin 'hail2u/vim-css3-syntax'
+Plugin 'burnettk/vim-angular'
 
 call vundle#end()
 filetype plugin indent on
