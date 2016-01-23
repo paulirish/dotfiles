@@ -42,6 +42,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'sjl/gundo.vim'
+Plugin 'hail2u/vim-css3-syntax'
 
 call vundle#end()
 filetype plugin indent on
@@ -340,3 +341,8 @@ nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
 " Keymapping for gundo
 nnoremap <C-u> :GundoToggle<CR>
 
+" CSS3 fixes
+augroup VimCSS3Syntax
+  autocmd!
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
