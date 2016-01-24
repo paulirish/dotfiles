@@ -45,6 +45,8 @@ Plugin 'sjl/gundo.vim'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'burnettk/vim-angular'
 Plugin 'isRuslan/vim-es6'
+Plugin 'rizzatti/dash.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 filetype plugin indent on
@@ -348,3 +350,7 @@ augroup VimCSS3Syntax
   autocmd!
   autocmd FileType css setlocal iskeyword+=-
 augroup END
+
+" YouCompletMe settings
+let g:ycm_auto_trigger = 0
+let g:ycm_key_list_select_completion = ['<Down>'] " This setting is important since snipmate will not work with the default settings
