@@ -139,6 +139,7 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " ****** Mappings ****
 noremap <C-j> ddp " Move line down
 noremap <C-k> ddkP " Move line up"
+noremap <Leader>dd yyp " Duplicate the current line
 
 " Quicksave command
 noremap <Leader>w :update<CR>
