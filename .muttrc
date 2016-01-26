@@ -7,6 +7,7 @@ set imap_user = "baer.jan@gmail.com"
 set imap_pass = $my_pass
 set smtp_url = "smtps://baer.jan@gmail.com@smtp.gmail.com:465/"
 set smtp_pass = $my_pass
+set smtp_authenticators = 'gssapi:login'
 
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
