@@ -29,7 +29,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'joonty/vdebug'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'gregsexton/gitv'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mattn/emmet-vim'
 Plugin 'leafgarland/typescript-vim'
@@ -47,6 +46,7 @@ Plugin 'burnettk/vim-angular'
 Plugin 'isRuslan/vim-es6'
 Plugin 'rizzatti/dash.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/gv.vim'
 
 call vundle#end()
 filetype plugin indent on
