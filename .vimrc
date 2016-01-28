@@ -114,9 +114,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" make yank copy to the global system clipboard
-set clipboard=unnamed
-
 " Omnicomplete related stuff
 set completeopt=longest,menuone
 inoremap <c-space> <C-x><C-o>
