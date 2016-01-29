@@ -352,3 +352,12 @@ augroup END
 " YouCompletMe settings
 let g:ycm_auto_trigger = 0
 let g:ycm_key_list_select_completion = ['<Down>'] " This setting is important since snipmate will not work with the default settings
+
+" Use tig status direct from vim
+function! s:tig_status()
+  " Maybe it's necessary to go to the root directory of the current git
+  " repository.
+  !tig status
+endfunction
+map <C-G> :TigStatus<CR><CR>
+command! TigStatus call s:tig_status()
