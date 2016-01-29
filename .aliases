@@ -57,6 +57,8 @@ alias gs="git status"
 alias gc="git commit -m "
 alias gp="git pull"
 alias ts="tig status"
+alias gf="git fetch -p"
+alias gfp="git fp"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

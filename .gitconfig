@@ -18,6 +18,7 @@
   dt = difftool -y
   editconfig = config --global -e
   f = fetch -p
+  fp = !git fetch --prune && git pull
   ffs = flow feature start
   fff = flow feature finish -F
   ffr = flow feature rebase
