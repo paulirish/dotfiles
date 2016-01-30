@@ -56,8 +56,8 @@ plugins=(common-aliases git git-flow grunt gulp copyfile copydir dirhistory extr
 source $ZSH/oh-my-zsh.sh
 
 # https://github.com/olivierverdier/zsh-git-prompt
-source ~/.zsh-git-prompt/zshrc.sh
-PROMPT='%{$fg[yellow]%}%~%{$reset_color%} $(git_super_status) '
+#source ~/.zsh-git-prompt/zshrc.sh
+#PROMPT='%{$fg[yellow]%}%~%{$reset_color%} $(git_super_status) '
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
