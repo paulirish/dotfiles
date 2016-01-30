@@ -148,3 +148,5 @@ alias runTests=watchTests
 alias devmux='tmux -f ~/.dev.tmux.conf attach'
 alias tmuxexit='tmux kill-server'
 alias exitall=tmuxexit
+
+alias reload="source ~/.zshrc"
