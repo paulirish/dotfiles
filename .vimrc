@@ -17,7 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
-Plugin 'bling/vim-airline'
+Plugin 'Lokaltog/vim-powerline'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'groenewege/vim-less'
@@ -274,14 +274,16 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 set t_Co=256
 color desert
 
-map <Leader>v :source ~/.vimrc<CR>
+map <Leadeqr>v :source ~/.vimrc<CR>
 
 set guioptions=egmrt
 set background=light
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_powerline_fonts=0
+
+" Powerline settings
 set laststatus=2
+set guifont=Inconsolata\ for\ Powerline:h14
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+let g:Powerline_colorscheme = 'solarized256'
 
 " ***** Some useful functions *****
 
