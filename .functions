@@ -157,14 +157,14 @@ gifify() {
 }
 
 # docker functions
-docker_search() {
+function docker_search() {
   if [[ -n $1 ]]
   then
     docker ps -a | grep -i $1
   fi
 }
 
-docker_search_delete() {
+function docker_search_delete() {
   if [[ -n $1 ]]
   then
     docker ps -a | grep -i $1 | awk '{print $1}' | xargs docker stop
@@ -172,10 +172,14 @@ docker_search_delete() {
   fi
 }
 
-docker_remove_old() {
+function docker_remove_old() {
   docker ps -a | grep -i exited | awk '{print $1}' | xargs docker rm
 }
 
-docker_remove_none_images() {
+function docker_remove_none_images() {
   docker images | grep none | awk '{print $3}' | xargs docker rmi
+}
+
+function g_rand() {
+  git commit -m $(curl -s http://whatthecommit.com/index.txt)
 }
