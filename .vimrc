@@ -53,6 +53,8 @@ filetype plugin indent on
 syntax on
 set showcmd
 
+set cursorline " highlight current line
+
 set list
 set listchars=space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 
