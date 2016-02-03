@@ -51,7 +51,8 @@ call vundle#end()
 filetype plugin indent on
 
 syntax on
-set showcmd
+
+let loaded_matchparen = 1 " turns the automatic matching for ()[]{} of. Turn it on with DoMatchParen
 
 set cursorline " highlight current line
 
