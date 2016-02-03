@@ -153,6 +153,8 @@ noremap <Leader>t :NERDTreeToggle<CR>
 inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
 
+noremap <Leader>s :mksession!<CR> " Save current session reload with vim -S
+
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
 " Bind nohl
