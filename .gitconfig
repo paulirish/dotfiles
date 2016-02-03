@@ -93,7 +93,7 @@
 
 [merge]
   log = true
-  tool = kdiff3
+  tool = vimdiff
 
 [diff]
   tool = kdiff3
@@ -114,6 +114,9 @@
 [mergetool "sourcetree"]
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
+  keepBackup = false
+
+[mergetool "vimdiff"]
   keepBackup = false
 
 [push]
