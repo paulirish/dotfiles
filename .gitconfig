@@ -4,30 +4,24 @@
 	p = push
 	s = status -s
 	sclone = clone --depth=1
+	co = checkout
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	co = checkout
-
+	
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-	reup = rebase-update
-
-
-
-
-[color]
-	ui = always
-
+	reup = rebase-update # depot_tools specific
+	
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	# insanely beautiful diffs
 	pager = diff-highlight | diff-so-fancy | less -r
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+	
+# so much color
+[color]
+	ui = always
 [color "diff"]
 	meta = yellow bold
 	commit = green bold
@@ -35,21 +29,25 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-[color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
-[merge]
-	tool = opendiff
-
-
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = "red bold 52"
 	newNormal = "green bold"
 	newHighlight = "green bold 22"
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
 
-# rewrites
+# git mergetool
+[merge]
+	tool = opendiff
+
+# rewrites of repo paths
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	insteadOf = "git://github.com"
@@ -62,12 +60,7 @@
 	pushInsteadOf = "git://gist.github.com/"
 	pushInsteadOf = "https://gist.github.com/"
 
-
-# Any GitHub repo with my username should be checked out r/w by default
-# http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-
-[url "git@github.com:paulirish/"]
-  insteadOf = "git://github.com/paulirish/"
+# correct typos
 [help]
 	autocorrect = 1
 
@@ -75,14 +68,9 @@
 [push]
 	default = current
 
-
-
+# use separate file for username / github token / etc 
 [include]
-  # For username / github token / etc
   path = ~/.gitconfig.local
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+
 [init]
 	templatedir = ~/.git_template
