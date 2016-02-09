@@ -281,7 +281,7 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 set t_Co=256
 color desert
 
-map <Leadeqr>v :source ~/.vimrc<CR>
+map <Leader>v :source ~/.vimrc<CR>
 
 set guioptions=egmrt
 set background=light
