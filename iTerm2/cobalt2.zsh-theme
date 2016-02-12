@@ -71,23 +71,36 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)✝"
+    prompt_segment green default "%(!.%{%F{yellow}%}.)✝"
   fi
 }
 
-# Git: branch/detached head, dirty status
+#nd git status ${FLAGS} 2> /dev/null | tail -n1) Git: branch/detached head, dirty status
 prompt_git() {
-  local ref dirty
+  local ref dirty remote_status bgcolor
+
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
     ZSH_THEME_GIT_PROMPT_DIRTY='±'
+    ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE='+ '
+    ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE='- '
+    ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE='± '
+
+    remote_status=$(git_remote_status)
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
+
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black
+      bgcolor=yellow
     else
-      prompt_segment green black
+      bgcolor=green
     fi
-    echo -n "${ref/refs\/heads\// }$dirty"
+
+    if [[ -n $remote_status ]] then
+      bgcolor='yellow'
+    fi
+
+    prompt_segment $bgcolor black
+    echo -n "$remote_status${ref/refs\/heads\// }$dirty"
   fi
 }
 
