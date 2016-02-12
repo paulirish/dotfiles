@@ -1,0 +1,20 @@
+# el capitan makes crontab really hard.
+#   http://stackoverflow.com/questions/32781884/is-crontab-broken-on-osx-el-capitan
+#
+# env EDITOR=nano crontab -e
+#
+# see cron/ folder
+#    chmod +x *.sh
+
+#=====================================================================#
+# General                                                             #
+#=====================================================================#
+#  Min  |  Hour  |  Mday  |  Month  |  Wday  |  Command               #
+#=====================================================================#
+#  *       *        *        *         *        $HOME/bin/gmail.rb
+   0       3        *        *         *        $HOME/code/dotfiles/cron/daily-nighttime.sh
+   0       14       *        *         *        $HOME/code/dotfiles/cron/daily-daytime.sh
+   0       20       *        *         *        $HOME/code/dotfiles/cron/daily-daytime.sh
+#  */15    *        *        *         *        $HOME/bin/temp-help.sh
+#=====================================================================#
+
