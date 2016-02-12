@@ -55,7 +55,6 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 ## overview of files
 
 ####  Automatic config
-* `.sift.conf` - sift (faster than grep, ack, ag)
 * `.vimrc`, `.vim` - vim config, obv.
 * `.inputrc` - behavior of the actual prompt line
 
