@@ -4,6 +4,10 @@ autocmd! bufwritepost .vimrc source %
 set nocompatible
 filetype off
 
+" Activate the internal matchit plugin
+filetype plugin on
+runtime macros/matchit.vim
+
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
