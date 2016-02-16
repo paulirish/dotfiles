@@ -8,6 +8,8 @@ filetype off
 filetype plugin on
 runtime macros/matchit.vim
 
+set shell=zsh
+
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -233,7 +235,7 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 map <Leader>a ggVG  " select all
 
-" resize window with leader key 
+" resize window with leader key
 " (it's still possible with ctrl+w +/- or ctrl+w </> )
 map <Leader>vi :vertical resize +10<CR>
 map <Leader>vd :vertical resize -10<CR>
