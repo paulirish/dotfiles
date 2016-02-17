@@ -10,6 +10,7 @@ runtime macros/matchit.vim
 
 set shell=zsh
 
+
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -377,3 +378,6 @@ function! s:tig_status()
 endfunction
 map <C-G> :TigStatus<CR><CR>
 command! TigStatus call s:tig_status()
+
+" Tell vim where to find the tags file
+set tags+=tags
