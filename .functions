@@ -240,3 +240,7 @@ function findCode() {
 function createCTags() {
   /usr/local/bin/ctags -R --options=$HOME/.ctagsoptions
 }
+
+function removeOrigFiles() {
+  find . -iname '*.orig' -exec rm '{}' ';'
+}
