@@ -54,6 +54,7 @@ Plugin 'burnettk/vim-angular'
 Plugin 'isRuslan/vim-es6'
 Plugin 'rizzatti/dash.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-unimpaired.git'
 
 call vundle#end()
 filetype plugin indent on
