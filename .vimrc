@@ -165,10 +165,9 @@ noremap <Leader>s :mksession!<CR> " Save current session reload with vim -S
 
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
-" Bind nohl and turn it off by default
-noremap <Leader>nh :nohl<CR>
-noremap <Leader>h :set hls<CR>
-set nohls
+" Bind toggle hlsearch
+noremap <Leader>h :set hlsearch!<CR>
+noremap <silent> <ESC><ESC> :set hlsearch!<CR>
 
 set history=700
 set undolevels=700
