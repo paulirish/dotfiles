@@ -26,7 +26,7 @@
   ffp = flow feature publish
   frs = flow release start
   frp = flow release publish
-  frp = flow release track
+  frt = flow release track
   frf = flow release finish -Fmp
   featurecommits = cherry -v develop
   featurediff = diff develop..
