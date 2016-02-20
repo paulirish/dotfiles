@@ -8,8 +8,9 @@
 --ignore-dir=bower
 --ignore-dir=dist
 
---ignore-file=match:scripts.js
+--ignore-file=is:scripts.js
 --ignore-file=match:vendor.*
+--ignore-file=is:tags
 
 --sort-files
 --smart-case
