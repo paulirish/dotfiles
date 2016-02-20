@@ -1,4 +1,4 @@
 set mouse = true
 set tab-size = 2
 
-bind generic pp !git pull && git push
+bind generic p !git pp
