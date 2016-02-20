@@ -102,9 +102,9 @@
   path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
   trustExitCode = false
 
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path =
+[mergetool]
+  keepBackup = false
+  trustExitCode = true
 
 [mergetool "kdiff3"]
   path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
@@ -116,12 +116,12 @@
   trustExitCode = true
   keepBackup = false
 
-[mergetool "vimdiff"]
+[mergetool]
   keepBackup = false
+  trustExitCode = true
 
 [push]
   default = upstream
+
 [pull]
   rebase = true
-
-
