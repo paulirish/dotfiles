@@ -18,9 +18,9 @@ alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
+  colorflag="--color"
 else # OS X `ls`
-	colorflag="-G"
+  colorflag="-G"
 fi
 
 # List all files colorized in long format
@@ -56,9 +56,12 @@ alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup 
 alias gs="git status"
 alias gc="git commit -m "
 alias gp="git pull"
-alias ts="tig status"
+alias gpp="git pp"
+alias gfp="git fp"
 alias gf="git fetch -p"
 alias gfp="git fp"
+
+alias ts="tig status"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
