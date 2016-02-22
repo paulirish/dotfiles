@@ -244,3 +244,23 @@ function createCTags() {
 function removeOrigFiles() {
   find . -iname '*.orig' -exec rm '{}' ';'
 }
+
+# Some aliase to use fzf with git
+function gco() {
+  git checkout $(git branch --color=never | sort | fzf )
+}
+
+function gfft() {
+  branch=$(git branch -r --color=never | grep "origin/feature" | sed 's/origin\/feature\///' | sort | fzf ) || return
+  git fft $branch
+}
+
+function gffp() {
+  branch=$(git branch -r --color=never | grep "origin/feature" | sed 's/origin\/feature\///' | sort | fzf ) || return
+  git ffp $branch
+}
+
+function vimf() {
+  file=$(fzf) && vim "$file"
+}
+
