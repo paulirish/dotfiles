@@ -218,7 +218,7 @@ function watchTests() {
 }
 
 function git-purge() {
-  git fetch -p | git branch --merged | grep -v "\*" | grep -v "master" | grep -v "develop" | xargs -n 1 git branch -d
+  git fetch -p | git branch --merged --color=never | grep -v "\*" | grep -v "master" | grep -v "develop" | xargs -n 1 git branch -d
 }
 
 function gdiff() {
