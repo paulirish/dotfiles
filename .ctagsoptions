@@ -6,6 +6,7 @@
 --exclude=bower
 --exclude=bower_components
 --exclude=build
+--exclude=dist
 --exclude=*.min.js
 --exclude=scripts.js
 --exclude=vendor.js
