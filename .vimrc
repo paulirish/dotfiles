@@ -168,7 +168,7 @@ noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
 " Bind toggle hlsearch
 noremap <Leader>h :set hlsearch!<CR>
-noremap <silent> <ESC><ESC> :set hlsearch!<CR>
+noremap <silent> <BS> :set hlsearch!<CR>
 
 set history=700
 set undolevels=700
