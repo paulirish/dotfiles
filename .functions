@@ -256,7 +256,7 @@ function gfft() {
 }
 
 function gffp() {
-  branch=$(git branch -r --color=never | grep "origin/feature" | sed 's/origin\/feature\///' | sort | fzf ) || return
+  branch=$(git branch --color=never | grep "feature" | sed 's/feature\///' | sort | fzf ) || return
   git ffp $branch
 }
 
