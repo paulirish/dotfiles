@@ -323,6 +323,11 @@ imap <Leader>i <C-Y>,
 
 " Typescript settings
 let g:typescript_compiler_options = '-sourcemap'
+autocmd FileType typescript call s:typescript_filetype_settings()
+function! s:typescript_filetype_settings()
+  set makeprg=tsc
+endfunction
+autocmd BufNewFile,BufRead *.ts set syntax=typescript
 
 " Compilesettings
 map <Leader>j :make<CR>
