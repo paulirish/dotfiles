@@ -1,5 +1,6 @@
 --ignore-dir=log
 --ignore-dir=tmp
+--ignore-dir=.tmp
 --ignore-dir=vendor
 --ignore-dir=public/generated
 --ignore-dir=node_modules
