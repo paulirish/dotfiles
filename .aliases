@@ -112,10 +112,11 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # Some other Shortcuts
 alias v="vim"
+alias e="vim -c 'startinsert'"
+alias edit='vim'
 alias cls='clear'
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edpr='subl ~/.bash_profile'
-alias edit='vim'
 alias rd='rm -rf' # Remove directories without asking me
 alias rm='rm -f' # Remove files without asking me
 
