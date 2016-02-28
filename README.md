@@ -66,7 +66,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 * `.bashrc`
 * `.exports`
 * `.functions`
-* `.extra` - not included, explained above
+* `.extra` - not included, explained below
 
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
