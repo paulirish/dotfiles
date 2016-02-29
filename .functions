@@ -264,7 +264,7 @@ function vimf() {
   file=$(fzf) && vim "$file"
 }
 
-function showWeather() {
+function weather() {
   local location="${1:-Munich}"
   curl -4 http://wttr.in/$location
 }
