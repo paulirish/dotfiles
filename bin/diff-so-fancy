@@ -30,8 +30,8 @@
 #
 ###############
 
-# TODO:
-#   Put on NPM.
+# npm:
+#   npm install -g diff-so-fancy
 
 
 [ $# -ge 1 -a -f "$1" ] && input="$1" || input="-"
