@@ -374,7 +374,7 @@ augroup VimCSS3Syntax
 augroup END
 
 " YouCompletMe settings
-let g:ycm_auto_trigger = 0
+let g:ycm_auto_trigger = 1
 let g:ycm_key_list_select_completion = ['<Down>'] " This setting is important since snipmate will not work with the default settings
 
 " Use tig status direct from vim
