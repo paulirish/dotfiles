@@ -261,7 +261,7 @@ function gffp() {
 }
 
 function vimf() {
-  file=$(fzf) && vim "$file"
+  file=$(find . | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated\|.DS_Store' | fzf) && vim "$file"
 }
 
 function weather() {
