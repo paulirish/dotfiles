@@ -93,7 +93,7 @@
 
 [merge]
   log = true
-  tool = vimdiff
+  tool = kdiff3
 
 [diff]
   tool = kdiff3
