@@ -264,6 +264,10 @@ function vimf() {
   file=$(find . | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated\|.DS_Store' | fzf) && vim "$file"
 }
 
+function cdf() {
+  dir=$(find . -type d | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated' | fzf) && cd "$dir"
+}
+
 function weather() {
   local location="${1:-Munich}"
   curl -4 http://wttr.in/$location
