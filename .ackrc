@@ -10,6 +10,8 @@
 --ignore-dir=dist
 
 --ignore-file=is:scripts.js
+--ignore-file=is:c24.tpl.js
+--ignore-file=is:c24.css
 --ignore-file=match:vendor.*
 --ignore-file=is:tags
 
