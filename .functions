@@ -261,11 +261,11 @@ function gffp() {
 }
 
 function vimf() {
-  file=$(find . | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated\|.DS_Store' | fzf) && vim "$file"
+  file=$(find . | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated\|dist\|.DS_Store' | fzf) && vim "$file"
 }
 
 function cdf() {
-  dir=$(find . -type d | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated' | fzf) && cd "$dir"
+  dir=$(find . -type d | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|dist\|generated' | fzf) && cd "$dir"
 }
 
 function weather() {
