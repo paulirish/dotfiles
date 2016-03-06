@@ -251,12 +251,12 @@ function gco() {
 }
 
 function gfft() {
-  branch=$(git branch -r --color=never | grep "origin/feature" | sed 's/origin\/feature\///' | sort | fzf ) || return
+  branch=$(git-remote-releases | fzf ) || return
   git fft $branch
 }
 
 function gffp() {
-  branch=$(git branch --color=never | grep "feature" | sed 's/feature\///' | sort | fzf ) || return
+  branch=$(git-local-features | fzf ) || return
   git ffp $branch
 }
 
