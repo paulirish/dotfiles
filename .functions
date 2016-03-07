@@ -251,7 +251,7 @@ function gco() {
 }
 
 function gfft() {
-  branch=$(git-remote-releases | fzf ) || return
+  branch=$(git-remote-features | fzf ) || return
   git fft $branch
 }
 
