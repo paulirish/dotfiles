@@ -57,6 +57,7 @@ Plugin 'isRuslan/vim-es6'
 Plugin 'rizzatti/dash.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-unimpaired.git'
+Plugin 'Chiel92/vim-autoformat'
 
 call vundle#end()
 filetype plugin indent on
@@ -388,3 +389,6 @@ command! TigStatus call s:tig_status()
 
 " Tell vim where to find the tags file
 set tags+=tags
+
+" Hotkey for AutoFormat
+noremap <F3> :Autoformat<CR>
