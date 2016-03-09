@@ -93,10 +93,10 @@
 
 [merge]
   log = true
-  tool = kdiff3
+  tool = opendiff
 
 [diff]
-  tool = kdiff3
+  tool = opendiff
 
 [difftool "kdiff3"]
   path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
