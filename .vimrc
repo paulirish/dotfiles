@@ -318,16 +318,15 @@ endfunction
 " Emmet settings
 let g:user_emmet_mode='in'
 let g:user_emmet_install_global = 1
-"autocmd FileType html,css EmmetInstall
 imap <Leader>i <C-Y>,
 
 " Typescript settings
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 let g:typescript_compiler_options = '-sourcemap'
 autocmd FileType typescript call s:typescript_filetype_settings()
 function! s:typescript_filetype_settings()
   set makeprg=tsc
 endfunction
-autocmd BufNewFile,BufRead *.ts set syntax=typescript
 
 " Compilesettings
 map <Leader>j :make<CR>
@@ -344,6 +343,7 @@ let g:EasyGrepIgnoreCase=1
 "Syntastic settings
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
+let g:syntastic_javascript_tslint_exec = StrTrim(system('npm-which tslint'))
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
