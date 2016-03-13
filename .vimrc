@@ -165,10 +165,9 @@ noremap <Leader>e :quit<CR>
 noremap <Leader>t :NERDTreeToggle<CR>
 inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
+noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
 noremap <Leader>s :mksession!<CR> " Save current session reload with vim -S
-
-noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
 " Bind toggle hlsearch
 noremap <Leader>h :set hlsearch!<CR>
@@ -177,12 +176,12 @@ noremap <silent> <BS> :set hlsearch!<CR>
 set history=700
 set undolevels=700
 
-
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
+
 " disable formatting when pasting large chunks of code
 set pastetoggle=<F2>
 
