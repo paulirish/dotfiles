@@ -225,7 +225,7 @@ let g:vim_markdown_initial_foldlevel=1
 " ===================
 let g:ctrlp_max_height = 30
 let g:ctrlp_custom_ignore = {
-            \ 'dir': '\.git$\|node_modules$\|bower_components$\|bower$\|build$\|deploy$\',
+            \ 'dir': '\.git$\|node_modules$\|bower_components$\|bower$\|build$\|deploy$\|dist$\',
             \ 'file': '\.exe$\|\.so$'
             \ }
 
