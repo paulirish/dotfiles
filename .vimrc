@@ -223,11 +223,8 @@ let g:vim_markdown_initial_foldlevel=1
 
 " Settings for ctrlp
 " ===================
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --exclude-standard']
 let g:ctrlp_max_height = 30
-let g:ctrlp_custom_ignore = {
-            \ 'dir': '\.git$\|node_modules$\|bower_components$\|bower$\|build$\|deploy$\|dist$\',
-            \ 'file': '\.exe$\|\.so$'
-            \ }
 
 " Custom mappings
 " ================
