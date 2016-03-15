@@ -34,7 +34,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mattn/emmet-vim'
 Plugin 'leafgarland/typescript-vim'
@@ -225,6 +225,7 @@ let g:vim_markdown_initial_foldlevel=1
 " ===================
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --exclude-standard']
 let g:ctrlp_max_height = 30
+let g:ctrlp_compare_lim = 0
 
 " Custom mappings
 " ================
