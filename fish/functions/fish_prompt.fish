@@ -13,6 +13,9 @@ function _git_current_branch -d "Output git's current branch name"
   end ^/dev/null | sed -e 's|^refs/heads/||'
 end
 
+function fish_title --description 'Show current path (abbreviated) in iTerm tab title '
+   echo (prompt_pwd)
+end
 
 function fish_prompt --description 'Write out the prompt'
 
@@ -86,6 +89,7 @@ function fish_prompt --description 'Write out the prompt'
     set_color $fish_color_error
   end
   echo -n '▸ '
+  
 
   set_color normal
 end

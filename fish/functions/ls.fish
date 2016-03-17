@@ -7,6 +7,8 @@
 if begin
     type gls 1>/dev/null 2>/dev/null
     or command ls --version 1>/dev/null 2>/dev/null
+
+    set -x CLICOLOR_FORCE 1
   end
   # This is GNU ls
   function ls --description "List contents of directory"
@@ -22,11 +24,11 @@ if begin
     set param $param --human-readable
     set param $param --sort=extension
     set param $param --group-directories-first
-	if isatty 1
+    if isatty 1
       set param $param --indicator-style=classify
     end
 
-    eval "env CLICOLOR_FORCE=1 command $ls $param $argv"
+    eval $ls $param "$argv"
   end
 
   if not set -q LS_COLORS

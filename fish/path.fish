@@ -13,8 +13,10 @@ for entry in (string split \n $PATH_DIRS)
     # resolve the {$HOME} substitutions
     set -l resolved_path (eval echo $entry)
     if test -d "$resolved_path"; # and not contains $resolved_path $PATH
-        set -x PA $PA "$resolved_path"
+        set PA $PA "$resolved_path"
     end
 end
 
-set -x PATH $PA
+set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
+
+set --export PATH $PA
