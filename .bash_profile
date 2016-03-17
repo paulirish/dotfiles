@@ -90,6 +90,11 @@ if  which brew > /dev/null; then
     source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 fi;
 
+# hub completion
+if  which hub > /dev/null; then
+    source "$(brew --prefix)/etc/bash_completion.d/hub.bash_completion.sh";
+fi;
+
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type __git_complete &> /dev/null; then
     __git_complete g __git_main
@@ -116,3 +121,9 @@ shopt -s cdspell;
 
 
 
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/paulirish/google-cloud-sdk/path.bash.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/paulirish/google-cloud-sdk/completion.bash.inc'

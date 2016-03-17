@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-# to maintain cask .... 
-#     brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup` 
+# to maintain cask ....
+#     brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup`
 
 
 # Install native apps
@@ -14,7 +14,7 @@ brew tap caskroom/versions
 brew cask install spectacle
 brew cask install dropbox
 brew cask install gyazo
-brew cask install onepassword
+brew cask install 1password
 brew cask install rescuetime
 brew cask install flux
 
@@ -47,6 +47,6 @@ brew cask install utorrent
 
 # Not on cask but I want regardless.
 
-# 3Hub   https://itunes.apple.com/us/app/3hub/id427515976?mt=12 
+# 3Hub   https://itunes.apple.com/us/app/3hub/id427515976?mt=12
 # File Multi Tool 5
 # Phosphor

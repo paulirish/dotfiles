@@ -30,6 +30,7 @@ cp -R ~/.gnupg ~/migration/home
 cp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration  # wifi
 
 cp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration
+cp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration
 
 cp -R ~/Library/Services ~/migration # automator stuff
 
@@ -214,6 +215,8 @@ sh .osx
 
 # symlink it up!
 ./symlink-setup.sh
+
+# add manual symlink for .ssh/config and probably .config/fish
 
 ###
 ##############################################################################################################

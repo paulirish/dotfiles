@@ -22,8 +22,6 @@ end
 make_completion g 'git'
 
 
-
-
 # Readline colors
 set -g fish_color_autosuggestion 555 yellow
 set -g fish_color_command 5f87d7
