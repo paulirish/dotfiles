@@ -160,17 +160,14 @@ webmify(){
 	ffmpeg -i $1 -vcodec libvpx -acodec libvorbis -isync -copyts -aq 80 -threads 3 -qmax 30 -y $2 $1.webm
 }
 
+# direct it all to /dev/null
+function nullify() {
+  "$@" >/dev/null 2>&1
+}
+
 
 # visual studio code. a la `subl`
-code () {
-	if [[ $# = 0 ]]
-	then
-		open -a "Visual Studio Code"
-	else
-		[[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-		open -a "Visual Studio Code" --args "$F"
-	fi
-}
+function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
 
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
