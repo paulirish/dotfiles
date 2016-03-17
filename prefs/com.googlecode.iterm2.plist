@@ -1041,7 +1041,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>322</string>
+		<string>307</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -1055,17 +1055,17 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2396 687 740 442 1440 234 2560 1577 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>269 139 606 456 0 0 1440 877 </string>
+	<string>269 265 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 13 1440 864 0 0 1440 877 </string>
+	<string>1 7 1438 864 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2413 469 585 451 1440 234 2560 1577 </string>
+	<string>2803 648 1026 1132 1440 234 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>-961 915 858 519 -1050 113 1050 1657 </string>
+	<string>2229 963 620 520 1440 234 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>1788 952 585 451 1440 234 2560 1577 </string>
+	<string>1788 867 795 520 1440 234 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
 	<string>1948 496 1012 485 1440 234 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
@@ -1229,12 +1229,16 @@
 			<true/>
 			<key>Background Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.073323920369148254</real>
+				<key>Color Space</key>
+				<string>Calibrated</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.073322668671607971</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.073324866592884064</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -1635,9 +1639,9 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>100000</integer>
+			<integer>10000</integer>
 			<key>Scrollback With Status Bar</key>
-			<false/>
+			<true/>
 			<key>Scrollback in Alternate Screen</key>
 			<true/>
 			<key>Selected Text Color</key>
@@ -2525,10 +2529,37 @@
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
+	<true/>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
+	<integer>0</integer>
+	<key>NoSyncLastTipTime</key>
+	<real>479345844.69297701</real>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>477552882.75312501</real>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+		<string>0006</string>
+		<string>0006</string>
+		<string>0007</string>
+		<string>0008</string>
+		<string>0009</string>
+	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2595,7 +2626,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-02-19T05:42:36Z</date>
+	<date>2016-03-10T12:57:34Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -11158,5 +11189,9 @@
 	<false/>
 	<key>iTerm Version</key>
 	<string>2.9.20160206</string>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>
