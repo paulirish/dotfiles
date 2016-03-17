@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # from your current repo, checkout the pull request that's in the foreground browser tab 
+# git chromecheckout
+# git chromecheckout canary   # for canary's foremost tab.
 
 # needs hub: brew install hub
 
@@ -9,8 +11,14 @@ green="\e[38;5;121m"
 white="\e[38;5;7m"
 reset="\e[0m"
 
+app="Google Chrome"
+
+if [[ $@ == *'canary'* ]]; then
+	app="Google Chrome Canary"
+fi
+
 active_chrome_url() {
-	osascript -e 'tell application "Google Chrome" to URL of active tab of front window'
+	osascript -e "tell application \"$app\" to URL of active tab of front window"
 }
 checkout() {
 	url=$(active_chrome_url)
