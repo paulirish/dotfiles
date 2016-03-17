@@ -25,12 +25,7 @@ alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
-
-# `shellswitch [bash|zsh|fish]`
-function shellswitch
-	chsh -s (brew --prefix)/bin/$argv
-end
-
+alias push="git push"
 
 
 # `cat` with beautiful colors. requires Pygments installed.

@@ -43,6 +43,14 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 ###
 # GIT STUFF
 
+function clone() {
+    git clone --depth=1 $1
+    cd $(basename ${1%.*})
+    bower install &
+    npm install
+}
+alias push="git push"
+
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
 
