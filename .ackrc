@@ -8,6 +8,7 @@
 --ignore-dir=bower_components
 --ignore-dir=bower
 --ignore-dir=dist
+--ignore-dir=build
 
 --ignore-file=is:scripts.js
 --ignore-file=is:c24.tpl.js
