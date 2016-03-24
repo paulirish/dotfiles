@@ -116,12 +116,11 @@ snippet component
 	
 	@Component({
 	  selector: '${1}',
-	..template: '${2}',
+	  template: '${2}',
 	  directives: [${3}]
 	})
 	export class ${4} {
-	  constructor(${5}) {
-	    ${6}
+	  constructor(${5}) {${6}
 	  }
 	}
 snippet import
