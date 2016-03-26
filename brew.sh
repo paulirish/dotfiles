@@ -33,7 +33,7 @@ brew install homebrew/completions/brew-cask-completion
 brew install grc
 
 # Install wget with IRI support
-brew install wget --enable-iri
+brew install wget --with-iri
 
 # Install more recent versions of some OS X tools
 brew install vim --override-system-vi
