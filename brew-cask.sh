@@ -38,7 +38,7 @@ brew cask install torbrowser
 
 # less often
 brew cask install disk-inventory-x
-brew cask install screenflow4 # 4 specifically not 5.
+brew cask install screenflow
 brew cask install vlc
 brew cask install gpgtools
 brew cask install licecap
