@@ -31,7 +31,7 @@ brew cask install horndis               # usb tethering
 
 # browsers
 brew cask install google-chrome-canary
-brew cask install firefox-nightly
+brew cask install firefoxnightly
 brew cask install webkit-nightly
 brew cask install chromium
 brew cask install torbrowser
