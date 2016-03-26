@@ -37,6 +37,7 @@ alias ag='ag -W 200 -f --hidden'
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
+alias master="git checkout master"
 
 # Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

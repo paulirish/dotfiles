@@ -22,8 +22,8 @@
 	diff = diff-so-fancy | less --tabs=4 -RFX
 	show = diff-so-fancy | less --tabs=4 -RFX
 
-# [interactive]
-#	diffFilter = "diff-so-fancy"
+[interactive]
+	diffFilter = "diff-so-fancy"
 
 # so much color
 [color]
