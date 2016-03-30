@@ -1,3 +1,5 @@
+foldersToExclude='.git\|.vscode\|node_modules\|bower\|logs\|generated\|dist\|build\|.DS_Store'
+
 # Create a new directory and enter it
 function md() {
   mkdir -p "$@" && cd "$@"
@@ -19,7 +21,7 @@ cdf() {  # short for cdfinder
 
 # lists the content of the current directory recursive as an treeview
 function tree() {
-  ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+  ls -R | grep -v $foldersToExclude | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 }
 
 
@@ -261,11 +263,11 @@ function gffp() {
 }
 
 function vimf() {
-  file=$(find . | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|generated\|dist\|build\|.DS_Store' | fzf) && vim "$file"
+  file=$(find . | grep -v $foldersToExclude | fzf) && vim "$file"
 }
 
 function cdf() {
-  dir=$(find . -type d | grep -v '.git\|.vscode\|node_modules\|bower\|logs\|dist\|build\|generated' | fzf) && cd "$dir"
+  dir=$(find . -type d | grep -v $foldersToExclude | fzf) && cd "$dir"
 }
 
 function weather() {
