@@ -18,7 +18,7 @@ if [[ $@ == *'canary'* ]]; then
 fi
 
 active_chrome_url() {
-	osascript -e "tell application \"$app\" to URL of active tab of front window"
+	osascript -e "tell application \"$app\" to get URL of active tab of front window"
 }
 checkout() {
 	url=$(active_chrome_url)
