@@ -47,6 +47,5 @@ brew cask install utorrent
 
 # Not on cask but I want regardless.
 
-# 3Hub   https://itunes.apple.com/us/app/3hub/id427515976?mt=12
 # File Multi Tool 5
 # Phosphor
