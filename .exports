@@ -31,3 +31,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 export POWERLINE_CONFIG_COMMAND=~/Library/Python/2.7/bin/powerline-config
+
+# Define where the Go main path is
+export GOPATH=~/Projects/go
+export PATH=$PATH:$GOPATH/bin
