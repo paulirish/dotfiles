@@ -46,6 +46,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-unimpaired.git'
+Plugin 'fatih/vim-go'
 
 "Plugin 'jelera/vim-javascript-syntax'
 "Plugin 'myhere/vim-nodejs-complete'
