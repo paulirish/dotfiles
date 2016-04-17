@@ -7,7 +7,7 @@ snippet proto
 	};
 # Function
 snippet func
-	function ${1}(${2}) {${4:}
+	function${1}(${2}) {${4:}
 	}${3}
 # if
 snippet if
@@ -73,16 +73,16 @@ snippet get
 snippet gett
 	getElementBy${1:Id}('${2}')${3}
 snippet desc
-	describe('${1}', function() {${2}
+	describe('${1}', () => {${2}
 	});
 snippet when
-	describe('When ${1}', function() {${2}
+	describe('When ${1}', () => {${2}
 	});
 snippet before
-	beforeEach(function() {${1}
+	beforeEach(() => {${1}
 	});
 snippet it
-	it('Should ${1}', function() {${2}
+	it('Should ${1}', () => {${2}
 	});
 snippet strict
 	'use strict';${1}
