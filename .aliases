@@ -155,3 +155,6 @@ alias tmuxexit='tmux kill-server'
 alias exitall=tmuxexit
 
 alias reload="source ~/.zshrc"
+
+# some aliases for go development
+alias got='go test -v . | sed ''/PASS/s//$(printf "\033[32mPASS\033[0m")/'' | sed ''/FAIL/s//$(printf "\033[31mFAIL\033[0m")/'''
