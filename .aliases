@@ -18,7 +18,7 @@ alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
-alias ag='ag -W 200 -f --hidden'
+alias ag='ag -f --hidden'
 
 ###
 # time to upgrade `ls`
