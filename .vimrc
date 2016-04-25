@@ -388,3 +388,15 @@ set tags+=tags
 
 " Hotkey for AutoFormat
 noremap <F3> :Autoformat<CR>
+
+" Settings for vim-go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab preserveindent tabstop=2 shiftwidth=2 softtabstop=2
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gt <Plug>(go-test)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gi <Plug>(go-info)
+" Required to get the type information
+let g:go_auto_type_info = 1
+" Configure syntastic plugin to avoid it builds everytime a file is saved
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
