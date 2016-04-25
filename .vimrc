@@ -32,6 +32,7 @@ Plugin 'tpope/vim-bundler'
 Plugin 'junegunn/vim-emoji'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'suan/vim-instant-markdown'
+Plugin 'vim-scripts/loremipsum'
 call vundle#end()
 filetype plugin indent on
 
