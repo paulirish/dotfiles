@@ -135,9 +135,9 @@ alias dotfiles='cd ~/Projects/dotfiles'
 alias sublime-settings='cd ~/DropBox/_AppSettings/SublimeText'
 alias dupl='cd ~/Projects/NodeProjects/duplicatesongfinder/'
 alias howcani='cd ~/Projects/howcani'
+alias howcani-api='cd ~/Projects/go/src/github.com/howcani-project/howcani-api'
 alias mykatas='cd ~/Projects/Katas/MyKatas'
 alias wiki='cd ~/Projects/WebSites/wiki-content'
-alias howcani='cd ~/Projects/howcani'
 
 if [ $UID -ne 0 ]; then
   alias reboot='sudo reboot'
