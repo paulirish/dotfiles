@@ -41,7 +41,7 @@ set nocompatible
 
 " Set syntax highlighting options.
 set t_Co=256
-set background=light
+set background=dark
 syntax on
 colorscheme hemisu
 " colorscheme molokai
@@ -394,9 +394,7 @@ au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
 " close all tabs
 nnoremap <leader>cat :tabonly<CR>
 
-" set file type for hbs.erb files
-set filetype=hbs.erb syntax=html
-set filetype=Vagrant syntax=ruby
+au BufReadPost *.es6 set syntax=javascript
 
 " show emojis
 function ShowEmojis()
