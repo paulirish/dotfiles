@@ -98,15 +98,16 @@ snippet ctor
 snippet require
 	const ${1} = require('${2}');
 snippet component
-	import { Component } from 'angular2/core';
+	import { Component } from '@angular/core';
+	import template from './${1}.tpl/html';
 	
 	@Component({
-	  selector: '${1}',
-	  template: '${2}',
-	  directives: [${3}]
+	  selector: '${2}',
+	  template: template,
+	  directives: []
 	})
-	export class ${4} {
-	  constructor(${5}) {${6}
+	export class ${3} {
+	  constructor(${4}) {${5}
 	  }
 	}
 snippet import
