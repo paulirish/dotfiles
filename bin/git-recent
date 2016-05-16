@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# list all local branches, but formatted reall purdy
+
+# format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)|%(color:bold red)%(objectname:short) %(color:bold blue)%(committerdate:relative) %(color:dim white)%(authorname)%0a  %(color:black) %(color:reset)|%(contents:subject)%0a |%0a"
+format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)|\
+%(color:bold blue)%(objectname:short) %(color:bold red)%(committerdate:relative) %(color:dim white)%(authorname)%0a\
+  %(color:black) %(color:reset)|%(contents:subject)%0a\
+  |"
+
+# for all known branches..
+# sort descending by last commit,
+# show local branches instead of remotes. (omit "refs/heads/" to include both local and remote branches)
+# break into columns
+# use the pager only if there's not enough space
+
+git for-each-ref \
+    --sort=-committerdate refs/heads/  \
+    --format="$format" \
+    | column -ts '|' \
+    | less --tabs=4 -RFX
