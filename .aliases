@@ -122,3 +122,6 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # docker
 alias docker_container="docker ps -a"
+
+# rails
+alias rails_sucks="rake db:drop; rake db:create; rake db:migrate; rake db:seed;"
