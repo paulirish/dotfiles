@@ -32,7 +32,7 @@ alias push="git push"
 # 							   sudo easy_install -U Pygments
 alias c='pygmentize -O style=monokai -f console256 -g'
 
-alias ag='ag -W 200 -f --hidden'
+alias ag='ag --follow --hidden'
 
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"

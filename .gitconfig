@@ -2,7 +2,7 @@
 	c = commit -am
 	up = pull
 	p = push
-	s = status -s
+	s = status
 	sclone = clone --depth=1
 	co = checkout
 	df = diff --color --color-words --abbrev
@@ -85,3 +85,6 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+[fetch]
+	prune = true
