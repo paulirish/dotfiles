@@ -93,6 +93,10 @@ function localip(){
 		sed -r "s/(VLAN Configurations)|==*//g"
 }
 
+# preview csv files. source: http://stackoverflow.com/questions/1875305/command-line-csv-viewer
+function csvpreview(){
+      sed 's/,,/, ,/g;s/,,/, ,/g' "$@" | column -s, -t | less -#2 -N -S
+}
 # Extract archives - use: extract <file>
 # Based on http://dotfiles.org/~pseup/.bashrc
 function extract() {
