@@ -177,7 +177,7 @@ function npmlsg() {
 }
 
 function install-global-npms() {
-  npm install -g bower gulp-cli growl grunt-cli gulp karma-cli mocha live-server nodemon yo eslint phantomjs
+  npm install -g babel babel-eslint bower eslint gulp-cli growl grunt-cli karma-cli mocha live-server nodemon yo typescript tslint webpack
 }
 
 function clip() {
