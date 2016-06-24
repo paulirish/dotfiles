@@ -27,7 +27,7 @@
 
 # so much color
 [color]
-	ui = always
+	ui = auto
 [color "diff"]
 	meta = yellow bold
 	commit = green bold
