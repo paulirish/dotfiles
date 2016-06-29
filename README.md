@@ -21,7 +21,7 @@
 
 #### shell
 
-This repo contains config for bash, zsh, and fish. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and zsh stuff are both well maintained; zsh, less so.
+This repo contains config for bash, zsh, and fish. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained; zsh, less so.
 
 
 ## my favorite parts.
