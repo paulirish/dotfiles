@@ -183,3 +183,7 @@ function docker_remove_none_images() {
 function g_rand() {
   git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
 }
+
+function docker_ip() {
+  docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1
+}
