@@ -54,7 +54,6 @@ Plugin 'fatih/vim-go'
 "Plugin 'joonty/vdebug'
 "Plugin 'AndrewRadev/switch.vim'
 "Plugin 'chase/vim-ansible-yaml'
-"Plugin 'sjl/gundo.vim'
 "Plugin 'burnettk/vim-angular'
 "Plugin 'isRuslan/vim-es6'
 "Plugin 'rizzatti/dash.vim'
@@ -360,9 +359,6 @@ function! ToggleErrors()
 endfunction
 
 nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
-
-" Keymapping for gundo
-nnoremap <C-u> :GundoToggle<CR>
 
 " CSS3 fixes
 augroup VimCSS3Syntax
