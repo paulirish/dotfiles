@@ -88,3 +88,5 @@
 
 [fetch]
 	prune = true
+[diff]
+	compactionHeuristic = true
