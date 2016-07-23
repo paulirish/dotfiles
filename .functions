@@ -274,3 +274,6 @@ function weather() {
   local location="${1:-Munich}"
   curl -4 http://wttr.in/$location
 }
+
+function docker-python() {
+  docker run -it --rm  -v "$(pwd)":/home/src janbaer/python3}
