@@ -276,4 +276,22 @@ function weather() {
 }
 
 function docker-python() {
-  docker run -it --rm  -v "$(pwd)":/home/src janbaer/python3}
+  docker run -it --rm  -v "$(pwd)":/home/src janbaer/python3
+}
+
+function docker-rmi-all() {
+  docker rmi -f $(docker images -a -q)
+}
+
+function docker-rmi-all-untagged() {
+  docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
+}
+
+function docker-rm-all() {
+  docker rm $(docker ps -a -q)
+}
+
+function docker-rm-all-stopped() {
+  docker rm $(docker ps -a | grep Exited | awk "{print \$1}")
+}
+
