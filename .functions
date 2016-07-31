@@ -279,6 +279,10 @@ function docker-python() {
   docker run -it --rm  -v "$(pwd)":/home/src janbaer/python3
 }
 
+function docker-node() {
+  docker run -it --rm  -v "$(pwd)":/home/src janbaer/node
+}
+
 function docker-rmi-all() {
   docker rmi -f $(docker images -a -q)
 }
