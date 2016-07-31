@@ -182,6 +182,11 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
+" filetype based definition of tabwidth
+autocmd BufNewFile,BufRead *.js setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab preserveindent tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
 " disable formatting when pasting large chunks of code
 set pastetoggle=<F2>
 
@@ -386,7 +391,6 @@ set tags+=tags
 noremap <F3> :Autoformat<CR>
 
 " Settings for vim-go
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab preserveindent tabstop=2 shiftwidth=2 softtabstop=2
 au FileType go nmap <leader>gr <Plug>(go-run)
 au FileType go nmap <leader>gt <Plug>(go-test)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
