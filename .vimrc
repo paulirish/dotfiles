@@ -400,3 +400,7 @@ let g:go_auto_type_info = 1
 " Configure syntastic plugin to avoid it builds everytime a file is saved
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+
+let g:syntastic_python_checkers = ['pylint']
+
+
