@@ -876,7 +876,7 @@
 		</dict>
 	</dict>
 	<key>Default Arrangement Name</key>
-	<string>lighthouse and stuff</string>
+	<string>Arrangement 3</string>
 	<key>Default Bookmark Guid</key>
 	<string>BCA8373B-F829-4CE0-923F-9561B958C930</string>
 	<key>DimBackgroundWindows</key>
@@ -1045,7 +1045,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>322</string>
+		<string>307</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -1060,14 +1060,16 @@
 	<string>390 216 740 308 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>269 412 606 456 0 0 1440 877 </string>
+	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
+	<string>412 528 616 174 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2721 239 1278 1572 1440 234 2560 1577 </string>
+	<string>2662 607 1073 873 1440 361 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2316 249 1551 1203 1440 234 2560 1577 </string>
+	<string>2316 1044 585 402 1440 234 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>1441 1064 837 747 1440 234 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -2546,7 +2548,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>9C2B350D-1222-44B8-BB13-83AE8CA0ACF8</string>
 	<key>NoSyncLastTipTime</key>
-	<real>485054375.71448898</real>
+	<real>485365652.56392503</real>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -2624,6 +2626,9 @@
 		<string>0060</string>
 		<string>0061</string>
 		<string>0062</string>
+		<string>0063</string>
+		<string>0064</string>
+		<string>0065</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
@@ -2697,19 +2702,21 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-05-13T02:38:44Z</date>
+	<date>2016-06-24T09:10:51Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
+	<key>ShowFullScreenTabBar</key>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.23477815091609955</real>
+	<real>0.13386669258276621</real>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
@@ -11247,7 +11254,7 @@
 				<real>13</real>
 			</dict>
 		</array>
-		<key>lighthouse and stuff</key>
+		<key>Arrangement 3</key>
 		<array>
 			<dict>
 				<key>Desired Columns</key>
@@ -11269,7 +11276,7 @@
 				<key>Screen</key>
 				<integer>0</integer>
 				<key>Selected Tab Index</key>
-				<integer>4</integer>
+				<integer>0</integer>
 				<key>Tabs</key>
 				<array>
 					<dict>
@@ -12313,11 +12320,28 @@
 													<string>/Users/paulirish/chromium</string>
 													<string>/Users/paulirish/chromium</string>
 													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/chromium</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
 												</array>
 												<key>Environment</key>
 												<dict>
 													<key>PWD</key>
-													<string>/Users/paulirish/chromium/src/out/Release/resources/inspector/ui</string>
+													<string>/Users/paulirish/chromium</string>
 												</dict>
 												<key>Hosts</key>
 												<array/>
@@ -12329,30 +12353,30 @@
 													<string>Shell Launcher</string>
 												</dict>
 												<key>Rows</key>
-												<integer>24</integer>
+												<integer>31</integer>
 												<key>Server PID</key>
-												<integer>79797</integer>
+												<integer>46264</integer>
 												<key>Session Default Name</key>
 												<string>Default</string>
 												<key>Session GUID</key>
 												<string>6D1A4CDD-131E-457C-9CF1-F2A3E23D21B8</string>
 												<key>Session Name</key>
-												<string>~/chromium</string>
+												<string>~/c/d/front_end</string>
 												<key>Session Window Title</key>
-												<string>~/chromium</string>
+												<string>~/c/d/front_end</string>
 												<key>Shell Integration Ever Used</key>
 												<false/>
 												<key>Substitutions</key>
 												<dict/>
 												<key>Working Directory</key>
-												<string>/Users/paulirish/chromium</string>
+												<string>/Users/paulirish/code/devtools-standalone/front_end</string>
 											</dict>
 											<key>View Type</key>
 											<string>SessionView</string>
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>391</real>
+												<real>505</real>
 												<key>width</key>
 												<real>816</real>
 												<key>x</key>
@@ -12363,7 +12387,7 @@
 										</dict>
 										<dict>
 											<key>Is Active</key>
-											<integer>1</integer>
+											<integer>0</integer>
 											<key>Session</key>
 											<dict>
 												<key>Bookmark</key>
@@ -13212,11 +13236,17 @@
 													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
 													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
 													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
 												</array>
 												<key>Environment</key>
 												<dict>
 													<key>PWD</key>
-													<string>/Users/paulirish/chromium/src</string>
+													<string>/Users/paulirish/code/devtools-standalone/front_end</string>
 												</dict>
 												<key>Hosts</key>
 												<array/>
@@ -13228,17 +13258,17 @@
 													<string>Shell Launcher</string>
 												</dict>
 												<key>Rows</key>
-												<integer>27</integer>
+												<integer>19</integer>
 												<key>Server PID</key>
-												<integer>44685</integer>
+												<integer>46266</integer>
 												<key>Session Default Name</key>
 												<string>Default</string>
 												<key>Session GUID</key>
 												<string>D8D5E451-E9BF-4E63-9D7A-B3D500F3FD4E</string>
 												<key>Session Name</key>
-												<string>~/code/devtools-standalone/front_end</string>
+												<string>~/c/d/front_end</string>
 												<key>Session Window Title</key>
-												<string>~/code/devtools-standalone/front_end</string>
+												<string>~/c/d/front_end</string>
 												<key>Shell Integration Ever Used</key>
 												<false/>
 												<key>Substitutions</key>
@@ -13251,13 +13281,13 @@
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>437</real>
+												<real>323</real>
 												<key>width</key>
 												<real>816</real>
 												<key>x</key>
 												<real>0.0</real>
 												<key>y</key>
-												<real>392</real>
+												<real>506</real>
 											</dict>
 										</dict>
 									</array>
@@ -13279,7 +13309,7 @@
 								</dict>
 								<dict>
 									<key>Is Active</key>
-									<integer>0</integer>
+									<integer>1</integer>
 									<key>Session</key>
 									<dict>
 										<key>Bookmark</key>
@@ -14158,11 +14188,19 @@
 											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
 											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
 											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+											<string>/Users/paulirish/chromium/src/third_party/WebKit/Source/devtools</string>
+											<string>/Users/paulirish/chromium/src/third_party/WebKit/Source/devtools</string>
+											<string>/Users/paulirish/chromium/src</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/paulirish/chromium/src</string>
+											<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
 										</dict>
 										<key>Hosts</key>
 										<array/>
@@ -14176,21 +14214,21 @@
 										<key>Rows</key>
 										<integer>53</integer>
 										<key>Server PID</key>
-										<integer>36809</integer>
+										<integer>46269</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
 										<string>4FE2CABE-E2B8-4096-8ACF-7BF93F45243A</string>
 										<key>Session Name</key>
-										<string>~/L/A/G/Chrome Canary</string>
+										<string>~/c/src</string>
 										<key>Session Window Title</key>
-										<string>~/L/A/G/Chrome Canary</string>
+										<string>~/c/src</string>
 										<key>Shell Integration Ever Used</key>
 										<false/>
 										<key>Substitutions</key>
 										<dict/>
 										<key>Working Directory</key>
-										<string>/Users/paulirish/Library/Application Support/Google/Chrome Canary</string>
+										<string>/Users/paulirish/chromium/src</string>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
@@ -14478,7 +14516,7 @@
 												<real>0.73333334922790527</real>
 											</dict>
 											<key>Guid</key>
-											<string>DCDE6774-DE64-4E5A-862F-51B0D93DF2EB</string>
+											<string>54BC1A3C-69AA-4769-8BE1-656211CAC5EE</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -14793,6 +14831,8 @@
 											<string>OperatorMono-Book 12</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
+											<key>Original Guid</key>
+											<string>6A381DF9-F587-486D-9762-D897830276F1</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -16856,6 +16896,8 @@
 											<string>/Users/paulirish/code/lighthouse</string>
 											<string>/Users/paulirish/code/lighthouse</string>
 											<string>/Users/paulirish/code/lighthouse</string>
+											<string>/Users/paulirish/code/lighthouse</string>
+											<string>/Users/paulirish/code/lighthouse</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -16874,7 +16916,7 @@
 										<key>Rows</key>
 										<integer>53</integer>
 										<key>Server PID</key>
-										<integer>30066</integer>
+										<integer>46657</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
@@ -17153,7 +17195,7 @@
 												<real>0.73333334922790527</real>
 											</dict>
 											<key>Guid</key>
-											<string>CD7457F8-8CA0-4234-9956-6938506785BA</string>
+											<string>8C5A6A65-A05B-457F-A9F6-677C5D5EFE3C</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -17468,6 +17510,8 @@
 											<string>OperatorMono-Book 12</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
+											<key>Original Guid</key>
+											<string>FFEBEE0A-9427-4591-961C-BAA23FDFE80D</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -18086,6 +18130,8 @@
 											<string>/Users/paulirish/code/lighthouse</string>
 											<string>/Users/paulirish/code/lighthouse</string>
 											<string>/Users/paulirish/code/lighthouse</string>
+											<string>/Users/paulirish/code/lighthouse</string>
+											<string>/Users/paulirish/code/lighthouse</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -18104,7 +18150,7 @@
 										<key>Rows</key>
 										<integer>53</integer>
 										<key>Server PID</key>
-										<integer>57402</integer>
+										<integer>46661</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
@@ -18406,7 +18452,7 @@
 												<real>0.73333334922790527</real>
 											</dict>
 											<key>Guid</key>
-											<string>34743920-A130-4C84-9587-4E0D4F59C445</string>
+											<string>9B222866-E829-46A5-AE43-6F5B8B2B33D9</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -19243,11 +19289,13 @@
 											<string>/Users/paulirish/code/temp/node-w-v8-inspector</string>
 											<string>/Users/paulirish/code/temp/node-w-v8-inspector</string>
 											<string>/Users/paulirish/code/temp/node-w-v8-inspector</string>
+											<string>/Users/paulirish/code/temp/node-w-v8-inspector</string>
+											<string>/Users/paulirish/code/temp/node-w-v8-inspector</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/paulirish/code/temp/node-with-devtools-debugging</string>
+											<string>/Users/paulirish/code/temp/node-w-v8-inspector</string>
 										</dict>
 										<key>Hosts</key>
 										<array/>
@@ -19261,7 +19309,7 @@
 										<key>Rows</key>
 										<integer>50</integer>
 										<key>Server PID</key>
-										<integer>25509</integer>
+										<integer>46674</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
@@ -20225,11 +20273,13 @@
 											<string>/Users/paulirish/.Trash/node-with-devtools-debugging</string>
 											<string>/Users/paulirish/.Trash/node-with-devtools-debugging</string>
 											<string>/Users/paulirish/.Trash/node-with-devtools-debugging</string>
+											<string>/Users/paulirish/.Trash/node-with-devtools-debugging</string>
+											<string>/Users/paulirish/.Trash/node-with-devtools-debugging</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/paulirish/code/temp/node-with-devtools-debugging</string>
+											<string>/Users/paulirish/.Trash/node-with-devtools-debugging</string>
 										</dict>
 										<key>Hosts</key>
 										<array/>
@@ -20243,15 +20293,15 @@
 										<key>Rows</key>
 										<integer>53</integer>
 										<key>Server PID</key>
-										<integer>33462</integer>
+										<integer>46740</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
 										<string>0ABBFEAE-5749-44D5-B57F-AE49F9C622DD</string>
 										<key>Session Name</key>
-										<string>~/c/t/node-with-devtools-debugging</string>
+										<string>~/.T/node-with-devtools-debugging</string>
 										<key>Session Window Title</key>
-										<string>~/c/t/node-with-devtools-debugging</string>
+										<string>~/.T/node-with-devtools-debugging</string>
 										<key>Shell Integration Ever Used</key>
 										<false/>
 										<key>Substitutions</key>
@@ -21117,11 +21167,13 @@
 											<string>/Users/paulirish/code/weather-wonder</string>
 											<string>/Users/paulirish/code/weather-wonder</string>
 											<string>/Users/paulirish/code/weather-wonder</string>
+											<string>/Users/paulirish/code/weather-wonder</string>
+											<string>/Users/paulirish/code/weather-wonder</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/paulirish/code/lighthouse</string>
+											<string>/Users/paulirish/code/weather-wonder</string>
 										</dict>
 										<key>Hosts</key>
 										<array/>
@@ -21135,7 +21187,7 @@
 										<key>Rows</key>
 										<integer>53</integer>
 										<key>Server PID</key>
-										<integer>11714</integer>
+										<integer>46816</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
@@ -22103,11 +22155,13 @@
 													<string>/Users/paulirish/.local-npm</string>
 													<string>/Users/paulirish/.local-npm</string>
 													<string>/Users/paulirish/.local-npm</string>
+													<string>/</string>
+													<string>/</string>
 												</array>
 												<key>Environment</key>
 												<dict>
 													<key>PWD</key>
-													<string>/Users/paulirish/code/weather-wonder</string>
+													<string>/Users/paulirish/.local-npm</string>
 												</dict>
 												<key>Hosts</key>
 												<array/>
@@ -22121,21 +22175,21 @@
 												<key>Rows</key>
 												<integer>3</integer>
 												<key>Server PID</key>
-												<integer>12090</integer>
+												<integer>46909</integer>
 												<key>Session Default Name</key>
 												<string>Default</string>
 												<key>Session GUID</key>
 												<string>4450DA46-F8A3-4921-938A-89A7998F8427</string>
 												<key>Session Name</key>
-												<string>~/.local-npm</string>
+												<string>/</string>
 												<key>Session Window Title</key>
-												<string>~/.local-npm</string>
+												<string>/</string>
 												<key>Shell Integration Ever Used</key>
 												<false/>
 												<key>Substitutions</key>
 												<dict/>
 												<key>Working Directory</key>
-												<string>/Users/paulirish/.local-npm</string>
+												<string>/</string>
 											</dict>
 											<key>View Type</key>
 											<string>SessionView</string>
@@ -22975,11 +23029,13 @@
 													<string>/Users/paulirish/code/weather-wonder</string>
 													<string>/Users/paulirish/code/weather-wonder</string>
 													<string>/Users/paulirish/code/weather-wonder</string>
+													<string>/Users/paulirish/code/weather-wonder</string>
+													<string>/Users/paulirish/code/weather-wonder</string>
 												</array>
 												<key>Environment</key>
 												<dict>
 													<key>PWD</key>
-													<string>/Users/paulirish/code</string>
+													<string>/Users/paulirish/code/weather-wonder</string>
 												</dict>
 												<key>Hosts</key>
 												<array/>
@@ -22993,7 +23049,7 @@
 												<key>Rows</key>
 												<integer>48</integer>
 												<key>Server PID</key>
-												<integer>27563</integer>
+												<integer>46981</integer>
 												<key>Session Default Name</key>
 												<string>Default</string>
 												<key>Session GUID</key>
@@ -23849,6 +23905,8 @@
 											<string>/Users/paulirish/code/source-map-visualization</string>
 											<string>/Users/paulirish/code/source-map-visualization</string>
 											<string>/Users/paulirish/code/source-map-visualization</string>
+											<string>/Users/paulirish/code/source-map-visualization</string>
+											<string>/Users/paulirish/code/source-map-visualization</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -23867,7 +23925,7 @@
 										<key>Rows</key>
 										<integer>55</integer>
 										<key>Server PID</key>
-										<integer>5711</integer>
+										<integer>47041</integer>
 										<key>Session Default Name</key>
 										<string>Default</string>
 										<key>Session GUID</key>
@@ -23940,7 +23998,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160426</string>
+	<string>2.9.20160510</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
