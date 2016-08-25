@@ -283,6 +283,10 @@ function docker-nodejs() {
   docker run -it --rm  -v "$(pwd)":/home/src janbaer/nodejs
 }
 
+function docker-go() {
+  docker run -it --rm  -v "$(pwd)":/home/src janbaer/go
+}
+
 function docker-rmi-all() {
   docker rmi -f $(docker images -a -q)
 }
