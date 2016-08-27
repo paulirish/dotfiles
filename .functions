@@ -284,7 +284,8 @@ function docker-nodejs() {
 }
 
 function docker-go() {
-  docker run -it --rm  -v "$(pwd)":/home/src janbaer/go
+  local app="${1:-app}"
+  docker run -it --rm  -v "$(pwd)":/go/src/github.com/janbaer/$app janbaer/go
 }
 
 function docker-rmi-all() {
