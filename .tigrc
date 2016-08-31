@@ -2,3 +2,4 @@ set mouse = true
 set tab-size = 2
 
 bind generic p !git push
+bind generic Y !@sh -c "echo %(commit) | pbcopy"
