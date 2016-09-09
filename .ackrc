@@ -18,6 +18,7 @@
 
 --sort-files
 --smart-case
+--column
 
 --type-add
 js=.ts,.jsx
