@@ -301,6 +301,6 @@ function docker-rm-all() {
 }
 
 function docker-rm-all-stopped() {
-  docker rm $(docker ps -a | grep Exited | awk "{print \$1}")
+  docker rm $(docker ps -a | grep Exited | grep -v busybox | awk "{print \$1}")
 }
 
