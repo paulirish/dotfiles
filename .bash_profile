@@ -45,7 +45,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoredups:erasedups         # no duplicate entries
 export HISTSIZE=100000                          # big big history (default is 500)
 export HISTFILESIZE=$HISTSIZE                   # big big history
-which shopt > /dev/null && shopt -s histappend  # append to history, don't overwrite it
+type shopt &> /dev/null && shopt -s histappend  # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
