@@ -4,7 +4,10 @@
 default_username='paulirish'
 
 
-eval "$(thefuck --alias)"
+if which thefuck > /dev/null; then
+    eval "$(thefuck --alias)"
+fi;
+
 
 
 if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
