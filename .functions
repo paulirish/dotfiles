@@ -304,3 +304,8 @@ function docker-rm-all-stopped() {
   docker rm $(docker ps -a | grep Exited | grep -v busybox | awk "{print \$1}")
 }
 
+function docker-clean() {
+  cd ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
+  /Applications/Docker.app/Contents/MacOS/qemu-img convert -O qcow2 Docker.qcow2 Docker2.qcow2
+  mv -f Docker2.qcow2 Docker.qcow2
+}
