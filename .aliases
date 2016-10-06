@@ -92,7 +92,6 @@ alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 # Shortcuts
 alias g="git"
 alias v="vim"
-alias r="rails"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -125,4 +124,8 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 alias docker_container="docker ps -a"
 
 # rails
-alias rails_sucks="rake db:drop; rake db:create; rake db:migrate; rake db:seed;"
+alias r_reset="rails db:drop; rails db:create; rails db:migrate; rails db:seed;"
+alias r="rails"
+
+# postgresql
+alias pg_start="postgres -D /usr/local/var/postgres"
