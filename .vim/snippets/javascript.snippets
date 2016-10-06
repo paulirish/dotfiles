@@ -99,7 +99,7 @@ snippet ctor
 	constructor(${1}) {${2}
 	}
 snippet require
-	const ${1} = require('${2}');
+	const ${1} = require('${2}');${3}
 snippet component
 	import { Component } from '@angular/core';
 	import template from './${1}.tpl.html';
@@ -119,3 +119,5 @@ snippet gulptask
 	gulp.task('${1}', () => {
 	${2}
 	});
+snippet hashbang
+	#!/usr/bin/env node
