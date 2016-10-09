@@ -19,12 +19,6 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
-# lists the content of the current directory recursive as an treeview
-function tree() {
-  ls -R | grep -v $foldersToExclude | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
-}
-
-
 # lets toss an image onto my server and pbcopy that bitch.
 function scpp() {
   scp "$1" aurgasm@aurgasm.us:~/paulirish.com/i;
