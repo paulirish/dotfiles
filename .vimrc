@@ -304,7 +304,7 @@ map <F3> :tabp<CR>
 map <F4> :tabn<CR>
 map <F5> :tabnew<CR>
 
-" ack 
+" ack
 nnoremap <C-S-F> :Ack<space>
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:Ack<CR>
 
@@ -351,13 +351,8 @@ nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
 " vimux
-nmap <leader>vg :call VimuxRunCommand('grunt tests')<CR>
-nmap <leader>vt :call VimuxRunCommand('rake teaspoon')<CR>
-nmap <leader>rs :call VimuxRunCommand('rspec ' . bufname('%'))<CR>
-nmap <leader>vr :call VimuxRunCommand('rake')<CR>
+nmap <leader>rt :call VimuxRunCommand('r t')<CR>
 nmap <leader>vc :call VimuxCloseRunner()<CR>
-nmap <leader>vst :call VimuxRunCommand('g st')<CR>
-
 
 " next and do again
 nnoremap Q :normal n.<CR>
