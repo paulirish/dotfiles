@@ -48,6 +48,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-unimpaired.git'
 Plugin 'fatih/vim-go'
 Plugin 'kopischke/vim-fetch'
+Plugin 'ekalinin/Dockerfile.vim'
 
 "Plugin 'jelera/vim-javascript-syntax'
 "Plugin 'myhere/vim-nodejs-complete'
