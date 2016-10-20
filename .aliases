@@ -126,6 +126,7 @@ alias docker_container="docker ps -a"
 # rails
 alias r_reset="rails db:drop; rails db:create; rails db:migrate; rails db:seed;"
 alias r="rails"
+alias rs="rspec"
 
 # postgresql
 alias pg_start="postgres -D /usr/local/var/postgres"
