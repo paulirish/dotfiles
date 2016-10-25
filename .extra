@@ -3,7 +3,7 @@ PATH={$PATH}:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
 # Git credentials
 GIT_AUTHOR_NAME="Troy Harvey"
-GIT_AUTHOR_EMAIL="troy.harvey@seven-26.com"
+GIT_AUTHOR_EMAIL="troy.harvey@generationtux.com"
 
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
@@ -21,9 +21,16 @@ source '/Users/troyharvey/google-cloud-sdk/completion.bash.inc'
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
-# Python, virtualenvwrapper
-export WORKON_HOME=~/Envs
-
 # Go
 export GOPATH=$HOME/work
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+# Git branch bash completion
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion
+
+  # Add git completion to aliases
+  __git_complete g __git_main
+  __git_complete gc _git_checkout
+  __git_complete gp _git_pull
+fi
