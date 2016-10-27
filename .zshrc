@@ -72,9 +72,6 @@ zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-# config for suggestions
-AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
-
 export PURE_GIT_UNTRACKED_DIRTY=0
 
 # Automatically list directory contents on `cd`.
