@@ -315,3 +315,14 @@ function docker-clean() {
 
   popd
 }
+
+function mocha-run() {
+  searchPattern=${1:-./**/*.spec.js}
+  mocha ${searchPattern} --recursive --reporter spec
+}
+
+function mocha-watch() {
+  searchPattern=${1:-./**/*.spec.js}
+  mocha ${searchPattern} --recursive --reporter spec --watch
+}
+
