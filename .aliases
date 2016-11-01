@@ -46,8 +46,7 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 function clone() {
     git clone --depth=1 $1
     cd $(basename ${1%.*})
-    bower install &
-    npm install
+    yarn install
 }
 alias push="git push"
 
