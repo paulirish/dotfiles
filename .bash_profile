@@ -12,7 +12,6 @@ case $- in
    *i*) source ~/.extra
 esac
 
-
 # generic colouriser
 GRC=`which grc`
 if [ "$TERM" != dumb ] && [ -n "$GRC" ]
