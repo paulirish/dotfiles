@@ -14,6 +14,11 @@ zcat ~/path/to/access/logs* | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn
 zcat logs/paulirish.com/http/access.log* | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn | head -n20000 | less
 
 
+### rsync
+
+rsync -havz --progress --partial --append-verify login@host:/full/path ./
+
+
 
 ###############################################################################################################
 ### pull android app apk (like chrome canary) off a phone and install elsewhere.
