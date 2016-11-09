@@ -10,12 +10,11 @@ runtime macros/matchit.vim
 
 set shell=zsh
 
-
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
-autocmd FileType gitcommit 1 | startinsert
+" autocmd FileType gitcommit 1 | startinsert
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
