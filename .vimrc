@@ -49,18 +49,6 @@ Plugin 'fatih/vim-go'
 Plugin 'kopischke/vim-fetch'
 Plugin 'ekalinin/Dockerfile.vim'
 
-"Plugin 'jelera/vim-javascript-syntax'
-"Plugin 'myhere/vim-nodejs-complete'
-"Plugin 'tmhedberg/SimpylFold'
-"Plugin 'joonty/vdebug'
-"Plugin 'AndrewRadev/switch.vim'
-"Plugin 'chase/vim-ansible-yaml'
-"Plugin 'burnettk/vim-angular'
-"Plugin 'isRuslan/vim-es6'
-"Plugin 'rizzatti/dash.vim'
-"Plugin 'jistr/vim-nerdtree-tabs'
-"Plugin 'Chiel92/vim-autoformat'
-
 call vundle#end()
 filetype plugin indent on
 
@@ -102,10 +90,6 @@ vnoremap <Space> zf
 
 " When opening the file, unfold all. Fold all with zM
 au BufRead * normal zR
-
-" Simplyfold
-" =========
-let g:SimpylFold_docstring_preview=1
 
 " Tagbar
 " ======
