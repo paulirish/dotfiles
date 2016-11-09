@@ -43,7 +43,7 @@ brew install homebrew/dupes/screen
 brew install entr
 
 # github util. imho better than hub
-brew install gh
+brew install hub
 
 
 # mtr - ping & traceroute. best.
