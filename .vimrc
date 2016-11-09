@@ -181,7 +181,7 @@ set ignorecase
 set smartcase
 
 set nowrap " don't automatically wrap on load
-set tw=79  " width of document (used by gd)
+set tw=100  " width of document (used by gd)
 set fo-=t  " don't automatically wrap text when typing
 
 " Awesome line number magic
