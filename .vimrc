@@ -35,18 +35,25 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-scripts/loremipsum'
 Plugin 'danro/rename.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'tpope/vim-rails'
+Plugin 'ervandew/supertab'
+Plugin 'takac/vim-spotifysearch'
+Plugin 'thoughtbot/vim-rspec'
 call vundle#end()
 filetype plugin indent on
 
 " Make vim more useful
 set nocompatible
+set path+=**
+
+" disable ex-mode
+nnoremap Q <Nop>
 
 " Set syntax highlighting options.
 set t_Co=256
 set background=dark
 syntax on
 colorscheme hemisu
-" colorscheme molokai
 set colorcolumn=80
 
 " Enabled later, after Pathogen
@@ -54,8 +61,6 @@ filetype off
 
 " Change mapleader
 let mapleader=","
-
-
 
 " Local dirs
 set backupdir=~/.vim/backups
@@ -167,11 +172,11 @@ command W w
 nnoremap ' `
 
 " Hard to type things
-imap >> →
-imap << ←
-imap ^^ ↑
-imap VV ↓
-imap aa λ
+" imap >> →
+" imap << ←
+" imap ^^ ↑
+" imap VV ↓
+" imap aa λ
 
 " Toggle show tabs and trailing spaces (,c)
 set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
@@ -215,10 +220,10 @@ let NERDCompactSexyComs=1
 let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
 
 " Buffer navigation (,,) (,]) (,[) (,ls)
-map <Leader>, <C-^>
-" :map <Leader>] :bnext<CR>
-" :map <Leader>[ :bprev<CR>
-map <Leader>ls :buffers<CR>
+" map <Leader>, <C-^>
+" map <Leader>] :bnext<CR>
+" map <Leader>[ :bprev<CR>
+" map <Leader>ls :buffers<CR>
 
 " Close Quickfix window (,qq)
 map <leader>qq :cclose<CR>
@@ -408,3 +413,21 @@ map <leader>se :call ShowEmojis()<CR>
 map <leader>em :call CompileEmojis()<CR>
 
 map <leader>jsh :JSHint<CR>
+
+" templates
+nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
+nnoremap <leader>bash :-1read $HOME/.vim/.skeleton.bash<CR>
+nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
+
+" rspec
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+" spotify
+let g:spotify_country_code = 'MX'
+let g:spotify_prev_key = "<F9>"
+let g:spotify_playpause_key = "<F10>"
+let g:spotify_next_key = "<F11>"
+
