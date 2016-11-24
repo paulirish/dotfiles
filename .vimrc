@@ -89,7 +89,7 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 " When opening the file, unfold all. Fold all with zM
-au BufRead * normal zR
+"au BufRead * normal zR
 
 " Tagbar
 " ======
@@ -255,6 +255,7 @@ noremap cs) F(xf)xi
 "quick pairs
 imap <leader>' ''<ESC>i
 imap <leader>" ""<ESC>i
+imap <leader>` ``<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 imap <leader>{ {}<ESC>i
