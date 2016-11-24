@@ -1,3 +1,14 @@
+snippet if
+	if ${1} {${0}}
 snippet test
 	func Test${1}(t *testing.T) {${0}
 	}
+snippet convey
+	Convey("${1}", t, func() {${0}
+	})
+snippet it
+	Convey("${1}", func() {${0}
+	})
+snippet so
+	So(${1}, ShouldEqual{2}, ${3})
+
