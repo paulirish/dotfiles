@@ -402,7 +402,11 @@ let g:go_highlight_methods = 1
 
 " EasyClip
 let g:EasyClipShareYanks=1
-let g:EasyClipUsePasteToggleDefaults = 0
+let g:EasyClipUsePasteToggleDefaults=0
+let g:EasyClipUseCutDefaults=0
+nnoremap <leader>y :IPaste<cr>
 nmap ]p <plug>EasyClipSwapPasteForward
 nmap [p <plug>EasyClipSwapPasteBackwards
-nnoremap <leader>y :IPaste<cr>
+nmap x <Plug>MoveMotionPlug
+xmap x <Plug>MoveMotionXPlug
+nmap xx <Plug>MoveMotionLinePlug
