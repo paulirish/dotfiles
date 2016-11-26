@@ -62,6 +62,7 @@ set cursorline " highlight current line
 
 set list
 set listchars=space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸\
+:nmap <leader>l :set invlist<cr>
 
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
@@ -198,7 +199,7 @@ function! NumberToggle()
   endif
 endfunc
 
-nnoremap <Leader>l :call NumberToggle()<CR>
+nnoremap <Leader>n :call NumberToggle()<CR>
 set number
 
 " center the cursor vertically
