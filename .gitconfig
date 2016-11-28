@@ -55,17 +55,21 @@
 
 # rewrites of repo paths
 [url "git@github.com:"]
-	insteadOf = "gh:"
-	insteadOf = "git://github.com"
 	insteadOf = "https://github.com/"
 	pushInsteadOf = "github:"
 	pushInsteadOf = "git://github.com/"
 	pushInsteadOf = "https://github.com/"
+
+[url "git://github.com/"]
+	insteadOf = "github:"
+
 [url "git@gist.github.com:"]
 	insteadOf = "gst:"
 	pushInsteadOf = "gist:"
 	pushInsteadOf = "git://gist.github.com/"
-	pushInsteadOf = "https://gist.github.com/"
+	
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
 
 # correct typos
 [help]
@@ -79,8 +83,8 @@
 [include]
   path = ~/.gitconfig.local
 
-[init]
-	templatedir = ~/.git_template
+#[init]
+#	templatedir = ~/.git_template
 
 [filter "lfs"]
 	clean = git-lfs clean %f
