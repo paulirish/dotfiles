@@ -13,6 +13,18 @@ function _git_current_branch -d "Output git's current branch name"
   end ^/dev/null | sed -e 's|^refs/heads/||'
 end
 
+function maybeToggleDirtyState -d "Ignore dirty state if we're in the huge Chromium repo"
+    # check if we're in a git repo. (fast)
+    if not git rev-parse --is-inside-work-tree >/dev/null 2>&1
+      return
+    end
+    set -l actualurl (git config --get remote.origin.url)
+    switch $actualurl
+      case "*chromium.googlesource.com*"
+        git config bash.showDirtyState false
+    end
+end
+
 function fish_title --description 'Show current path (abbreviated) in iTerm tab title '
    echo (prompt_pwd)
 end
@@ -55,10 +67,7 @@ function fish_prompt --description 'Write out the prompt'
 
   # Speed up prompt for Chromium repo, by ignoring dirtyState
   if test "$fish_prompt_last_cwd" != $cur_cwd
-      switch (echo git config --get remote.origin.url)
-        case "*chromium.googlesource.com*"
-          git config bash.showDirtyState false
-      end
+    maybeToggleDirtyState
   end
 
   # save "last" values
