@@ -193,6 +193,17 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 
 
 
+# improve perf of git inside of chromium checkout
+# https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
+
+sudo sysctl kern.maxvnodes=$((512*1024))
+echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
+
+# speed up git status
+git config status.showuntrackedfiles no
+git update-index --untracked-cache
+
+
 ##############################################################################################################
 ### remaining configuration
 ###
