@@ -431,3 +431,6 @@ let g:spotify_prev_key = "<F9>"
 let g:spotify_playpause_key = "<F10>"
 let g:spotify_next_key = "<F11>"
 
+" spell
+map <Leader>es :set spell spelllang=es_mx<CR>
+map <Leader>en :set spell spelllang=en_us<CR>
