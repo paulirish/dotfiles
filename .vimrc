@@ -351,9 +351,7 @@ let g:gitgutter_realtime = 0
 
 " tabularize
 nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
 
 " vimux
 nmap <leader>rt :call VimuxRunCommand('r t')<CR>
