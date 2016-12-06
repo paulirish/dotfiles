@@ -176,7 +176,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab preserveindent tabstop=2 sh
 autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " disable formatting when pasting large chunks of code
-set pastetoggle=<F2>
+nmap <leader><F2> :set pastetoggle=<F2><CR>
 
 set hlsearch
 set incsearch
