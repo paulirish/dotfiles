@@ -16,6 +16,9 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 " autocmd FileType gitcommit 1 | startinsert
 
+set path+=** " Search down into subfolders
+set wildmenu " Display all matching files when tab complete
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -407,6 +410,7 @@ let g:EasyClipUseCutDefaults=0
 nnoremap <leader>y :IPaste<cr>
 nmap ]p <plug>EasyClipSwapPasteForward
 nmap [p <plug>EasyClipSwapPasteBackwards
-nmap x <Plug>MoveMotionPlug
-xmap x <Plug>MoveMotionXPlug
-nmap xx <Plug>MoveMotionLinePlug
+"nmap x <Plug>MoveMotionPlug
+"xmap x <Plug>MoveMotionXPlug
+"nmap xx <Plug>MoveMotionLinePlug
+
