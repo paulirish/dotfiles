@@ -51,8 +51,8 @@ Plugin 'tpope/vim-unimpaired.git'
 Plugin 'fatih/vim-go'
 Plugin 'kopischke/vim-fetch'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'svermeulen/vim-easyclip'
 Plugin 'tpope/vim-repeat'
+Plugin 'svermeulen/vim-easyclip'
 
 call vundle#end()
 filetype plugin indent on
@@ -407,10 +407,10 @@ let g:go_highlight_methods = 1
 let g:EasyClipShareYanks=1
 let g:EasyClipUsePasteToggleDefaults=0
 let g:EasyClipUseCutDefaults=0
+let g:EasyClipEnableBlackHoleRedirect=1
 nnoremap <leader>y :IPaste<cr>
 nmap ]p <plug>EasyClipSwapPasteForward
 nmap [p <plug>EasyClipSwapPasteBackwards
-"nmap x <Plug>MoveMotionPlug
-"xmap x <Plug>MoveMotionXPlug
-"nmap xx <Plug>MoveMotionLinePlug
+vmap x <Plug>MoveMotionXPlug
+nmap xx <Plug>MoveMotionLinePlug
 
