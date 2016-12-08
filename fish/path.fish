@@ -18,5 +18,6 @@ for entry in (string split \n $PATH_DIRS)
 end
 
 set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
+set PA $PA $HOME/.yarn-config/global/node_modules/.bin
 
 set --export PATH $PA
