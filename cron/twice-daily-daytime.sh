@@ -6,6 +6,6 @@
 PATH=/Users/paulirish/.homebrew/bin:/Users/paulirish/.homebrew/sbin:/Users/paulirish/code/depot_tools:$PATH
 
 
-cd "$HOME/code/npm-publish-devtools-frontend" && ./update-github-mirror.sh && ./publish-devtools-package-to-npm.sh
+cd "$HOME/code/npm-publish-devtools-frontend" && ./update-github-mirror.sh
 
 

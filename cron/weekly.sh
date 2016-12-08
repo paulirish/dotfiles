@@ -5,5 +5,5 @@ PATH=/Users/paulirish/.homebrew/bin:/Users/paulirish/.homebrew/sbin:/Users/pauli
 
 
 # protocol viewer
-cd $HOME/code/debugger-protocol-viewer && git checkout gh-pages && ./update-protocol-json.sh && git commit -am "bump protocol"
-cd $HOME/code/debugger-protocol-viewer && git pull && git push
+cd $HOME/code/pristine/debugger-protocol-viewer-pristine && git checkout gh-pages && ./update-protocol-json.sh && git commit -am "bump protocol"
+cd $HOME/code/pristine/debugger-protocol-viewer-pristine && git pull && git push
