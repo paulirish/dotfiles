@@ -1,4 +1,4 @@
-# symlink to ~/.ssh/config
+# copy to ~/.ssh/config
 
 Host github.com
 	ControlMaster auto
