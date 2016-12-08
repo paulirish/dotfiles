@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# `crontab -l` sez this runs TWICE daily.. at 2pm and 8pm
-
+# `crontab -l` sez this runs every hour on the hour
 
 PATH=/Users/paulirish/.homebrew/bin:/Users/paulirish/.homebrew/sbin:/Users/paulirish/code/depot_tools:$PATH
 

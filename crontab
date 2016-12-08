@@ -13,9 +13,9 @@
 #=====================================================================#
 #  *       *        *        *         *        $HOME/bin/gmail.rb
    0       3        *        *         *        $HOME/code/dotfiles/cron/daily-nighttime.sh
-   0       14       *        *         *        $HOME/code/dotfiles/cron/twice-daily-daytime.sh
-   0       20       *        *         *        $HOME/code/dotfiles/cron/twice-daily-daytime.sh
-   0       0        *        *         0        $HOME/code/dotfiles/cron/weekly.sh
+   0       *        *        *         *        $HOME/code/dotfiles/cron/every-hour.sh
+   0       0        *        *         0        $HOME/code/dotfiles/cron/twice-a-week.sh
+   0       0        *        *         4        $HOME/code/dotfiles/cron/twice-a-week.sh
 #  */15    *        *        *         *        $HOME/bin/temp-help.sh
 #=====================================================================#
 

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+# `crontab -l` sez this runs every night at 3am
+
 PATH=/Users/paulirish/.homebrew/bin:/Users/paulirish/.homebrew/sbin:/Users/paulirish/code/depot_tools:$PATH
 
 # update devtools standalone repo
