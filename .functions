@@ -282,6 +282,12 @@ function docker-go() {
   docker run -it --rm  -v "$(pwd)":/go/src/github.com/janbaer/$app janbaer/go
 }
 
+function docker-vim() {
+  docker run -it --rm  -v "$(pwd)":/home/jan/projects janbaer/vim
+}
+
+alias dvim=docker-vim
+
 function docker-rmi-all() {
   docker rmi -f $(docker images -a -q)
 }
