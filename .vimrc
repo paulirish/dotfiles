@@ -408,6 +408,7 @@ let g:EasyClipShareYanks=1
 let g:EasyClipUsePasteToggleDefaults=0
 let g:EasyClipUseCutDefaults=0
 let g:EasyClipEnableBlackHoleRedirect=1
+let g:EasyClipYankHistorySize=10
 nnoremap <leader>y :IPaste<cr>
 nmap ]p <plug>EasyClipSwapPasteForward
 nmap [p <plug>EasyClipSwapPasteBackwards
