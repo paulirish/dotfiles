@@ -90,7 +90,9 @@ source ~/.aliases
 setopt no_share_history
 
 # use the default version of node.js
-nvm use default
+if [ -f "nvm" ]; then
+  nvm use default
+fi
 
 # Add support for fzf the fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
