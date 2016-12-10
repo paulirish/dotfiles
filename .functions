@@ -326,3 +326,6 @@ function mocha-watch() {
   mocha ${searchPattern} --recursive --reporter spec --watch
 }
 
+function latex() {
+  docker run --rm -it -v $(pwd):/tmp -w /tmp svagi/latex xelatex "$@"
+}
