@@ -1,17 +1,15 @@
 set default_user "paulirish"
 set default_machine "paulirish-macbookair2"
 
-
-#set -x  DYLD_FALLBACK_LIBRARY_PATH /Users/paulirish/.homebrew/lib
-
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 
+# THEME PURE #
+set fish_function_path /Users/paulirish/.config/fish/functions/pure $fish_function_path
+
 export GOPATH=$HOME/.go/
-
-
 
 # Completions
 function make_completion --argument-names alias command
