@@ -1,13 +1,14 @@
 [alias]
 	c = commit
         aa = add .
-	tool = mergetool 
+	tool = mergetool
 	up = fetch --all --prune
         p = push
         m = merge
         st = status -s
         a = add -i
         d = diff --color --color-words --abbrev
+        dc = diff --color --color-words --abbrev --cached
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	rt = reset HEAD --hard
 	am = commit --amend
