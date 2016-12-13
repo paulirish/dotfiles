@@ -147,6 +147,9 @@ npm install -g diff-so-fancy
 # trash as the safe `rm` alternative
 npm install --global trash-cli
 
+# install better nanorc config
+# https://github.com/scopatz/nanorc
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 # github.com/rupa/z   - oh how i love you
 git clone https://github.com/rupa/z.git ~/code/z
