@@ -90,8 +90,7 @@ source ~/.aliases
 setopt no_share_history
 
 # use the default version of node.js
-nvm > /dev/null
-if [ $? -eq 0 ]; then
+if [ -n "$(type nvm)" ]; then
   nvm use default
 fi
 
