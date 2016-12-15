@@ -275,15 +275,11 @@ imap <C-v> <Esc><C-v>a
 " =========================
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
-"map <Leader>x :%s/\s\+$//
 
-" Color scheme
-" =============
-set t_Co=256
-color desert
-
+" Reload vimrc
 map <Leader>v :source ~/.vimrc<CR>
 
+set t_Co=256
 set guioptions=egmrt
 set background=light
 
