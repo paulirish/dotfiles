@@ -71,8 +71,6 @@ function fuck -d 'Correct your previous console command'
     end
 end
 
-
-
 function server -d 'Start a HTTP server in the current dir, optionally specifying the port'
     if test $argv[1]
         set port $argv[1]
