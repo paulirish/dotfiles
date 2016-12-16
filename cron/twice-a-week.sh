@@ -1,9 +1,9 @@
 #!/bin/bash
+set -x
 
 # runs on sunday and thursday at midnight
 
-PATH=/Users/paulirish/.homebrew/bin:/Users/paulirish/.homebrew/sbin:/Users/paulirish/code/depot_tools:$PATH
-
+PATH=~/.homebrew/bin:~/.homebrew/sbin:/~/code/depot_tools:$PATH
 
 # protocol viewer
 #    git config user.name "devtools-bot"

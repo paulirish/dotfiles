@@ -18,6 +18,7 @@ alias mv 'command gmv --interactive --verbose'
 alias rm 'command grm --interactive --verbose'
 alias cp 'command gcp --interactive --verbose'
 
+alias chmox='chmod +x'
 
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
