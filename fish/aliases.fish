@@ -21,7 +21,10 @@ alias cp 'command gcp --interactive --verbose'
 
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
-alias brwe=brew  #typos
+
+# typos
+alias brwe=brew  
+alias gti=git
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
