@@ -411,3 +411,7 @@ nmap [p <plug>EasyClipSwapPasteBackwards
 vmap x <Plug>MoveMotionXPlug
 nmap xx <Plug>MoveMotionLinePlug
 
+" define color scheme
+set t_Co=256
+color desert
+
