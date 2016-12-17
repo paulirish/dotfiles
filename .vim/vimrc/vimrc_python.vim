@@ -1,6 +1,6 @@
 if has("autocmd")
-    autocmd BufRead *.py set tw=79 " 79 characters max on python files
-    set omnifunc=pythoncomplete#Complete " Python autocompletion !
+  autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 tw=79
+  set omnifunc=pythoncomplete#Complete " Python autocompletion !
 endif
 
 " Python syntax test from syntax/python.vim plugin

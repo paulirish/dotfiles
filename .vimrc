@@ -10,13 +10,6 @@ runtime macros/matchit.vim
 
 set shell=zsh
 
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-
-" Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
-" autocmd FileType gitcommit 1 | startinsert
-
 set path+=** " Search down into subfolders
 set wildmenu " Display all matching files when tab complete
 
@@ -76,11 +69,6 @@ let g:html_indent_style1 = "inc"
 
 set grepprg=ack\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
-
-" Javascript
-let jshint2_save = 1
-set smarttab
-set cindent
 
 " No bullshit folding magic
 set foldmethod=indent
@@ -167,9 +155,18 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
-" filetype based definition of tabwidth
-autocmd BufNewFile,BufRead *.js setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+" file based definition of tabwidth
+
+" filetype based settings
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+source ~/.vim/vimrc/vimrc_go.vim
+source ~/.vim/vimrc/vimrc_javascript.vim
+source ~/.vim/vimrc/vimrc_typescript.vim
+source ~/.vim/vimrc/vimrc_python.vim
+
+" Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
+" autocmd FileType gitcommit 1 | startinsert
 
 " disable formatting when pasting large chunks of code
 nmap <leader><F2> :set pastetoggle=<F2><CR>
@@ -299,14 +296,11 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " Easygrep settings
 let g:EasyGrepMode=0
 let g:EasyGrepCommand=1
-let g:EasyGrepFilesToExclude=".svn,.git,node_modules,bower,bower_components"
+let g:EasyGrepFilesToExclude=".svn,.git,node_modules,bower,bower_components,build"
 let g:EasyGrepRecursive=1
 let g:EasyGrepIgnoreCase=1
 
 "Syntastic settings
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
-let g:syntastic_javascript_tslint_exec = StrTrim(system('npm-which tslint'))
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0

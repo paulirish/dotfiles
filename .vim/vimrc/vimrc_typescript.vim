@@ -6,4 +6,5 @@ function! s:typescript_filetype_settings()
   set makeprg=tsc
 endfunction
 
+let g:syntastic_javascript_tslint_exec = StrTrim(system('npm-which tslint'))
 
