@@ -283,7 +283,7 @@ function docker-go() {
 }
 
 function docker-vim() {
-  docker run -it --rm  -v "$(pwd)":/home/jan/projects janbaer/vim
+  docker run -it --rm  -v "$(pwd)":/home/jan/projects janbaer/vim $1
 }
 
 alias dvim=docker-vim
