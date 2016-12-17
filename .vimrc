@@ -160,10 +160,6 @@ set expandtab
 " filetype based settings
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-source ~/.vim/vimrc/vimrc_go.vim
-source ~/.vim/vimrc/vimrc_javascript.vim
-source ~/.vim/vimrc/vimrc_typescript.vim
-source ~/.vim/vimrc/vimrc_python.vim
 
 " Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
 " autocmd FileType gitcommit 1 | startinsert
@@ -365,3 +361,8 @@ set guioptions=egmrt
 set background=light
 color desert
 
+" Add file type based settings
+source ~/.vim/vimrc/vimrc_go.vim
+source ~/.vim/vimrc/vimrc_javascript.vim
+source ~/.vim/vimrc/vimrc_typescript.vim
+source ~/.vim/vimrc/vimrc_python.vim
