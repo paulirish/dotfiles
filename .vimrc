@@ -432,3 +432,5 @@ let g:spotify_next_key = "<F11>"
 " spell
 map <Leader>es :set spell spelllang=es_mx<CR>
 map <Leader>en :set spell spelllang=en_us<CR>
+map <Leader>no :set nospell<CR>
+
