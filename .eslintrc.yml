@@ -1,0 +1,24 @@
+extends: airbnb/base
+
+parserOptions:
+  ecmaVersion: 6
+
+rules:
+  quotes:
+    - 1
+    - single
+  semi:
+    - 1
+    - always
+  indent:
+    - 1
+    - 2
+  func-names: 0
+  prefer-const: 0
+  space-before-function-paren:
+    - 1
+    - never
+  no-proto: 1
+  no-param-reassign: 0
+  quote-props: 1
+  radix: 0
