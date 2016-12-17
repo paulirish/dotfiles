@@ -14,6 +14,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
+" Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
 " autocmd FileType gitcommit 1 | startinsert
 
 set path+=** " Search down into subfolders
@@ -77,17 +78,11 @@ set grepprg=ack\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
 
 " Javascript
-" ==========
 let jshint2_save = 1
 set smarttab
 set cindent
 
-" DelimitMate
-" ===========
-let delimitMate_expand_cr = 1
-
 " No bullshit folding magic
-" =========================
 set foldmethod=indent
 set foldlevel=99
 set foldnestmax=6
@@ -98,11 +93,9 @@ vnoremap <Space> zf
 "au BufRead * normal zR
 
 " Tagbar
-" ======
 nmap <F9> :TagbarToggle<CR>
 
 " General option
-" ===============
 let mapleader = "," " rebind <Leader> key
 set wildmode=list:longest " make TAB behave like in a shell
 set autoread " reload file when changes happen in other editors
@@ -114,8 +107,7 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-" Disable stupid backup and swap files - they trigger too many events
-" for file system watchers
+" Disable stupid backup and swap files - they trigger too many events for file system watchers
 set nobackup
 set nowritebackup
 set noswapfile
@@ -139,7 +131,7 @@ endfunction
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
-" ****** Mappings ****
+" ****** Key-Mappings ****
 noremap <C-j> ddp " Move line down
 noremap <C-k> ddkP " Move line up"
 noremap <Leader>dd yyp " Duplicate the current line
@@ -158,7 +150,8 @@ inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 
-noremap <Leader>s :mksession!<CR> " Save current session reload with vim -S
+" Save current session reload with vim -S
+noremap <Leader>s :mksession!<CR>
 
 " Bind toggle hlsearch
 noremap <Leader>h :set hlsearch!<CR>
@@ -167,6 +160,7 @@ noremap <silent> <BS> :set hlsearch!<CR>
 set history=700
 set undolevels=700
 
+" Define our defaults for the tabwdith
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -175,7 +169,6 @@ set expandtab
 
 " filetype based definition of tabwidth
 autocmd BufNewFile,BufRead *.js setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab preserveindent tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " disable formatting when pasting large chunks of code
@@ -202,6 +195,7 @@ function! NumberToggle()
   endif
 endfunc
 
+" Show line number and toggle virtual line on/off
 nnoremap <Leader>n :call NumberToggle()<CR>
 set number
 
@@ -213,18 +207,15 @@ vmap Q gq
 nmap Q gqap
 
 " Settings for vim-markdown
-" ==========================
 " let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_initial_foldlevel=1
 
 " Settings for ctrlp
-" ===================
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --exclude-standard']
 let g:ctrlp_max_height = 30
 let g:ctrlp_compare_lim = 0
 
 " Custom mappings
-" ================
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 map <Leader>a ggVG  " select all
@@ -267,21 +258,11 @@ imap <leader>[ []<ESC>i
 imap <leader>{ {}<ESC>i
 
 " Fixing the copy & paste madness
-" ================================
 vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
 imap <C-v> <Esc><C-v>a
 
-" Show trailing whitespace
-" =========================
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
 " Reload vimrc
 map <Leader>v :source ~/.vimrc<CR>
-
-set t_Co=256
-set guioptions=egmrt
-set background=light
 
 " Powerline settings
 set laststatus=2
@@ -310,20 +291,12 @@ let g:user_emmet_mode='in'
 let g:user_emmet_install_global = 1
 imap <Leader>i <C-Y>,
 
-" Typescript settings
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-let g:typescript_compiler_options = '-sourcemap'
-autocmd FileType typescript call s:typescript_filetype_settings()
-function! s:typescript_filetype_settings()
-  set makeprg=tsc
-endfunction
-
 " Compilesettings
 map <Leader>j :make<CR>
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-"Easygrep settings
+" Easygrep settings
 let g:EasyGrepMode=0
 let g:EasyGrepCommand=1
 let g:EasyGrepFilesToExclude=".svn,.git,node_modules,bower,bower_components"
@@ -379,25 +352,6 @@ set tags+=tags
 noremap <F3> :Autoformat<CR>
 
 let g:syntastic_python_checkers = ['pylint']
-
-" Settings for vim-go
-au FileType go nmap <leader>gr <Plug>(go-run)
-au FileType go nmap <leader>gt <Plug>(go-test)
-au FileType go nmap <leader>gtf <Plug>(go-test-func)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gi <Plug>(go-info)
-au FileType go nmap <Leader>gb <Plug>(go-build)
-au FileType go set invlist
-" Required to get the type information
-let g:go_auto_type_info = 1
-" Configure syntastic plugin to avoid it builds everytime a file is saved
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
-let g:go_fmt_command = "goimports" " Use goimports instead of gofmt
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
 
 " EasyClip
 let g:EasyClipShareYanks=1
