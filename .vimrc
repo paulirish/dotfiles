@@ -304,7 +304,7 @@ let g:EasyGrepRecursive=1
 let g:EasyGrepIgnoreCase=1
 
 "Syntastic settings
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
 let g:syntastic_javascript_tslint_exec = StrTrim(system('npm-which tslint'))
 let g:syntastic_always_populate_loc_list = 1
@@ -367,5 +367,7 @@ nmap xx <Plug>MoveMotionLinePlug
 
 " define color scheme
 set t_Co=256
+set guioptions=egmrt
+set background=light
 color desert
 
