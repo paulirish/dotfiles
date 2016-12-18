@@ -47,6 +47,7 @@ Plugin 'kopischke/vim-fetch'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'svermeulen/vim-easyclip'
+Plugin 'zirrostig/vim-schlepp'
 
 call vundle#end()
 filetype plugin indent on
@@ -354,6 +355,14 @@ nmap ]p <plug>EasyClipSwapPasteForward
 nmap [p <plug>EasyClipSwapPasteBackwards
 vmap x <Plug>MoveMotionXPlug
 nmap xx <Plug>MoveMotionLinePlug
+
+" Vim-Schlepp settings
+let g:Schlepp#allowSquishingLines = 1
+let g:Schlepp#allowSquishingBlocks = 1
+vmap <C-J>    <Plug>SchleppUp
+vmap <C-K>    <Plug>SchleppDown
+vmap <C-H>    <Plug>SchleppLeft
+vmap <C-L>    <Plug>SchleppRight
 
 " define color scheme
 set t_Co=256
