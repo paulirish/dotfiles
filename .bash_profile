@@ -33,6 +33,3 @@ export NVM_DIR="$HOME/.nvm"
 export RBENV_ROOT=/usr/local/var/rbenv
 eval "$(rbenv init -)"
 
-# composer
-export PATH=$PATH:$HOME/.composer/vendor/bin
-
