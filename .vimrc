@@ -368,8 +368,7 @@ vmap <C-L>    <Plug>SchleppRight
 set t_Co=256
 set guioptions=egmrt
 set background=light
-
-color badwolf
+color desert
 
 " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
