@@ -359,8 +359,8 @@ nmap xx <Plug>MoveMotionLinePlug
 " Vim-Schlepp settings
 let g:Schlepp#allowSquishingLines = 1
 let g:Schlepp#allowSquishingBlocks = 1
-vmap <C-J>    <Plug>SchleppUp
-vmap <C-K>    <Plug>SchleppDown
+vmap <C-K>    <Plug>SchleppUp
+vmap <C-J>    <Plug>SchleppDown
 vmap <C-H>    <Plug>SchleppLeft
 vmap <C-L>    <Plug>SchleppRight
 
