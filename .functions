@@ -333,5 +333,9 @@ function mocha-watch() {
 }
 
 function latex() {
-  docker run --rm -it -v $(pwd):/tmp -w /tmp svagi/latex xelatex "$@"
+  docker run --rm -it -v $(pwd):/tmp -w /tmp janbaer/latex xelatex "$@"
+}
+
+function alpine() {
+  docker run -it --rm --name=alpine -v $(pwd):/tmp -w /tmp alpine:latest sh
 }
