@@ -337,5 +337,5 @@ function latex() {
 }
 
 function alpine() {
-  docker run -it --rm --name=alpine -v $(pwd):/tmp -w /tmp alpine:latest sh
+  docker run -it --rm -v $(pwd):/tmp -w /tmp janbaer/alpine
 }
