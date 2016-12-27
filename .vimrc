@@ -138,6 +138,7 @@ noremap <Leader>t :NERDTreeToggle<CR>
 inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
+let NERDTreeShowHidden=1
 
 " Save current session reload with vim -S
 noremap <Leader>s :mksession!<CR>
