@@ -237,6 +237,11 @@ function createCTags() {
   /usr/local/bin/ctags -R --options=$HOME/.ctagsoptions
 }
 
+function createJSCTags() {
+  # You have to install 'npm install -g jsctags' to use this command
+  find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -not -path ".*/bundle.js" -not -path ".*/*vendor.js" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
+}
+
 function removeOrigFiles() {
   find . -iname '*.orig' -exec rm '{}' ';'
 }
