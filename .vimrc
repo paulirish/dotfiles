@@ -95,6 +95,7 @@ set bs=2 " make backspace behave like normal again
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
+set wildignore+=.DS_Store
 
 " Disable stupid backup and swap files - they trigger too many events for file system watchers
 set nobackup
@@ -139,6 +140,7 @@ inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 let NERDTreeShowHidden=1
+let NERDTreeRespectWildIgnore=1
 
 " Save current session reload with vim -S
 noremap <Leader>s :mksession!<CR>
