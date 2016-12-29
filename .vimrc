@@ -370,8 +370,9 @@ vmap <C-L>    <Plug>SchleppRight
 " define color scheme
 set t_Co=256
 set guioptions=egmrt
-set background=light
-color desert
+color molokai
+let g:rehash256=1
+set background=dark
 
 " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
