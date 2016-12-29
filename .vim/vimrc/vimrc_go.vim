@@ -19,3 +19,7 @@ let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 
+" Open file at a position where it was last left.
+au BufWinLeave *.go mkview
+au BufWinEnter *.go silent loadview
+

@@ -12,6 +12,10 @@ set suffixes=*~,*.pyc,*.pyo
 " Improve formatting
 autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
+" Open file at a position where it was last left.
+au BufWinLeave *.py mkview
+au BufWinEnter *.py silent loadview
+
 " ============================================================================
 " Cleaning Stuff =============================================================
 " ============================================================================

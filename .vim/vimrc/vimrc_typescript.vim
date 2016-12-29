@@ -8,3 +8,6 @@ endfunction
 
 let g:syntastic_javascript_tslint_exec = StrTrim(system('npm-which tslint'))
 
+" Open file at a position where it was last left.
+au BufWinLeave *.ts mkview
+au BufWinEnter *.ts silent loadview
