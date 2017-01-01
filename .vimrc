@@ -422,6 +422,7 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>ta :call RunAllSpecs()<CR>
+map <leader>cop :!rubocop %<CR>
 
 " spotify
 let g:spotify_country_code = 'MX'
