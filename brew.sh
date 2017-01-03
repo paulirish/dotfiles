@@ -42,7 +42,7 @@ brew install homebrew/dupes/screen
 # run this script when this file changes guy.
 brew install entr
 
-# github util. imho better than hub
+# github util. gotta love `hub fork`, `hub create`, `hub checkout <PRurl>`
 brew install hub
 
 
