@@ -63,10 +63,10 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
-# z beats cd most of the time.
-#   github.com/rupa/z
-source ~/code/z/z.sh
 
+# z beats cd most of the time. `brew install z`
+zpath="$(brew --prefix)/etc/profile.d/z.sh"
+[ -s $zpath ] && source $zpath
 
 
 ##
