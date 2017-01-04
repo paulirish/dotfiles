@@ -8,7 +8,8 @@ if which thefuck > /dev/null; then
     eval "$(thefuck --alias)"
 fi;
 
-
+# Automatically trim long paths in the prompt (requires Bash 4.x)
+PROMPT_DIRTRIM=2
 
 if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
     return 1 2> /dev/null || exit 1;
