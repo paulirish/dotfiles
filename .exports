@@ -35,3 +35,5 @@ export POWERLINE_CONFIG_COMMAND=~/Library/Python/2.7/bin/powerline-config
 # Define where the Go main path is
 export GOPATH=~/Projects/go
 export PATH=$PATH:$GOPATH/bin
+
+export CDPATH=~/Projects/:~/Projects/go/src/github.com/howcani-project/:~/Projects/go/src/github.com/janbaer/
