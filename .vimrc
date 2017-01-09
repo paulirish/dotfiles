@@ -228,7 +228,7 @@ map <Leader>hd :resize -10<CR>
 
 nmap ;s  :set invspell spelllang=en<CR>
 nnoremap <F6> <C-W>w
-map <F7> :tabnext<CR>
+map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
 
 map <Leader>x :x<CR>
