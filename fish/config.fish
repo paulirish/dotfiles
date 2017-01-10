@@ -6,6 +6,8 @@ source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 
+source ~/.extra.fish
+
 # THEME PURE #
 set fish_function_path /Users/paulirish/.config/fish/functions/pure $fish_function_path
 
