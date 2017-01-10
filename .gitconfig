@@ -23,7 +23,8 @@
 	show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-	diffFilter = "diff-so-fancy"
+  # disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
+	# diffFilter = "diff-so-fancy"
 
 # so much color
 [color]
