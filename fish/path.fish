@@ -22,4 +22,10 @@ end
 # 	set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
 # end
 
+if which -s yarn; 
+	set node_path (greadlink -f (which node))
+	set node_path_dir (string replace "bin/node" "bin" $node_path)
+	set PA $PA $node_path_dir
+end
+
 set --export PATH $PA
