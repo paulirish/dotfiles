@@ -43,6 +43,12 @@ function md --wraps mkdir -d "Create a directory and cd into it"
   end
 end
 
+function gz --d "Get the gzipped size"
+  echo "orig size    (bytes): "
+  cat "$argv[1]" | wc -c
+  echo "gzipped size (bytes): "
+  gzip -c "$argv[1]" | wc -c
+end
 
 function sudo!!
     eval sudo $history[1]
