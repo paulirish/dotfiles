@@ -162,3 +162,6 @@ alias got='go test -v ./... | sed ''/PASS/s//$(printf "\033[32mPASS\033[0m")/'' 
 
 # some js aliases
 alias lint="eslint ./"
+
+# ranger
+alias r="ranger"
