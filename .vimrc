@@ -98,6 +98,8 @@ set wildignore+=*/coverage/*
 set wildignore+=.DS_Store
 set wildignore+=.git
 set wildignore+=.vscode
+set wildignore+=.idea
+set wildignore+=obj
 
 " Disable stupid backup and swap files - they trigger too many events for file system watchers
 set nobackup
@@ -298,7 +300,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " Easygrep settings
 let g:EasyGrepMode=0
 let g:EasyGrepCommand=1
-let g:EasyGrepFilesToExclude=".svn,.git,node_modules,bower,bower_components,build"
+let g:EasyGrepFilesToExclude=".svn,.git,.idea,.vscode,node_modules,bower,bower_components,build"
 let g:EasyGrepRecursive=1
 let g:EasyGrepIgnoreCase=1
 
