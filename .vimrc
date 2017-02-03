@@ -39,6 +39,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'ervandew/supertab'
 Plugin 'takac/vim-spotifysearch'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'mxw/vim-jsx'
 call vundle#end()
 filetype plugin indent on
 
@@ -305,9 +306,9 @@ let NERDTreeChDirMode=2
 nnoremap <leader>n :NERDTreeToggle .<CR>
 
 " tabs
-map <F3> :tabp<CR>
-map <F4> :tabn<CR>
-map <F5> :tabnew<CR>
+noremap <F9> :tabp<CR>
+noremap <F10> :tabn<CR>
+noremap <F5> :tabnew<CR>
 
 " ack
 nnoremap <C-S-F> :Ack<space>
