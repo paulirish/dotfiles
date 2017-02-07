@@ -19,7 +19,6 @@
         sub = submodule
         patch = format-patch -1
         r = reset
-        undo = push origin HEAD^:$(git rev-parse --abbrev-ref HEAD) -f
 [color]
 	ui = always
 [core]

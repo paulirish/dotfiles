@@ -56,7 +56,7 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 # GIT STUFF
 
 # Undo a `git push`
-alias undopush="git push -f origin HEAD^:master"
+alias undopush="git push origin HEAD^:$(git rev-parse --abbrev-ref HEAD) -f"
 
 
 # git root
