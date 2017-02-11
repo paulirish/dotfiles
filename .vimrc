@@ -382,4 +382,4 @@ set background=dark
 source ~/.vim/vimrc/vimrc_go.vim
 source ~/.vim/vimrc/vimrc_javascript.vim
 source ~/.vim/vimrc/vimrc_typescript.vim
-source ~/.vim/vimrc/vimrc_python.vim
+"source ~/.vim/vimrc/vimrc_python.vim
