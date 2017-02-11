@@ -93,3 +93,8 @@ fi
 
 # Add support for fzf the fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
+  echo "Use Nix package manager"
+  source ~/.nix-profile/etc/profile.d/nix.sh
+fi
