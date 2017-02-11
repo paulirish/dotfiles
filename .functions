@@ -171,7 +171,7 @@ function npmlsg() {
 }
 
 function install-global-npms() {
-  npm install -g babel babel-eslint bower eslint gulp-cli growl grunt-cli karma-cli mocha live-server nodemon yo typescript tslint webpack
+  npm install -g babel babel-eslint bower eslint gulp-cli growl grunt-cli karma-cli mocha live-server nodemon yo typescript tslint webpack jsctags
 }
 
 function clip() {
