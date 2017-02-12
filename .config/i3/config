@@ -102,7 +102,7 @@ bindsym $mod+Shift+x exec i3lock --color 475263
 set $ws1 "1: DEV"
 set $ws2 "2: WEB"
 set $ws3 "3: MISC"
-set $ws4 "4"
+set $ws4 "4: REMOTE"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -139,6 +139,7 @@ bindsym $mod+End    workspace $ws10
 
 # default workspaces
 assign [title="ClipGrab - Download and Convert Online Videos"] $ws10
+assign [instance="remmina"] $ws4
 
 #END workspaces
 
@@ -225,4 +226,5 @@ for_window [title="ClipGrab - Download and Convert Online Videos"] floating enab
 for_window [instance="keepassx"] floating enable resize set 800 600
 for_window [instance="vlc"] floating enable
 for_window [instance="lxappearance"] floating enable
+for_window [instance="remmina"] floating enable
 
