@@ -6,7 +6,10 @@ source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 
-source ~/.extra.fish
+# for things not checked into git..
+if test -d "~/.extra.fish"; 
+	source ~/.extra.fish
+end
 
 # THEME PURE #
 set fish_function_path /Users/paulirish/.config/fish/functions/pure $fish_function_path
