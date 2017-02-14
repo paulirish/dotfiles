@@ -33,3 +33,6 @@ export NVM_DIR="$HOME/.nvm"
 export RBENV_ROOT=/usr/local/var/rbenv
 eval "$(rbenv init -)"
 
+# python env
+export PATH=~/Library/Python/2.7/bin:$PATH
+

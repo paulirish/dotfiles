@@ -13,4 +13,4 @@
 --type-set=hbs=.hbs,.html
 --type-set=js=.js,.coffee
 --type-add=css=.scss
-
+--ignore-directory=is:.idea
