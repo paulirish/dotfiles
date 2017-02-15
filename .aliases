@@ -168,3 +168,7 @@ alias r="ranger"
 
 # start the VPN to my compan
 alias vpn="~/bin/vpn.sh"
+
+# mount and unmount JABASOFT-DS
+alias mount-nas="~/bin/mount-drives.sh"
+alias unmount-nas="~/bin/unmount-drives.sh"
