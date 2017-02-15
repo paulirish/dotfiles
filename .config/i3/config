@@ -140,6 +140,7 @@ bindsym $mod+End    workspace $ws10
 # default workspaces
 assign [title="ClipGrab - Download and Convert Online Videos"] $ws10
 assign [instance="remmina"] $ws4
+assign [instance="code"] $ws1
 
 #END workspaces
 
@@ -227,4 +228,5 @@ for_window [instance="keepassx"] floating enable resize set 800 600
 for_window [instance="vlc"] floating enable
 for_window [instance="lxappearance"] floating enable
 for_window [instance="remmina"] floating enable
+for_window [instance="seahorse"] floating enable resize set 800 600
 
