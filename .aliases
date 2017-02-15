@@ -165,3 +165,6 @@ alias lint="eslint ./"
 
 # ranger
 alias r="ranger"
+
+# start the VPN to my compan
+alias vpn="~/bin/vpn.sh"
