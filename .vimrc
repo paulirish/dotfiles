@@ -369,6 +369,7 @@ set clipboard=unnamed
 
 " esc
 imap jj <Esc>
+imap JJ <Esc>
 imap kk <Esc>
 imap ii <Esc>
 
@@ -435,4 +436,7 @@ let g:spotify_next_key = "<F11>"
 map <Leader>es :set spell spelllang=es_mx<CR>
 map <Leader>en :set spell spelllang=en_us<CR>
 map <Leader>no :set nospell<CR>
+
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0 
 
