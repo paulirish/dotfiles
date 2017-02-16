@@ -206,12 +206,20 @@ bindsym $mod+Shift+s exec ./suspend_ubuntu.sh
 # Configure the volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle #turn sound on or off
 
-# Configure the compose key
-exec_always setxkbmap -option compose:ralt
+# Media player controls
+# You need to install playerctl before from https://github.com/acrisci/playerctl/releases
+# sudo dpkg -i playerctl-0.5.0_amd64.deb
+bindsym $mod+p exec playerctl play
+#bindsym XF86AudioPlay   exec playerctl play
+bindsym XF86AudioPause  exec playerctl pause
+bindsym XF86AudioNext   exec playerctl next
+bindsym XF86AudioPrev   exec playerctl previous
 
 # Keys
-exec_always xmodmap -e "clear lock" #disable caps lock switch
+exec_always setxkbmap -option compose:ralt  # Configure the compose key
+exec_always setxkbmap -option "ctrl:nocaps" # disable caps lock switch
 exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 
 # Configure my wallpaper
