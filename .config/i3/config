@@ -223,7 +223,7 @@ exec_always setxkbmap -option "ctrl:nocaps" # disable caps lock switch
 exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 
 # Configure my wallpaper
-exec_always --no-startup-id feh --bg-scale ~/.wallpaper.png
+exec_always --no-startup-id feh --bg-scale ~/.wallpaper.jpg
 exec_always --no-startup-id xrandr --output HDMI2 --mode 3440X1440
 
 # start the dropbox client - see https://faq.i3wm.org/question/1611/ubuntuone-and-dropbox.1.html
