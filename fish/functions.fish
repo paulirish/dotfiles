@@ -32,7 +32,7 @@ end
 
 
 function md --wraps mkdir -d "Create a directory and cd into it"
-  command mkdir $argv
+  command mkdir -p $argv
   if test $status = 0
     switch $argv[(count $argv)]
       case '-*'
