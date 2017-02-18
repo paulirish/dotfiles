@@ -101,5 +101,5 @@ fi
 
 if [ -f ~/.gvm/scripts/gvm ]; then
   echo "Use Go version manager"
-  `source ~/.gvm/scripts/gvm`
+  source ~/.gvm/scripts/gvm
 fi
