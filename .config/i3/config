@@ -201,7 +201,7 @@ bar {
 }
 
 # Suspend my system
-bindsym $mod+Shift+s exec ./suspend_ubuntu.sh
+bindsym $mod+Shift+s exec ~/.config/i3/suspend_ubuntu.sh
 
 # Making a screenshot with using scrot
 bindsym --release $mod+Shift+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots'"
