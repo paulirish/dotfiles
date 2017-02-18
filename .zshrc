@@ -98,3 +98,8 @@ if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
   echo "Use Nix package manager"
   source ~/.nix-profile/etc/profile.d/nix.sh
 fi
+
+if [ -f ~/.gvm/scripts/gvm ]; then
+  echo "Use Go version manager"
+  `source ~/.gvm/scripts/gvm`
+fi
