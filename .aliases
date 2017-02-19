@@ -176,3 +176,7 @@ alias unmount-nas="~/bin/unmount-drives.sh"
 # mount MyDocuments
 alias mount-mydocuments="~/bin/mount-mydocuments.sh"
 alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
+
+# Backup homefolders
+alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
+
