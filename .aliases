@@ -172,3 +172,7 @@ alias vpn="~/bin/vpn.sh"
 # mount and unmount JABASOFT-DS
 alias mount-nas="~/bin/mount-drives.sh"
 alias unmount-nas="~/bin/unmount-drives.sh"
+
+# mount MyDocuments
+alias mount-mydocuments="~/bin/mount-mydocuments.sh"
+alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
