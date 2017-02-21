@@ -48,6 +48,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'svermeulen/vim-easyclip'
 Plugin 'zirrostig/vim-schlepp'
+Plugin 'szw/vim-maximizer'
 
 call vundle#end()
 filetype plugin indent on
@@ -347,7 +348,12 @@ command! TigStatus call s:tig_status()
 set tags+=tags
 
 " Hotkey for AutoFormat
-noremap <F3> :Autoformat<CR>
+noremap <F4> :Autoformat<CR>
+
+" Vim-Maximizer
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
 let g:syntastic_python_checkers = ['pylint']
 
