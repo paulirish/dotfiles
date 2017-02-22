@@ -1,14 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-SERVER_ADDRESS=JABASOFT-DS
-HOSTNAME="JABASOFT-MBA"
-USER=jan
+. ~/bin/rsync-mydata.sh
 
-for DIRECTORY_NAME in Desktop Documents Downloads Pictures Movies temp; do
-  rsync -avuz --progress --delete \
-        --exclude=".DS_STORE" --exclude=".localized" \
-        --exclude="node_modules" --exclude=".git" \
-        ~/$DIRECTORY_NAME \
-        $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
-done
+backup "JABASOFT-DS" "JABASOFT-MBA" "jan" "Desktop Documents Downloads Pictures Movies"
 
