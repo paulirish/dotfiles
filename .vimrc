@@ -185,6 +185,9 @@ set nowrap " don't automatically wrap on load
 set tw=100  " width of document (used by gd)
 set fo-=t  " don't automatically wrap text when typing
 
+command! -nargs=* Wrap set wrap linebreak nolist
+command! -nargs=* Nowrap set nowrap nolinebreak list
+
 " Awesome line number magic
 function! NumberToggle()
   if(&relativenumber == 1)
