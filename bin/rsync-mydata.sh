@@ -7,6 +7,7 @@ function backup {
   for DIRECTORY_NAME in $DIRECTORIES; do
     rsync -avuz --progress --delete \
           --exclude="node_modules/" --exclude="DS_store" --exclude=".localized" \
+          -e "ssh -i ~/.ssh/rsync-key" \
           ~/$DIRECTORY_NAME $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
   done
 }
