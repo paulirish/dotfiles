@@ -314,7 +314,7 @@ noremap <F10> :tabn<CR>
 noremap <F5> :tabnew<CR>
 
 " ack
-nnoremap <C-S-F> :Ack<space>
+" nnoremap <C-S-F> :Ack<space>
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:Ack<CR>
 
 " NerdCommneter
