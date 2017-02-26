@@ -50,6 +50,9 @@ set path+=**
 " disable ex-mode
 nnoremap Q <Nop>
 
+" disable help
+nmap <F1> <nop>
+
 " Set syntax highlighting options.
 set t_Co=256
 set background=dark
