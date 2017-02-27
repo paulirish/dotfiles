@@ -8,6 +8,11 @@
 ###  backup old machine's key items
 
 mkdir -p ~/migration/home 
+mkdir -p ~/migration/Application\ Support
+mkdir -p ~/migration/Library/Preferences/
+mkdir -p ~/migration/Library/Application Support/
+mkdir -p ~/migration/rootLibrary/Preferences
+
 cd ~/migration
 
 # what is worth reinstalling?
@@ -19,30 +24,26 @@ npm list -g --depth=0 	> npm-g-list.txt
 #   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
 
 cp -Rp ~/.extra ~/migration/home
+cp -Rp ~/.extra.fish ~/migration/home
 cp -Rp ~/.z ~/migration/home  # z history file.
-
 cp -Rp ~/.ssh ~/migration/home
 cp -Rp ~/.gnupg ~/migration/home
-
-cp -Rp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration  # wifi
-
-cp -Rp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration
-cp -Rp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration
-
-cp -Rp ~/Library/Services ~/migration # automator stuff
+cp -Rp ~/.bash_history ~/migration/home # back it up for fun?
+cp -Rp ~/.gitconfig.local ~/migration/home
 
 cp -Rp ~/Documents ~/migration
 
-cp -Rp ~/.bash_history ~/migration # back it up for fun?
+cp -Rp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration/rootLibrary/Preferences/SystemConfiguration  # wifi
 
-cp -Rp ~/.gitconfig.local ~/migration
+cp -Rp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration/Library/Preferences/
+cp -Rp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration/Library/Preferences/
 
-cp -Rp ~/Library/Fonts ~/migration # all those fonts you've installed
- 
+cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
+cp -Rp ~/Library/Fonts ~/migration/Library/ # all those fonts you've installed
 
-# sublime text settings
-cp -Rp "~/Library/Application Support/Sublime Text 3" ~/migration
-cp -Rp ~/Library/Application\ Support/Code\ -\ Insiders/ ~/migration/
+# editor settings & plugins
+cp -Rp "~/Library/Application Support/Sublime Text 3" ~/migration/Library/Application Support/
+cp -Rp ~/Library/Application\ Support/Code\ -\ Insiders/ ~/migration/Library/Application Support/
 
 # also consider...
 # random git branches you never pushed anywhere?
