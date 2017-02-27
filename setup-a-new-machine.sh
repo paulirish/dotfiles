@@ -23,13 +23,18 @@ npm list -g --depth=0 	> npm-g-list.txt
 # then compare brew-list to what's in `brew.sh`
 #   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
 
-cp -Rp ~/.extra ~/migration/home
-cp -Rp ~/.extra.fish ~/migration/home
-cp -Rp ~/.z ~/migration/home  # z history file.
-cp -Rp ~/.ssh ~/migration/home
-cp -Rp ~/.gnupg ~/migration/home
-cp -Rp ~/.bash_history ~/migration/home # back it up for fun?
-cp -Rp ~/.gitconfig.local ~/migration/home
+# backup some dotfiles likely not under source control
+cp -Rp \
+    ~/.bash_history \
+    ~/.extra ~/.extra.fish \
+    ~/.gitconfig.local \
+    ~/.gnupg \
+    ~/.nano \
+    ~/.nanorc \
+    ~/.netrc \
+    ~/.ssh \
+    ~/.z   \
+        ~/migration/home
 
 cp -Rp ~/Documents ~/migration
 
@@ -69,6 +74,7 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insiders/ ~/migration/Library/App
 # software licenses.
 #   sublimetext's is in its Application Support folder
 
+# maybe ~/Pictures and such
 
 ### end of old machine backup
 ##############################################################################################################
