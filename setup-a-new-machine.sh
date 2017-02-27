@@ -48,8 +48,8 @@ cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/ # all those fonts you've installed
 
 # editor settings & plugins
-cp -Rp ~/Library/Application\ Support/Sublime\ Text\ 3 ~/migration/Library/"Application Support"/
-cp -Rp ~/Library/Application\ Support/Code\ -\ Insiders/ ~/migration/Library/"Application Support"/
+cp -Rp ~/Library/Application\ Support/Sublime\ Text\ * ~/migration/Library/"Application Support"
+cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"Application Support"
 
 # also consider...
 # random git branches you never pushed anywhere?
@@ -76,6 +76,7 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insiders/ ~/migration/Library/"Ap
 #   sublimetext's is in its Application Support folder
 
 # maybe ~/Pictures and such
+cp -Rp ~/Pictures ~/migration
 
 ### end of old machine backup
 ##############################################################################################################
