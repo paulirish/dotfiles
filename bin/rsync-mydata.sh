@@ -10,5 +10,10 @@ function backup {
           -e "ssh -i ~/.ssh/rsync-key" \
           ~/$DIRECTORY_NAME $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
   done
+
+  rsync -avuz --progress --delete \
+        --exclude=".local/" --include="*.local" --exclude="*" \
+        -e "ssh -i ~/.ssh/rsync-key" \
+        ~/ $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
 }
 
