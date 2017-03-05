@@ -95,7 +95,10 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
-  echo "Use Nix package manager"
+  echo "use nix package manager"
   source ~/.nix-profile/etc/profile.d/nix.sh
 fi
 
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
+fi

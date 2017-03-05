@@ -39,5 +39,3 @@ export PATH=$PATH:$GOPATH/bin
 
 export CDPATH=~/Projects/:~/Projects/go/src/github.com/howcani-project/:~/Projects/go/src/github.com/janbaer/
 
-# My personal GPG-Key entry
-export GPGKEY=A2333E71
