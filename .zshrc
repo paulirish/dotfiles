@@ -100,6 +100,6 @@ if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
   source ~/.nix-profile/etc/profile.d/nix.sh
 fi
 
-if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
 fi
