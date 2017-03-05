@@ -162,10 +162,6 @@ function get-nodejs-version() {
   curl -s https://nodejs.org/en/ | grep "Current Version" | awk '{ print substr($4,0,8) }'
 }
 
-function get-iojs-version() {
-  curl -s https://iojs.org/en/index.html | grep "Version" | awk '{ print substr($3,0,5) }'
-}
-
 function npmlsg() {
   npm ls -g --depth=0
 }
@@ -352,3 +348,4 @@ function latex() {
 function alpine() {
   docker run -it --rm -v $(pwd):/tmp -w /tmp janbaer/alpine
 }
+
