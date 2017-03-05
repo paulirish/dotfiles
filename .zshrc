@@ -71,9 +71,10 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 #
-export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
+export LESSOPEN="| /usr/local/bin/pygmentize %s"
 export LESS=" -R "
 alias less='less -m -N -g -i -J --underline-special --SILENT'
+
 alias more='less'
 
 source ~/.exports
