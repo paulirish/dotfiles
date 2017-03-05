@@ -180,3 +180,8 @@ alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
 # Backup homefolders
 alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
 
+if [ $(uname) = "Linux" ]; then
+   # You need to install xsel with apt-get before using it
+  alias pbcopy='xsel --clipboard --input'
+  alias pbpaste='xsel --clipboard --output'
+fi
