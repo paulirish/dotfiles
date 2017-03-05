@@ -145,7 +145,9 @@ if [ $UID -ne 0 ]; then
   alias update='sudo apt-get upgrade'
 fi
 
-alias swift="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift"
+if [ $(uname) = "Darwin" ]; then
+  alias swift="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift"
+fi
 
 # aliases for my own functions
 alias runTests=watchTests
@@ -166,9 +168,6 @@ alias lint="eslint ./"
 # ranger
 alias r="ranger"
 
-# start the VPN to my compan
-alias vpn="~/bin/vpn.sh"
-
 # mount and unmount JABASOFT-DS
 alias mount-nas="~/bin/mount-drives.sh"
 alias unmount-nas="~/bin/unmount-drives.sh"
@@ -177,11 +176,14 @@ alias unmount-nas="~/bin/unmount-drives.sh"
 alias mount-mydocuments="~/bin/mount-mydocuments.sh"
 alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
 
-# Backup homefolders
-alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
-
 if [ $(uname) = "Linux" ]; then
-   # You need to install xsel with apt-get before using it
+  # start the VPN to my compan
+  alias vpn="~/bin/vpn.sh"
+
+  # Backup homefolders
+  alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
+
+  # You need to install xsel with apt-get before using it
   alias pbcopy='xsel --clipboard --input'
   alias pbpaste='xsel --clipboard --output'
 fi
