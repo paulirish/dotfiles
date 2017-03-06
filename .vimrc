@@ -163,6 +163,7 @@ set softtabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
+command! -nargs=* SetNormalIndent set ts=2 sw=2 sts=2
 
 " file based definition of tabwidth
 
