@@ -5,6 +5,7 @@ source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
+source ~/.config/fish/chromium.fish
 
 # for things not checked into git..
 if test -d "~/.extra.fish"; 
