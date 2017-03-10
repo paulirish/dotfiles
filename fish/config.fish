@@ -8,7 +8,7 @@ source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
 
 # for things not checked into git..
-if test -d "~/.extra.fish"; 
+if test -e "$HOME/.extra.fish"; 
 	source ~/.extra.fish
 end
 
