@@ -50,9 +50,10 @@ brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 
 # JavaScript dev tools
-brew install casperjs
-brew install nvm
 brew install node
+brew install nvm
+brew install casperjs
+brew install yarn
 
 # Python dev tools
 brew install python
