@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Exit when any of these fail
+set -e
+set -o pipefail
+
 # Install command-line tools using Homebrew.
 
 # Ask for the administrator password upfront.
@@ -16,6 +20,7 @@ brew upgrade --all
 
 # Install Homebrew Cask
 brew install caskroom/cask/brew-cask
+brew tap caskroom/cask
 
 # Install GNU core utilities (those that come with OS X are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -35,15 +40,6 @@ brew install bash
 brew tap homebrew/versions
 brew install bash-completion2
 
-# Java
-brew cask install java
-
-# Virtualbox + Vagrant
-brew tap phinze/homebrew-cask
-brew cask install virtualbox
-brew cask install vagrant
-brew cask install vagrant-manager
-
 # Install `wget` with IRI support.
 brew install wget --with-iri
 
@@ -54,18 +50,13 @@ brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 
 # JavaScript dev tools
+brew install casperjs
 brew install nvm
 brew install node
 
 # Python dev tools
 brew install python
-
-# PHP dev tools
-brew install php56 --with-postgresql --with-gmp
-brew install homebrew/php/php56-pdo-pgsql
-brew install memcached
-brew install php56-memcached
-brew install composer
+brew install python3
 
 # Go dev tools
 brew install go
@@ -79,22 +70,55 @@ brew install woff2
 
 # Install other useful binaries.
 brew install ack
-brew install dark-mode
+brew install awless
+brew install awscli
+brew install ffmpeg
 brew install git
 brew install git-lfs
 brew install imagemagick --with-webp
-brew install lua
-brew install lynx
+brew install jq
+brew install mas
+brew install mysql
 brew install p7zip
-brew install pigz
-brew install pv
+brew install postgresql
 brew install rename
-brew install rhino
+brew install socat
 brew install speedtest_cli
-brew install ssh-copy-id
+brew install sqlformat
+brew install sqlite
 brew install tree
-brew install webkit2png
+brew install wifi-password
 brew install zopfli
+
+# Casks
+brew cask install 1password
+brew cask install caffeine
+brew cask install firefox
+brew cask install font-source-code-pro # Adobe monospace fonts
+brew cask install google-chrome
+brew cask install google-cloud-sdk
+brew cask install hyper
+brew cask install hyperterm
+brew cask install iterm2
+brew cask install java
+brew cask install licecap # gif screen capture
+brew cask install macdown # markdown editor
+brew cask install namebench # find fastest DNS server
+brew cask install ngrok # http tunneling
+brew cask install sketch # UI design
+brew cask install sketch-toolbox
+brew cask install skype
+brew cask install slack
+brew cask install sourcetree
+brew cask install sublime-text3
+brew cask install vagrant
+brew cask install vagrant-manager
+brew cask install virtualbox
 
 # Remove outdated versions from the cellar.
 brew cleanup
+brew doctor
+brew cask doctor
+
+echo "Also install these:"
+echo "https://giphy.com/apps/giphycapture"
