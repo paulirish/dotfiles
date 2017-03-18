@@ -142,6 +142,10 @@ assign [title="ClipGrab - Download and Convert Online Videos"] $ws10
 assign [instance="remmina"] $ws4
 assign [instance="code"] $ws1
 
+# Switch to workspaces automatically for some apps
+for_window [instance="remmina"] workspace $ws4
+for_window [instance="code"] workspace $ws1
+
 #END workspaces
 
 # reload the configuration file
@@ -234,6 +238,7 @@ exec --no-startup-id ~/.dropbox-dist/dropboxd
 exec --no-startup-id /usr/bin/clipit
 exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
 
+# Windows styles for apps
 for_window [title="ClipGrab - Download and Convert Online Videos"] floating enable
 for_window [instance="keepassx"] floating enable resize set 800 600
 for_window [instance="vlc"] floating enable
