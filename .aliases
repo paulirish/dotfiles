@@ -169,8 +169,8 @@ alias lint="eslint ./"
 alias r="ranger"
 
 # mount and unmount JABASOFT-DS
-alias mount-nas="~/bin/mount-drives.sh"
-alias unmount-nas="~/bin/unmount-drives.sh"
+alias mount-nas="~/bin/mount-nas.sh"
+alias unmount-nas="~/bin/unmount-nas.sh"
 
 # mount MyDocuments
 alias mount-mydocuments="~/bin/mount-mydocuments.sh"
