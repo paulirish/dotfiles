@@ -153,6 +153,7 @@ noremap <Leader>s :mksession!<CR>
 " Bind toggle hlsearch
 noremap <Leader>h :set hlsearch!<CR>
 noremap <silent> <BS> :set hlsearch!<CR>
+autocmd InsertEnter * :set nohlsearch " Turn search highlight of when going into the insert mode
 
 set history=700
 set undolevels=700
