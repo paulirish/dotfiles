@@ -82,9 +82,9 @@ set_prompts() {
 
         userhost=""
         userhost+="\[${userStyle}\]$USER "
-        userhost+="${white}at "
-        userhost+="${orange}$HOSTNAME "
-        userhost+="${white}in"
+        userhost+="\[${white}\]at "
+        userhost+="\[${orange}\]$HOSTNAME "
+        userhost+="\[${white}\]in"
 
         if [ $USER != "$default_username" ]; then echo $userhost ""; fi
     }
