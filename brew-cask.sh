@@ -16,7 +16,7 @@ brew cask install dropbox
 brew cask install gyazo
 brew cask install 1password
 brew cask install rescuetime
-brew cask install flux
+# brew cask install flux
 
 # dev
 brew cask install iterm2
@@ -26,8 +26,8 @@ brew cask install imageoptim
 
 # fun
 brew cask install limechat
-brew cask install miro-video-converter
-brew cask install horndis               # usb tethering
+# brew cask install miro-video-converter
+# brew cask install horndis               # usb tethering
 
 # browsers
 # brew cask install google-chrome-canary
@@ -43,6 +43,11 @@ brew cask install vlc
 brew cask install gpgtools
 brew cask install licecap
 # brew cask install utorrent
+
+brew cask install spotify
+
+brew tap caskroom/fonts 
+brew cask install font-fira-code
 
 
 # Not on cask but I want regardless.

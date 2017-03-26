@@ -26,9 +26,6 @@ brew install bash-completion
 
 brew install homebrew/completions/brew-cask-completion
 
-# generic colouriser  http://kassiopeia.juls.savba.sk/~garabik/software/grc/
-brew install grc
-
 # Install wget with IRI support
 brew install wget --with-iri
 
