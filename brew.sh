@@ -98,7 +98,6 @@ brew cask install font-source-code-pro # Adobe monospace fonts
 brew cask install google-chrome
 brew cask install google-cloud-sdk
 brew cask install hyper
-brew cask install hyperterm
 brew cask install iterm2
 brew cask install java
 brew cask install licecap # gif screen capture
