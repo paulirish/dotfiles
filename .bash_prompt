@@ -81,7 +81,7 @@ set_prompts() {
         fi;
 
         userhost=""
-        userhost+="\[${userStyle}\]$USER"
+        userhost+="\[${userStyle}\]$USER "
         userhost+="\[${white}\]at "
         userhost+="\[${orange}\]$HOSTNAME "
         userhost+="\[${white}\]in"
