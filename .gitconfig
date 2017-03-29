@@ -58,7 +58,7 @@
 [url "git@github.com:richistron/"]
   insteadOf = "git://github.com/richistron/"
 [user]
-	name = Ricardo Rivas G.
+	name = Ricardo Rivas
 	email = richistron@gmail.com
 [push]
 	default = current
