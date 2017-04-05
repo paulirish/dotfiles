@@ -26,6 +26,9 @@ cp $browser_protocol_path "$protocol_repo_path/json"
 commit_pos_line=$(git log --no-color --max-count=1 | gtac | grep -E -o "Cr-Commit-Position.*")
 commit_rev=$(echo $commit_pos_line | grep -E -o "\d+")
 
+# generate externs
+python "$chromium_src_path/third_party/WebKit/Source/devtools/scripts/build/generate_protocol_externs.py" -o "$protocol_repo_path/externs/protocol_externs.js" "$browser_protocol_path" "$js_protocol_path"
+
 # => into protocol repo
 cd $protocol_repo_path
 git commit --author="DevTools Bot <paulirish+bot@google.com>" --all -m "Roll protocol to r$commit_rev"
