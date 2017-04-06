@@ -10,10 +10,10 @@ Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'MattesGroeger/vim-bookmarks'
-Plugin 'kchmck/vim-coffee-script'
+" Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/Vim-fugitive'
 Plugin 'jelera/vim-javascript-syntax.git'
-Plugin 'groenewege/vim-less'
+" Plugin 'groenewege/vim-less'
 Plugin 'mustache/vim-mustache-handlebars.git'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdcommenter.git'
@@ -21,15 +21,13 @@ Plugin 'tpope/vim-unimpaired.git'
 Plugin 'gorodinskiy/vim-coloresque.git'
 Plugin 'godlygeek/tabular.git'
 Plugin 'walm/jshint.vim.git'
-Plugin 'pangloss/vim-javascript.git'
-Plugin 'maksimr/vim-jsbeautify.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'benmills/vimux.git'
 Plugin 'noahfrederick/vim-hemisu'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'sotte/presenting.vim'
 Plugin 'tpope/vim-bundler'
-Plugin 'junegunn/vim-emoji'
+" Plugin 'junegunn/vim-emoji'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-scripts/loremipsum'
@@ -39,7 +37,10 @@ Plugin 'tpope/vim-rails'
 Plugin 'ervandew/supertab'
 Plugin 'takac/vim-spotifysearch'
 Plugin 'thoughtbot/vim-rspec'
-Plugin 'mxw/vim-jsx'
+" Plugin 'pangloss/vim-javascript.git'
+" Plugin 'mxw/vim-jsx'
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'kien/ctrlp.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -303,14 +304,14 @@ au BufRead,BufNewFile .zsh_rc,.functions,.commonrc set ft=zsh
 nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " NERDTree
-map <F2> :NERDTreeToggle<CR>
+map <F1> :NERDTreeToggle<CR>
 " set autochdir
 let NERDTreeChDirMode=2
 nnoremap <leader>n :NERDTreeToggle .<CR>
 
 " tabs
-noremap <F9> :tabp<CR>
-noremap <F10> :tabn<CR>
+noremap <F2> :tabp<CR>
+noremap <F3> :tabn<CR>
 noremap <F5> :tabnew<CR>
 
 " ack
@@ -421,11 +422,11 @@ map <leader>jsh :JSHint<CR>
 nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
 nnoremap <leader>bash :-1read $HOME/.vim/.skeleton.bash<CR>
 nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
+nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
 
 " rspec
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
 map <Leader>ta :call RunAllSpecs()<CR>
 map <leader>cop :!rubocop %<CR>
 
@@ -442,4 +443,13 @@ map <Leader>no :set nospell<CR>
 
 " Allow JSX in normal JS files
 let g:jsx_ext_required = 0 
+
+" vimrc
+map <Leader>vim :so $MYVIMRC<CR>
+
+" lint
+map <Leader>l :!eslint % <CR>
+
+" nightwatch
+map <Leader>e2 :!node_modules/.bin/nightwatch --config nightwatch.conf.BASIC.js --env localtest --test %<CR>
 
