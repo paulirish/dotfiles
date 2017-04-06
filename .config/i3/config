@@ -226,8 +226,7 @@ bindsym XF86AudioPrev   exec playerctl previous
 
 # Keys
 exec_always setxkbmap -option compose:ralt  # Configure the compose key
-exec_always setxkbmap -option "ctrl:nocaps" # disable caps lock switch
-exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+exec_always xmodmap ~/.Xmodmap
 
 # Configure my wallpaper
 exec_always --no-startup-id feh --bg-scale ~/.wallpaper.jpg
