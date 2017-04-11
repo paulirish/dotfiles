@@ -1,24 +1,24 @@
 # #!/bin/bash
-snippet #!
+snippet shebang
 	#!/bin/bash
 	
 snippet if
-	if [[ ${1:condition} ]]; then
+	if [ ${1:condition} ]; then
 		${2:#statements}
 	fi
 snippet elif
-	elif [[ ${1:condition} ]]; then
+	elif [ ${1:condition} ]; then
 		${2:#statements}
 snippet for
 	for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do
 		${3:#statements}
 	done
 snippet while
-	while [[ ${1:condition} ]]; do
+	while [ ${1:condition} ]; do
 		${2:#statements}
 	done
 snippet until
-	until [[ ${1:condition} ]]; do
+	until [ ${1:condition} ]; do
 		${2:#statements}
 	done
 snippet case
