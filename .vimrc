@@ -222,6 +222,11 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --
 let g:ctrlp_max_height = 30
 let g:ctrlp_compare_lim = 0
 
+" Settings for spellcecking
+set spelllang=en_us
+set spellfile=~/.vim/spell/en.utf-8.add
+map ;s :set spell<CR>
+
 " Custom mappings
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
@@ -234,7 +239,6 @@ map <Leader>vd :vertical resize -10<CR>
 map <Leader>hi :resize +10<CR>
 map <Leader>hd :resize -10<CR>
 
-nmap ;s  :set invspell spelllang=en<CR>
 nnoremap <F6> <C-W>w
 map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
@@ -388,6 +392,9 @@ set guioptions=egmrt
 color molokai
 let g:rehash256=1
 set background=dark
+" Define the highlighting for spell checking
+hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   guibg=#000000   gui=none
+highlight SpellBad cterm=underline
 
 " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
