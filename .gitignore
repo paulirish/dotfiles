@@ -6,7 +6,7 @@ PAUL.readme.md
 # git credential file
 .gitconfig.local
 
-# Nice and clean by default, but this does create a problem if I don't add into new repos gitignore and other folks dont have the same default.  problems when other folks don't have the same in their global gitignore.  
+# Nice and clean by default, but this does create a problem if I don't add into new repos gitignore and other folks dont have the same default.  problems when other folks don't have the same in their global gitignore.
 node_modules
 
 # why u be like that
@@ -28,3 +28,9 @@ bin/rwmin*
 bin/scriber*
 
 /private
+
+# Visual Studio Code specific
+.vscode*
+
+# IntelliJ IDE specific
+.idea*

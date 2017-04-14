@@ -16,7 +16,7 @@
 function fish_greeting
 end
 
-# TODO: path and aliases are kinda slow to source. optimize later. 
+# TODO: path and aliases are kinda slow to source. optimize later.
 function ssource --description "source most of my dotfiles, useful if making changes and iterating"
 
     source ~/.config/fish/path.fish
