@@ -23,7 +23,7 @@
 	show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-  # disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
+	# disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
 	# diffFilter = "diff-so-fancy"
 
 # so much color
@@ -52,7 +52,12 @@
 
 # git mergetool
 [merge]
-	tool = opendiff
+	tool = p4merge
+[mergetool]
+	prompt = false
+	keepBackup = false
+[mergetool "p4merge"]
+	path = /usr/local/bin/p4merge
 
 # rewrites of repo paths
 [url "git@github.com:"]
@@ -81,10 +86,7 @@
 
 # use separate file for username / github token / etc
 [include]
-  path = ~/.gitconfig.local
-
-#[init]
-#	templatedir = ~/.git_template
+	path = ~/.gitconfig.local
 
 [filter "lfs"]
 	clean = git-lfs clean %f

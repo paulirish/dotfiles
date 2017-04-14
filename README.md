@@ -26,7 +26,7 @@ This repo contains config for bash, zsh, and fish. As of March 2016, I'm using f
 
 ## my favorite parts.
 
-### [`.aliases`](https://github.com/paulirish/dotfiles/blob/master/.aliases) and [`.functions`](https://github.com/paulirish/dotfiles/blob/master/.functions)
+### [`.aliases`](https://github.com/dbachko/dotfiles/blob/master/.aliases) and [`.functions`](https://github.com/dbachko/dotfiles/blob/master/.functions)
 
 So many goodies.
 

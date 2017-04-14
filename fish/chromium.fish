@@ -29,5 +29,5 @@ function depsbcr --description "deps, then build chromium, then open it"
 end
 
 function gom --description "run goma setup"
-	env GOMAMAILTO=/dev/null env GOMA_OAUTH2_CONFIG_FILE=/Users/paulirish/.goma_oauth2_config env GOMA_ENABLE_REMOTE_LINK=yes ~/goma/goma_ctl.py ensure_start
+	env GOMAMAILTO=/dev/null env GOMA_OAUTH2_CONFIG_FILE=/Users/dbachko/.goma_oauth2_config env GOMA_ENABLE_REMOTE_LINK=yes ~/goma/goma_ctl.py ensure_start
 end	

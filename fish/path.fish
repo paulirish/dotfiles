@@ -19,7 +19,7 @@ end
 
 # # rvm
 # if which -s rvm; 
-# 	set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
+# 	set PA $PA /Users/dbachko/.rvm/gems/ruby-2.2.1/bin
 # end
 
 
