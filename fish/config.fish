@@ -1,7 +1,7 @@
 set default_user "dbachko"
 set default_machine "dbachko-mac"
 
-source ~/.config/fish/path.fish
+#source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
@@ -13,9 +13,9 @@ if test -e "$HOME/.extra.fish";
 end
 
 # THEME PURE #
-set fish_function_path /Users/dbachko/.config/fish/functions/pure $fish_function_path
+#set fish_function_path /Users/dbachko/.config/fish/functions/pure $fish_function_path
 
-export GOPATH=$HOME/.go/
+#export GOPATH=$HOME/.go/
 
 # Completions
 function make_completion --argument-names alias command
