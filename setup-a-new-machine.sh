@@ -214,6 +214,7 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 # improve perf of git inside of chromium checkout
 # https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
 
+# default is (257*1024)
 sudo sysctl kern.maxvnodes=$((512*1024))
 
 echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
