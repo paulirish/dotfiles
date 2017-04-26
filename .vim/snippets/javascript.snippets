@@ -126,3 +126,32 @@ snippet gulptask
 	});
 snippet hashbang
 	#!/usr/bin/env node
+snippet react
+	import React from 'react';
+	
+	export default class ${1}extends React.Component {
+	  static propTypes = {
+	    name: React.PropTypes.string.isRequired
+	  };
+	
+	  constructor(props) {
+	    super(props);
+	    this.state = {
+	    };
+	  }
+	
+	  componentDidMount() {
+	  }
+	
+	  componentWillMount() {
+	  }
+	
+	  componentWillUnmount() {
+	  }
+	
+	  render() {
+	    return (
+	      <div></div>
+	    );
+	  }
+	}
