@@ -7,7 +7,7 @@ PATH=/Users/paulirish/.homebrew/bin:/Users/paulirish/.homebrew/sbin:/Users/pauli
 local_script_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # https://github.com/ChromeDevTools/devtools-protocol
-cd $local_script_path &&  ./update-protocol-repo.sh
+cd "$HOME/code/pristine/devtools-protocol/scripts" && ./update-to-latest.sh
 
 # https://github.com/ChromeDevTools/devtools-frontend
 cd "$HOME/code/npm-publish-devtools-frontend" && ./update-github-mirror.sh
