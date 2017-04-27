@@ -4,6 +4,7 @@
 	p = push
 	s = status
 	sclone = clone --depth=1
+	amend = commit --amend --all
 	co = checkout
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
