@@ -129,7 +129,7 @@ snippet hashbang
 snippet react
 	import React from 'react';
 	
-	export default class ${1}extends React.Component {
+	export default class ${1}extends React.Component {${2}
 	  static propTypes = {
 	    name: React.PropTypes.string.isRequired
 	  };
@@ -155,3 +155,5 @@ snippet react
 	    );
 	  }
 	}
+snippet cn
+	className="${1}"${2}
