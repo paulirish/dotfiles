@@ -77,5 +77,7 @@ brew install ncdu # find where your diskspace went
 
 brew install zsh
 
+brew install fish
+
 # Remove outdated versions from the cellar
 brew cleanup

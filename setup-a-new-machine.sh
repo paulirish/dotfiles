@@ -211,21 +211,6 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 
 
 
-# improve perf of git inside of chromium checkout
-# https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
-
-sudo sysctl kern.maxvnodes=$((512*1024))
-
-echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
-
-# speed up git status (to run only in chromium repo)
-git config status.showuntrackedfiles no
-git update-index --untracked-cache
-
-# also this unrelated thing
-git config user.email "paulirish@chromium.org"
-
-
 ##############################################################################################################
 ### remaining configuration
 ###
