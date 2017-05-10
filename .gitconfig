@@ -54,6 +54,7 @@
 # git mergetool
 [merge]
 	tool = opendiff
+	renameLimit = 0
 
 # rewrites of repo paths
 [url "git@github.com:"]
@@ -79,6 +80,7 @@
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
 	default = current
+	followTags = true
 
 # use separate file for username / github token / etc
 [include]
@@ -96,3 +98,5 @@
 	prune = true
 [diff]
 	compactionHeuristic = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
