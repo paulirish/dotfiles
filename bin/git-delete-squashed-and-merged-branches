@@ -10,6 +10,7 @@
 #     git delete-squashed-and-merged-branches --dry-run  # won't actually delete shit
 #     git delete-squashed-and-merged-branches            # probably will delete shit
 
+# get a github personal access token and put it in ~/.githubtoken
 
 # thanks!
 # this script is a bit of a combo from:
@@ -28,7 +29,11 @@ yellow = '\033[93m'
 reset = '\033[0m'
 DRY_RUN = len(sys.argv) > 1 and sys.argv[1] == '--dry-run'
 
-token = '30f38aa82734da7ebb3edcdf896c8a08e467ce2e'
+
+tokenpath = os.path.expanduser('~/.githubtoken')
+tokenfile = open(tokenpath)
+token = tokenfile.read().strip();
+
 
 def get_branch_heads():
     '''Returns a map from branch name --> SHA for local branches.'''
@@ -44,23 +49,25 @@ def main():
     G = github.Github(login_or_token=token)
 
     retval = 0
-    
-    for branch, sha in get_branch_heads().items():
+    items = get_branch_heads().items();
+    print 'Looking at {} total local heads.'.format(len(items))
+
+    for branch, sha in items:
         res = G.search_issues(sha)
         shortsha = sha[0:7]
         issue_states = [issue.state == 'closed' for issue in res]
         
         if not issue_states:
-            msg = '{}{}{}:\t No PRs found. (sha {})'
+            msg = '{}{}{} ({}):\nNo PRs found. Keeping as active. \n'
             retval = 4
         elif all(issue_states):
-            msg = '{}{}{}:\t 🗑!!! All PRs are closed! (sha {})'
+            msg = '{}{}{} ({}):\nAll PRs are closed! 🗑 it.\n'
             retval = 0
         elif any(issue_states):
-            msg = '{}{}{}:\t Some (BUT not all) PRs are closed. (sha {})'
+            msg = '{}{}{} ({}):\nSome (BUT not all) PRs are closed. \n'
             retval = 1
         else:
-            msg = '{}{}{}:\t All PRs still open. (sha {})'
+            msg = '{}{}{} ({}):\nAll PRs still open. \n'
             retval = 2
 
         print (msg.format(yellow, branch, reset, shortsha))
