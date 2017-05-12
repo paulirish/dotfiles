@@ -26,6 +26,7 @@ brew cask install charles
 brew cask install sequel-pro
 brew cask install slack
 brew cask install docker
+brew cask install java
 
 
 # fun
