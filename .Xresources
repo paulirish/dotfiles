@@ -1,0 +1,9 @@
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+! https://davedavenport.github.io/rofi/p11-Generator.html
+rofi.color-enabled: true
+rofi.color-window: #000000, #000000, #000000
+rofi.color-normal: #000000, #b3e774, #000000, #b3e774, #000000
+rofi.color-active: #000000, #b3e774, #000000, #b3e774, #000000
+rofi.color-urgent: #000000, #b3e774, #000000, #b3e774, #000000
