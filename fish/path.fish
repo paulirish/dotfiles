@@ -22,13 +22,12 @@ end
 # 	set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
 # end
 
+# yarn binary
+set PA $PA "$HOME/.yarn/bin"
 
-set --export PATH $PA
+# yarn global modules (hack for me)
+set PA $PA "$HOME/.homebrew/Cellar/node/7.10.0/bin"
+set PA $PA "$HOME/.homebrew/Cellar/node/7.7.1_1/bin"
 
-# path for yarn globals
-# if which -s yarn; 
-	set node_path (greadlink -f (which node))
-	set node_path_dir (string replace "bin/node" "bin" $node_path)
-	set PA $PA $node_path_dir
-# end
+
 set --export PATH $PA
