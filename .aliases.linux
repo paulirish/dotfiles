@@ -1,0 +1,10 @@
+# start the VPN to my company
+alias vpn="~/bin/vpn.sh"
+
+# Backup homefolders
+alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
+
+# You need to install xsel with apt-get before using it
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+

@@ -145,10 +145,6 @@ if [ $UID -ne 0 ]; then
   alias update='sudo apt-get upgrade'
 fi
 
-if [ $(uname) = "Darwin" ]; then
-  alias swift="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift"
-fi
-
 # aliases for my own functions
 alias runTests=watchTests
 
@@ -176,14 +172,4 @@ alias unmount-nas="~/bin/unmount-nas.sh"
 alias mount-mydocuments="~/bin/mount-mydocuments.sh"
 alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
 
-if [ $(uname) = "Linux" ]; then
-  # start the VPN to my compan
-  alias vpn="~/bin/vpn.sh"
-
-  # Backup homefolders
-  alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
-
-  # You need to install xsel with apt-get before using it
-  alias pbcopy='xsel --clipboard --input'
-  alias pbpaste='xsel --clipboard --output'
-fi
+if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.macos; fi
