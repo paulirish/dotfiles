@@ -28,9 +28,10 @@ set PA $PA "$HOME/.yarn/bin"
 # yarn global modules (hack for me)
 set PA $PA "$HOME/.homebrew/Cellar/node/7.10.0/bin"
 set PA $PA "$HOME/.homebrew/Cellar/node/7.7.1_1/bin"
+set PA $PA "$HOME/.homebrew/Cellar/node/7.7.4/bin"
+set PA $PA "$HOME/.homebrew/Cellar/node/8.0.0_1/bin"
 
 # Google Cloud SDK.
 [ -f "$HOME/google-cloud-sdk/path.fish.inc" ]; . "$HOME/google-cloud-sdk/path.fish.inc"
-
 
 set --export PATH $PA
