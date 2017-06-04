@@ -1,7 +1,6 @@
 [alias]
 	c = commit -am
-	up = pull
-	p = push
+	fpush = push --force
 	s = status
 	sclone = clone --depth=1
 	amend = commit --amend --all
