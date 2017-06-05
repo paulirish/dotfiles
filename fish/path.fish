@@ -22,16 +22,30 @@ end
 # 	set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
 # end
 
+
+set -l paths "
 # yarn binary
-set PA $PA "$HOME/.yarn/bin"
+$HOME/.yarn/bin
 
 # yarn global modules (hack for me)
-set PA $PA "$HOME/.homebrew/Cellar/node/7.10.0/bin"
-set PA $PA "$HOME/.homebrew/Cellar/node/7.7.1_1/bin"
-set PA $PA "$HOME/.homebrew/Cellar/node/7.7.4/bin"
-set PA $PA "$HOME/.homebrew/Cellar/node/8.0.0_1/bin"
+$HOME/.homebrew/Cellar/node/7.10.0/bin
+$HOME/.homebrew/Cellar/node/7.7.1_1/bin
+$HOME/.homebrew/Cellar/node/7.7.4/bin
+$HOME/.homebrew/Cellar/node/8.0.0_1/bin
+"
+
+for entry in (string split \n $paths)
+    # resolve the {$HOME} substitutions
+    set -l resolved_path (eval echo $entry)
+    if test -d "$resolved_path";
+        set PA $PA "$resolved_path"
+    end
+end
+
 
 # Google Cloud SDK.
-[ -f "$HOME/google-cloud-sdk/path.fish.inc" ]; . "$HOME/google-cloud-sdk/path.fish.inc"
+if test -f "$HOME/google-cloud-sdk/path.fish.inc"
+    source "$HOME/google-cloud-sdk/path.fish.inc"
+end
 
 set --export PATH $PA
