@@ -24,6 +24,7 @@ brew cask install imagealpha
 brew cask install imageoptim
 brew cask install charles
 brew cask install sequel-pro
+brew cask install psequel
 brew cask install slack
 brew cask install docker
 brew cask install java
