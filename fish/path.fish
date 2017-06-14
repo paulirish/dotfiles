@@ -23,7 +23,7 @@ end
 # end
 
 
-set --export PATH $PA
+set -U fish_user_paths $PA
 
 # path for yarn globals
 if which -s yarn; 
@@ -32,4 +32,4 @@ if which -s yarn;
 	set PA $PA $node_path_dir
 end
 
-set --export PATH $PA
+set -U fish_user_paths $PA
