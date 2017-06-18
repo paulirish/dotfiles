@@ -1,7 +1,7 @@
 foldersToExclude='.git\|.vscode\|node_modules\|bower\|logs\|generated\|dist\|build\|.DS_Store'
 
 # Create a new directory and enter it
-function md() {
+function mkdircd() {
   mkdir -p "$@" && cd "$@"
 }
 

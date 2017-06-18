@@ -119,6 +119,7 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias edpr='subl ~/.bash_profile'
 alias rd='rm -rf' # Remove directories without asking me
 alias rm='rm -f' # Remove files without asking me
+alias md="mkdircd"
 
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
