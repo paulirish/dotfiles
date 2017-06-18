@@ -103,3 +103,7 @@ fi
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
+
+if [ $(uname) = "Linux" ]; then
+  xmodmap ~/.Xmodmap
+fi
