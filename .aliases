@@ -163,6 +163,7 @@ alias lint="eslint ./"
 
 # ranger
 alias r="ranger"
+alias rcd='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd "$LASTDIR"'
 
 # mount and unmount JABASOFT-DS
 alias mount-nas="~/bin/mount-nas.sh"
