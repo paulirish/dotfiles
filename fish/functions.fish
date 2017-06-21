@@ -93,7 +93,7 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
 # for key, value in map.items():
 #   map[key] = value + \";charset=UTF-8\";
 #   SimpleHTTPServer.test()" $port
-    statik --port "$port" .
+    statikk --port "$port" .
 end
 
 
