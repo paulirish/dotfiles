@@ -1,7 +1,6 @@
 [alias]
 	c = commit -am
-	up = pull
-	p = push
+	fpush = push --force
 	s = status
 	sclone = clone --depth=1
 	amend = commit --amend --all
@@ -14,7 +13,6 @@
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
 	reup = rebase-update # depot_tools specific
-	fpush = push --force
 
 [core]
 	excludesfile = ~/.gitignore
