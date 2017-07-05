@@ -332,7 +332,6 @@ function! ToggleErrors()
         Errors
     endif
 endfunction
-
 nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
 
 " CSS3 fixes
@@ -396,6 +395,12 @@ set background=dark
 " Define the highlighting for spell checking
 hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   guibg=#000000   gui=none
 highlight SpellBad cterm=underline
+
+function! Presentation()
+    color desert
+    set background=light
+endfunction
+nnoremap <Leader>pp :call Presentation()<CR>
 
 " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
