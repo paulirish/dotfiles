@@ -52,6 +52,7 @@ Plugin 'svermeulen/vim-easyclip'
 Plugin 'zirrostig/vim-schlepp'
 Plugin 'szw/vim-maximizer'
 Plugin 'tommcdo/vim-exchange'
+Plugin 'mitermayer/vim-prettier'
 
 call vundle#end()
 filetype plugin indent on
