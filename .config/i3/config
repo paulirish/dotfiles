@@ -138,11 +138,12 @@ bindsym $mod+Home   workspace $ws1
 bindsym $mod+End    workspace $ws10
 
 # default workspaces
-assign [title="ClipGrab - Download and Convert Online Videos"] $ws10
+assign [class="Clipgrab"] $ws10
 assign [instance="remmina"] $ws4
 assign [instance="code"] $ws1
 
 # Switch to workspaces automatically for some apps
+for_window [class="Clipgrab"] workspace $ws10
 for_window [instance="remmina"] workspace $ws4
 for_window [instance="code"] workspace $ws1
 
