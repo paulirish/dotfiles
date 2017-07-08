@@ -64,7 +64,7 @@ set cursorline " highlight current line
 
 set list
 set listchars=space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸\
-:nmap <leader>l :set invlist<cr>
+nmap <leader>l :set invlist<cr>
 
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
@@ -399,8 +399,9 @@ hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   
 highlight SpellBad cterm=underline
 
 function! Presentation()
-    color desert
+    color macvim
     set background=light
+    echomsg "Switch to presentation mode..."
 endfunction
 nnoremap <Leader>pp :call Presentation()<CR>
 
