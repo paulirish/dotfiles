@@ -167,7 +167,7 @@ function npmlsg() {
 }
 
 function install-global-npms() {
-  npm install -g babel babel-eslint eslint gulp-cli grunt-cli mocha live-server nodemon yo typescript tslint webpack jsctags
+  npm install -g babel babel-eslint eslint gulp-cli grunt-cli mocha live-server nodemon yo typescript tslint webpack jsctags prettier
 }
 
 function clip() {
