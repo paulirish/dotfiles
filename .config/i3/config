@@ -244,6 +244,7 @@ for_window [instance="vlc"] floating enable
 for_window [instance="lxappearance"] floating enable
 for_window [instance="remmina"] floating enable
 for_window [instance="seahorse"] floating enable resize set 800 600
+for_window [instance="cola"] floating enable resize set 1280 1024
 
 # Some mouse specific bindings
 bindsym mod$+button3 workspace back_and_forth
