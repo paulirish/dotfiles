@@ -258,7 +258,7 @@ function gffp() {
 }
 
 function vimf() {
-  file=$(find . | grep -v $foldersToExclude | fzf) && vim "$file"
+  vim -O $(fzf -m | tr '\n' ' ')
 }
 
 function cdf() {
