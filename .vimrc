@@ -53,6 +53,9 @@ Plugin 'zirrostig/vim-schlepp'
 Plugin 'szw/vim-maximizer'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'mitermayer/vim-prettier'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/limelight.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -251,18 +254,6 @@ map <Leader>x :x<CR>
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>xa :qa<CR>
 map <Leader>sw :Switch<CR>
-
-" delete surrounding characters
-noremap ds{ F{xf}x
-noremap cs{ F{xf}xi
-noremap ds" F"x,x
-noremap cs" F"x,xi
-noremap ds' F'x,x
-noremap cs' F'x,xi
-noremap ds( F(xf)x
-noremap cs( F(xf)xi
-noremap ds) F(xf)x
-noremap cs) F(xf)xi
 
 "quick pairs
 imap <leader>' ''<ESC>i
