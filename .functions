@@ -230,7 +230,7 @@ function findCode() {
 }
 
 function createCTags() {
-  /usr/local/bin/ctags -R --options=$HOME/.ctagsoptions
+  $(which ctags) -R --options=$HOME/.ctagsoptions
 }
 
 function createJSCTags() {
@@ -296,6 +296,16 @@ function vim-go() {
              -v "$(pwd)":/home/jan/projects \
              janbaer/vim-go $1
 }
+
+function vim-clear-undo() {
+  VIM_UNDO_DIR=~/.vim/undo
+  if [ -d $VIM_UNDO_DIR ] ; then
+    rm -rf $VIM_UNDO_DIR
+  fi
+  mkdir -p $VIM_UNDO_DIR
+}
+
+alias clear-undo=vim-clear-undo
 
 function docker-rmi-all() {
   docker rmi -f $(docker images -a -q)
