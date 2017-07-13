@@ -173,7 +173,9 @@ set shiftround
 set expandtab
 command! -nargs=* SetNormalIndent set ts=2 sw=2 sts=2
 
-" file based definition of tabwidth
+" We want that undo is also possible after we reopened a file that was changed before
+set undofile
+set undodir=$HOME/.vim/undo " Dont forget to create this directory on your computer
 
 " filetype based settings
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
