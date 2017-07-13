@@ -6,6 +6,8 @@ endif
 " Python syntax test from syntax/python.vim plugin
 let python_highlight_all = 1 
 
+let g:syntastic_python_checkers = ['pylint']
+
 " Ignore some files with tab autocompletion
 set suffixes=*~,*.pyc,*.pyo
 

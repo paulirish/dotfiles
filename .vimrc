@@ -358,7 +358,8 @@ nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
-let g:syntastic_python_checkers = ['pylint']
+" Some Fzf settings
+let g:fzf_command_prefix = 'Fzf'
 
 " EasyClip
 let g:EasyClipShareYanks=1
