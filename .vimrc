@@ -263,6 +263,10 @@ imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 imap <leader>{ {}<ESC>i
 
+" Netrc  management
+nnoremap <leader>xv :Vexplore!<cr> " Open vertical explorer
+nnoremap <leader>xx :Ex<cr> " Open explorer in current buffer
+
 " Fixing the copy & paste madness
 vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
 imap <C-v> <Esc><C-v>a
