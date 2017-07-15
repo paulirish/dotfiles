@@ -196,6 +196,11 @@ function! s:tig_status()
 endfunction
 command! TigStatus call s:tig_status()
 
+function! Presentation()
+  color wwdc17
+  set background=light
+endfunction
+
 " ************* End custom functions  ************
 
 " ************* Begin custom keymappings ************
@@ -286,6 +291,8 @@ map <C-G> :TigStatus<CR><CR>
 
 nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
 
+nnoremap <Leader>pp :call Presentation()<CR>
+
 " ************* End custom keymappings ************
 
 " ************** Begin plugin settings ************
@@ -375,22 +382,12 @@ nmap <F9> :TagbarToggle<CR>
 " ************** End plugin settings ************
 
 " define color scheme
-set t_Co=256
-set guioptions=egmrt
-color molokai
-let g:rehash256=1
-set background=dark
+color desert
+set background=light
 
 " Define the highlighting for spell checking
 hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   guibg=#000000   gui=none
 highlight SpellBad cterm=underline
-
-function! Presentation()
-  color macvim
-  set background=light
-  echomsg "Switch to presentation mode..."
-endfunction
-nnoremap <Leader>pp :call Presentation()<CR>
 
 " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
