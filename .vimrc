@@ -20,42 +20,44 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'pangloss/vim-javascript'
-Plugin 'ap/vim-css-color'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'groenewege/vim-less'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdcommenter'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'ap/vim-css-color'
+"Plugin 'hail2u/vim-css3-syntax'
+"Plugin 'groenewege/vim-less'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'mattn/emmet-vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+"Plugin 'elzr/vim-json'
 Plugin 'garbas/vim-snipmate'
 Plugin 'dkprice/vim-easygrep'
-Plugin 'sgur/vim-editorconfig'
-Plugin 'tpope/vim-dispatch'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-unimpaired.git'
 Plugin 'fatih/vim-go'
-Plugin 'kopischke/vim-fetch'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'tpope/vim-repeat'
-Plugin 'svermeulen/vim-easyclip'
-Plugin 'zirrostig/vim-schlepp'
-Plugin 'szw/vim-maximizer'
-Plugin 'mitermayer/vim-prettier'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'kopischke/vim-fetch'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'mattn/emmet-vim'
+Plugin 'mitermayer/vim-prettier'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'sgur/vim-editorconfig'
+Plugin 'svermeulen/vim-easyclip'
+Plugin 'szw/vim-maximizer'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired.git'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'zirrostig/vim-schlepp'
 
 call vundle#end()
+
 filetype plugin indent on
 
 syntax on
@@ -66,13 +68,6 @@ set cursorline " highlight current line
 
 set list
 set listchars=space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸\
-nmap <leader>l :set invlist<cr>
-
-au BufRead,BufNewFile *.scss set filetype=scss.css
-
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
 
 set grepprg=ack\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
@@ -81,14 +76,9 @@ set grepformat=%f:%l:%c:%m
 set foldmethod=indent
 set foldlevel=99
 set foldnestmax=6
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
 
 " When opening the file, unfold all. Fold all with zM
 "au BufRead * normal zR
-
-" Tagbar
-nmap <F9> :TagbarToggle<CR>
 
 " General option
 let mapleader = "," " rebind <Leader> key
@@ -112,54 +102,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" Omnicomplete related stuff
-set completeopt=longest,menuone
-inoremap <c-space> <C-x><C-o>
-inoremap <c-@> <C-x><C-o>
-
-" found here: http://stackoverflow.com/a/2170800/70778
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-" ****** Key-Mappings ****
-noremap <C-j> ddp " Move line down
-noremap <C-k> ddkP " Move line up"
-noremap <Leader>dd yyp " Duplicate the current line
-
-" Quicksave command
-noremap <Leader>w :update<CR>
-vnoremap <Leader>w <C-C>:update<CR>
-inoremap <Leader>w <ESC>:update<CR>
-
-" Quick quit command
-noremap <Leader>e :quit<CR>
-
-" Show NERDTree with a leader key
-noremap <Leader>t :NERDTreeToggle<CR>
-inoremap <Leader>t :NERDTreeToggle<CR>
-vnoremap <Leader>t :NERDTreeToggle<CR>
-noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
-let NERDTreeShowHidden=1
-let NERDTreeRespectWildIgnore=1
-
-" Save current session reload with vim -S
-noremap <Leader>s :mksession!<CR>
-
-" Bind toggle hlsearch
-noremap <Leader>h :set hlsearch!<CR>
-noremap <silent> <BS> :set hlsearch!<CR>
-autocmd InsertEnter * :set nohlsearch " Turn search highlight of when going into the insert mode
-
 set history=700
 set undolevels=700
 
@@ -175,27 +117,50 @@ command! -nargs=* SetNormalIndent set ts=2 sw=2 sts=2
 set undofile
 set undodir=$HOME/.vim/undo " Dont forget to create this directory on your computer
 
-" filetype based settings
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-
-" Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
-" autocmd FileType gitcommit 1 | startinsert
-
-" disable formatting when pasting large chunks of code
-nmap <leader><F2> :set pastetoggle=<F2><CR>
-
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+set number
 
 set nowrap " don't automatically wrap on load
 set tw=100  " width of document (used by gd)
 set fo-=t  " don't automatically wrap text when typing
 
+" Settings for spellcecking
+set spelllang=en_us
+set spellfile=~/.vim/spell/en.utf-8.add
+
+" Tell vim where to find the tags file
+set tags+=tags
+
 command! -nargs=* Wrap set wrap linebreak nolist
 command! -nargs=* Nowrap set nowrap nolinebreak list
+
+autocmd InsertEnter * :set nohlsearch " Turn search highlight of when going into the insert mode
+autocmd BufReadPost .functions set syntax=sh
+autocmd BufReadPost .aliases set syntax=sh
+
+" Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
+" autocmd FileType gitcommit 1 | startinsert
+
+" Omnicomplete related stuff
+set completeopt=longest,menuone
+inoremap <c-space> <C-x><C-o>
+inoremap <c-@> <C-x><C-o>
+
+" ************* Begin custom functions  ************
+" found here: http://stackoverflow.com/a/2170800/70778
+function! OmniPopup(action)
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
+endfunction
 
 " Awesome line number magic
 function! NumberToggle()
@@ -209,35 +174,74 @@ function! NumberToggle()
   endif
 endfunc
 
+" Function to toggle on/off the quickfixlist
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        Errors
+    endif
+endfunction
+
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+
+" Use tig status direct from vim
+function! s:tig_status()
+  " Maybe it's necessary to go to the root directory of the current git
+  " repository.
+  !tig status
+endfunction
+command! TigStatus call s:tig_status()
+
+" ************* End custom functions  ************
+
+" ************* Begin custom keymappings ************
+nmap <leader>l :set invlist<cr>
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+
+" Quicksave command
+noremap <Leader>w :update<CR>
+vnoremap <Leader>w <C-C>:update<CR>
+inoremap <Leader>w <ESC>:update<CR>
+
+" Quick quit command
+noremap <Leader>e :quit<CR>
+
+" Save current session reload with vim -S
+noremap <Leader>s :mksession!<CR>
+
+" Bind toggle hlsearch
+noremap <Leader>h :set hlsearch!<CR>
+noremap <silent> <BS> :set hlsearch!<CR>
+
+" disable formatting when pasting large chunks of code
+nmap <leader><F2> :set pastetoggle=<F2><CR>
+
 " Show line number and toggle virtual line on/off
 nnoremap <Leader>n :call NumberToggle()<CR>
-set number
 
 " center the cursor vertically
-:nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+":nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+" Enable spell check
+nnoremap ;s :set spell<CR>
+
+" select all
+nnoremap <Leader>a ggVG  
 
 " easier formatting of paragraphs
-vmap Q gq
-nmap Q gqap
+"vmap Q gq
+"nmap Q gqap
 
-" Settings for vim-markdown
-" let g:vim_markdown_folding_disabled=1
-let g:vim_markdown_initial_foldlevel=1
-
-" Settings for ctrlp
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --exclude-standard']
-let g:ctrlp_max_height = 30
-let g:ctrlp_compare_lim = 0
-
-" Settings for spellcecking
-set spelllang=en_us
-set spellfile=~/.vim/spell/en.utf-8.add
-map ;s :set spell<CR>
-
-" Custom mappings
-vnoremap < <gv  " better indentation
-vnoremap > >gv  " better indentation
-map <Leader>a ggVG  " select all
+"vnoremap < <gv  " better indentation
+"vnoremap > >gv  " better indentation
 
 " resize window with leader key
 " (it's still possible with ctrl+w +/- or ctrl+w </> )
@@ -263,16 +267,28 @@ imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 imap <leader>{ {}<ESC>i
 
-" Netrc  management
-nnoremap <leader>xv :Vexplore!<cr> " Open vertical explorer
-nnoremap <leader>xx :Ex<cr> " Open explorer in current buffer
-
 " Fixing the copy & paste madness
-vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
-imap <C-v> <Esc><C-v>a
+"vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+"imap <C-v> <Esc><C-v>a
 
 " Reload vimrc
-map <Leader>v :source ~/.vimrc<CR>
+"map <Leader>v :source ~/.vimrc<CR>
+
+" Hotkey for AutoFormat
+noremap <F4> :Autoformat<CR>
+
+" Compilesettings
+"map <Leader>j :make<CR>
+"autocmd QuickFixCmdPost [^l]* nested cwindow
+"autocmd QuickFixCmdPost    l* nested lwindow
+
+map <C-G> :TigStatus<CR><CR>
+
+nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
+
+" ************* End custom keymappings ************
+
+" ************** Begin plugin settings ************
 
 " Powerline settings
 set laststatus=2
@@ -280,31 +296,27 @@ set guifont=Inconsolata\ for\ Powerline:h14
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_colorscheme = 'solarized256'
 
-" ***** Some useful functions *****
-
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-
-function! StrTrim(txt)
-  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-endfunction
-
 " Emmet settings
 let g:user_emmet_mode='in'
 let g:user_emmet_install_global = 1
 imap <Leader>i <C-Y>,
 
-" Compilesettings
-map <Leader>j :make<CR>
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+" Settings for vim-markdown
+" let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_initial_foldlevel=1
+
+" Settings for ctrlp
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --exclude-standard']
+let g:ctrlp_max_height = 30
+let g:ctrlp_compare_lim = 0
+
+" Show NERDTree with a leader key
+noremap <Leader>t :NERDTreeToggle<CR>
+inoremap <Leader>t :NERDTreeToggle<CR>
+vnoremap <Leader>t :NERDTreeToggle<CR>
+noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
+let NERDTreeShowHidden=1
+let NERDTreeRespectWildIgnore=1
 
 " Easygrep settings
 let g:EasyGrepMode=0
@@ -313,7 +325,7 @@ let g:EasyGrepFilesToExclude=".svn,.git,.idea,.vscode,node_modules,bower,bower_c
 let g:EasyGrepRecursive=1
 let g:EasyGrepIgnoreCase=1
 
-"Syntastic settings
+" Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
@@ -321,41 +333,13 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_html_tidy_ignore_errors=["is not recognized", "discarding unexpected", "proprietary attribute \"ng-"]
 map <Leader>q :SyntasticCheck<CR>
 
-" Function to toggle on/off the quickfixlist
-function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic error location panel
-        Errors
-    endif
-endfunction
-nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
-
-" CSS3 fixes
-augroup VimCSS3Syntax
-  autocmd!
-  autocmd FileType css setlocal iskeyword+=-
-augroup END
+" Netrc  management
+nnoremap <leader>xv :Vexplore!<cr> " Open vertical explorer
+nnoremap <leader>xx :Ex<cr> " Open explorer in current buffer
 
 " YouCompletMe settings
 let g:ycm_auto_trigger = 1
 let g:ycm_key_list_select_completion = ['<Down>'] " This setting is important since snipmate will not work with the default settings
-
-" Use tig status direct from vim
-function! s:tig_status()
-  " Maybe it's necessary to go to the root directory of the current git
-  " repository.
-  !tig status
-endfunction
-map <C-G> :TigStatus<CR><CR>
-command! TigStatus call s:tig_status()
-
-" Tell vim where to find the tags file
-set tags+=tags
-
-" Hotkey for AutoFormat
-noremap <F4> :Autoformat<CR>
 
 " Vim-Maximizer
 nnoremap <silent><F3> :MaximizerToggle<CR>
@@ -385,20 +369,26 @@ vmap <C-J>    <Plug>SchleppDown
 vmap <C-H>    <Plug>SchleppLeft
 vmap <C-L>    <Plug>SchleppRight
 
+" Tagbar
+nmap <F9> :TagbarToggle<CR>
+
+" ************** End plugin settings ************
+
 " define color scheme
 set t_Co=256
 set guioptions=egmrt
 color molokai
 let g:rehash256=1
 set background=dark
+
 " Define the highlighting for spell checking
 hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   guibg=#000000   gui=none
 highlight SpellBad cterm=underline
 
 function! Presentation()
-    color macvim
-    set background=light
-    echomsg "Switch to presentation mode..."
+  color macvim
+  set background=light
+  echomsg "Switch to presentation mode..."
 endfunction
 nnoremap <Leader>pp :call Presentation()<CR>
 
@@ -406,4 +396,5 @@ nnoremap <Leader>pp :call Presentation()<CR>
 source ~/.vim/vimrc/vimrc_go.vim
 source ~/.vim/vimrc/vimrc_javascript.vim
 source ~/.vim/vimrc/vimrc_typescript.vim
+source ~/.vim/vimrc/vimrc_html_css.vim
 "source ~/.vim/vimrc/vimrc_python.vim
