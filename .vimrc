@@ -21,7 +21,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'majutsushi/tagbar'
-"Plugin 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 "Plugin 'ap/vim-css-color'
 "Plugin 'hail2u/vim-css3-syntax'
 "Plugin 'groenewege/vim-less'
@@ -245,8 +245,8 @@ nnoremap <Leader>a ggVG
 "vmap Q gq
 "nmap Q gqap
 
-"vnoremap < <gv  " better indentation
-"vnoremap > >gv  " better indentation
+vnoremap < <gv  " better indentation
+vnoremap > >gv  " better indentation
 
 " resize window with leader key
 " (it's still possible with ctrl+w +/- or ctrl+w </> )
