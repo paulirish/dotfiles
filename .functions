@@ -65,7 +65,6 @@ function json() {
   fi
 }
 
-
 # take this repo and copy it to somewhere else minus the .git stuff.
 function gitexport(){
   mkdir -p "$1"
@@ -167,7 +166,7 @@ function npmlsg() {
 }
 
 function install-global-npms() {
-  npm install -g babel babel-eslint eslint gulp-cli grunt-cli mocha live-server nodemon yo typescript tslint webpack jsctags prettier npm-which json-lint
+  npm install -g babel babel-eslint eslint gulp-cli grunt-cli mocha live-server nodemon yo typescript tslint webpack jsctags prettier npm-which json-lint google-translate-cli
 }
 
 function clip() {

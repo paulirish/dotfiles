@@ -175,3 +175,8 @@ alias mount-mydocuments="~/bin/mount-mydocuments.sh"
 alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
 
 if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.macos; fi
+
+# translate from English to German from the commandline
+# You need to install "npm install -g google-translate-cli" before
+alias ten="translate -s en -t de "
+alias tde="translate -s de -t en "
