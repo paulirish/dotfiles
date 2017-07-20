@@ -40,6 +40,7 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'mattn/emmet-vim'
 Plugin 'mitermayer/vim-prettier'
+Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -379,14 +380,16 @@ vmap <C-L>    <Plug>SchleppRight
 " Tagbar
 nmap <F9> :TagbarToggle<CR>
 
+" ACK
+cnoreabbrev ack Ack!
+
 " ************** End plugin settings ************
 
 " define color scheme
-color desert
-set background=light
+color slate
 
 " Define the highlighting for spell checking
-hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   guibg=#000000   gui=none
+hi SpellBad ctermfg=015 ctermbg=000 cterm=none guifg=#FFFFFF guibg=#000000 gui=none
 highlight SpellBad cterm=underline
 
 " Add file type based settings
