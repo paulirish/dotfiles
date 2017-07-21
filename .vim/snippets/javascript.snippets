@@ -159,3 +159,9 @@ snippet cn
 	className="${1}"${2}
 snippet noconsole
 	// eslint-disable-line no-console
+snippet try
+	try {
+	  ${1}
+	} catch (err) {
+	  ${2:console.error('Unexpected error while...', err)};
+	}
