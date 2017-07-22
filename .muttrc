@@ -1,4 +1,4 @@
-set my_pass = "`security find-internet-password -g -a baer.jan@gmail.com 2>&1| perl -e 'if (<STDIN> =~ m/password: "(.*)"$/ ) { print $1; }'`"
+set my_pass = "`pass cloud/google`"
 
 #account settings
 set from="jan@janbaer.de"
