@@ -5,6 +5,6 @@ alias vpn="~/bin/vpn.sh"
 alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
 
 # You need to install xsel with apt-get before using it
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
+alias copy='xsel --clipboard --input'
+alias paste='xsel --clipboard --output'
 
