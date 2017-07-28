@@ -89,6 +89,10 @@ snippet and
 snippet before
 	beforeEach(() => {${1}
 	});
+snippet after "after each (js)"
+	afterEach(() => {
+		$0
+	});
 snippet it
 	it('Should ${1}', () => {${2}
 	});
@@ -159,9 +163,13 @@ snippet cn
 	className="${1}"${2}
 snippet noconsole
 	// eslint-disable-line no-console
+snippet dl
+	// eslint-disable-line
 snippet try
 	try {
 	  ${1}
 	} catch (err) {
 	  ${2:console.error('Unexpected error while...', err)};
 	}
+snippet const
+	const ${1} = ${2};
