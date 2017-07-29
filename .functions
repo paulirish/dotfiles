@@ -342,16 +342,23 @@ function docker-clean() {
 
 function mocha-run() {
   searchPattern=${1:-./**/*.spec.js}
-  mocha ${searchPattern} --recursive --reporter spec
+  mocha '${searchPattern}' --recursive --reporter spec
 }
 
 function mocha-watch() {
   searchPattern=${1:-./**/*.spec.js}
-  mocha ${searchPattern} --recursive --reporter spec --watch
+  mocha '${searchPattern}' --recursive --reporter spec --watch
 }
 
 function latex() {
-  docker run --rm -it -v $(pwd):/tmp -w /tmp janbaer/latex xelatex "$@"
+  docker run --name latex --rm -it -v $(pwd):/tmp -w /tmp janbaer/latex xelatex -interaction=nonstopmode "$@"
+  if [ $? -eq 0 ]; then
+    rm -f *.{log,aux,toc}
+  fi
+}
+
+function latex-watch() {
+  while inotifywait -e close_write $1; do latex $1; done
 }
 
 function alpine() {
