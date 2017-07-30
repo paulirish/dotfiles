@@ -60,7 +60,7 @@ bindsym $mod+Right focus right
 # move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
@@ -154,7 +154,6 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+e exec ~/.config/i3/exit_menu
 
 bindsym $mod+Tab    workspace back_and_forth
@@ -207,6 +206,8 @@ bar {
 
 # Suspend my system
 bindsym $mod+Shift+s exec ~/.config/i3/suspend_ubuntu.sh
+# Lock the screen
+bindsym $mod+Shift+l exec ~/.config/i3/lockscreen.sh
 
 # Making a screenshot with using scrot
 bindsym --release $mod+Shift+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots'"
