@@ -95,9 +95,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-# lock
-bindsym $mod+Shift+x exec i3lock --color 475263
-
 # workspaces
 set $ws1 "1: DEV"
 set $ws2 "2: WEB"
@@ -207,7 +204,7 @@ bar {
 # Suspend my system
 bindsym $mod+Shift+s exec ~/.config/i3/suspend_ubuntu.sh
 # Lock the screen
-bindsym $mod+Shift+l exec ~/.config/i3/lockscreen.sh
+bindsym $mod+Shift+l exec ~/.config/i3/lock.sh
 
 # Making a screenshot with using scrot
 bindsym --release $mod+Shift+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots'"
