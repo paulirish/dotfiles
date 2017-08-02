@@ -1,0 +1,1 @@
+thefuck --alias
