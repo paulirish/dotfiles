@@ -46,7 +46,6 @@ brew cask install limechat
 # brew cask install disk-inventory-x
 # brew cask install screenflow
 brew cask install vlc
-brew cask install gpgtools
 # brew cask install licecap
 brew cask install transmission
 brew tap caskroom/fonts 
