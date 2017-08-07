@@ -27,7 +27,7 @@ Plugin 'pangloss/vim-javascript'
 "Plugin 'groenewege/vim-less'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
-"Plugin 'elzr/vim-json'
+Plugin 'elzr/vim-json'
 Plugin 'garbas/vim-snipmate'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'fatih/vim-go'
@@ -382,6 +382,9 @@ nmap <F9> :TagbarToggle<CR>
 
 " ACK
 cnoreabbrev ack Ack!
+
+" Nerdcommenter
+let g:NERDSpaceDelims = 1
 
 " ************** End plugin settings ************
 
