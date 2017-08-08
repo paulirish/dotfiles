@@ -9,14 +9,17 @@
 --ignore-dir=bower
 --ignore-dir=dist
 --ignore-dir=build
+--ignore-dir=.next
 
 --ignore-file=is:scripts.js
 --ignore-file=is:app.js
 --ignore-file=is:app.css
+--ignore-file=is:styles.css
 --ignore-file=is:c24.tpl.js
 --ignore-file=is:c24.css
 --ignore-file=match:vendor.*
 --ignore-file=is:tags
+--ignore-file=is:*.svg
 
 --sort-files
 --smart-case
