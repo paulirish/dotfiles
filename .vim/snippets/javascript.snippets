@@ -160,6 +160,18 @@ snippet react
 	    );
 	  }
 	}
+snippet react-func
+	import React from 'react';
+	import PropTypes from 'prop-types';
+	
+	const ${1:NAME} = ({${2}}) => (
+	${3:<div />}
+	)
+	
+	$1.propTypes = {
+	};
+	
+	export default $1;
 snippet cn
 	className="${1}"${2}
 snippet noconsole
