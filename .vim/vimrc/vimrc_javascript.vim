@@ -1,6 +1,10 @@
+autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
+autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+
 autocmd BufNewFile,BufRead *.js* setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufRead *.js* set filetype=javascript.jsx
+
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript.jsx set omnifunc=javascriptcomplete#CompleteJS
 
 autocmd BufNewFile,BufRead .eslintrc set syntax=json
 autocmd BufNewFile,BufRead .jshintrc set syntax=json
