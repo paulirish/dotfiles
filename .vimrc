@@ -21,10 +21,11 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'majutsushi/tagbar'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
 "Plugin 'ap/vim-css-color'
 "Plugin 'hail2u/vim-css3-syntax'
 "Plugin 'groenewege/vim-less'
+Plugin 'chemzqm/vim-jsx-improve'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'elzr/vim-json'
