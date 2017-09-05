@@ -261,7 +261,7 @@ nnoremap <F6> <C-W>w
 map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
 
-map <Leader>x :x<CR>
+map <Leader>x :cclose<CR> " Close the QuickFix window
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>xa :qa<CR>
 map <Leader>sw :Switch<CR>
