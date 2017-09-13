@@ -184,3 +184,6 @@ alias tde="translate -s de -t en "
 # Installing or updating go with this onliner
 alias install-go="curl -LO https://get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer && rm go_installer"
 alias update-go=install-go
+
+# Prettify the json which is currently in the clipboard and paste it back to the clipboard after
+alias json-pretty="pbpaste | python -m json.tool | pbcopy"
