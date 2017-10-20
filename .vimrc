@@ -22,10 +22,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'majutsushi/tagbar'
 " Plugin 'pangloss/vim-javascript'
-"Plugin 'ap/vim-css-color'
+Plugin 'ap/vim-css-color'
 "Plugin 'hail2u/vim-css3-syntax'
 "Plugin 'groenewege/vim-less'
 Plugin 'chemzqm/vim-jsx-improve'
+Plugin 'alampros/vim-styled-jsx'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'elzr/vim-json'
@@ -36,14 +37,14 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'kopischke/vim-fetch'
-Plugin 'leafgarland/typescript-vim'
+" Plugin 'leafgarland/typescript-vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'mattn/emmet-vim'
-Plugin 'mitermayer/vim-prettier'
+" Plugin 'mitermayer/vim-prettier'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'sgur/vim-editorconfig'
 Plugin 'svermeulen/vim-easyclip'
@@ -56,6 +57,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired.git'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'w0rp/ale'
 Plugin 'zirrostig/vim-schlepp'
 
 call vundle#end()
@@ -181,8 +183,7 @@ function! ToggleErrors()
     let old_last_winnr = winnr('$')
     lclose
     if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic error location panel
-        Errors
+      lopen
     endif
 endfunction
 
@@ -387,6 +388,17 @@ cnoreabbrev ack Ack!
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
 
+" Ale
+let g:ale_fix_on_save = 0
+let g:ale_completion_enabled = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_open_list = 1
+
+let g:ale_fixers = {
+\  'javascript': [ 'eslint' ],
+\}
 " ************** End plugin settings ************
 
 " define color scheme
