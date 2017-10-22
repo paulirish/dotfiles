@@ -21,13 +21,12 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'majutsushi/tagbar'
-" Plugin 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 Plugin 'ap/vim-css-color'
 "Plugin 'hail2u/vim-css3-syntax'
 "Plugin 'groenewege/vim-less'
-Plugin 'chemzqm/vim-jsx-improve'
+" Plugin 'chemzqm/vim-jsx-improve'
 Plugin 'alampros/vim-styled-jsx'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'elzr/vim-json'
 Plugin 'garbas/vim-snipmate'
@@ -44,7 +43,6 @@ Plugin 'mattn/emmet-vim'
 " Plugin 'mitermayer/vim-prettier'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'sgur/vim-editorconfig'
 Plugin 'svermeulen/vim-easyclip'
@@ -315,11 +313,6 @@ imap <Leader>i <C-Y>,
 " let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_initial_foldlevel=1
 
-" Settings for ctrlp
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files && git ls-files -o --exclude-standard']
-let g:ctrlp_max_height = 30
-let g:ctrlp_compare_lim = 0
-
 " Show NERDTree with a leader key
 noremap <Leader>t :NERDTreeToggle<CR>
 inoremap <Leader>t :NERDTreeToggle<CR>
@@ -358,6 +351,8 @@ inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
 " Some Fzf settings
 let g:fzf_command_prefix = 'Fzf'
+map <C-P> :FzfFiles<CR>
+map <C-B> :FzfBuffers<CR>
 
 " EasyClip
 let g:EasyClipShareYanks=1
