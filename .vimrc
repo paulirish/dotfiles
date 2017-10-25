@@ -261,7 +261,6 @@ map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
 
 map <Leader>x :cclose<CR> " Close the QuickFix window
-map <Leader>b :CtrlPBuffer<CR>
 map <Leader>xa :qa<CR>
 map <Leader>sw :Switch<CR>
 
@@ -353,6 +352,7 @@ inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 let g:fzf_command_prefix = 'Fzf'
 map <C-P> :FzfFiles<CR>
 map <C-B> :FzfBuffers<CR>
+map <Leader>b :FzfBuffers<CR>
 
 " EasyClip
 let g:EasyClipShareYanks=1
