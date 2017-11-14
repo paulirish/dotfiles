@@ -40,6 +40,7 @@ Plugin 'kopischke/vim-fetch'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'mattn/emmet-vim'
+Plugin 'machakann/vim-highlightedyank'
 " Plugin 'mitermayer/vim-prettier'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
@@ -394,6 +395,10 @@ let g:ale_open_list = 0
 let g:ale_fixers = {
 \  'javascript': [ 'eslint' ],
 \}
+
+" HighlightedYank
+map y <Plug>(highlightedyank)
+
 " ************** End plugin settings ************
 
 " define color scheme
