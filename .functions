@@ -256,7 +256,7 @@ function vimf() {
 }
 
 function cdf() {
-  dir=$(find . -type d -depth 1 | grep -v $foldersToExclude | fzf) && cd "$dir"
+  dir=$(find . -type d -maxdepth 1 | grep -v $foldersToExclude | fzf) && cd "$dir"
 }
 
 function cdr() {
