@@ -22,15 +22,15 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'majutsushi/tagbar'
 Plugin 'pangloss/vim-javascript'
-Plugin 'ap/vim-css-color'
-"Plugin 'hail2u/vim-css3-syntax'
+Plugin 'mxw/vim-jsx'
+" Plugin 'ap/vim-css-color'
+Plugin 'hail2u/vim-css3-syntax'
 "Plugin 'groenewege/vim-less'
 " Plugin 'chemzqm/vim-jsx-improve'
 Plugin 'alampros/vim-styled-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'elzr/vim-json'
 Plugin 'garbas/vim-snipmate'
-Plugin 'dkprice/vim-easygrep'
 Plugin 'fatih/vim-go'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'junegunn/fzf'
@@ -54,10 +54,11 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired.git'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'w0rp/ale'
 Plugin 'zirrostig/vim-schlepp'
+Plugin 'NLKNguyen/papercolor-theme'
 
 call vundle#end()
 
@@ -71,9 +72,6 @@ set cursorline " highlight current line
 
 set list
 set listchars=space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸\
-
-set grepprg=ack\ --nogroup\ --column\ $*
-set grepformat=%f:%l:%c:%m
 
 " No bullshit folding magic
 set foldmethod=indent
@@ -179,11 +177,11 @@ endfunc
 
 " Function to toggle on/off the quickfixlist
 function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$')
-      lopen
-    endif
+  let old_last_winnr = winnr('$')
+  lclose
+  if old_last_winnr == winnr('$')
+    lopen
+  endif
 endfunction
 
 function! StrTrim(txt)
@@ -198,9 +196,12 @@ function! s:tig_status()
 endfunction
 command! TigStatus call s:tig_status()
 
-function! Presentation()
-  color wwdc17
-  set background=light
+function! TogglePresentationMode()
+  if(&background == 'dark')
+    set background=light
+  else
+    set background=dark
+  endif
 endfunction
 
 " ************* End custom functions  ************
@@ -292,7 +293,7 @@ map <C-G> :TigStatus<CR><CR>
 
 nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
 
-nnoremap <Leader>pp :call Presentation()<CR>
+nnoremap <Leader>pp :call TogglePresentationMode()<CR>
 
 " ************* End custom keymappings ************
 
@@ -320,13 +321,6 @@ vnoremap <Leader>t :NERDTreeToggle<CR>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 let NERDTreeShowHidden=1
 let NERDTreeRespectWildIgnore=1
-
-" Easygrep settings
-let g:EasyGrepMode=0
-let g:EasyGrepCommand=1
-let g:EasyGrepFilesToExclude=".svn,.git,.idea,.vscode,node_modules,bower,bower_components,build"
-let g:EasyGrepRecursive=1
-let g:EasyGrepIgnoreCase=1
 
 " Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
@@ -380,6 +374,7 @@ nmap <F9> :TagbarToggle<CR>
 
 " ACK
 cnoreabbrev ack Ack!
+nnoremap <Leader>vv :Ack! <cword> <CR>
 
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -402,7 +397,8 @@ map y <Plug>(highlightedyank)
 " ************** End plugin settings ************
 
 " define color scheme
-color slate
+set background=dark
+color PaperColor
 
 " Define the highlighting for spell checking
 hi SpellBad ctermfg=015 ctermbg=000 cterm=none guifg=#FFFFFF guibg=#000000 gui=none
