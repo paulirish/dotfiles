@@ -181,18 +181,26 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources for some reason.
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
 
-# window colors
-#                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+# class                 border  backgr. text indicatord
+client.focused          $bg     $bg     $fg  $bg
+client.focused_inactive $bg     $bg     $fg  $bg
+client.unfocused        $bg     $bg     $fg  $bg
+client.urgent           $bg     $bg     $fg  $bg
+client.placeholder      $bg     $bg     $fg  $bg
+
+client.background       $bg
+
+# Cycle wallpapers and apply new colorscheme. You have to install wal to use it
+# https://github.com/dylanaraps/wal#installation
+bindsym $mod+shift+w exec "wal -i $HOME/Pictures/Wallpapers -o wal-set"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -247,3 +255,4 @@ for_window [instance="cola"] floating enable resize set 1280 1024
 
 # Some mouse specific bindings
 bindsym mod$+button3 workspace back_and_forth
+
