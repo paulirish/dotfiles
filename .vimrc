@@ -23,9 +23,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-" Plugin 'ap/vim-css-color'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'ap/vim-css-color'
 Plugin 'hail2u/vim-css3-syntax'
-"Plugin 'groenewege/vim-less'
 " Plugin 'chemzqm/vim-jsx-improve'
 Plugin 'alampros/vim-styled-jsx'
 Plugin 'easymotion/vim-easymotion'
@@ -392,6 +392,9 @@ let g:ale_fixers = {
 
 " HighlightedYank
 map y <Plug>(highlightedyank)
+
+" vim-jsx
+let g:jsx_ext_required = 0 " Activate Jsx support also for js files
 
 " ************** End plugin settings ************
 
