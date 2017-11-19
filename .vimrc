@@ -60,6 +60,11 @@ Plugin 'w0rp/ale'
 Plugin 'zirrostig/vim-schlepp'
 Plugin 'NLKNguyen/papercolor-theme'
 
+" Deoplete
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+
 call vundle#end()
 
 filetype plugin indent on
