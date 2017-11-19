@@ -327,14 +327,7 @@ vnoremap <Leader>t :NERDTreeToggle<CR>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 let NERDTreeShowHidden=1
 let NERDTreeRespectWildIgnore=1
-
-" Syntastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_html_tidy_ignore_errors=["is not recognized", "discarding unexpected", "proprietary attribute \"ng-"]
-map <Leader>q :SyntasticCheck<CR>
+let g:NERDTreeDirArrowCollapsible = ''
 
 " Netrc  management
 nnoremap <leader>xv :Vexplore!<cr> " Open vertical explorer
