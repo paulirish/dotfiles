@@ -37,10 +37,11 @@ Plugin 'tpope/vim-rails'
 Plugin 'ervandew/supertab'
 Plugin 'takac/vim-spotifysearch'
 Plugin 'thoughtbot/vim-rspec'
-" Plugin 'pangloss/vim-javascript.git'
-" Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript.git'
+Plugin 'mxw/vim-jsx'
 Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'kien/ctrlp.vim'
+Plugin 'isRuslan/vim-es6'
 call vundle#end()
 filetype plugin indent on
 

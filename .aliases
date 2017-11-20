@@ -131,5 +131,6 @@ alias rs="rspec"
 # postgresql
 alias pg_start="postgres -D /usr/local/var/postgres"
 
-# docker aws
-alias docker_aws="eval $(aws ecr get-login --region us-west-2 | sed -e 's/-e none//g')"
+# aws docker
+# alias docker_aws="eval $(aws ecr get-login --region us-west-2 | sed -e 's/-e none//g')"
+
