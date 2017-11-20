@@ -327,7 +327,6 @@ vnoremap <Leader>t :NERDTreeToggle<CR>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 let NERDTreeShowHidden=1
 let NERDTreeRespectWildIgnore=1
-let g:NERDTreeDirArrowCollapsible = ''
 
 " Netrc  management
 nnoremap <leader>xv :Vexplore!<cr> " Open vertical explorer
