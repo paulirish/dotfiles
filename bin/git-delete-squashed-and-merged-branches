@@ -24,6 +24,7 @@ import os.path
 import sys
 import github
 import subprocess
+import time
 
 yellow = '\033[93m'
 reset = '\033[0m'
@@ -38,10 +39,11 @@ token = tokenfile.read().strip();
 def get_branch_heads():
     '''Returns a map from branch name --> SHA for local branches.'''
     branch_to_sha = {}
-    for path in glob('.git/refs/heads/*'):
-        branch = os.path.basename(path)
-        if branch == 'master': continue
-        branch_to_sha[branch] = open(path).read().strip()
+    for path in glob('.git/refs/heads/*') + glob('.git/refs/heads/**/*'):
+        branch_name = path.replace('.git/refs/heads/', '')
+        if os.path.isdir(path): continue
+        if branch_name == 'master': continue
+        branch_to_sha[branch_name] = open(path).read().strip()
     return branch_to_sha
 
 
@@ -50,9 +52,11 @@ def main():
 
     retval = 0
     items = get_branch_heads().items();
+
     print 'Looking at {} total local heads.'.format(len(items))
 
     for branch, sha in items:
+        time.sleep(2) # search only allows 30 req/min. https://developer.github.com/v3/search/#rate-limit
         res = G.search_issues(sha)
         shortsha = sha[0:7]
         issue_states = [issue.state == 'closed' for issue in res]
