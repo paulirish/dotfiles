@@ -9,18 +9,32 @@ end
 function b --description "build chromium"
 	set -l dir $HOME/chromium/src/out/Default
 	# 1000 seems fairly stable, but i dont want accidental failures
-    ninja -C $dir -j900 chrome blink_tests
+
+    set -l cmd "ninja -C $dir -j900 chrome blink_tests"
+    echo "  > $cmd"
+    eval $cmd
 end
 
-function cr --description "open built chromium"
-    eval $HOME/chromium/src/out/Default/Chromium.app/Contents/MacOS/Chromium
+function cr --description "open built chromium (accepts runtime flags)"
+    set -l cmd "$HOME/chromium/src/out/Default/Chromium.app/Contents/MacOS/Chromium $argv"
+    echo "  > $cmd"
+    eval $cmd
 end
-
 
 
 function bcr --description "build chromium, then open it"
     if b
         cr
+    end
+end
+
+
+
+function depsb --description "deps, then build chromium, then open it"
+    if deps
+        # #     if [ "$argv[1]" = "--skipgoma" ] ...
+        gom
+        b
     end
 end
 
