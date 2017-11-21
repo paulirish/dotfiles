@@ -1,11 +1,13 @@
 set default_user "paulirish"
 set default_machine "paulirish-macbookair2"
 
+
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
+source ~/.config/fish/conf.d/scmpuff.fish
 
 # for things not checked into git..
 if test -e "$HOME/.extra.fish";
@@ -97,4 +99,4 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 # tabtab source for yarn package
 # uninstall by removing these lines or running `tabtab uninstall yarn`
-[ -f $HOME/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish ]; and . $HOME/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish
+[ -f /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish ]; and . /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish
