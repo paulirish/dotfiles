@@ -64,6 +64,9 @@ function code
   env VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $argv
 end
 
+function upgradeyarn
+  curl -o- -L https://yarnpkg.com/install.sh | bash
+end
 
 function fuck -d 'Correct your previous console command'
     set -l exit_code $status

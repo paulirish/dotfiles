@@ -28,11 +28,7 @@ set -l paths "
 $HOME/.yarn/bin
 
 # yarn global modules (hack for me)
-$HOME/.homebrew/Cellar/node/7.10.0/bin
-$HOME/.homebrew/Cellar/node/7.7.1_1/bin
-$HOME/.homebrew/Cellar/node/7.7.4/bin
-$HOME/.homebrew/Cellar/node/8.0.0_1/bin
-$HOME/.homebrew/Cellar/node/8.1.2/bin
+$HOME/.config/yarn/global/node_modules/.bin
 "
 
 for entry in (string split \n $paths)
@@ -43,6 +39,8 @@ for entry in (string split \n $paths)
     end
 end
 
+# GO
+set PA $PA "/Users/paulirish/.go/bin"
 
 # Google Cloud SDK.
 if test -f "$HOME/google-cloud-sdk/path.fish.inc"
