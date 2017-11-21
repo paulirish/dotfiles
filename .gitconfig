@@ -4,6 +4,7 @@
 	s = status
 	sclone = clone --depth=1
 	amend = commit --amend --all
+	undocommit = reset HEAD~
 	hreset = reset --hard
 	co = checkout
 	df = diff --color --color-words --abbrev
