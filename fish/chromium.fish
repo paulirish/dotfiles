@@ -57,5 +57,21 @@ function gom --description "run goma setup"
     set -x GOMAMAILTO /dev/null 
     set -x GOMA_OAUTH2_CONFIG_FILE /Users/paulirish/.goma_oauth2_config 
     set -x GOMA_ENABLE_REMOTE_LINK yes
-    ~/goma/goma_ctl.py ensure_start
+
+    if not test (curl -X POST --silent http://127.0.0.1:8088/api/accountz)
+        echo "Goma isn't running. Starting it."
+        ~/goma/goma_ctl.py ensure_start
+        return 0
+    end
+
+    set -l local_goma_version (curl -X POST --silent http://127.0.0.1:8088/api/taskz | jq '.goma_version[0]')
+    set -l remote_goma_version (~/goma/goma_ctl.py latest_version | ack 'VERSION=(\d+)' | ack -o '\d+')
+
+    if test local_goma_version = remote_goma_version
+        echo 'Goma is running and up to date, continuing.'
+    else
+        echo 'Goma needs an update. Stopping and restarting.'
+        ~/goma/goma_ctl.py stop
+        ~/goma/goma_ctl.py ensure_start
+    end
 end	
