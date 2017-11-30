@@ -26,6 +26,7 @@ end
 set -l paths "
 # yarn binary
 $HOME/.yarn/bin
+$GOPATH/bin
 
 # yarn global modules (hack for me)
 $HOME/.config/yarn/global/node_modules/.bin
