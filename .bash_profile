@@ -47,13 +47,13 @@ export HISTTIMEFORMAT='%F %T '
 
 # keep history up to date, across sessions, in realtime
 #  http://unix.stackexchange.com/a/48113
-export HISTCONTROL="erasedups:ignoreboth"       # no duplicate entries
+# export HISTCONTROL="erasedups:ignoreboth"       # no duplicate entries
 export HISTSIZE=100000                          # big big history (default is 500)
 export HISTFILESIZE=$HISTSIZE                   # big big history
 type shopt &> /dev/null && shopt -s histappend  # append to history, don't overwrite it
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+# export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 
 # Save multi-line commands as one command
 shopt -s cmdhist
@@ -131,3 +131,4 @@ shopt -s dirspell 2> /dev/null
 
 # Turn on recursive globbing (enables ** to recurse all directories)
 shopt -s globstar 2> /dev/null
+3
