@@ -7,3 +7,7 @@ copyFiles() {
 }
 
 copyFiles
+
+# Rename i3 configs
+mv ~/.config/i3/config-${HOSTNAME} ~/.config/i3/config
+mv ~/.config/i3/i3status-${HOSTNAME}.conf ~/.config/i3/i3status.conf
