@@ -364,3 +364,12 @@ function alpine() {
   docker run -it --rm -v $(pwd):/tmp -w /tmp janbaer/alpine
 }
 
+function setwal() {
+  wal -i ${HOME}/Pictures/Wallpapers -o wal-set
+}
+
+function chrome() {
+  cd ~/Projects/github/chromium-latest-linux
+  ./run.sh
+  cd -
+}
