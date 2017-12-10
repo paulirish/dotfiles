@@ -242,6 +242,7 @@ exec_always --no-startup-id xrandr --output HDMI2 --mode 3440X1440
 # start the dropbox client - see https://faq.i3wm.org/question/1611/ubuntuone-and-dropbox.1.html
 exec --no-startup-id ~/.dropbox-dist/dropboxd
 exec --no-startup-id /usr/bin/clipit
+exec --no-startup-id /usr/bin/pasystray
 exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
 
 # Windows styles for apps
@@ -252,6 +253,7 @@ for_window [instance="lxappearance"] floating enable
 for_window [instance="remmina"] floating enable
 for_window [instance="seahorse"] floating enable resize set 800 600
 for_window [instance="cola"] floating enable resize set 1280 1024
+for_window [instance="pavucontrol"] floating enable resize set 800 600
 
 # Some mouse specific bindings
 bindsym mod$+button3 workspace back_and_forth
