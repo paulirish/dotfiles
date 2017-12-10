@@ -124,22 +124,18 @@ alias md="mkdircd"
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
 alias dropbox='cd ~/DropBox'
-alias dev='cd ~/DropBox/Develop'
 alias blog='cd ~/Projects/WebSites/blog'
 alias mh='cd ~/Projects/WebSites/myhomepage'
 alias pr='cd ~/Projects'
-alias swk='cd ~/Projects/github/swk'
-alias gtgs='cd ~/Projects/NodeProjects/gitsync'
-alias mdw='cd ~/Projects/NodeProjects/mdwiki'
+alias mdw='cd ~/Projects/mdwiki_next'
+alias mdwiki='cd ~/Projects/mdwiki_next'
 alias logfiles='cd ~/Projects/logfiles'
 alias dotfiles='cd ~/Projects/dotfiles'
 alias dockerfiles='cd ~/Projects/dockerfiles'
-alias sublime-settings='cd ~/DropBox/_AppSettings/SublimeText'
-alias dupl='cd ~/Projects/NodeProjects/duplicatesongfinder/'
 alias howcani='cd ~/Projects/howcani'
 alias howcani-api='cd ~/Projects/go/src/github.com/howcani-project/howcani-api'
 alias mykatas='cd ~/Projects/Katas/MyKatas'
-alias wiki='cd ~/Projects/WebSites/wiki-content'
+alias notes="cd ~/Dropbox/Notes"
 
 if [ $UID -ne 0 ]; then
   alias reboot='sudo reboot'
