@@ -38,7 +38,7 @@ bindsym $mod+Shift+q kill
 
 # configure launcher menus
 bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "System San Francisco Display 15" -fake-background "#e53935"
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-12'"
 bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 15 -opacity "70" -dmenu -i -p "locate:")"
 
 # change focus
@@ -153,26 +153,26 @@ bindsym $mod+Tab    workspace back_and_forth
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+  # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym j resize shrink width 10 px or 10 ppt
+  bindsym k resize grow height 10 px or 10 ppt
+  bindsym l resize shrink height 10 px or 10 ppt
+  bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -195,11 +195,22 @@ client.placeholder      $bg     $bg     $fg  $bg
 client.background       $bg
 
 # Cycle wallpapers and apply new colorscheme.
-bindsym $mod+shift+w exec "wal -i $HOME/Pictures/Wallpapers -o wal-set"
+bindsym $mod+shift+w exec "~/bin/wal -i ~/Dropbox/Wallpapers -o ~/bin/wal-set"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+  colors {
+    background #4C4F56
+    statusline #DBDBDB
+    separator #666666
+
+    focused_workspace  #4c7899 #285577 #DBDBDB
+    active_workspace   #333333 #5f676a #DBDBDB
+    inactive_workspace #333333 #222222 #888888
+    urgent_workspace   #2f343a #900000 #DBDBDB
+  }
+
   status_command i3status --config ~/.config/i3/i3status.conf
   position top
 }
@@ -249,6 +260,7 @@ for_window [instance="remmina"] floating enable
 for_window [instance="seahorse"] floating enable resize set 800 600
 for_window [instance="cola"] floating enable resize set 1280 1024
 for_window [instance="pavucontrol"] floating enable resize set 800 600
+for_window [instance="meld"] floating enable resize set 1280 1024
 
 # Some mouse specific bindings
 bindsym mod$+button3 workspace back_and_forth
