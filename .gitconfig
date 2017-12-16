@@ -93,34 +93,38 @@
   changed = green
   untracked = cyan
 
-[merge]
-  log = true
-  tool = kdiff3
-
 [diff]
-  tool = kdiff3
+  tool = meld
 
 [difftool "kdiff3"]
   path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
   trustExitCode = false
 
+[difftool "meld"]
+  cmd = meld "$LOCAL" "$REMOTE"
+
+[merge]
+  log = true
+  tool = meld
+
 [mergetool]
   keepBackup = false
   trustExitCode = true
+  promt = false
+
+; [mergetool "kdiff3"]
+  ; path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+  ; trustExitCode = false
+  ; keepBackup = false
 
 [mergetool "kdiff3"]
-  path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+  path = /usr/bin/kdiff3
   trustExitCode = false
   keepBackup = false
 
-[mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+[mergetool "meld"]
+  cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
   keepBackup = false
-
-[mergetool]
-  keepBackup = false
-  trustExitCode = true
 
 [push]
   default = upstream
