@@ -1,0 +1,42 @@
+conky.config = {
+  alignment = 'top_left',
+  background = true,
+
+  cpu_avg_samples = 2,
+  default_color = 'FFFFFF',
+  double_buffer = true,
+  font = 'Noto Mono:size=12:bold',
+  gap_x = 25,
+  gap_y = 100,
+  minimum_width = 250,
+  no_buffers = true,
+  own_window = true,
+  own_window_class = 'conky',
+  own_window_type = 'override',
+  own_window_transparent = true,
+  update_interval = 2.0,
+  use_xft = true,
+  color1 = 'FE5E52',
+  color2 = 'eeeeee',
+  color3 = '0000ff',
+}
+conky.text = [[
+  ${color2}default ${color1}mod=<Windows>
+
+  ${color2}open new terminal - ${color1}mod+Enter
+  ${color2}open file manager - ${color1}mod+Shift+Enter
+  ${color2}open file manager - ${color1}Ctrl+Alt+b
+  ${color2}kill focused - ${color1}mod+Shift+q
+  ${color2}dmenu - ${color1}mod+d
+  ${color2}j4 dmenu - ${color1}Shift+mod+d
+  ${color2}switch to workspace 1-10 - ${color1}mod+1-10
+  ${color2}send to workspace 1-10 - ${color1}mod+Shift+1-10
+  ${color2}navigate workspaces - ${color1}Alt+Tab
+  ${color2}toggle floating - ${color1}mod+Shift+Space
+  ${color2}tile vertically - ${color1}mod+v
+  ${color2}tile horizontally - ${color1}mod+h
+  ${color2}Settings - ${color1}Ctrl+Alt+n
+  ${color2}reload config file - ${color1}mod+Shift+r
+  ${color2}System - ${color1}mod+Pause/Break
+  ${color2}Exit i3 - ${color1}mod+Shift+e
+]]

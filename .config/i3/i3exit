@@ -1,0 +1,27 @@
+#!/bin/sh
+
+case "$1" in
+    lock)
+        ~/.config/i3/lock.sh
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        ~/.config/i3/suspend.sh
+        ;;
+    hibernate)
+        sudo pm-hibernate
+        ;;
+    reboot)
+        sudo reboot
+        ;;
+    shutdown)
+        sudo poweroff
+        ;;
+    *)
+        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+        exit 2
+esac
+
+exit 0
