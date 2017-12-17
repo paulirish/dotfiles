@@ -183,3 +183,6 @@ alias update-go=install-go
 
 # Prettify the json which is currently in the clipboard and paste it back to the clipboard after
 alias json-pretty="pbpaste | python -m json.tool | pbcopy"
+
+# Sometimes we need to start the ssh-agent manually
+alias start-ssh-agent=eval "$(ssh-agent)"
