@@ -84,7 +84,10 @@ source ~/.functions
 source ~/.aliases
 
 # I want to have the history for each tab separately
-setopt no_share_history
+# setopt no_share_history
+
+# Since I love it to use VIM, I want to have it also in my shell
+set -o vi
 
 # use the default version of node.js
 type nvm > /dev/null
