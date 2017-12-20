@@ -248,7 +248,7 @@ exec_always --no-startup-id xrandr --output HDMI2 --mode 3440X1440
 # start the dropbox client - see https://faq.i3wm.org/question/1611/ubuntuone-and-dropbox.1.html
 exec --no-startup-id ~/.dropbox-dist/dropboxd
 exec --no-startup-id /usr/bin/clipit
-exec --no-startup-id /usr/bin/pasystray
+exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
 
 # Windows styles for apps
