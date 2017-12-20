@@ -140,6 +140,7 @@ assign [instance="code"] $ws1
 for_window [class="Clipgrab"] workspace $ws10
 for_window [instance="remmina"] workspace $ws4
 for_window [instance="code"] workspace $ws1
+for_window [instance="nautilus"] workspace $ws3
 
 #END workspaces
 
