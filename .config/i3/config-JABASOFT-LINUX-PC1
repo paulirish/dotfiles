@@ -32,6 +32,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+Return exec nautilus
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -134,11 +135,13 @@ bindsym $mod+End    workspace $ws10
 assign [class="Clipgrab"] $ws10
 assign [instance="remmina"] $ws4
 assign [instance="code"] $ws1
+assign [instance="nautilus"] $ws3
 
 # Switch to workspaces automatically for some apps
 for_window [class="Clipgrab"] workspace $ws10
 for_window [instance="remmina"] workspace $ws4
 for_window [instance="code"] workspace $ws1
+for_window [instance="nautilus"] workspace $ws3
 
 #END workspaces
 
