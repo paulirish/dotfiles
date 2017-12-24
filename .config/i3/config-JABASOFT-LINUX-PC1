@@ -253,6 +253,7 @@ exec --no-startup-id ~/.dropbox-dist/dropboxd
 exec --no-startup-id /usr/bin/clipit
 exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Windows styles for apps
 for_window [title="ClipGrab - Download and Convert Online Videos"] floating enable
