@@ -86,8 +86,11 @@ source ~/.aliases
 # I want to have the history for each tab separately
 # setopt no_share_history
 
-# Since I love it to use VIM, I want to have it also in my shell
+# Activate VI mode
 set -o vi
+
+# Activate this key binding explicitly since VI mode is deactivating it
+bindkey '^R' history-incremental-search-backward
 
 # use the default version of node.js
 type nvm > /dev/null
@@ -110,3 +113,4 @@ fi
 if [ $(uname) = "Linux" ]; then
   xmodmap ~/.Xmodmap
 fi
+
