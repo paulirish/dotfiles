@@ -106,9 +106,8 @@ if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
   source ~/.nix-profile/etc/profile.d/nix.sh
 fi
 
-if [ -f ~/.zshrc.local ]; then
-  source ~/.zshrc.local
-fi
+# Source local zshrc with local only settings
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 if [ $(uname) = "Linux" ]; then
   xmodmap ~/.Xmodmap
