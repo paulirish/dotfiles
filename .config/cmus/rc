@@ -1,10 +1,7 @@
 view browser
 
-unbind -f common space
-bind common space player-pause
-
-unbind -f common q
-bind common q quit
+bind -f common space player-pause
+bind -f common q quit
 
 colorscheme solarized-dark
 
