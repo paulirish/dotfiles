@@ -99,3 +99,6 @@
 	compactionHeuristic = true
 [remote "origin"]
 	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+[user]
+	name = dbachko
+	email = dbachko@gmail.com

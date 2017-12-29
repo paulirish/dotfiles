@@ -15,7 +15,7 @@ end
 # THEME PURE #
 #set fish_function_path /Users/dbachko/.config/fish/functions/pure $fish_function_path
 
-#export GOPATH=$HOME/.go/
+export GOPATH=$HOME/go/
 
 # Completions
 function make_completion --argument-names alias command
@@ -38,7 +38,7 @@ set -g fish_color_command 5f87d7
 set -g fish_color_comment 808080
 set -g fish_color_cwd 87af5f
 set -g fish_color_cwd_root 5f0000
-set -g fish_color_error 870000 --bold
+# set -g fish_color_error 870000 --bold
 set -g fish_color_escape af5f5f
 set -g fish_color_history_current 87afd7
 set -g fish_color_host 5f87af
