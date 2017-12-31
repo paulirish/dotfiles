@@ -1,9 +1,10 @@
-view queue
+view playlist
 
 bind -f common q quit
 
-bind -f common 9 shell ~/bin/cmus_add_pwd_to_queue.sh
-bind -f common 0 shell ~/bin/cmus_move_to_goodsongs.sh
+bind -f common 8 shell ~/bin/cmus_add_pwd_to_playlist.sh
+bind -f common 9 shell ~/bin/cmus_move_to_goodsongs.sh
+bind -f common 0 shell ~/bin/cmus_delete_current_song.sh
 
 colorscheme solarized-dark
 
