@@ -396,6 +396,9 @@ map y <Plug>(highlightedyank)
 " vim-jsx
 let g:jsx_ext_required = 0 " Activate Jsx support also for js files
 
+" vim-smartpairs
+let g:smartpairs_start_from_word = 1
+
 " ************** End plugin settings ************
 
 " define color scheme
