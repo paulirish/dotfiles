@@ -49,7 +49,7 @@ DISABLE_AUTO_UPDATE="true"
 #
 # https://github.com/emallson/gulp-zsh-completion.git
 # https://github.com/yonchu/grunt-zsh-completion.git
-plugins=(common-aliases git git-flow gulp copyfile copydir dirhistory extract git-extras nvm web-search python )
+plugins=(common-aliases gulp copyfile copydir dirhistory extract git-extras nvm web-search python )
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
