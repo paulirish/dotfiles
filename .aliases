@@ -185,4 +185,10 @@ alias update-go=install-go
 alias json-pretty="pbpaste | python -m json.tool | pbcopy"
 
 # Sometimes we need to start the ssh-agent manually
-alias start-ssh-agent=eval "$(ssh-agent)"
+alias start-ssh-agent="eval \"$(ssh-agent)\""
+
+# aliases for pacman
+alias pacman-upgrade-all="sudo pacman -Syu"
+alias pacman-install="sudo pacman -S $1"
+alias pacman-search="pacman -Ss $1"
+alias pacman-remove="sudo pacman -Rsn $1"
