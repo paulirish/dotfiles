@@ -111,5 +111,7 @@ fi
 
 if [ $(uname) = "Linux" ]; then
   xmodmap ~/.Xmodmap
+  start-ssh-agent
+  eval `keychain --agents ssh --eval id_rsa`
 fi
 
