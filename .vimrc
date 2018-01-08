@@ -302,6 +302,10 @@ nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
 
 nnoremap <Leader>pp :call TogglePresentationMode()<CR>
 
+" Delete surrounding space (deletes the previous and the following space)
+" It's not perfect for all cases, but sometimes usefull
+nnoremap ds<space> F<space>xf<space>x
+
 " ************* End custom keymappings ************
 
 " ************** Begin plugin settings ************
