@@ -3,6 +3,7 @@ set default_machine "dbachko-mac"
 
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
+source ~/.config/fish/android.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
