@@ -1,0 +1,143 @@
+# Example keymap file
+# To define your own keys for MOC commands, create a keymap file in the ~/.moc/
+# directory and add options Keymap = FILE in ~/.moc/config
+#
+# The format of this file is:
+# Lines beginning with # are comments.
+# Blank lines are ignored.
+# Every other line is expected to be in format:
+#
+# COMMAND = [KEY ...]
+#
+# The key can be:
+#  - just a char, like i, L, ", *
+#  - CRTL-KEY sequence: ^k (CTRL-k), ^4
+#  - ALT-KEY (meta sequence): M-j (ALT-j), M-%
+#  - Special keys:
+#    DOWN
+#    UP
+#    LEFT
+#    RIGHT
+#    HOME
+#    BACKSPACE
+#    DEL
+#    INS
+#    ENTER
+#    PAGE_UP
+#    PAGE_DOWN
+#    TAB
+#    END
+#    KEYPAD_CENTER
+#    SPACE
+#    ESCAPE
+#    F1 - F12
+#
+# Maximum number of keys for one command is 5.
+#
+# Omitting the key for a command will disassociate the key from the command.
+#
+# Default key configuration for MOC (and a list of all available commands):
+
+quit_client =		q
+go =			ENTER
+menu_down =		DOWN
+menu_up =		UP
+menu_page_down =	PAGE_DOWN
+menu_page_up =		PAGE_UP
+menu_first_item = 	HOME
+menu_last_item =	END
+quit = 			Q
+stop = 			s
+next =			n
+previous =		b
+pause =			p SPACE
+toggle_read_tags =	f
+toggle_shuffle = 	S
+toggle_repeat =		R
+toggle_auto_next =	X
+toggle_menu =		TAB
+toggle_layout =		l
+add_file =		a
+clear_playlist =	C
+remove_dead_entries =	Y
+add_directory =		A
+volume_down_1 =		<
+volume_up_1 =		>
+volume_down_5 =		,
+volume_up_5 =		.
+seek_forward =		RIGHT
+seek_backward =		LEFT
+seek_forward_fast =	]
+seek_backward_fast =	[
+help =			h ?
+hide_message =		M
+refresh =		^r
+reload =		r
+toggle_hidden_files =	H
+go_to_music_directory =	m
+delete_from_playlist =	d
+search_menu =		g /
+save_playlist =		V
+toggle_show_time =	^t
+toggle_show_format =	^f
+go_to_playing_file =	G
+go_to_a_directory =	i
+go_up =			U
+next_search =		^g ^n
+cancel =		^x ESCAPE
+go_url =		o
+volume_10 =		M-1
+volume_20 =		M-2
+volume_30 =		M-3
+volume_40 =		M-4
+volume_50 =		M-5
+volume_60 =		M-6
+volume_70 =		M-7
+volume_80 =		M-8
+volume_90 =		M-9
+mark_start =		'
+mark_end =		"
+
+# Key bindings for directories: defaults are Shift-number
+# shift 1 = ! = Fastdir1
+go_to_fast_dir1 =	!
+go_to_fast_dir2 =	@
+go_to_fast_dir3 =	#
+go_to_fast_dir4 =	$
+go_to_fast_dir5 =	%
+go_to_fast_dir6 =	^
+go_to_fast_dir7 =	&
+go_to_fast_dir8 =	*
+go_to_fast_dir9 =	(
+go_to_fast_dir10 =	)
+
+plist_add_stream =	^u
+toggle_mixer =		x
+# for softmixer
+#toggle_softmixer =	w
+history_up =		UP
+history_down =		DOWN
+plist_move_up =		u
+plist_move_down =	j
+theme_menu =		T
+
+toggle_equalizer =	E
+equalizer_refresh =	e
+equalizer_prev =	K
+equalizer_next =	k
+toggle_make_mono =	J
+show_lyrics =		L
+playlist_full_paths =	P
+enqueue_file =		z
+clear_queue =		Z
+
+exec_command1 = 	F1
+exec_command2 = 	F2
+exec_command3 = 	F3
+exec_command4 = 	F4
+exec_command5 = 	F5
+exec_command6 = 	F6
+exec_command7 = 	F7
+exec_command8 = 	F8
+exec_command9 = 	F9
+exec_command10 = 	F10

@@ -1,0 +1,33 @@
+# Executing external commands (1 - 10) invoked with key commands (F1 - F10 by
+# default).
+# Some arguments are substituted before executing:
+# %f - file path
+# %i - title made from tags
+# %S - start block mark (in seconds)
+# %E - end block mark (in seconds)
+#
+# Data from tags:
+# %t - title
+# %a - album
+# %r - artist
+# %n - track
+# %m - time of the file (in seconds)
+#
+# Parameters above apply to the currently selected file. If you change them to
+# capital letters, they are taken from the file currently playing.
+#
+# Programs are run using execv(), not a shell, so you can't do things like
+# redirecting the output to a file. The command string is split using blank
+# characters as separators, the first element is the command to be executed
+# and the rest are parameters, so if you use "echo Playing: %I" we run program
+# echo (from $PATH) with 2 parameters: 'Playing:' string and the title. Even
+# if the title contains spaces it's still one parameter and it's safe if it
+# contains `rm -rf /`.
+#
+# Examples:
+ExecCommand5    = "mv %f ${GOOD_SONGS_DIR}"
+ExecCommand6    = "rm %f"
+
+Fastdir1 = /home/jan/Videos/Youtube/music
+Fastdir2 = /media/music
+Fastdir3 = /media/music/_NEW/_GoodSongs
