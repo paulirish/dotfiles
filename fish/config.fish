@@ -16,7 +16,9 @@ end
 # THEME PURE #
 #set fish_function_path /Users/dbachko/.config/fish/functions/pure $fish_function_path
 
-export GOPATH=$HOME/go/
+# GO
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 
 # Completions
 function make_completion --argument-names alias command

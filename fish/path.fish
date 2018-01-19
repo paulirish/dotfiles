@@ -22,6 +22,8 @@ end
 # 	set PA $PA /Users/dbachko/.rvm/gems/ruby-2.2.1/bin
 # end
 
+# GO
+set PA $PA $HOME/go/bin
 
 set -U fish_user_paths $PA
 
