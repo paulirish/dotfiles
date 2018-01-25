@@ -41,6 +41,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "System San Francisco Display 18" -fake-background "#e53935"
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-15'"
 bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 15 -opacity "70" -dmenu -i -p "locate:")"
+bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "85" -font "Droid Sans 18"
 
 # change focus
 bindsym $mod+j focus left
@@ -151,8 +152,6 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec ~/.config/i3/exit_menu
-
-bindsym $mod+Tab    workspace back_and_forth
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
