@@ -406,7 +406,11 @@ let g:smartpairs_start_from_word = 1
 " ************** End plugin settings ************
 
 " define color scheme
-set background=dark
+if $VIM_BACKGROUND == 'light'
+  set background=light
+else
+  set background=dark
+endif
 color PaperColor
 
 " Define the highlighting for spell checking
