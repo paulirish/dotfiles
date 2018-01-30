@@ -7,7 +7,7 @@ function hooks --description "run gclient runhooks"
 end
 
 function b --description "build chromium"
-	set -l dir $HOME/chromium/src/out/Default
+	set -l dir (git rev-parse --show-cdup)/out/Default/
 	# 1000 seems fairly stable, but i dont want accidental failures
 
     set -l cmd "ninja -C $dir -j900 chrome blink_tests"
@@ -16,7 +16,8 @@ function b --description "build chromium"
 end
 
 function cr --description "open built chromium (accepts runtime flags)"
-    set -l cmd "$HOME/chromium/src/out/Default/Chromium.app/Contents/MacOS/Chromium $argv"
+    set -l dir (git rev-parse --show-cdup)/out/Default/
+    set -l cmd "$dir/Chromium.app/Contents/MacOS/Chromium $argv"
     echo "  > $cmd"
     eval $cmd
 end
