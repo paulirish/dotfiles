@@ -44,6 +44,7 @@
   l = "!f() { n=10; [ -n \"$1\" ] && n=$1; git log --oneline --graph -$n; }; f"
   m = merge --no-commit
   mt = mergetool -y
+  nb = "!sh -c \"git checkout -b feature/$1\" -"
   p = pull
   pp = !git pull && git push
   pom = push origin master
