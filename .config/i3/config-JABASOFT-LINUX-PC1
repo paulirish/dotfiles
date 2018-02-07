@@ -31,7 +31,7 @@ font pango:System San Francisco Display 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal --hide-menubar
 bindsym $mod+Shift+Return exec nautilus
 
 # kill focused window
