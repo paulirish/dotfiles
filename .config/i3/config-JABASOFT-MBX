@@ -277,7 +277,6 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id conky  #-c ~/.config/i3/system-shortcuts
 
 # Windows styles for apps
-for_window [title="ClipGrab - Download and Convert Online Videos"] floating enable
 for_window [instance="keepassx"] floating enable resize set 800 600
 for_window [instance="blueman-manager"] floating enable resize set 800 600
 for_window [instance="vlc"] floating enable
