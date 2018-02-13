@@ -305,14 +305,14 @@ au BufRead,BufNewFile .zsh_rc,.functions,.commonrc set ft=zsh
 nnoremap <leader>rp :RainbowParenthesesToggle<CR>
 
 " NERDTree
-map <F1> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>
 " set autochdir
 let NERDTreeChDirMode=2
 nnoremap <leader>n :NERDTreeToggle .<CR>
 
 " tabs
-noremap <F2> :tabp<CR>
-noremap <F3> :tabn<CR>
+noremap <F3> :tabp<CR>
+noremap <F4> :tabn<CR>
 noremap <F5> :tabnew<CR>
 
 " ack
