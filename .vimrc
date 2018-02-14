@@ -103,6 +103,7 @@ set wildignore+=.DS_Store
 set wildignore+=.git
 set wildignore+=.vscode
 set wildignore+=.idea
+set wildignore+=.next
 set wildignore+=obj,tags
 
 " Disable stupid backup and swap files - they trigger too many events for file system watchers
