@@ -62,7 +62,7 @@ set lispwords+=defpartial,defpage " Noir core
 set lispwords+=defaction,deffilter,defview,defsection " Ciste core
 set lispwords+=describe,it " Speclj TDD/BDD
 set magic " Enable extended regexes
-set mouse=a " Enable mouse in all in all modes
+set mouse=a " Enable mouse in all modes
 set noerrorbells " Disable error bells
 set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command
 set noshowmode " Don't show the current mode (airline.vim takes care of us)
