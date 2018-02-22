@@ -101,5 +101,5 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 # uninstall by removing these lines or running `tabtab uninstall yarn`
 [ -f /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish ]; and . /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish
 
-rvm default
+# rvm default
 
