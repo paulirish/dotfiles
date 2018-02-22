@@ -3,7 +3,7 @@
 #              Ryan Delaney <ryan.delaney@gmail.com> OpenGPG: 0D98863B4E1D07B6
 #         URL: https://github.com/trapd00r/LS_COLORS
 #     Version: 0.254
-#     Updated: Sun Jun  1 14:36:30 PDT 2014
+#     Updated: Tue Mar 29 21:25:30 AEST 2016
 #
 #   This is a collection of extension:color mappings, suitable to use as your
 #   LS_COLORS environment variable. Most of them use the extended color map,
@@ -40,12 +40,13 @@ DIR                   38;5;30
 DOOR                  38;5;127
 EXEC                  38;5;208;1
 FIFO                  38;5;126
-FILE                  38;5;253
+FILE                  0
 LINK                  target
 MULTIHARDLINK         38;5;222;1
 # "NORMAL don't reset the bold attribute -
 # https://github.com/trapd00r/LS_COLORS/issues/11
 #NORMAL                38;5;254
+NORMAL                0
 ORPHAN                48;5;196;38;5;232;1
 OTHER_WRITABLE        38;5;220;1
 SETGID                48;5;3;38;5;0
@@ -58,6 +59,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # }}}
 # documents {{{1
 *README               38;5;220;1
+*README.rst           38;5;220;1
 *LICENSE              38;5;220;1
 *COPYING              38;5;220;1
 *INSTALL              38;5;220;1
@@ -80,6 +82,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .mkd                  38;5;184
 .nfo                  38;5;184
 .pod                  38;5;184
+.rst                  38;5;184
 .tex                  38;5;184
 .textile              38;5;184
 # key-value, non-relational data {{{2
@@ -88,7 +91,10 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pgn                  38;5;178
 .rss                  38;5;178
 .xml                  38;5;178
+.yaml                 38;5;178
 .yml                  38;5;178
+.RData                38;5;178
+.rdata                38;5;178
 # }}}
 # binary {{{2
 .cbr                  38;5;141
@@ -105,10 +111,18 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .ps                   38;5;111
 .odb                  38;5;111
 .odt                  38;5;111
+.rtf                  38;5;111
 # presentation {{{3
 .odp                  38;5;166
 .pps                  38;5;166
 .ppt                  38;5;166
+.pptx                 38;5;166
+#   Powerpoint show
+.ppts                 38;5;166
+#   Powerpoint with enabled macros
+.pptxm                38;5;166;4
+#   Powerpoint show with enabled macros
+.pptsm                38;5;166;4
 # spreadsheet {{{3
 .csv                  38;5;78
 #   Open document spreadsheet
@@ -129,6 +143,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 *conf                 1
 *rc                   1
 .ini                  1
+.plist                1
 #   vim
 .viminfo              1
 #   cisco VPN client configuration
@@ -159,7 +174,9 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # python
 .py                   38;5;41
 # perl
-.pl                   38;5;41
+.pl                   38;5;208
+.PL                   38;5;160
+.t                    38;5;114
 # sql
 .msql                 38;5;222
 .mysql                38;5;222
@@ -167,6 +184,11 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .sql                  38;5;222
 #   Tool Command Language
 .tcl                  38;5;64;1
+# R language
+.r                    38;5;49
+.R                    38;5;49
+# GrADS script
+.gs                   38;5;81
 
 # compiled {{{2
 #
@@ -213,16 +235,18 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .S                    38;5;110
 #   Rust
 .rs                   38;5;81
+#   Swift
+.swift                38;5;219
 #   ?
 .sx                   38;5;81
 #   interface file in GHC - https://github.com/trapd00r/LS_COLORS/pull/9
 .hi                   38;5;110
 #   haskell
 .hs                   38;5;81
+.lhs                  38;5;81
 
 # binaries {{{2
 # compiled apps for interpreted languages
-.PL                   38;5;160
 .pyc                  38;5;240
 # }}}
 # html {{{2
@@ -258,6 +282,8 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .vbs                  38;5;81
 # 2}}}
 # Build stuff {{{2
+*Dockerfile           38;5;155
+.dockerignore         38;5;240
 *Makefile             38;5;155
 *MANIFEST             38;5;243
 *pm_to_blib           38;5;240
@@ -278,6 +304,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # graphics {{{1
 .bmp                  38;5;97
 .tiff                 38;5;97
+.tif                  38;5;97
 .TIFF                 38;5;97
 .cdr                  38;5;97
 .gif                  38;5;97
@@ -287,8 +314,16 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .jpg                  38;5;97
 .nth                  38;5;97
 .png                  38;5;97
-.svg                  38;5;97
+.psd                  38;5;97
 .xpm                  38;5;97
+# }}}
+# vector {{{1
+.ai                   38;5;99
+.eps                  38;5;99
+.epsf                 38;5;99
+.drw                  38;5;99
+.ps                   38;5;99
+.svg                  38;5;99
 # }}}
 # video {{{1
 .avi                  38;5;114
@@ -326,6 +361,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .3ga                  38;5;137;1
 .S3M                  38;5;137;1
 .aac                  38;5;137;1
+.au                   38;5;137;1
 .dat                  38;5;137;1
 .dts                  38;5;137;1
 .fcm                  38;5;137;1
@@ -334,14 +370,21 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .midi                 38;5;137;1
 .mod                  38;5;137;1
 .mp3                  38;5;137;1
+.mp4a                 38;5;137;1
 .oga                  38;5;137;1
 .ogg                  38;5;137;1
+.opus                 38;5;137;1
 .s3m                  38;5;137;1
 .sid                  38;5;137;1
+.wma                  38;5;137;1
 # lossless
 .ape                  38;5;136;1
+.aiff                 38;5;136;1
+.cda                  38;5;136;1
 .flac                 38;5;136;1
 .alac                 38;5;136;1
+.midi                 38;5;136;1
+.pcm                  38;5;136;1
 .wav                  38;5;136;1
 .wv                   38;5;136;1
 .wvc                  38;5;136;1
@@ -349,6 +392,8 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # }}}
 # fonts {{{1
 .afm                  38;5;66
+.fon                  38;5;66
+.fnt                  38;5;66
 .pfb                  38;5;66
 .pfm                  38;5;66
 .ttf                  38;5;66
@@ -362,15 +407,29 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .a                    38;5;40
 .arj                  38;5;40
 .bz2                  38;5;40
+.cpio                 38;5;40
 .gz                   38;5;40
+.lrz                  38;5;40
+.lz                   38;5;40
+.lzma                 38;5;40
+.lzo                  38;5;40
 .rar                  38;5;40
+.s7z                  38;5;40
+.sz                   38;5;40
 .tar                  38;5;40
 .tgz                  38;5;40
 .xz                   38;5;40
+.z                    38;5;40
+.Z                    38;5;40
 .zip                  38;5;40
+.zipx                 38;5;40
+.zoo                  38;5;40
+.zpaq                 38;5;40
+.zz                   38;5;40
   # packaged apps {{{2
 .apk                  38;5;215
 .deb                  38;5;215
+.rpm                  38;5;215
 .jad                  38;5;215
 .jar                  38;5;215
 .cab                  38;5;215
@@ -381,132 +440,23 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .bsp                  38;5;215
 .dmg                  38;5;215
   # }}}
-  # segments {{{2
-.r00                  38;5;239
-.r01                  38;5;239
-.r02                  38;5;239
-.r03                  38;5;239
-.r04                  38;5;239
-.r05                  38;5;239
-.r06                  38;5;239
-.r07                  38;5;239
-.r08                  38;5;239
-.r09                  38;5;239
-.r10                  38;5;239
-.r100                 38;5;239
-.r101                 38;5;239
-.r102                 38;5;239
-.r103                 38;5;239
-.r104                 38;5;239
-.r105                 38;5;239
-.r106                 38;5;239
-.r107                 38;5;239
-.r108                 38;5;239
-.r109                 38;5;239
-.r11                  38;5;239
-.r110                 38;5;239
-.r111                 38;5;239
-.r112                 38;5;239
-.r113                 38;5;239
-.r114                 38;5;239
-.r115                 38;5;239
-.r116                 38;5;239
-.r12                  38;5;239
-.r13                  38;5;239
-.r14                  38;5;239
-.r15                  38;5;239
-.r16                  38;5;239
-.r17                  38;5;239
-.r18                  38;5;239
-.r19                  38;5;239
-.r20                  38;5;239
-.r21                  38;5;239
-.r22                  38;5;239
-.r25                  38;5;239
-.r26                  38;5;239
-.r27                  38;5;239
-.r28                  38;5;239
-.r29                  38;5;239
-.r30                  38;5;239
-.r31                  38;5;239
-.r32                  38;5;239
-.r33                  38;5;239
-.r34                  38;5;239
-.r35                  38;5;239
-.r36                  38;5;239
-.r37                  38;5;239
-.r38                  38;5;239
-.r39                  38;5;239
-.r40                  38;5;239
-.r41                  38;5;239
-.r42                  38;5;239
-.r43                  38;5;239
-.r44                  38;5;239
-.r45                  38;5;239
-.r46                  38;5;239
-.r47                  38;5;239
-.r48                  38;5;239
-.r49                  38;5;239
-.r50                  38;5;239
-.r51                  38;5;239
-.r52                  38;5;239
-.r53                  38;5;239
-.r54                  38;5;239
-.r55                  38;5;239
-.r56                  38;5;239
-.r57                  38;5;239
-.r58                  38;5;239
-.r59                  38;5;239
-.r60                  38;5;239
-.r61                  38;5;239
-.r62                  38;5;239
-.r63                  38;5;239
-.r64                  38;5;239
-.r65                  38;5;239
-.r66                  38;5;239
-.r67                  38;5;239
-.r68                  38;5;239
-.r69                  38;5;239
-.r69                  38;5;239
-.r70                  38;5;239
-.r71                  38;5;239
-.r72                  38;5;239
-.r73                  38;5;239
-.r74                  38;5;239
-.r75                  38;5;239
-.r76                  38;5;239
-.r77                  38;5;239
-.r78                  38;5;239
-.r79                  38;5;239
-.r80                  38;5;239
-.r81                  38;5;239
-.r82                  38;5;239
-.r83                  38;5;239
-.r84                  38;5;239
-.r85                  38;5;239
-.r86                  38;5;239
-.r87                  38;5;239
-.r88                  38;5;239
-.r89                  38;5;239
-.r90                  38;5;239
-.r91                  38;5;239
-.r92                  38;5;239
-.r93                  38;5;239
-.r94                  38;5;239
-.r95                  38;5;239
-.r96                  38;5;239
-.r97                  38;5;239
-.r98                  38;5;239
-.r99                  38;5;239
+  # segments from 0 to three digits after first extension letter {{{2
+.r[0-9]{0,2}          38;5;239
+.zx[0-9]{0,2}         38;5;239
+.z[0-9]{0,2}          38;5;239
 # partial files
 .part                 38;5;239
   # }}}
 # partition images {{{2
+.dmg                  38;5;124
 .iso                  38;5;124
 .bin                  38;5;124
 .nrg                  38;5;124
 .qcow                 38;5;124
 .sparseimage          38;5;124
+.toast                38;5;124
+.vcd                  38;5;124
+.vmdk                 38;5;124
 # }}}
 # databases {{{2
 .accdb                38;5;60
@@ -514,9 +464,15 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .accdr                38;5;60
 .accdt                38;5;60
 .db                   38;5;60
+.fmp12                38;5;60
+.fp7                  38;5;60
 .localstorage         38;5;60
+.mdb                  38;5;60
+.mde                  38;5;60
 .sqlite               38;5;60
 .typelib              38;5;60
+# NetCDF database
+.nc                   38;5;60
 # }}}
 # tempfiles {{{1
 # undo files
@@ -550,6 +506,10 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pcap                 38;5;29
 .cap                  38;5;29
 .dmp                  38;5;29
+# macOS
+.DS_Store             38;5;239
+.localized            38;5;239
+.CFUserTextEncoding   38;5;239
 # }}}
 # hosts {{{1
 # /etc/hosts.{deny,allow}
@@ -587,6 +547,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # }}}
 # encrypted data {{{1
 .asc                  38;5;192;3
+.bfe                  38;5;192;3
 .enc                  38;5;192;3
 .gpg                  38;5;192;3
 .signature            38;5;192;3
@@ -597,7 +558,6 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .asc                  38;5;192;3
 .enc                  38;5;192;3
 .sig                  38;5;192;3
-.signature            38;5;192;3
 # 1}}}
 # emulators {{{1
 .32x                  38;5;213
@@ -640,12 +600,12 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pod                  38;5;7
 #   GIMP brush
 .gbr                  38;5;7
-#   Linux Shell Executable Binary
-.pl                   38;5;7
 # printer spool file
 .spl                  38;5;7
 #   GIMP project file
 .scm                  38;5;7
+# RStudio project file
+.Rproj                38;5;11
 #   Nokia Symbian OS files
 .sis                  38;5;7
 
@@ -681,6 +641,15 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .vcard                38;5;7
 .vcf                  38;5;7
 .xln                  38;5;7
+#   AppCode files
+.iml                  38;5;166
+#   Xcode files
+.xcconfig             1
+.entitlements         1
+.strings              1
+.storyboard           38;5;196
+.xcsettings           1
+.xib                  38;5;208
 # }}}
 # termcap {{{1
 TERM ansi
