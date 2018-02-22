@@ -7,17 +7,17 @@ function hooks --description "run gclient runhooks"
 end
 
 function b --description "build chromium"
-	set -l dir (git rev-parse --show-cdup)/out/Default/
+	set -l dir (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
 	# 1000 seems fairly stable, but i dont want accidental failures
 
-    set -l cmd "ninja -C $dir -j900 chrome blink_tests"
+    set -l cmd "ninja -C "$dir" -j900 chrome blink_tests"
     echo "  > $cmd"
     eval $cmd
 end
 
 function cr --description "open built chromium (accepts runtime flags)"
-    set -l dir (git rev-parse --show-cdup)/out/Default/
-    set -l cmd "$dir/Chromium.app/Contents/MacOS/Chromium $argv"
+    set -l dir (git rev-parse --show-cdup)/out/Default
+    set -l cmd "./$dir/Chromium.app/Contents/MacOS/Chromium $argv"
     echo "  > $cmd"
     eval $cmd
 end
@@ -55,8 +55,8 @@ function hooksbcr --description "run hooks, then build chromium, then open it"
 end
 
 function gom --description "run goma setup"
-    set -x GOMAMAILTO /dev/null 
-    set -x GOMA_OAUTH2_CONFIG_FILE /Users/paulirish/.goma_oauth2_config 
+    set -x GOMAMAILTO /dev/null
+    set -x GOMA_OAUTH2_CONFIG_FILE /Users/paulirish/.goma_oauth2_config
     set -x GOMA_ENABLE_REMOTE_LINK yes
 
     if not test (curl -X POST --silent http://127.0.0.1:8088/api/accountz)
@@ -75,4 +75,4 @@ function gom --description "run goma setup"
         ~/goma/goma_ctl.py stop
         ~/goma/goma_ctl.py ensure_start
     end
-end	
+end
