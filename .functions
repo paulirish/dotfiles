@@ -30,7 +30,6 @@ cdf() {  # short for cdfinder
 }
 
 
-
 # git commit browser. needs fzf
 log() {
   git log --graph --color=always \
