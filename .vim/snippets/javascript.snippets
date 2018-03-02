@@ -164,9 +164,11 @@ snippet react-func
 	import React from 'react';
 	import PropTypes from 'prop-types';
 	
-	const ${1:NAME} = ({ ${2} }) => (
-	${3:<div />}
-	);
+	const ${1:NAME} = ({ ${2} }) => {
+	  return (
+	    ${3:<div />}
+	  );
+	};
 	
 	$1.propTypes = {
 	};
