@@ -93,6 +93,10 @@ bindsym $mod+a focus parent
 # focus the child container
 # bindsym $mod+d focus child
 
+# Hotkeys for the scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad scratchpad show
+
 # workspaces
 set $ws1 "1: DEV"
 set $ws2 "2: WEB"
