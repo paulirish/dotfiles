@@ -352,6 +352,7 @@ let g:fzf_command_prefix = 'Fzf'
 map <C-P> :FzfFiles<CR>
 map <C-B> :FzfBuffers<CR>
 map <Leader>b :FzfBuffers<CR>
+map <Leader>q :FzfWindows<CR>
 
 " EasyClip
 let g:EasyClipShareYanks=1
