@@ -31,7 +31,7 @@ font pango:System San Francisco Display 15
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal --hide-menubar
+bindsym $mod+Return exec gnome-terminal --hide-menubar --zoom=1.7
 bindsym $mod+Shift+Return exec nautilus
 
 # kill focused window
