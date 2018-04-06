@@ -13,6 +13,8 @@ let jshint2_save = 1
 set smarttab
 set cindent
 
+set foldmethod=syntax
+
 "Syntastic settings
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
