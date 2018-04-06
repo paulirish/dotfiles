@@ -7,7 +7,7 @@ au FileType go nmap <leader>gtf <Plug>(go-test-func)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gi <Plug>(go-info)
 au FileType go nmap <Leader>gb <Plug>(go-build)
-au FileType go set invlist
+au FileType go set nolist
 " Required to get the type information
 let g:go_auto_type_info = 1
 " Configure syntastic plugin to avoid it builds everytime a file is saved
