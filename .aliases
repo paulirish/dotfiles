@@ -12,10 +12,6 @@ alias -- -="cd -"
 alias please=sudo
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
-# handy things
-alias bunyip='node ~/code/bunyip/cli.js'
-alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
-
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag="--color"
@@ -79,10 +75,10 @@ alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 # Trim new lines and copy to clipboard
-alias trimcopy="tr -d '\n' | pbcopy"
+alias trimcopy="tr -d '\n' | copy"
 
 # Recursively delete `.DS_Store` files
-alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
+alias cleanup_ds_store="find . -name '*.DS_Store' -type f -ls -delete"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -93,32 +89,20 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 # Empty the Trash on all mounted volumes and the main HDD
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
 
-# Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
-alias plistbuddy="/usr/libexec/PlistBuddy"
-
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "$method"="lwp-request -m '$method'"
 done
 
-# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
-alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume 10'"
-alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
-
 # Some other Shortcuts
 alias v="vim"
 alias e="vim -c 'startinsert'"
-alias edit='vim'
+alias edit="vim"
+alias y="yarn"
 alias cls='clear'
-alias ccat='pygmentize -O style=monokai -f console256 -g'
-alias edpr='subl ~/.bash_profile'
-alias rd='rm -rf' # Remove directories without asking me
-alias rm='rm -f' # Remove files without asking me
+alias ccat="pygmentize -O style=monokai -f console256 -g"
+alias rd="rm -rf" # Remove directories without asking me
+alias rm="rm -f" # Remove files without asking me
 alias md="mkdircd"
 
 # goto my folders
@@ -182,13 +166,8 @@ alias install-go="curl -LO https://get.golang.org/$(uname)/go_installer && chmod
 alias update-go=install-go
 
 # Prettify the json which is currently in the clipboard and paste it back to the clipboard after
-alias json-pretty="pbpaste | python -m json.tool | pbcopy"
+alias json-pretty="paste | python -m json.tool | copy"
 
 # Sometimes we need to start the ssh-agent manually
 alias start-ssh-agent="eval \"$(ssh-agent)\""
 
-# aliases for pacman
-alias pacman-upgrade-all="sudo pacman -Syu"
-alias pacman-install="sudo pacman -S $1"
-alias pacman-search="pacman -Ss $1"
-alias pacman-remove="sudo pacman -Rsn $1"
