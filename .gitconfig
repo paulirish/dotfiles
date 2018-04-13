@@ -50,6 +50,7 @@
   pom = push origin master
   psom = push origin master
   plom = pull origin master
+  publish = "!f() { current_branch= git status | grep 'On branch' | cut -c 11-; git push -u origin $current_branch; }; f"
   rblh = reset --hard HEAD^
   rbls = reset --soft HEAD^
   rb = reset --soft HEAD^
