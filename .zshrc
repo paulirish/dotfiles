@@ -111,6 +111,8 @@ fi
 
 if [ $(uname) = "Linux" ]; then
   xmodmap ~/.Xmodmap
+  setxkbmap -option compose:ralt  # Configure the compose key
+
   start-ssh-agent
   eval `keychain --agents ssh --eval id_rsa`
 fi
