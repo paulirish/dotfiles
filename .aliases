@@ -150,12 +150,6 @@ alias rcd='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd
 alias mount-nas="~/bin/mount-nas.sh"
 alias unmount-nas="~/bin/unmount-nas.sh"
 
-# mount MyDocuments
-alias mount-mydocuments="~/bin/mount-mydocuments.sh"
-alias unmount-mydocuments="~/bin/unmount-mydocuments.sh"
-
-if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.macos; fi
-
 # translate from English to German from the commandline
 # You need to install "npm install -g google-translate-cli" before
 alias ten="translate -s en -t de "
@@ -165,9 +159,8 @@ alias tde="translate -s de -t en "
 alias install-go="curl -LO https://get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer && rm go_installer"
 alias update-go=install-go
 
-# Prettify the json which is currently in the clipboard and paste it back to the clipboard after
-alias json-pretty="paste | python -m json.tool | copy"
-
 # Sometimes we need to start the ssh-agent manually
 alias start-ssh-agent="eval \"$(ssh-agent)\""
+
+if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.macos; fi
 
