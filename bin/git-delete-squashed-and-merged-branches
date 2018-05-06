@@ -37,18 +37,19 @@ token = tokenfile.read().strip();
 
 
 def get_branch_heads():
-    '''Returns a map from branch name --> SHA for local branches.'''
-    branch_to_sha = {}
+    '''Returns an Array<[branchname, SHA]> of local branches.'''
+    branch_to_sha = []
     # %09 is a tab, which we later split on
-    refsoutput = subprocess.check_output(["git", "for-each-ref", "refs/heads/", "--format=%(refname)%09%(objectname)"])
+    refsoutput = subprocess.check_output(["git", "for-each-ref", "--sort=-committerdate", "refs/heads/", "--format=%(refname)%09%(objectname)"])
     lines = refsoutput.split('\n')
 
     for line in lines:
         if not line:
+            print('omg')
             continue
         objectname,sha = line.split('\t')
         branch_name = objectname.replace('refs/heads/', '')
-        branch_to_sha[branch_name] = sha
+        branch_to_sha.append([branch_name, sha])
     return branch_to_sha
 
 
@@ -56,11 +57,11 @@ def main():
     G = github.Github(login_or_token=token)
 
     retval = 0
-    items = get_branch_heads().items();
+    items = get_branch_heads()
 
-    print 'Looking at {} total local heads.'.format(len(items))
+    print 'Looking at {} total local heads, from newest to oldest.'.format(len(items))
 
-    for branch, sha in items:
+    for [branch, sha] in items:
         print '\n'
         time.sleep(2) # search only allows 30 req/min. https://developer.github.com/v3/search/#rate-limit
         res = G.search_issues(sha)
