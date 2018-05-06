@@ -8,9 +8,9 @@ end
 
 function b --description "build chromium"
 	set -l dir (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-	# 1000 seems fairly stable, but i dont want accidental failures
+	# 1000 will die with 'fatal: posix_spawn: No such file or directory'. 900 never has.
 
-    set -l cmd "ninja -C "$dir" -j900 chrome blink_tests"
+    set -l cmd "ninja -C "$dir" -j900 chrome"  # rvm'd blink_tests 
     echo "  > $cmd"
     eval $cmd
 end
