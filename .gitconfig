@@ -42,6 +42,8 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+    newMoved = cyan
+    oldMoved = blue
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = "red bold 52"
@@ -103,6 +105,10 @@
 	prune = true
 [diff]
 	compactionHeuristic = true
+
+    # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+    # https://blog.github.com/2018-04-05-git-217-released/
+    colorMoved = zebra
 [remote "origin"]
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [stash]
