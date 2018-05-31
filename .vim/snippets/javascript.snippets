@@ -25,7 +25,7 @@ snippet t
 	${1:/* condition */} ? ${2:a} : ${3:b}
 # switch
 snippet switch
-	switch(${1:expression}) {
+	switch (${1:expression}) {
 	  case '${3:case}':
 		${4:// code}
 	  	break;
@@ -81,7 +81,7 @@ snippet desc
 	describe('${1}', () => {${2}
 	});
 snippet spec
-	describe('${1}', () => {${2}
+	describe('${1} spec', () => {${2}
 	});
 snippet when
 	describe('When ${1}', () => {${2}
@@ -107,6 +107,8 @@ snippet ee
 	expect(${1}).${2}toEqual(${3});${4}
 snippet etbd
 	expect(${1}).${2}toBeDefined();${3}
+snippet etbc
+	expect(${1}).${2}toHaveBeenCalled();${3}
 snippet ctor
 	constructor(${1}) {${2}
 	}
@@ -181,7 +183,7 @@ snippet cn
 	className="${1}"${2}
 snippet noconsole
 	// eslint-disable-line no-console
-snippet dl
+snippet eslint
 	// eslint-disable-line
 snippet try
 	try {
