@@ -152,6 +152,7 @@ autocmd BufReadPost .aliases set syntax=sh
 
 " Sometimes it's usefull to start immediately with typing when writing a commit message, sometimes not.
 " autocmd FileType gitcommit 1 | startinsert
+au FileType gitcommit set tw=100 " The default is 72 and for me it's mostly not enough
 
 " Omnicomplete related stuff
 set completeopt=longest,menuone
