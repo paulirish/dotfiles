@@ -105,9 +105,14 @@ set $ws4 "4: REMOTE"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10: MEDIA"
+set $ws8 "8: MEDIA"
+set $ws9 "9 Beamer"
+set $ws10 "10"
+
+# Configure workspace 9 for the Beamer
+set $Beamer DP1
+workspace $ws9 output $Beamer
+workspace $ws10 output $Beamer
 
 # switch to workspace
 bindsym $mod+1    workspace $ws1
@@ -134,16 +139,16 @@ bindsym $mod+Shift+9  move container to workspace $ws9
 bindsym $mod+Shift+0  move container to workspace $ws10
 
 bindsym $mod+Home   workspace $ws1
-bindsym $mod+End    workspace $ws10
+bindsym $mod+End    workspace $ws8
 
 # default workspaces
-assign [class="Clipgrab"] $ws10
+assign [class="Clipgrab"] $ws8
 assign [instance="remmina"] $ws4
 assign [instance="code"] $ws1
 assign [instance="nautilus"] $ws3
 
 # Switch to workspaces automatically for some apps
-for_window [class="Clipgrab"] workspace $ws10
+for_window [class="Clipgrab"] workspace $ws8
 for_window [instance="remmina"] workspace $ws4
 for_window [instance="code"] workspace $ws1
 for_window [instance="nautilus"] workspace $ws3
