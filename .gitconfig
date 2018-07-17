@@ -115,3 +115,6 @@
 	showPatch = true
 [log]
 	date = relative
+[user]
+	email = jmartin@aerospike.com
+	name = Joe Martin
