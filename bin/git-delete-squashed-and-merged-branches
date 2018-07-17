@@ -37,13 +37,19 @@ token = tokenfile.read().strip();
 
 
 def get_branch_heads():
-    '''Returns a map from branch name --> SHA for local branches.'''
-    branch_to_sha = {}
-    for path in glob('.git/refs/heads/*') + glob('.git/refs/heads/**/*'):
-        branch_name = path.replace('.git/refs/heads/', '')
-        if os.path.isdir(path): continue
-        if branch_name == 'master': continue
-        branch_to_sha[branch_name] = open(path).read().strip()
+    '''Returns an Array<[branchname, SHA]> of local branches.'''
+    branch_to_sha = []
+    # %09 is a tab, which we later split on
+    refsoutput = subprocess.check_output(["git", "for-each-ref", "--sort=-committerdate", "refs/heads/", "--format=%(refname)%09%(objectname)"])
+    lines = refsoutput.split('\n')
+
+    for line in lines:
+        if not line:
+            print('omg')
+            continue
+        objectname,sha = line.split('\t')
+        branch_name = objectname.replace('refs/heads/', '')
+        branch_to_sha.append([branch_name, sha])
     return branch_to_sha
 
 
@@ -51,35 +57,37 @@ def main():
     G = github.Github(login_or_token=token)
 
     retval = 0
-    items = get_branch_heads().items();
+    items = get_branch_heads()
 
-    print 'Looking at {} total local heads.'.format(len(items))
+    print 'Looking at {} total local heads, from newest to oldest.'.format(len(items))
 
-    for branch, sha in items:
+    for [branch, sha] in items:
+        print '\n'
         time.sleep(2) # search only allows 30 req/min. https://developer.github.com/v3/search/#rate-limit
         res = G.search_issues(sha)
         shortsha = sha[0:7]
-        issue_states = [issue.state == 'closed' for issue in res]
+        issue_closed_states = [issue.state == 'closed' for issue in res]
         
-        if not issue_states:
-            msg = '{}{}{} ({}):\nNo PRs found. Keeping as active. \n'
+        if not issue_closed_states:
+            msg = '🔃  No PRs found'
             retval = 4
-        elif all(issue_states):
-            msg = '{}{}{} ({}):\nAll PRs are closed! 🗑 it.\n'
+        elif all(issue_closed_states):
+            msg = '💀  All PRs are closed. Ready to 🗑'
             retval = 0
-        elif any(issue_states):
-            msg = '{}{}{} ({}):\nSome (BUT not all) PRs are closed. \n'
+        elif any(issue_closed_states):
+            msg = '🌀  Some (BUT not all) PRs are closed'
             retval = 1
         else:
-            msg = '{}{}{} ({}):\nAll PRs still open. \n'
+            msg = '🔃  All PRs still open'
             retval = 2
 
-        print (msg.format(yellow, branch, reset, shortsha))
+        print ('{}{}{} ({}):\n{}'.format(yellow, branch, reset, shortsha, msg))
 
         if retval == 0:
             if DRY_RUN:
-                print('Would delete local branch %s' % branch)
+                print('❎  Without --dry-run, would delete branch %s' % branch)
             else:
+                print('❌  Deleting local branch %s' % branch)
                 subprocess.check_call(['git', 'branch', '-D', branch])
 
     sys.exit(retval)

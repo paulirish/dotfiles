@@ -21,6 +21,13 @@ function git
         return $s
     end
 
+    # real nasty hack to add quotes around argv to play well with completions. i still don't know.
+    set -l quoted_argv
+    for option in $argv
+        set quoted_argv $quoted_argv "\"$option\""
+    end
+
+
     switch $argv[1]
     case c commit blame log rebase merge
         eval command (scmpuff expand -- "$SCMPUFF_GIT_CMD" $argv)
@@ -30,6 +37,6 @@ function git
         eval command (scmpuff expand -- "$SCMPUFF_GIT_CMD" $argv)
         scmpuff_status
     case '*'
-        eval command "$SCMPUFF_GIT_CMD" $argv
+        eval command "$SCMPUFF_GIT_CMD" $quoted_argv
     end
 end
