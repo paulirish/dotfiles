@@ -32,6 +32,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec gnome-terminal --hide-menubar --zoom=1.5
+bindsym $mod+Ctrl+Return exec gnome-terminal --hide-menubar --zoom=1.5 --profile=Presentation
 bindsym $mod+Shift+Return exec nautilus
 
 # kill focused window
