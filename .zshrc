@@ -86,9 +86,6 @@ source ~/.aliases
 # I want to have the history for each tab separately
 setopt no_share_history
 
-# Activate VI mode
-set -o vi
-
 # Activate this key binding explicitly since VI mode is deactivating it
 bindkey '^R' history-incremental-search-backward
 
