@@ -26,7 +26,6 @@ Plugin 'mxw/vim-jsx'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ap/vim-css-color'
 Plugin 'hail2u/vim-css3-syntax'
-" Plugin 'chemzqm/vim-jsx-improve'
 Plugin 'alampros/vim-styled-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'elzr/vim-json'
@@ -37,12 +36,10 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'kopischke/vim-fetch'
-" Plugin 'leafgarland/typescript-vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'mattn/emmet-vim'
 Plugin 'machakann/vim-highlightedyank'
-" Plugin 'mitermayer/vim-prettier'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -381,6 +378,10 @@ vmap <C-L>    <Plug>SchleppRight
 nmap <F9> :TagbarToggle<CR>
 
 " ACK
+" if executable('ag')
+  " let g:ackprg = 'ag --vimgrep'
+" endif
+cnoreabbrev ag Ack!
 cnoreabbrev ack Ack!
 nnoremap <Leader>vv :Ack! <cword> <CR>
 
@@ -394,10 +395,6 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_open_list = 0
-
-let g:ale_fixers = {
-\  'javascript': [ 'eslint' ],
-\}
 
 " HighlightedYank
 map y <Plug>(highlightedyank)
@@ -416,7 +413,7 @@ if $VIM_BACKGROUND == 'light'
 else
   set background=dark
 endif
-color PaperColor
+colorscheme PaperColor
 
 " Define the highlighting for spell checking
 hi SpellBad ctermfg=015 ctermbg=000 cterm=none guifg=#FFFFFF guibg=#000000 gui=none
@@ -425,7 +422,7 @@ highlight SpellBad cterm=underline
 " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
 source ~/.vim/vimrc/vimrc_javascript.vim
-source ~/.vim/vimrc/vimrc_typescript.vim
+" source ~/.vim/vimrc/vimrc_typescript.vim
 source ~/.vim/vimrc/vimrc_html_css.vim
 source ~/.vim/vimrc/vimrc_markdown.vim
 "source ~/.vim/vimrc/vimrc_python.vim

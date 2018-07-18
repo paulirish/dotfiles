@@ -15,11 +15,7 @@ set cindent
 
 set foldmethod=syntax
 
-"Syntastic settings
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
-let g:syntastic_json_checkers=['jsonlint']
-let g:syntastic_json_jslint_exec = StrTrim(system('npm-which jslint'))
+let g:ale_fixers = { 'javascript': [ 'eslint' ] }
 
 " Open file at a position where it was last left.
 au BufWinLeave *.js* mkview
