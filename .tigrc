@@ -3,3 +3,9 @@ set tab-size = 2
 
 bind generic p !git push
 bind generic Y !@sh -c "echo %(commit) | xsel --clipboard --input"
+
+bind generic F !tig --follow %(file)
+
+bind generic + !git commit --amend --no-edit
+bind generic A !git commit --amend
+
