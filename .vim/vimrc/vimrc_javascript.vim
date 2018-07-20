@@ -15,6 +15,7 @@ set cindent
 
 set foldmethod=syntax
 
+let g:ale_linters = { 'javascript': [ 'eslint' ] }
 let g:ale_fixers = { 'javascript': [ 'eslint' ] }
 
 " Open file at a position where it was last left.
