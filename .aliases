@@ -9,7 +9,6 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # be nice
-alias please=sudo
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 # Detect which `ls` flavor is in use
@@ -38,7 +37,7 @@ fi
 
 # `cat` with beautiful colors. requires Pygments installed.
 # sudo easy_install Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
+alias ccat='pygmentize -O style=monokai -f console256 -g'
 
 # GIT STUFF
 alias g="git"
@@ -60,8 +59,8 @@ alias gfp="git fp"
 alias ts="tig status"
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ifconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 # Enhanced WHOIS lookups
@@ -79,20 +78,6 @@ alias trimcopy="tr -d '\n' | copy"
 
 # Recursively delete `.DS_Store` files
 alias cleanup_ds_store="find . -name '*.DS_Store' -type f -ls -delete"
-
-# File size
-alias fs="stat -f \"%z bytes\""
-
-# ROT13-encode text. Works for decoding, too! ;)
-alias rot13='tr a-zA-Z n-za-mN-ZA-M'
-
-# Empty the Trash on all mounted volumes and the main HDD
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
-
-# One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "$method"="lwp-request -m '$method'"
-done
 
 # Some other Shortcuts
 alias v="vim"
@@ -113,7 +98,6 @@ alias mh='cd ~/Projects/WebSites/myhomepage'
 alias pr='cd ~/Projects'
 alias mdw='cd ~/Projects/mdwiki_next'
 alias mdwiki='cd ~/Projects/mdwiki_next'
-alias logfiles='cd ~/Projects/logfiles'
 alias dotfiles='cd ~/Projects/dotfiles'
 alias dockerfiles='cd ~/Projects/dockerfiles'
 alias howcani='cd ~/Projects/howcani'
