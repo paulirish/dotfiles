@@ -42,6 +42,7 @@ bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "System San 
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-12'"
 bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 15 -opacity "70" -dmenu -i -p "locate:")"
 bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "85" -font "Droid Sans 15"
+bindsym $mod+c exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # change focus
 bindsym $mod+j focus left
@@ -234,14 +235,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle #turn sound on or off
 
-# Media player controls
-# You need to install playerctl before from https://github.com/acrisci/playerctl/releases
-# sudo dpkg -i playerctl-0.5.0_amd64.deb
-bindsym $mod+p exec playerctl play
-#bindsym XF86AudioPlay   exec playerctl play
-bindsym XF86AudioPause  exec playerctl pause
-bindsym XF86AudioNext   exec playerctl next
-bindsym XF86AudioPrev   exec playerctl previous
+# Configure hotkeys for Audioplayer
+bindsym $mod+p exec mocp --toggle-pause
+bindsym XF86AudioPause  exec --no-startup-id mocp --toggle-pause
 
 # Keys
 exec_always setxkbmap -option compose:ralt  # Configure the compose key
@@ -257,6 +253,7 @@ exec --no-startup-id /usr/bin/clipit
 exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id greenclip daemon
 
 # Windows styles for apps
 for_window [instance="keepassx"] floating enable resize set 800 600
