@@ -13,3 +13,5 @@ augroup VimCSS3Syntax
   autocmd FileType css setlocal iskeyword+=-
 augroup END
 
+
+set foldmethod=indent
