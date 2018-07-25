@@ -93,9 +93,13 @@ set tags=./tags
 
 set mouse=a
 set bs=2 " make backspace behave like normal again
+
 set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=*/coverage/*
+set wildignore+=*/_build/*
+set wildignore+=coverage
+set wildignore+=.cache
+set wildignore+=node_modules
+set wildignore+=dist
 set wildignore+=.DS_Store
 set wildignore+=.git
 set wildignore+=.vscode
@@ -264,6 +268,7 @@ map <Leader>vd :vertical resize -10<CR>
 map <Leader>hi :resize +10<CR>
 map <Leader>hd :resize -10<CR>
 
+map <F4> :vertical wincmd f<CR> " Open the file under the cursor in a vertical split
 nnoremap <F6> <C-W>w
 map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
