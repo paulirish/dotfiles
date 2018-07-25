@@ -202,3 +202,35 @@ snippet render
 		return (${3}
 		);
 	}
+snippet preact
+	import { h, Component } from 'preact';
+	
+	export default class ${1} extends Component {${2}
+	  constructor(props) {
+	    super(props);
+	    this.state = {
+	    };
+	  }
+	
+	  componentDidMount() {
+	  }
+	
+	  render(props, state) {
+	    return (
+	      <div></div>
+	    );
+	  }
+	}
+snippet preact-func
+	import { h } from 'preact';
+	
+	const ${1:NAME} = ({ ${2} }) => {
+	  return (
+	    ${3:<div />}
+	  );
+	};
+	
+	export default $1;
+snippet cdm
+	componentDidMount() {${1}
+	}
