@@ -1,4 +1,6 @@
-veracrypt -d /media/MyNotes
+SUDO_PWD=$(pass /home/sudo)
+
+echo ${SUDO_PWD} | sudo -S veracrypt -d /media/MyNotes
 
 echo -n "Have you change any data in the container (y/n)? "
 read answer
