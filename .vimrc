@@ -268,7 +268,7 @@ map <Leader>vd :vertical resize -10<CR>
 map <Leader>hi :resize +10<CR>
 map <Leader>hd :resize -10<CR>
 
-map <F4> :vertical wincmd f<CR> " Open the file under the cursor in a vertical split
+map <F2> :vertical wincmd f<CR> <C-W>R " Open the file under the cursor in a vertical split
 nnoremap <F6> <C-W>w
 map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
