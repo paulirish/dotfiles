@@ -104,6 +104,7 @@ alias howcani='cd ~/Projects/howcani'
 alias howcani-api='cd ~/Projects/go/src/github.com/howcani-project/howcani-api'
 alias mykatas='cd ~/Projects/Katas/MyKatas'
 alias notes="cd ~/Dropbox/Notes"
+alias mymusic="cd ~/Projects/mymusic"
 
 if [ $UID -ne 0 ]; then
   alias reboot='sudo reboot'
