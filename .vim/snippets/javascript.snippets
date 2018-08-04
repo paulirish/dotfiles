@@ -1,13 +1,10 @@
 snippet clog
 	console.log(${1});${2}
-# Prototype
-snippet proto
-	${1:class_name}.prototype.${2:method_name} =
-	function(${3:first_argument}) {${4:}
-	};
+snippet ctab
+	console.table(${1});${2}
 # Function
 snippet func
-	function${1}(${2}) {${4:}
+	function ${1}(${2}) {${4:}
 	}${3}
 # if
 snippet if
@@ -139,7 +136,7 @@ snippet react
 	import React from 'react';
 	import PropTypes from 'prop-types';
 	
-	export default class ${1}extends React.Component {${2}
+	export default class ${1} extends React.Component {${2}
 	  static propTypes = {
 	    name: PropTypes.string.isRequired
 	  };
@@ -183,7 +180,7 @@ snippet cn
 	className="${1}"${2}
 snippet noconsole
 	// eslint-disable-line no-console
-snippet eslint
+snippet edl
 	// eslint-disable-line
 snippet try
 	try {
@@ -212,7 +209,7 @@ snippet preact
 	    };
 	  }
 	
-	  componentDidMount() {
+	  componentDidMount() {{3}
 	  }
 	
 	  render(props, state) {
@@ -234,3 +231,5 @@ snippet preact-func
 snippet cdm
 	componentDidMount() {${1}
 	}
+snippet frag
+	<React.Fragment>${1}</React.Fragment>
