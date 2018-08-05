@@ -302,7 +302,7 @@ noremap <F4> :Autoformat<CR>
 
 map <C-G> :TigStatus<CR><CR>
 
-nnoremap <Leader>z :call ToggleErrors()<CR><C-w>w
+nnoremap <Leader>z :call ToggleErrors()<CR>
 
 nnoremap <Leader>pp :call TogglePresentationMode()<CR>
 
