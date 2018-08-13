@@ -283,7 +283,7 @@ imap <leader>" ""<ESC>i
 imap <leader>` ``<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
-imap <leader>{ {  }<ESC><left>i
+imap <leader>{ {}<ESC><left>i
 
 " Fixing the copy & paste madness
 "vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
