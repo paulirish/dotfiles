@@ -1,5 +1,9 @@
 set encoding=utf-8
+
+" some special configurations for editing my dotfiles
 autocmd! bufwritepost .vimrc source %
+au BufWinLeave .vimrc mkview
+au BufWinEnter .vimrc silent loadview
 
 set nocompatible
 filetype off
