@@ -151,3 +151,5 @@ alias start-ssh-agent="eval \"$(ssh-agent)\""
 
 if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.macos; fi
 
+# Some aliases for starting Docker containers with just one command
+alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it --name=glances docker.io/nicolargo/glances"
