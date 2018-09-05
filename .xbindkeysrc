@@ -1,0 +1,11 @@
+# Matebook X
+"backlight-ctl.sh dec"
+   Mod4 + F1
+"backlight-ctl.sh inc"
+   Mod4 + F2
+"pa-volume-ctl.sh mute"
+   Mod4 + F4
+"pa-volume-ctl.sh down"
+   Mod4 + F5
+"pa-volume-ctl.sh up"
+   Mod4 + F6
