@@ -236,8 +236,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle #turn sound on or off
 
 # Configure hotkeys for Audioplayer
-bindsym $mod+p exec mocp --toggle-pause
-bindsym XF86AudioPause  exec --no-startup-id mocp --toggle-pause
+# bindsym $mod+p exec mocp --toggle-pause
+# bindsym XF86AudioPause  exec --no-startup-id mocp --toggle-pause
 
 # Keys
 exec_always setxkbmap -option compose:ralt  # Configure the compose key

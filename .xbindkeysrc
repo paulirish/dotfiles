@@ -9,3 +9,5 @@
    Mod4 + F5
 "pa-volume-ctl.sh up"
    Mod4 + F6
+"mocp --toggle-pause"
+   Mod4 + F7
