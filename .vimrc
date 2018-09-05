@@ -388,9 +388,9 @@ vmap <C-L>    <Plug>SchleppRight
 nmap <F9> :TagbarToggle<CR>
 
 " ACK
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
+" if executable('ag')
+  " let g:ackprg = 'ag --vimgrep'
+" endif
 cnoreabbrev ag Ack!
 cnoreabbrev ack Ack!
 nnoremap <Leader>vv :Ack! <cword> <CR>
