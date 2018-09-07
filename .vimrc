@@ -40,11 +40,13 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'kopischke/vim-fetch'
+Plugin 'liuchengxu/vim-which-key'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'mattn/emmet-vim'
 Plugin 'machakann/vim-highlightedyank'
 Plugin 'mileszs/ack.vim'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
@@ -61,7 +63,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'w0rp/ale'
 Plugin 'zirrostig/vim-schlepp'
-Plugin 'NLKNguyen/papercolor-theme'
 
 " Deoplete
 Plugin 'Shougo/deoplete.nvim'
@@ -414,6 +415,9 @@ let g:jsx_ext_required = 0 " Activate Jsx support also for js files
 
 " vim-smartpairs
 let g:smartpairs_start_from_word = 1
+
+" vim-which-key
+nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
 
 " ************** End plugin settings ************
 
