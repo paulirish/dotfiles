@@ -20,6 +20,7 @@
 --ignore-file=match:vendor.*
 --ignore-file=is:tags
 --ignore-file=is:*.svg
+--ignore-file=is:yarn.lock
 
 --sort-files
 --smart-case
