@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$BLOCK_BUTTON" == "1" ]; then
+  if [ "$(pidof gsimplecal)" ]; then
+    pkill gsimplecal
+  else
+    gsimplecal&
+  fi
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+WALLPAPER_FILE=~/.wallpaper
+WALLPAPER_LOCK_FILE=~/.wallpaper_lock
+
+get_screen_resolution() {
+  xdpyinfo | grep dimensions | awk '{print $2;}'
+}
+
+create_lock_image() {
+  local from=$1
+  local to=$2
+
+  local res=`get_screen_resolution`
+  # Center the image. Fill the screen while preserving scale. 
+  # Then crop the excess.
+  convert $from -resize $res^ -gravity center -extent $res PNG:$to
+}
+
+if [ $# -eq 1 ]
+then
+  cp $1 $WALLPAPER_FILE
+  create_lock_image $WALLPAPER_FILE $WALLPAPER_LOCK_FILE
+  feh --bg-scale $WALLPAPER_FILE
+else
+  echo "Usage: $0 <image-path>"
+fi

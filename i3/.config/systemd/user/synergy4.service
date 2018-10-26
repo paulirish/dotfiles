@@ -1,0 +1,14 @@
+[Unit]
+Description=synergy4
+After=NetworkManager-wait-online.service
+
+[Service]
+ExecStart=/usr/bin/synergyc -1 --no-daemon -d WARNING -n deiwin-arch4 deiwin-desktop:24804
+Restart=always
+# Retries every 3 seconds for 2 minutes in every half an hour
+RestartSec=3
+StartLimitInterval=3600
+StartLimitBurst=40
+
+[Install]
+WantedBy=default.target

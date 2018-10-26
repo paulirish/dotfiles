@@ -1,0 +1,102 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+separator_block_width=15
+
+[MPD]
+label=♪
+command=$HOME/.i3/music_name.sh
+color=#00FF00
+interval=5
+
+[volume]
+#label=VOL
+# The unicode character is a speaker with 3 sound waves
+label=🔊
+#label=♪
+instance=Master
+#instance=PCM
+command=/usr/libexec/i3blocks/volume
+interval=once
+signal=10
+
+[memory]
+label=MEM
+command=/usr/libexec/i3blocks/memory
+#separator=false
+interval=30
+
+#[swap]
+#label=SWAP
+#instance=swap
+#command=/usr/libexec/i3blocks/memory
+#interval=30
+
+[disk-home]
+label=$HOME
+#label=🏡
+#instance=/home/user
+command=/usr/libexec/i3blocks/disk
+interval=30
+
+# Didn't get it working
+#[IPv6]
+#interval=5
+#signal=10
+
+[wireless]
+label=W
+instance=wifi0
+#instance=wlp3s0
+command=/usr/libexec/i3blocks/network
+color=#00FF00
+interval=10
+
+[ethernet]
+label=E
+instance=eth0
+#instance=enp0s25
+command=/usr/libexec/i3blocks/network
+color=#00FF00
+interval=10
+
+[cpu]
+label=CPU
+command=/usr/libexec/i3blocks/cpu_usage
+interval=10
+min_width=CPU: 100.00%
+#separator=false
+
+#[load]
+#command=/usr/libexec/i3blocks/load_average
+#interval=10
+
+[battery]
+#label=BAT
+label=⚡
+command=/usr/libexec/i3blocks/battery
+interval=30
+
+[time]
+command=$HOME/.i3/calendar &>/dev/null; date '+%Y-%m-%d %H:%M:%S'
+interval=5

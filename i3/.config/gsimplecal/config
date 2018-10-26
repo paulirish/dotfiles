@@ -1,0 +1,6 @@
+#close_on_unfocus = 1
+mainwindow_resizable = 0
+mainwindow_position = mouse
+mainwindow_yoffset = 25
+mainwindow_xoffset = 35
+mainwindow_sticky = 1

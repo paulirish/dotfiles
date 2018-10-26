@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+SCREENSHOT_DIR=$HOME/Pictures/Screenshots
+# The dollar sign escaping is necessary so that $w and $h would get replaced by scrot, not by bash
+SCREENSHOT_NAME_TEMPLATE='%Y-%m-%d_%H-%M-%S_scrot-\$wx\$h'
+SCREENSHOT_EXTENSION=png
+PROMPT_MESSAGE='Add a custom message to the screenshot: '
+# Nothing if $message is empty (or null), but $message with a dash prefix otherwise
+MESSAGE_WITH_PREFIX='${message:+-}"$message"'
+SCROT_COMMAND="scrot $* $SCREENSHOT_DIR/$SCREENSHOT_NAME_TEMPLATE$MESSAGE_WITH_PREFIX.$SCREENSHOT_EXTENSION"
+EXEC_COMMAND='message="%s"'" bash -c '$SCROT_COMMAND'"
+# Double quote escaping all the way
+I3_INPUT_FORMAT="exec \"${EXEC_COMMAND//\"/\\\"}\""
+
+i3-input -F "$I3_INPUT_FORMAT" -P "$PROMPT_MESSAGE"
