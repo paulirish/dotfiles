@@ -25,7 +25,7 @@ separator_block_width=15
 
 [MPD]
 label=♪
-command=$HOME/.i3/music_name.sh
+command=$HOME/.config/i3/music_name.sh
 color=#00FF00
 interval=5
 
@@ -36,27 +36,27 @@ label=🔊
 #label=♪
 instance=Master
 #instance=PCM
-command=/usr/libexec/i3blocks/volume
+command=/usr/share/i3blocks/volume
 interval=once
 signal=10
 
 [memory]
 label=MEM
-command=/usr/libexec/i3blocks/memory
+command=/usr/share/i3blocks/memory
 #separator=false
 interval=30
 
-#[swap]
-#label=SWAP
-#instance=swap
-#command=/usr/libexec/i3blocks/memory
-#interval=30
+[swap]
+label=SWAP
+instance=swap
+command=/usr/share/i3blocks/memory
+interval=30
 
 [disk-home]
-label=$HOME
-#label=🏡
+#label=$HOME
+label=🏡
 #instance=/home/user
-command=/usr/libexec/i3blocks/disk
+command=/usr/share/i3blocks/disk
 interval=30
 
 # Didn't get it working
@@ -68,21 +68,21 @@ interval=30
 label=W
 instance=wifi0
 #instance=wlp3s0
-command=/usr/libexec/i3blocks/network
+command=/usr/share/i3blocks/network
 color=#00FF00
 interval=10
 
-[ethernet]
-label=E
-instance=eth0
-#instance=enp0s25
-command=/usr/libexec/i3blocks/network
-color=#00FF00
-interval=10
+# [ethernet]
+# label=E
+# instance=eth0
+# #instance=enp0s25
+# command=/usr/libexec/i3blocks/network
+# color=#00FF00
+# interval=10
 
 [cpu]
 label=CPU
-command=/usr/libexec/i3blocks/cpu_usage
+command=/usr/share/i3blocks/cpu_usage
 interval=10
 min_width=CPU: 100.00%
 #separator=false
@@ -94,9 +94,9 @@ min_width=CPU: 100.00%
 [battery]
 #label=BAT
 label=⚡
-command=/usr/libexec/i3blocks/battery
+command=/usr/share/i3blocks/battery
 interval=30
 
 [time]
-command=$HOME/.i3/calendar &>/dev/null; date '+%Y-%m-%d %H:%M:%S'
+command=$HOME/.config/i3/calendar &>/dev/null; date '+%Y-%m-%d %H:%M:%S'
 interval=5
