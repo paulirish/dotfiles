@@ -104,6 +104,7 @@ set wildignore+=*/_build/*
 set wildignore+=coverage
 set wildignore+=.cache
 set wildignore+=node_modules
+set wildignore+=deploy
 set wildignore+=dist
 set wildignore+=.DS_Store
 set wildignore+=.git
