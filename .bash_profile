@@ -27,7 +27,8 @@ export PATH="/usr/local/sbin:$PATH"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+. "/usr/local/opt/nvm/nvm.sh" 2> /dev/null
+nvm use > /dev/null
 
 # rbenv
 export RBENV_ROOT=/usr/local/var/rbenv
