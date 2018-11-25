@@ -134,3 +134,14 @@ alias pg_start="postgres -D /usr/local/var/postgres"
 # aws docker
 # alias docker_aws="eval $(aws ecr get-login --region us-west-2 | sed -e 's/-e none//g')"
 
+# MySQL
+alias mysql_start="brew services start mysql"
+alias mysql_stop="brew services stop mysql"
+
+# NGIX
+alias nginx_start="brew services start nginx-full"
+alias nginx_stop="brew services stop nginx-full"
+
+# Couchdb
+alias couchdb_start="brew services start couchdb"
+alias couchdb_stop="brew services stop couchdb"
