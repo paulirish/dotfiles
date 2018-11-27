@@ -15,3 +15,4 @@ Thumbs.db
 .atom/packages
 .atom/storage
 .idea
+.vim/bundle/
