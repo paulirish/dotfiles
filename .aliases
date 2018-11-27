@@ -135,8 +135,8 @@ alias pg_start="postgres -D /usr/local/var/postgres"
 # alias docker_aws="eval $(aws ecr get-login --region us-west-2 | sed -e 's/-e none//g')"
 
 # MySQL
-alias mysql_start="brew services start mysql"
-alias mysql_stop="brew services stop mysql"
+alias mysql_start="brew services start mysql@5.7"
+alias mysql_stop="brew services stop mysql@5.7"
 
 # NGIX
 alias nginx_start="brew services start nginx-full"
