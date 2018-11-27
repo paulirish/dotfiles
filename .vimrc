@@ -2,46 +2,26 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'chrisbra/histwin.vim'
-Plugin 'tpope/vim-pastie'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'MattesGroeger/vim-bookmarks'
-" Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/Vim-fugitive'
-Plugin 'jelera/vim-javascript-syntax.git'
-" Plugin 'groenewege/vim-less'
-Plugin 'mustache/vim-mustache-handlebars.git'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdcommenter.git'
 Plugin 'tpope/vim-unimpaired.git'
-Plugin 'gorodinskiy/vim-coloresque.git'
-Plugin 'godlygeek/tabular.git'
-Plugin 'walm/jshint.vim.git'
 Plugin 'tpope/vim-surround.git'
-Plugin 'benmills/vimux.git'
-Plugin 'noahfrederick/vim-hemisu'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'sotte/presenting.vim'
-Plugin 'tpope/vim-bundler'
-" Plugin 'junegunn/vim-emoji'
-Plugin 'leafgarland/typescript-vim'
 Plugin 'suan/vim-instant-markdown'
-Plugin 'vim-scripts/loremipsum'
-Plugin 'danro/rename.vim'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'tpope/vim-rails'
-Plugin 'ervandew/supertab'
-Plugin 'takac/vim-spotifysearch'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'pangloss/vim-javascript.git'
-Plugin 'mxw/vim-jsx'
-Plugin 'maxmellon/vim-jsx-pretty'
-Plugin 'kien/ctrlp.vim'
-Plugin 'isRuslan/vim-es6'
+
+" maybe
+" Plugin 'Shougo/vimproc.vim'
+" Plugin 'MattesGroeger/vim-bookmarks'
+" Plugin 'godlygeek/tabular.git'
+" Plugin 'danro/rename.vim'
+" Plugin 'noahfrederick/vim-hemisu'
 call vundle#end()
 filetype plugin indent on
 
@@ -59,7 +39,7 @@ nmap <F1> <nop>
 set t_Co=256
 set background=dark
 syntax on
-colorscheme hemisu
+" colorscheme hemisu
 set colorcolumn=80
 
 " Enabled later, after Pathogen
@@ -226,10 +206,9 @@ let NERDCompactSexyComs=1
 let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
 
 " Buffer navigation (,,) (,]) (,[) (,ls)
-" map <Leader>, <C-^>
-" map <Leader>] :bnext<CR>
-" map <Leader>[ :bprev<CR>
-" map <Leader>ls :buffers<CR>
+nnoremap <C-p> :bnext<CR>
+nnoremap <C-n> :bprev<CR>
+nnoremap <Leader>ls :ls<CR>
 
 " Close Quickfix window (,qq)
 map <leader>qq :cclose<CR>
@@ -356,12 +335,12 @@ nnoremap <leader>fc /<<<<<<<<CR>
 let g:gitgutter_realtime = 0
 
 " tabularize
-nmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
+" nmap <Leader>a= :Tabularize /=<CR>
+" nmap <Leader>a: :Tabularize /:\zs<CR>
 
 " vimux
-nmap <leader>rt :call VimuxRunCommand('r t')<CR>
-nmap <leader>vc :call VimuxCloseRunner()<CR>
+" nmap <leader>rt :call VimuxRunCommand('r t')<CR>
+" nmap <leader>vc :call VimuxCloseRunner()<CR>
 
 " next and do again
 nnoremap Q :normal n.<CR>
@@ -379,7 +358,7 @@ imap kk <Esc>
 imap ii <Esc>
 
 " Coffee
-map <leader>co :CoffeeCompile<CR>
+" map <leader>co :CoffeeCompile<CR>
 
 " fugitive
 map <leader>gs :Gstatus<CR>
@@ -401,23 +380,23 @@ au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
 " close all tabs
 nnoremap <leader>cat :tabonly<CR>
 
-au BufReadPost *.es6 set syntax=javascript
+" au BufReadPost *.es6 set syntax=javascript
 
 " show emojis
-function ShowEmojis()
-  for e in emoji#list()
-    call append(line('$'), printf('%s (%s)', emoji#for(e), e))
-  endfor
-endfunction
+" function ShowEmojis()
+  " for e in emoji#list()
+    " call append(line('$'), printf('%s (%s)', emoji#for(e), e))
+  " endfor
+" endfunction
 
-function CompileEmojis()
-  %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
-endfunction
+" function CompileEmojis()
+  " %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+" endfunction
 
-map <leader>se :call ShowEmojis()<CR>
-map <leader>em :call CompileEmojis()<CR>
+" map <leader>se :call ShowEmojis()<CR>
+" map <leader>em :call CompileEmojis()<CR>
 
-map <leader>jsh :JSHint<CR>
+" map <leader>jsh :JSHint<CR>
 
 " templates
 nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
@@ -426,16 +405,16 @@ nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
 nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
 
 " rspec
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>ta :call RunAllSpecs()<CR>
-map <leader>cop :!rubocop %<CR>
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>ta :call RunAllSpecs()<CR>
+" map <leader>cop :!rubocop %<CR>
 
 " spotify
-let g:spotify_country_code = 'MX'
-let g:spotify_prev_key = "<F9>"
-let g:spotify_playpause_key = "<F10>"
-let g:spotify_next_key = "<F11>"
+" let g:spotify_country_code = 'MX'
+" let g:spotify_prev_key = "<F9>"
+" let g:spotify_playpause_key = "<F10>"
+" let g:spotify_next_key = "<F11>"
 
 " spell
 map <Leader>es :set spell spelllang=es_mx<CR>
@@ -443,14 +422,16 @@ map <Leader>en :set spell spelllang=en_us<CR>
 map <Leader>no :set nospell<CR>
 
 " Allow JSX in normal JS files
-let g:jsx_ext_required = 0 
+" let g:jsx_ext_required = 0 
 
 " vimrc
 map <Leader>vim :so $MYVIMRC<CR>
 
 " lint
-map <Leader>l :!eslint % <CR>
+" map <Leader>l :!eslint % <CR>
 
 " nightwatch
-map <Leader>e2 :!node_modules/.bin/nightwatch --config nightwatch.conf.BASIC.js --env localtest --test %<CR>
+" map <Leader>e2 :!node_modules/.bin/nightwatch --config nightwatch.conf.BASIC.js --env localtest --test %<CR>
 
+" ctags
+nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
