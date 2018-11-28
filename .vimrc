@@ -366,18 +366,19 @@ imap ii <Esc>
 " map <leader>co :CoffeeCompile<CR>
 
 " fugitive
-map <leader>gs :Gstatus<CR>
-map <leader>gd :Gdiff<CR>
-map <leader>gb :Gblame<CR>
-map <leader>gc :Gcommit<CR>
-map <leader>gl :Glog -10<CR>
-map <leader>gla :Glog -10 --<CR>
-map <leader>ge :Gedit<CR>
-map <leader>gr :Gread<CR>
-map <leader>gw :Gwrite<CR>
-map <leader>gb :Gbrowse<CR>
 map <leader>dg :diffget<CR>
 map <leader>dp :diffput<CR>
+map <leader>ga :Git a<CR>
+map <leader>gb :Gblame<CR>
+map <leader>gb :Gbrowse<CR>
+map <leader>gc :Gcommit<CR>
+map <leader>gd :Gdiff<CR>
+map <leader>ge :Gedit<CR>
+map <leader>gl :Glog -10<CR>
+map <leader>gla :Glog -10 --<CR>
+map <leader>gr :Gread<CR>
+map <leader>gs :Gstatus<CR>
+map <leader>gw :Gwrite<CR>
 
 " presenting.vim
 au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
