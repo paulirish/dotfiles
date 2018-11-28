@@ -221,6 +221,7 @@ map <leader><Enter> o<ESC>
 
 " Search and replace word under cursor (,*)
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
+vnoremap // y/<C-R>"<CR>
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace ()
@@ -435,3 +436,8 @@ map <Leader>vim :so $MYVIMRC<CR>
 
 " ctags
 nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
+" es-ctags (for javascript projects)
+" https://www.npmjs.com/package/es-ctags
+nnoremap <Leader>et :!es-ctags -R .<CR>
+
+
