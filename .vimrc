@@ -39,7 +39,7 @@ nmap <F1> <nop>
 set t_Co=256
 set background=dark
 syntax on
-" colorscheme hemisu
+colorscheme molokai
 set colorcolumn=80
 
 " Enabled later, after Pathogen
