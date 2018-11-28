@@ -83,12 +83,18 @@ alias cleanup_ds_store="find . -name '*.DS_Store' -type f -ls -delete"
 alias v="vim"
 alias e="vim -c 'startinsert'"
 alias edit="vim"
-alias y="yarn"
 alias cls='clear'
 alias ccat="pygmentize -O style=monokai -f console256 -g"
 alias rd="rm -rf" # Remove directories without asking me
 alias rm="rm -f" # Remove files without asking me
 alias md="mkdircd"
+
+# Yarn aliases
+alias y="yarn"
+alias yi="yarn install --pure-lockfile"
+alias ys="yarn start"
+alias yt="yarn test"
+alias ytw="yarn test:watch"
 
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
@@ -97,15 +103,13 @@ alias blog='cd ~/Projects/WebSites/blog'
 alias mh='cd ~/Projects/WebSites/myhomepage'
 alias pr='cd ~/Projects'
 alias mdw='cd ~/Projects/mdwiki_next'
-alias mdwiki='cd ~/Projects/mdwiki_next'
+alias mdwiki='cd ~/Projects/mdwiki'
 alias dotfiles='cd ~/Projects/dotfiles'
 alias dockerfiles='cd ~/Projects/dockerfiles'
 alias howcani='cd ~/Projects/howcani'
-alias howcani-api='cd ~/Projects/go/src/github.com/howcani-project/howcani-api'
 alias mykatas='cd ~/Projects/Katas/MyKatas'
 alias notes="cd ~/Dropbox/Notes"
 alias mymusic="cd ~/Projects/mymusic"
-alias mp3db="cd ~/Projects/go/src/github.com/janbaer/mp3db"
 
 if [ $UID -ne 0 ]; then
   alias reboot='sudo reboot'
