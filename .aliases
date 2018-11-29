@@ -161,5 +161,5 @@ alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -
 alias mongo-docker="docker run -d --rm --name mongo -v "$(pwd)/data":/data/db -p 27017:27017 mongo:3.6.7"
 
 # Download youtube file from the commandline
-alias ydl="youtube-dl"
+alias ydl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ydla="youtube-dl --audio-format mp3 -x"
