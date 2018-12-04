@@ -386,24 +386,6 @@ au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
 " close all tabs
 nnoremap <leader>cat :tabonly<CR>
 
-" au BufReadPost *.es6 set syntax=javascript
-
-" show emojis
-" function ShowEmojis()
-  " for e in emoji#list()
-    " call append(line('$'), printf('%s (%s)', emoji#for(e), e))
-  " endfor
-" endfunction
-
-" function CompileEmojis()
-  " %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
-" endfunction
-
-" map <leader>se :call ShowEmojis()<CR>
-" map <leader>em :call CompileEmojis()<CR>
-
-" map <leader>jsh :JSHint<CR>
-
 " templates
 nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
 nnoremap <leader>bash :-1read $HOME/.vim/.skeleton.bash<CR>
@@ -411,10 +393,7 @@ nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
 nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
 
 " rspec
-" map <Leader>t :call RunCurrentSpecFile()<CR>
-" map <Leader>s :call RunNearestSpec()<CR>
-" map <Leader>ta :call RunAllSpecs()<CR>
-" map <leader>cop :!rubocop %<CR>
+map <leader>s :w<CR> :!rspec %<CR>
 
 " spotify
 " let g:spotify_country_code = 'MX'

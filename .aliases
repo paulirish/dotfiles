@@ -146,5 +146,9 @@ alias nginx_stop="brew services stop nginx-full"
 alias couchdb_start="brew services start couchdb"
 alias couchdb_stop="brew services stop couchdb"
 
-# rails logs
+# rails
 alias rails_logs="tail -f log/nginx/error.log log/nginx/access.log log/development.log"
+alias rails_restart="touch tmp/restart.txt"
+
+# insta markdown
+alias install_markdown="npm -g install instant-markdown-d"
