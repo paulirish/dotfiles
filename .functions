@@ -256,11 +256,11 @@ function vimf() {
 }
 
 function cdf() {
-  dir=$(find . -maxdepth 1 -type d | grep -v $foldersToExclude | fzf) && cd "$dir"
+  dir=$(find . -maxdepth 1 -type d | grep -v $foldersToExclude | sort | fzf) && cd "$dir"
 }
 
 function cdr() {
-  dir=$(find . -type d | grep -v $foldersToExclude | fzf) && cd "$dir"
+  dir=$(find . -type d | grep -v $foldersToExclude | sort | fzf) && cd "$dir"
 }
 
 function weather() {
