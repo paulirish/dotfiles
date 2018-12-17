@@ -64,14 +64,14 @@ set esckeys " Allow cursor keys in insert mode.
 set expandtab " Expand tabs to spaces
 
 " folding
-set nofoldenable    " disable folding
-" set foldcolumn=4 " Column to show folds
-" set foldenable
-" set foldlevel=2
-" set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
-" set foldmethod=syntax " Markers are used to specify folds.
-" set foldminlines=0 " Allow folding single lines
-" set foldnestmax=3 " Set max fold nesting level
+" set nofoldenable    " disable folding
+set foldcolumn=4 " Column to show folds
+set foldenable
+set foldlevel=2
+set foldlevelstart=2 " Sets `foldlevel` when editing a new buffer
+set foldmethod=syntax " Markers are used to specify folds.
+set foldminlines=0 " Allow folding single lines
+set foldnestmax=3 " Set max fold nesting level
 
 set formatoptions=
 set formatoptions+=c " Format comments
@@ -393,7 +393,10 @@ nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
 nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
 
 " rspec
-map <leader>s :w<CR> :!rspec %<CR>
+map <leader>s :w<CR> :!clear && rspec %<CR>
+
+" rails
+map <leader>rm :!rake assets:clobber<CR>
 
 " spotify
 " let g:spotify_country_code = 'MX'
@@ -413,7 +416,7 @@ map <Leader>no :set nospell<CR>
 map <Leader>vim :so $MYVIMRC<CR>
 
 " lint
-" map <Leader>l :!eslint % <CR>
+map <Leader>l :!./node_modules/.bin/eslint % <CR>
 
 " nightwatch
 " map <Leader>e2 :!node_modules/.bin/nightwatch --config nightwatch.conf.BASIC.js --env localtest --test %<CR>
