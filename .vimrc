@@ -15,10 +15,10 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'sotte/presenting.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'MattesGroeger/vim-bookmarks'
 
 " maybe
 " Plugin 'Shougo/vimproc.vim'
-" Plugin 'MattesGroeger/vim-bookmarks'
 " Plugin 'godlygeek/tabular.git'
 " Plugin 'danro/rename.vim'
 " Plugin 'noahfrederick/vim-hemisu'
