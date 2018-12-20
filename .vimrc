@@ -16,12 +16,14 @@ Plugin 'sotte/presenting.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'vim-scripts/loremipsum'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'godlygeek/tabular.git'
+Plugin 'danro/rename.vim'
+Plugin 'noahfrederick/vim-hemisu'
+Plugin 'pangloss/vim-javascript'
+Plugin 'maxmellon/vim-jsx-pretty'
 
-" maybe
-" Plugin 'Shougo/vimproc.vim'
-" Plugin 'godlygeek/tabular.git'
-" Plugin 'danro/rename.vim'
-" Plugin 'noahfrederick/vim-hemisu'
 call vundle#end()
 filetype plugin indent on
 
@@ -426,3 +428,5 @@ nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
 " es-ctags (for javascript projects)
 " https://www.npmjs.com/package/es-ctags
 nnoremap <Leader>et :!es-ctags -R .<CR>
+
+map <leader>jes :w<CR> :!./node_modules/.bin/jest %<CR>
