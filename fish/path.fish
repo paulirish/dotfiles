@@ -26,12 +26,21 @@ end
 set PA $PA $HOME/go/bin
 
 set -U fish_user_paths $PA
+set -l paths "
+$GOPATH/bin
+"
 
-# path for yarn globals
-if which -s yarn; 
-	set node_path (greadlink -f (which node))
-	set node_path_dir (string replace "bin/node" "bin" $node_path)
-	set PA $PA $node_path_dir
+for entry in (string split \n $paths)
+    # resolve the {$HOME} substitutions
+    set -l resolved_path (eval echo $entry)
+    if test -d "$resolved_path";
+        set PA $PA "$resolved_path"
+    end
+end
+
+# Google Cloud SDK.
+if test -f "$HOME/google-cloud-sdk/path.fish.inc"
+    source "$HOME/google-cloud-sdk/path.fish.inc"
 end
 
 set -U fish_user_paths $PA

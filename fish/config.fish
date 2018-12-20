@@ -1,20 +1,22 @@
 set default_user "dbachko"
 set default_machine "dbachko-mac"
 
+
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/android.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
+source ~/.config/fish/conf.d/scmpuff.fish
 
 # for things not checked into git..
-if test -e "$HOME/.extra.fish"; 
+if test -e "$HOME/.extra.fish";
 	source ~/.extra.fish
 end
 
 # THEME PURE #
-#set fish_function_path /Users/dbachko/.config/fish/functions/pure $fish_function_path
+set fish_function_path $HOME/.config/fish/functions/pure $fish_function_path
 
 # GO
 export GOPATH=$HOME/go
@@ -97,3 +99,5 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 # this currently messes with newlines in my prompt. lets debug it later.
 # test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
+# rvm default

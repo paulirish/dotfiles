@@ -7,7 +7,6 @@ function ....  ; cd ../../.. ; end
 function ..... ; cd ../../../.. ; end
 
 # Utilities
-function c        ; pygmentize -O style=monokai -f console256 -g $argv ; end
 function g        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
 
@@ -32,11 +31,6 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 
 alias push="git push"
 
-
-# `cat` with beautiful colors. requires Pygments installed.
-# 							   sudo easy_install -U Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
-
 alias ag='ag --follow --hidden'
 
 alias diskspace_report="df -P -kHl"
@@ -55,6 +49,7 @@ alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Shortcuts
 alias g="git"
+alias gi="git"
 alias v="vim"
 alias ungz="gunzip -k"
 

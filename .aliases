@@ -39,8 +39,6 @@ alias lsd='ls -l | grep "^d"' # only directories
 ###
 
 
-# `cat` with beautiful colors. requires: sudo easy_install -U Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
 
 ###
 # GIT STUFF
