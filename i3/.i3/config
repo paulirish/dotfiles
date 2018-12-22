@@ -9,15 +9,15 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Droid Sans Mono 8
+# font pango: Source Code Pro 32 # Inconsolata 10px
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -36,7 +36,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i"
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 50"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -116,6 +116,8 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -149,26 +151,62 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec /home/joem/bin/toggletouchpad.sh # toggle touchpad
+bindsym $mod+F1 exec /home/joem/bin/toggletouchpad.sh
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+for_window [instance="__nmtui"] floating enable
+bindsym $mod+Shift+w exec -a __nmtui --no-startup-id  terminator -e "nmtui-connect"
+
+#for_window [class="Yad"] floating enable
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
  mode dock
   position top
   status_command i3blocks
-
+  tray_output primary
+  #ofont pango:Source Code Pro 20px
   # Colors
   colors  {
 
-    background #20293A
-    statusline #aaaaaa
-    separator  #566E9C
+  #   background #000000
+  #   statusline #aaaaaa
+  #   separator  #566E9C
 
-  #  class            | border  |  background  |   text  |
-  #-------------------|---------|--------------|---------|
+  # #  class            | border  |  background  |   text  |
+  # #-------------------|---------|--------------|---------|
 
-    focused_workspace  #20293A #20293A #ffffff
-    active_workspace   #ff8c00 #20293A #ffffff
-    inactive_workspace #20293A #20293A #aaaaaa
-    urgent_workspace   #20293A #20293A #FCF5C7
+  #   focused_workspace  #20293A #20293A #ffffff
+  #   active_workspace   #ff8c00 #20293A #ffffff
+  #   inactive_workspace #20293A #20293A #aaaaaa
+  #   urgent_workspace   #20293A #20293A #FCF5C7
   }
-  }
+}
+
+
+bindsym $mod+F3 exec --no-startup-id .screenlayout/workwithdpi.sh &&  xmodmap -e "pointer = 3 2 1 4 5 6 7 8 9 10 11 12" 
+
+bindsym $mod+F2 exec --no-startup-id .screenlayout/justlappo.sh &&  xmodmap -e "pointer = 1 2 3 4 5 6 7 8 9 10 11 12"
+
+
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+#exec --no-startup-id xrandr --output DP-2 --scale .5x.5
+exec --no-startup-id toggletouchpad.sh 
+exec --no-startup-id .screenlayout/workwithdpi.sh 
+set $mouse_id $(xinput | grep 'Razer Razer Naga 2014\s*id=.*pointer' | awk '{print $7}' | sed 's/id=//')
+exec --no-startup-id xinput --set-prop ${mouse_id} "libinput Natural Scrolling Enabled" 1 

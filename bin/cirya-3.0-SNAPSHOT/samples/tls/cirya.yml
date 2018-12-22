@@ -1,0 +1,34 @@
+infrastructure:
+  pools:
+    localhost:
+      provider: docker
+
+containers:
+  groups:
+    standard-cluster:
+      image: /aerospike/cirya-ubuntu-18.04
+
+clusters:
+  tls-test:
+    archivePath: https://www.aerospike.com/enterprise/download/server/latest/artifact/ubuntu18
+    downloadUserName: "<insert-download-username>"
+    # Use double quotes if you have special characters in the password
+    downloadUserPassword: "<insert-download-password>"
+    aerospikeConfTemplate: aerospike-tls.conf.ftl
+    tls:
+      names:
+        cirya.aerospike.com:
+          ca-file: certs/cacert.pem
+          cert-file: certs/multi_chain.pem
+          key-file: certs/key.pem
+      service:
+        name: cirya.aerospike.com
+        tls-port: 3010
+      heartbeat:
+        name: cirya.aerospike.com
+        tls-port: 3012
+      fabric:
+        name: cirya.aerospike.com
+        tls-port: 3011
+    params:
+      clusterName: tls-test

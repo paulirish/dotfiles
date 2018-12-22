@@ -1,3 +1,4 @@
+
 ! calm by dkeg
 
 *foreground:  #adb7c1
@@ -19,4 +20,14 @@
 *color13: #abacae
 *color14: #88bbbb
 *color15: #ddeeff
+
+! Fonts {{{
+ Xft.antialias: true
+ Xft.hinting:   true
+ Xft.rgba:      rgb
+ Xft.hintstyle: hintfull
+ Xft.dpi:      192 
+ Xcursor.size: 64
+! }}}
+
 

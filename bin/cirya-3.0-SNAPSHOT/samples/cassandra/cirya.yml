@@ -1,0 +1,48 @@
+infrastructure:
+  pools:
+    localhost:
+      provider: docker
+
+containers:
+  groups:
+   cassandra:
+     image: /aerospike/sherlock-ubuntu-18.04-jdk8
+     publicPorts:
+       - 9042
+       - 7000
+
+clusters:
+  cassandra:
+   group: cassandra
+   type: generic
+   archivePath: http://www-us.apache.org/dist/cassandra/3.11.2/apache-cassandra-3.11.2-bin.tar.gz
+   installScript: file://install-cassandra.sh
+   startScript: file://start-cassandra.sh.ftl
+   stopScript: |
+    while pgrep java; do
+      pkill -SIGKILL java
+      sleep 0.5
+    done
+   isRunningScript: pgrep java
+   cleanupScript: file://cleanup-cassandra.sh.ftl
+   templates:
+    cassandra.yaml.ftl: /usr/local/cassandra/conf/cassandra.yaml
+   params:
+    logFile: /var/log/cassandra.log
+
+  stress:
+   group: cassandra
+   type: generic
+   archivePath: http://www-us.apache.org/dist/cassandra/3.11.2/apache-cassandra-3.11.2-bin.tar.gz
+   installScript: file://install-stress.sh
+   startScript: file://start-stress.sh.ftl
+   stopScript: |
+    while pgrep java; do
+      pkill -SIGKILL java
+      sleep 0.5
+    done
+   isRunningScript: pgrep java
+   cleanupScript: file://cleanup-stress.sh.ftl
+   params:
+    logFile: /var/log/stress.log
+    command: write

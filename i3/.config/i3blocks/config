@@ -20,6 +20,8 @@
 # signal
 # urgent
 
+align=center
+
 # Global properties
 separator_block_width=15
 
@@ -28,6 +30,7 @@ label=♪
 command=$HOME/.config/i3/music_name.sh
 color=#00FF00
 interval=5
+align=center
 
 [volume]
 #label=VOL
@@ -36,28 +39,50 @@ label=🔊
 #label=♪
 instance=Master
 #instance=PCM
-command=/usr/share/i3blocks/volume
-interval=once
+command=/home/joem/src/external/i3blocks-contrib/volume/volume
+interval=1
 signal=10
 
+# align=center
+[monitors]
+command=/home/joem/src/external/i3blocks-contrib/monitor_manager/monitor_manager
+interval=100
+color=#7777dd
+
 [memory]
-label=MEM
-command=/usr/share/i3blocks/memory
+label=<b>🐏 </b>
+markup=pango
+command=/home/joem/src/external/i3blocks-contrib/memory/memory
 #separator=false
 interval=30
+align=center
 
-[swap]
-label=SWAP
-instance=swap
-command=/usr/share/i3blocks/memory
-interval=30
+# [swap]
+# label=🐏(S) 
+# instance=swap
+# command=/home/joem/src/external/i3blocks-contrib/memory/memory
+# interval=30
+# color=#cccccc
 
-[disk-home]
+[cpu]
+label=<b>💻 </b>
+markup=pango
+command=/home/joem/src/external/i3blocks-contrib/cpu_usage/cpu_usage
+interval=10
+min_width=💻: 100.00%
+align=center
+#separator=false
+
+[disk]
 #label=$HOME
-label=🏡
+label=<b>🛸 </b>
 #instance=/home/user
-command=/usr/share/i3blocks/disk
+command=/home/joem/src/external/i3blocks-contrib/disk/disk
 interval=30
+align=center
+markup=pango
+
+
 
 # Didn't get it working
 #[IPv6]
@@ -65,27 +90,34 @@ interval=30
 #signal=10
 
 [wireless]
-label=W
-instance=wifi0
+label=📶
+instance=wlp0s20f3
 #instance=wlp3s0
-command=/usr/share/i3blocks/network
+command=/home/joem/src/external/i3blocks-contrib/wifi/wifi
+color=#00FF00
+interval=10
+align=center
+
+[ethernet]
+label=E
+instance=eth0
+#instance=enp0s25
+command=/usr/libexec/i3blocks/network
 color=#00FF00
 interval=10
 
-# [ethernet]
-# label=E
-# instance=eth0
-# #instance=enp0s25
-# command=/usr/libexec/i3blocks/network
-# color=#00FF00
-# interval=10
+[bandwidth]
+command=/home/joem/src/external/i3blocks-contrib/bandwidth2/bandwidth2
+interval=persist
+markup=pango
+label=<b></b>
+min_width=xxxxxxxxxxxxxxxxxxxxxxxx
+color=#ffffff
+# WARN_RX=307200
+# WARN_TX=30720
+# CRIT_RX=512000
+# CRIT_TX=51200
 
-[cpu]
-label=CPU
-command=/usr/share/i3blocks/cpu_usage
-interval=10
-min_width=CPU: 100.00%
-#separator=false
 
 #[load]
 #command=/usr/libexec/i3blocks/load_average
@@ -93,10 +125,23 @@ min_width=CPU: 100.00%
 
 [battery]
 #label=BAT
-label=⚡
-command=/usr/share/i3blocks/battery
+command=/home/joem/src/external/i3blocks-contrib/battery2/battery2
 interval=30
+align=center
+markup=pango
 
-[time]
-command=$HOME/.config/i3/calendar &>/dev/null; date '+%Y-%m-%d %H:%M:%S'
-interval=5
+[calendar]
+command=/home/joem/src/external/i3blocks-contrib/calendar/calendar
+interval=1
+label=
+color=#ffffff
+
+# datefmt=+%H:%M:%S
+# # SHORTFMT=+%H:%M:%S
+# height=180
+# width=220
+
+# [time]
+# command=$HOME/.config/i3/calendar &>/dev/null; date '+%Y-%m-%d %H:%M:%S'
+# interval=5
+# align=center

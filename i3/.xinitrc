@@ -7,6 +7,10 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
     unset f
 fi
 
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+xrdb -merge .Xresources
+
+
+xmodmap -e "pointer = 3 2 1"
+	
 
 exec i3

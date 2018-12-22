@@ -78,7 +78,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # z beats cd most of the time. `brew install z`
 
- zpath="code/z/z.sh"
+ zpath="/home/joem/code/z/z.sh"
  source $zpath
 
 

@@ -16,3 +16,10 @@ command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ~/.dircolors)"
 export EEREPO="~/src/citrusleaf/aerospike-server-enterprise"
 export CPATH="/usr/include/lua5.2/"
+export GOPATH="/home/joem/src/GO"
+export GOBIN="${GOPATH}/bin"
+export PATH="${GOBIN}:${PATH}:~/bin:~/bin/cirya-3.0-SNAPSHOT/bin"
+
+source $(dirname $(type  -p cirya | sed -e 's/cirya is //g'))/cirya_completion                                 
+
+
