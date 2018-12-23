@@ -142,6 +142,8 @@ set number
 set nowrap " don't automatically wrap on load
 set tw=100  " width of document (used by gd)
 set fo-=t  " don't automatically wrap text when typing
+command! -nargs=* Wrap set wrap linebreak nolist
+command! -nargs=* NoWrap set nowrap nolinebreak list
 
 " Settings for spellcecking
 set spelllang=en_us
