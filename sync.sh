@@ -14,4 +14,8 @@ if [ -f ~/.config/i3/config-${HOSTNAME} ]; then
   mv ~/.config/i3/i3status-${HOSTNAME}.conf ~/.config/i3/i3status.conf
 fi
 
-i3-msg reload
+IS_I3_RUNNING=$(ps aux | grep i3 | grep -v grep)
+if [ -z "${IS_I3_RUNNING}" ]; then
+  i3-msg reload
+fi
+
