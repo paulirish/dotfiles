@@ -430,3 +430,6 @@ nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
 nnoremap <Leader>et :!es-ctags -R .<CR>
 
 map <leader>jes :w<CR> :!./node_modules/.bin/jest %<CR>
+
+map <leader>w :w<CR>
+

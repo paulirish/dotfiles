@@ -141,6 +141,8 @@ alias mysql_stop="brew services stop mysql@5.7"
 # NGIX
 alias nginx_start="brew services start nginx-full"
 alias nginx_stop="brew services stop nginx-full"
+alias nginx_restart="brew services restart nginx-full"
+alias nginx_reload="brew services reload nginx-full"
 
 # Couchdb
 alias couchdb_start="brew services start couchdb"
