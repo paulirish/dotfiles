@@ -3,7 +3,7 @@ cd "$(dirname "$0")"
 git pull
 
 copyFiles() {
-  rsync --exclude ".git/" --exclude --exclude "sync.sh" --exclude "README.md" --exclude "terminal" --exclude "readme.md" -av . ~
+  rsync --exclude ".git/" --exclude "sync.sh" --exclude "README.md" --exclude "terminal" --exclude "readme.md" -av . ~
 }
 
 copyFiles
