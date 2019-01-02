@@ -23,6 +23,7 @@ Plugin 'danro/rename.vim'
 Plugin 'noahfrederick/vim-hemisu'
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'leafgarland/typescript-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -432,4 +433,6 @@ nnoremap <Leader>et :!es-ctags -R .<CR>
 map <leader>jes :w<CR> :!./node_modules/.bin/jest %<CR>
 
 map <leader>w :w<CR>
+
+map <leader>ts :!clear; ./node_modules/.bin/tsc %<CR>
 
