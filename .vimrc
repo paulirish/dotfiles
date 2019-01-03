@@ -24,6 +24,7 @@ Plugin 'noahfrederick/vim-hemisu'
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'vim-scripts/vim-coffee-script'
 
 call vundle#end()
 filetype plugin indent on
