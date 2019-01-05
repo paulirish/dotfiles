@@ -163,3 +163,6 @@ alias mongo-docker="docker run -d --rm --name mongo -v "$(pwd)/data":/data/db -p
 # Download youtube file from the commandline
 alias ydl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ydla="youtube-dl --audio-format mp3 -x"
+
+# Show my wallpapers in sxiv
+alias ww="cd ~/Dropbox/Wallpapers && sxiv -tf *.*"
