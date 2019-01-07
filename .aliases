@@ -165,4 +165,4 @@ alias ydl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/be
 alias ydla="youtube-dl --audio-format mp3 -x"
 
 # Show my wallpapers in sxiv
-alias ww="cd ~/Dropbox/Wallpapers && sxiv -tf *.*"
+alias ww="cd ~/Dropbox/Wallpapers && sxiv -tf *.* && cd -"
