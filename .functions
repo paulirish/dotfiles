@@ -332,3 +332,17 @@ function man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
 }
+
+function make-slides() {
+  if [ -z "$1" ]; then
+    echo "The name of the Markdown file has to be passed!"
+  else
+    local INPUT_FILE=$1
+      local OUTPUT_FILE=$(echo $1 | sed 's/\.md/.pdf/')
+
+      docker run --rm -v `pwd`:/tmp janbaer/texlive-pandoc  \
+      -f markdown -t beamer ${@:2}                          \
+      ${INPUT_FILE} -o ${OUTPUT_FILE} 
+  fi
+}
+

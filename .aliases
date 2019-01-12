@@ -170,3 +170,5 @@ alias ww="cd ~/Dropbox/Wallpapers && sxiv -tf *.* && cd -"
 # Run Portainer on localhost:9000 without any password to manage my local Docker env
 alias portainer="docker run --rm -d -p 9000:9000 --name=portainer -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer --no-auth"
 
+# Alias for the function make-slides
+alias make-presentation="make-slides"
