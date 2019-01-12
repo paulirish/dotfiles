@@ -281,9 +281,9 @@ nnoremap <F6> <C-W>w
 map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
 
-map <Leader>x :cclose<CR> " Close the QuickFix window
-map <Leader>xa :qa<CR>
-map <Leader>sw :Switch<CR>
+noremap <Leader>x :cclose<CR> " Close the QuickFix window
+noremap <Leader>xa :qa<CR>
+noremap <Leader>sw :Switch<CR>
 
 "quick pairs
 imap <leader>' ''<ESC>i
