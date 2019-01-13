@@ -249,8 +249,8 @@ bindsym $mod+Shift+s exec ~/.config/i3/suspend.sh
 bindsym $mod+Shift+l exec ~/.config/i3/lock.sh
 
 # Making a screenshot with using scrot
-bindsym --release $mod+y exec "flameshot gui -d 1000"
-bindsym --release $mod+Shift+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Dropbox/Screenshots'"
+bindsym --release $mod+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Dropbox/Screenshots'"
+bindsym --release $mod+Shift+y exec "flameshot gui -d 1000"
 
 # Configure the volume - This keys are actually not working,q
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ #increase sound volume
@@ -285,7 +285,7 @@ exec --no-startup-id /usr/bin/pamac-tray
 exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec_always --no-startup-id conky  #-c ~/.config/i3/system-shortcuts
+# exec_always --no-startup-id conky  #-c ~/.config/i3/system-shortcuts
 
 # Windows styles for apps
 for_window [instance="keepassx"] floating enable resize set 800 600
@@ -302,13 +302,13 @@ for_window [instance="meld"] floating enable resize set 1280x1024
 # Configure our touchpad so that we only need to tap instead of click it
 exec_always --no-startup-id xinput set-prop 10 278 1
 
-# i4-gaps
+# i3-gaps
 for_window [class="^.*"] border pixel 1
 gaps outer 3
 gaps inner 5
 
 # focus floating and move
-bindsym $mod+shift+m focus floating mode "moveit"
+bindsym $mod+m focus floating mode "moveit"
 
 # Move floating windows
 mode "moveit" {
