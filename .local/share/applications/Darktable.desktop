@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=darktable
+Exec=$HOME/bin/Darktable.AppImage
