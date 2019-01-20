@@ -57,7 +57,7 @@ brew install mtr
 # Install other useful binaries
 brew install the_silver_searcher
 brew install fzf
-brew install thefuck
+# brew install thefuck
 brew install git
 brew install imagemagick --with-webp
 brew install node # This installs `npm` too using the recommended installation method
@@ -73,7 +73,7 @@ brew install pidcat   # colored logcat guy
 
 brew install ncdu # find where your diskspace went
 
-brew install zsh
+# brew install zsh
 
 brew install fish
 

@@ -11,10 +11,9 @@ brew tap caskroom/versions
 # daily
 brew cask install spectacle
 # brew cask install gyazo
-brew cask install lastpass
-brew cask install rescuetime
-brew cask install nordvpn
-brew cask install flux
+# brew cask install rescuetime
+# brew cask install nordvpn
+# brew cask install flux
 
 # dev
 brew cask install iterm2
@@ -27,11 +26,11 @@ brew cask install sequel-pro
 brew cask install psequel
 brew cask install slack
 brew cask install docker
-brew cask install java
+# brew cask install java
 
 
 # fun
-brew cask install limechat
+# brew cask install limechat
 # brew cask install miro-video-converter
 # brew cask install horndis               # usb tethering
 
@@ -48,8 +47,9 @@ brew cask install limechat
 brew cask install vlc
 # brew cask install licecap
 brew cask install transmission
-brew tap caskroom/fonts 
+brew tap caskroom/fonts
 brew cask install font-fira-code
+brew cask install font-hack-nerd-font
 
 
 # Not on cask but I want regardless.
