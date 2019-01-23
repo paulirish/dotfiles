@@ -270,6 +270,10 @@ bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle #t
 exec_always setxkbmap -option compose:ralt  # Configure the compose key to be able to enter Umlaute
 exec_always xmodmap ~/.Xmodmap # We don't need the Caps key, so use it as second Escape key
 
+# Touchpad
+exec_always --no-startup-id /usr/bin/xinput set-prop 10 285 1 # Tapping Enabled (285) for Device Touchpad (10)
+exec_always --no-startup-id /usr/bin/libinput-gestures-setup start
+
 # Configure my wallpaper
 exec_always --no-startup-id feh --bg-scale ~/.wallpaper.jpg
 
