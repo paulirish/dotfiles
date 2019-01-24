@@ -29,31 +29,9 @@
 *color7: #a8a19f
 *color15: #f1efee
 
-URxvt.intensityStyles:      false
-URxvt.background:           [70]#000000
-URxvt.depth:                32
-URxvt.font:                 xft:monospace:size=14
-URxvt.scrollBar:            false
-URxvt.cursorColor:          white
-URxvt.perl-ext-common:      default,matcher,resize-font,keyboard-select
-! URxvt.perl-lib:             $HOME/.config/Scripts
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.url-launcher:         /usr/bin/xdg-open
-URxvt.matcher.button:       1
-URxvt.resize-font.smaller:  C-S-Down
-URxvt.resize-font.bigger:   C-S-Up
-URxvt.resize-font.reset:    C-S-equal
-URxvt.colorUL:              #4682B4
-
 rofi.color-enabled: true
 rofi.color-window:  #000, #000, #000
 rofi.color-normal:  #111, #819396, #222, #008ed4, #ffffff
 rofi.color-active:  #002b37, #008ed4, #003643, #008ed4, #66c6ff
 rofi.color-urgent:  #002b37, #da4281, #003643, #008ed4, #890661
 
-! rofi.fake-transparency: true
-! rofi.lines:   3
-! rofi.bw:    0
-! rofi.opacity:   "10"
-! rofi.hide-scrollbar:  true
-! rofi.width:   30
