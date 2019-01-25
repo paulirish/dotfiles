@@ -17,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 9
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -115,15 +115,12 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-
-
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -183,7 +180,6 @@ bar {
   #ofont pango:Source Code Pro 20px
   # Colors
   colors  {
-
   #   background #000000
   #   statusline #aaaaaa
   #   separator  #566E9C
@@ -191,17 +187,17 @@ bar {
   # #  class            | border  |  background  |   text  |
   # #-------------------|---------|--------------|---------|
 
-  #   focused_workspace  #20293A #20293A #ffffff
-  #   active_workspace   #ff8c00 #20293A #ffffff
-  #   inactive_workspace #20293A #20293A #aaaaaa
-  #   urgent_workspace   #20293A #20293A #FCF5C7
+    focused_workspace  #20293A #20293A #ffffff
+    active_workspace   #ff8c00 #20293A #ffffff
+    inactive_workspace #20293A #20293A #aaaaaa
+    urgent_workspace   #20293A #20293A #FCF5C7
   }
 }
 
 
-bindsym $mod+F3 exec --no-startup-id .screenlayout/workwithdpi.sh &&  xmodmap -e "pointer = 3 2 1 4 5 6 7 8 9 10 11 12" 
-
 bindsym $mod+F2 exec --no-startup-id .screenlayout/justlappo.sh &&  xmodmap -e "pointer = 1 2 3 4 5 6 7 8 9 10 11 12"
+bindsym $mod+F3 exec --no-startup-id .screenlayout/workwithdpi.sh &&  xmodmap -e "pointer = 3 2 1 4 5 6 7 8 9 10 11 12"
+bindsym $mod+F4 exec --no-startup-id .screenlayout/mirror.sh &&  xmodmap -e "pointer = 1 2 3 4 5 6 7 8 9 10 11 12"
 
 
 exec --no-startup-id setxkbmap -option ctrl:nocaps
@@ -210,3 +206,5 @@ exec --no-startup-id toggletouchpad.sh
 exec --no-startup-id .screenlayout/workwithdpi.sh 
 set $mouse_id $(xinput | grep 'Razer Razer Naga 2014\s*id=.*pointer' | awk '{print $7}' | sed 's/id=//')
 exec --no-startup-id xinput --set-prop ${mouse_id} "libinput Natural Scrolling Enabled" 1 
+exec --no-startup-id feh --randomize --bg-scale ~/Pictures/*
+exec --no-startup-id xcompmgr -c -f -n 
