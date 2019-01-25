@@ -14,7 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 10
-font pango:System San Francisco Display 12
+font pango:Input 15
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -38,10 +38,10 @@ bindsym $mod+Shift+Return exec nautilus
 bindsym $mod+Shift+q kill
 
 # configure launcher menus
-bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "System San Francisco Display 15" -fake-background "#e53935"
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-12'"
+bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "DejaVu Sans Mono 15" -fake-background "#e53935"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-15'"
 bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 15 -opacity "70" -dmenu -i -p "locate:")"
-bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "85" -font "Droid Sans 15"
+bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "85" -font "DejaVu Sans Mono 15"
 bindsym $mod+c exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # change focus
