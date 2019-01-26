@@ -60,7 +60,7 @@ prompt_end() {
     echo -n "%{%k%}"
   fi
   echo -n "%{%f%}"
-  echo -n "\n$ "
+  echo -n "\n╰─%f➤ %f"
   CURRENT_BG=''
 }
 
@@ -139,4 +139,4 @@ build_prompt() {
   prompt_end
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt)'
+PROMPT='╭─%{%f%b%k%}$(build_prompt)'
