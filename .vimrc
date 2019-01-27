@@ -63,6 +63,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'w0rp/ale'
 Plugin 'zirrostig/vim-schlepp'
+Plugin 'kristijanhusak/vim-hybrid-material'
 
 " Deoplete
 Plugin 'Shougo/deoplete.nvim'
@@ -217,8 +218,10 @@ command! TigStatus call s:tig_status()
 function! TogglePresentationMode()
   if(&background == 'dark')
     set background=light
+    colorscheme PaperColor
   else
     set background=dark
+    colorscheme hybrid_material
   endif
 endfunction
 
@@ -425,12 +428,16 @@ nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
 " ************** End plugin settings ************
 
 " define color scheme
+let g:hybrid_transparent_background = 1
+
 if $VIM_BACKGROUND == 'light'
   set background=light
+  colorscheme PaperColor
 else
   set background=dark
+  colorscheme hybrid_material
 endif
-colorscheme PaperColor
+
 
 " Define the highlighting for spell checking
 hi SpellBad ctermfg=015 ctermbg=000 cterm=none guifg=#FFFFFF guibg=#000000 gui=none
