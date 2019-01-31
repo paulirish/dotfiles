@@ -346,3 +346,12 @@ function make-slides() {
   fi
 }
 
+function who-is-using-port() {
+  local PORT=$1
+  lsof -n -i:$PORT | grep -i listen
+}
+
+function free-port() {
+  local PORT=$1
+  kill -9 $(lsof -t -i :$PORT)
+}
