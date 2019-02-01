@@ -70,6 +70,8 @@ Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plugin 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 
 call vundle#end()
 
@@ -362,6 +364,7 @@ nnoremap <leader>xx :Ex<cr> " Open explorer in current buffer
 
 " Run deoplete at startup
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#camel_case = 1
 
 " Vim-Maximizer
 nnoremap <silent><F3> :MaximizerToggle<CR>
