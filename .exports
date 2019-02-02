@@ -39,7 +39,7 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 # Define where the Go main path is
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=~/Projects/go
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:~/go/bin
 
-export CDPATH=~/Projects/:~/Projects/go/src/github.com/howcani-project/:~/Projects/go/src/github.com/janbaer/
+export CDPATH=~/:~/Projects/:~/Projects/go/src/github.com/howcani-project/:~/Projects/go/src/github.com/janbaer/
 
