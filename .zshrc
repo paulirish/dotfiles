@@ -77,6 +77,8 @@ alias less='less -m -N -g -i -J --underline-special --SILENT'
 
 alias more='less'
 
+stty -ixon # Disable ctrl-s and ctrl-q.
+
 source ~/.exports
 source ~/.functions
 
