@@ -352,9 +352,9 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 nnoremap <leader>xv :Vexplore!<cr> " Open vertical explorer
 nnoremap <leader>xx :Ex<cr> " Open explorer in current buffer
 
-" YouCompleteMe settings
-" let g:ycm_auto_trigger = 1
-" let g:ycm_key_list_select_completion = ['<Down>'] " This setting is important since snipmate will not work with the default settings
+" YouCompleteMe settings (also for TabNine)
+let g:ycm_auto_trigger=1
+let g:ycm_key_list_select_completion=['<Down>'] " This setting is important since snipmate will not work with the default settings
 
 " Vim-Maximizer
 nnoremap <silent><F3> :MaximizerToggle<CR>
