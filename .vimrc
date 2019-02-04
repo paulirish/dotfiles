@@ -62,16 +62,10 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 " Plugin 'Valloric/YouCompleteMe'
+Plugin 'zxqfl/tabnine-vim'
 Plugin 'w0rp/ale'
 Plugin 'zirrostig/vim-schlepp'
 Plugin 'kristijanhusak/vim-hybrid-material'
-
-" Deoplete - Autocompletion for VIM
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plugin 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 
 call vundle#end()
 
@@ -361,10 +355,6 @@ nnoremap <leader>xx :Ex<cr> " Open explorer in current buffer
 " YouCompleteMe settings
 " let g:ycm_auto_trigger = 1
 " let g:ycm_key_list_select_completion = ['<Down>'] " This setting is important since snipmate will not work with the default settings
-
-" Run deoplete at startup
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#camel_case = 1
 
 " Vim-Maximizer
 nnoremap <silent><F3> :MaximizerToggle<CR>
