@@ -68,7 +68,6 @@ brew install ffmpeg
 
 brew install terminal-notifier
 
-brew install android-platform-tools
 brew install pidcat   # colored logcat guy
 
 brew install ncdu # find where your diskspace went
