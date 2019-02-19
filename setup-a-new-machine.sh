@@ -180,7 +180,7 @@ curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 # github.com/thebitguru/play-button-itunes-patch
 # disable itunes opening on media keys
-git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
+# git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
 
 
 
@@ -192,6 +192,10 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 # repeat for fish, zsh
 # Later, confirm iterm settings aren't conflicting.
 
+# Install fisher
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+# Install theme
+fisher add oh-my-fish/theme-bobthefish
 
 
 
@@ -200,7 +204,7 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 
 
 # setting up the sublime symlink
-ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+# ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
 # install nvm (Node Version Nanager, https://github.com/nvm-sh/nvm)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
