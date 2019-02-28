@@ -147,8 +147,6 @@ alias ten="translate -s en -t de "
 alias tde="translate -s de -t en "
 
 # Installing or updating go with this onliner
-alias install-go="curl -LO https://get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer && rm go_installer"
-alias update-go=install-go
 alias serve-godoc="godoc -http=:8000"
 
 # Sometimes we need to start the ssh-agent manually

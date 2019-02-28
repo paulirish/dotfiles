@@ -355,3 +355,32 @@ function free-port() {
   local PORT=$1
   kill -9 $(lsof -t -i :$PORT)
 }
+
+function install-go() {
+  local VERSION=$1
+  if [ -z "$VERSION" ]; then
+    echo "You have to pass the version of Go you want to install!"
+    return
+  fi
+
+  local ARCHIVE_NAME=go${VERSION}.linux-amd64.tar.gz
+
+  if [ -d /usr/local/go ]; then
+    echo "Removing previously installed version of Go"
+    sudo rm -rf /usr/local/go
+  fi
+
+  cd ~/Downloads
+
+  echo "Begin downloading archive for Go ${VERSION}"
+  wget https://dl.google.com/go/${ARCHIVE_NAME}
+
+  echo "Extracting archive now and installing Go ${VERSION}"
+  sudo tar -C /usr/local -xzf go$VERSION.linux-amd64.tar.gz
+
+  rm -f ${ARCHIVE_NAME}
+
+  cd -
+
+  echo "$(go version) is now running on you machine"
+}
