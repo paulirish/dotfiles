@@ -65,7 +65,7 @@ Plugin 'zxqfl/tabnine-vim'                    " TabCompletion Plugin (Replacemen
 Plugin 'w0rp/ale'                             " Asynchronous Lint Enginge
 Plugin 'zirrostig/vim-schlepp'                " Moving blocks of text easily
 Plugin 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
-Plugin 'chaoren/vim-wordmotion'               " Change WorkMotion to support camelCase written words
+Plugin 'bkad/CamelCaseMotion'               " Change WordMotion to support camelCase written words
 
 call vundle#end()
 
@@ -422,16 +422,11 @@ let g:smartpairs_start_from_word = 1
 " vim-which-key
 nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
 
-" vim-wordmotion - Just map w and b
-let g:wordmotion_mappings = {
-\ 'w' : '<M-w>',
-\ 'b' : '<M-b>',
-\ 'e' : '',
-\ 'ge' : '',
-\ 'aw' : '',
-\ 'iw' : '',
-\ '<C-R><C-W>' : ''
-\ }
+" vim-CamelCaseMotion - Just map w and b
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+sunmap w
+sunmap b
 
 " ************** End plugin settings ************
 
