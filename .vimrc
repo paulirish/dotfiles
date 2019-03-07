@@ -53,19 +53,19 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'sgur/vim-editorconfig'
 Plugin 'svermeulen/vim-easyclip'
-Plugin 'szw/vim-maximizer'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tomtom/tlib_vim'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'zxqfl/tabnine-vim'
-Plugin 'w0rp/ale'
-Plugin 'zirrostig/vim-schlepp'
-Plugin 'kristijanhusak/vim-hybrid-material'
+Plugin 'szw/vim-maximizer'                    " Maximizes and restores the current window in Vim.
+Plugin 'terryma/vim-multiple-cursors'         " This True Sublime Text style multiple selections for Vim
+Plugin 'tomtom/tlib_vim'                      " Some utility functions for VIM - Required from ???
+Plugin 'tpope/vim-dispatch'                   " Asynchronous build and test dispatcher
+Plugin 'tpope/vim-fugitive'                   " A Git wrapper
+Plugin 'tpope/vim-repeat'                     " enable repeating supported plugin maps with \".\"
+Plugin 'tpope/vim-surround'                   " surround.vim: quoting/parenthesizing made simple
+Plugin 'tpope/vim-unimpaired'                 " Pairs of handy bracket mappings
+Plugin 'zxqfl/tabnine-vim'                    " TabCompletion Plugin (Replacement for YouCompleteMe)
+Plugin 'w0rp/ale'                             " Asynchronous Lint Enginge
+Plugin 'zirrostig/vim-schlepp'                " Moving blocks of text easily
+Plugin 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
+Plugin 'chaoren/vim-wordmotion'               " Change WorkMotion to support camelCase written words
 
 call vundle#end()
 
