@@ -24,35 +24,34 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'majutsushi/tagbar'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'ap/vim-css-color'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'alampros/vim-styled-jsx'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'elzr/vim-json'
-Plugin 'exvim/ex-autocomplpop'
-Plugin 'garbas/vim-snipmate'
-Plugin 'gorkunov/smartpairs.vim'
-Plugin 'fatih/vim-go'
-Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'majutsushi/tagbar'                    " displays tags in a window
+Plugin 'pangloss/vim-javascript'              " Vastly improved Javascript indentation and syntax support
+Plugin 'mxw/vim-jsx'                          " React JSX syntax highlighting and indenting for vim
+Plugin 'airblade/vim-gitgutter'               " shows a git diff in the gutter
+Plugin 'ap/vim-css-color'                     " Preview colours in source code while editing
+Plugin 'hail2u/vim-css3-syntax'               " CSS3 syntax
+Plugin 'easymotion/vim-easymotion'            " Vim motions on speed
+Plugin 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
+" Plugin 'exvim/ex-autocomplpop'                " Auto complete text when you are writing code
+Plugin 'garbas/vim-snipmate'                  " implements some of TextMate's snippets features in Vim
+Plugin 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
+Plugin 'fatih/vim-go'                         " Improving the support for Go in vim
+Plugin 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
 Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'kopischke/vim-fetch'
-Plugin 'liuchengxu/vim-which-key'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'mattn/emmet-vim'
-Plugin 'machakann/vim-highlightedyank'
-Plugin 'mileszs/ack.vim'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'sgur/vim-editorconfig'
-Plugin 'svermeulen/vim-easyclip'
+Plugin 'junegunn/fzf.vim'                     " Use fzf in VIM
+Plugin 'kopischke/vim-fetch'                  " Make Vim handle line and column numbers in file names
+Plugin 'liuchengxu/vim-which-key'             " Show the current leader mappings
+Plugin 'vim-airline/vim-airline'              " statusline plugin for vim
+Plugin 'MarcWeber/vim-addon-mw-utils'         " interpret a file by function and cache file automatically (required by ...)
+Plugin 'mattn/emmet-vim'                      " Provides support for Emmet in vim
+Plugin 'machakann/vim-highlightedyank'        " Make the yanked region visible
+Plugin 'mileszs/ack.vim'                      " Provides support for ack and the SilverlightSearcher in vim
+Plugin 'NLKNguyen/papercolor-theme'           " My prefered theme for working in the presentation (light) mode
+Plugin 'scrooloose/nerdtree'                  " A tree explorer plugin for vim
+Plugin 'Xuyuanp/nerdtree-git-plugin'          " A plugin of NERDTree showing git status
+Plugin 'scrooloose/nerdcommenter'             " plugin for intensely commenting
+Plugin 'sgur/vim-editorconfig'                " Yet another EditorConfig plugin for vim
+Plugin 'svermeulen/vim-yoink'                 " plugin that maintains a yank history to cycle between when pasting
 Plugin 'szw/vim-maximizer'                    " Maximizes and restores the current window in Vim.
 Plugin 'terryma/vim-multiple-cursors'         " This True Sublime Text style multiple selections for Vim
 Plugin 'tomtom/tlib_vim'                      " Some utility functions for VIM - Required from ???
@@ -368,17 +367,16 @@ map <C-B> :FzfBuffers<CR>
 map <Leader>b :FzfBuffers<CR>
 map <Leader>q :FzfWindows<CR>
 
-" EasyClip
-let g:EasyClipShareYanks=1
-let g:EasyClipUsePasteToggleDefaults=0
-let g:EasyClipUseCutDefaults=0
-let g:EasyClipEnableBlackHoleRedirect=1
-let g:EasyClipYankHistorySize=10
-nnoremap <leader>y :IPaste<cr>
-nmap ]p <plug>EasyClipSwapPasteForward
-nmap [p <plug>EasyClipSwapPasteBackwards
-vmap x <Plug>MoveMotionXPlug
-nmap xx <Plug>MoveMotionLinePlug
+" Yoink
+let g:yoinkSavePersistently=0
+let g:yoinkSyncNumberedRegisters=0
+let g:yoinkMaxItems=10
+let g:yoinkMoveCursorToEndOfPaste=1
+let g:yoinkIncludeNamedRegisters=0
+let g:yoinkSyncSystemClipboardOnFocus=0
+nnoremap <leader>y :Yanks<cr>
+nmap ]p <plug>YoinkRotateBack
+nmap [p <plug>YoinkRotateForward
 
 " Vim-Schlepp settings
 let g:Schlepp#allowSquishingLines = 1
@@ -412,9 +410,6 @@ let g:ale_open_list = 0
 
 " HighlightedYank
 map y <Plug>(highlightedyank)
-
-" vim-jsx
-let g:jsx_ext_required = 0 " Activate Jsx support also for js files
 
 " vim-smartpairs
 let g:smartpairs_start_from_word = 1

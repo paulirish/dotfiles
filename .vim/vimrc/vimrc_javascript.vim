@@ -22,3 +22,5 @@ let g:ale_fixers = { 'javascript': [ 'eslint' ] }
 " Open file at a position where it was last left.
 au BufWinLeave *.js* mkview
 au BufWinEnter *.js* silent loadview
+
+let g:jsx_ext_required = 0 " Activate Jsx support also for js files
