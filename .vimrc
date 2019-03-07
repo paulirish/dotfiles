@@ -422,6 +422,17 @@ let g:smartpairs_start_from_word = 1
 " vim-which-key
 nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
 
+" vim-wordmotion - Just map w and b
+let g:wordmotion_mappings = {
+\ 'w' : '<M-w>',
+\ 'b' : '<M-b>',
+\ 'e' : '',
+\ 'ge' : '',
+\ 'aw' : '',
+\ 'iw' : '',
+\ '<C-R><C-W>' : ''
+\ }
+
 " ************** End plugin settings ************
 
 " define color scheme
