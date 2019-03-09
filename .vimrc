@@ -29,6 +29,7 @@ Plugin 'pangloss/vim-javascript'              " Vastly improved Javascript inden
 Plugin 'mxw/vim-jsx'                          " React JSX syntax highlighting and indenting for vim
 Plugin 'airblade/vim-gitgutter'               " shows a git diff in the gutter
 Plugin 'ap/vim-css-color'                     " Preview colours in source code while editing
+Plugin 'bkad/CamelCaseMotion'               " Change WordMotion to support camelCase written words
 Plugin 'hail2u/vim-css3-syntax'               " CSS3 syntax
 Plugin 'easymotion/vim-easymotion'            " Vim motions on speed
 Plugin 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
@@ -42,6 +43,7 @@ Plugin 'junegunn/fzf.vim'                     " Use fzf in VIM
 Plugin 'kopischke/vim-fetch'                  " Make Vim handle line and column numbers in file names
 Plugin 'liuchengxu/vim-which-key'             " Show the current leader mappings
 Plugin 'vim-airline/vim-airline'              " statusline plugin for vim
+Plugin 'vim-airline/vim-airline-themes'       " Themes for vim-airline
 Plugin 'MarcWeber/vim-addon-mw-utils'         " interpret a file by function and cache file automatically (required by ...)
 Plugin 'mattn/emmet-vim'                      " Provides support for Emmet in vim
 Plugin 'machakann/vim-highlightedyank'        " Make the yanked region visible
@@ -51,7 +53,7 @@ Plugin 'scrooloose/nerdtree'                  " A tree explorer plugin for vim
 Plugin 'Xuyuanp/nerdtree-git-plugin'          " A plugin of NERDTree showing git status
 Plugin 'scrooloose/nerdcommenter'             " plugin for intensely commenting
 Plugin 'sgur/vim-editorconfig'                " Yet another EditorConfig plugin for vim
-Plugin 'svermeulen/vim-yoink'                 " plugin that maintains a yank history to cycle between when pasting
+Plugin 'svermeulen/vim-easyclip'              " Simplified clipboard functionality for Vim
 Plugin 'szw/vim-maximizer'                    " Maximizes and restores the current window in Vim.
 Plugin 'terryma/vim-multiple-cursors'         " This True Sublime Text style multiple selections for Vim
 Plugin 'tomtom/tlib_vim'                      " Some utility functions for VIM - Required from ???
@@ -64,7 +66,6 @@ Plugin 'zxqfl/tabnine-vim'                    " TabCompletion Plugin (Replacemen
 Plugin 'w0rp/ale'                             " Asynchronous Lint Enginge
 Plugin 'zirrostig/vim-schlepp'                " Moving blocks of text easily
 Plugin 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
-Plugin 'bkad/CamelCaseMotion'               " Change WordMotion to support camelCase written words
 
 call vundle#end()
 
@@ -322,11 +323,8 @@ nnoremap ds<space> F<space>xf<space>x
 
 " ************** Begin plugin settings ************
 
-" Powerline settings
-set laststatus=2
-set guifont=Inconsolata\ for\ Powerline:h14
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-let g:Powerline_colorscheme = 'solarized256'
+" Vim-Airline settings
+let g:airline#extensions#ale#enabled = 1
 
 " Emmet settings
 let g:user_emmet_mode='in'
@@ -367,16 +365,17 @@ map <C-B> :FzfBuffers<CR>
 map <Leader>b :FzfBuffers<CR>
 map <Leader>q :FzfWindows<CR>
 
-" Yoink
-let g:yoinkSavePersistently=0
-let g:yoinkSyncNumberedRegisters=0
-let g:yoinkMaxItems=10
-let g:yoinkMoveCursorToEndOfPaste=1
-let g:yoinkIncludeNamedRegisters=0
-let g:yoinkSyncSystemClipboardOnFocus=0
-nnoremap <leader>y :Yanks<cr>
-nmap ]p <plug>YoinkRotateBack
-nmap [p <plug>YoinkRotateForward
+" EasyClip
+let g:EasyClipShareYanks=1
+let g:EasyClipUsePasteToggleDefaults=0
+let g:EasyClipUseCutDefaults=0
+let g:EasyClipEnableBlackHoleRedirect=1
+let g:EasyClipYankHistorySize=15
+nnoremap <leader>y :IPaste<cr>
+nmap ]p <plug>EasyClipSwapPasteForward
+nmap [p <plug>EasyClipSwapPasteBackwards
+vmap x <Plug>MoveMotionXPlug
+nmap xx <Plug>MoveMotionLinePlug
 
 " Vim-Schlepp settings
 let g:Schlepp#allowSquishingLines = 1
