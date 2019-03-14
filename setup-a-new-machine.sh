@@ -216,12 +216,27 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 
 # default is (257*1024)
 sudo sysctl kern.maxvnodes=$((512*1024))
-
 echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
+
+# https://facebook.github.io/watchman/docs/install.html#mac-os-file-descriptor-limits
+sudo sysctl -w kern.maxfiles=$((10*1024*1024))
+sudo sysctl -w kern.maxfilesperproc=$((1024*1024))
+echo kern.maxfiles=$((10*1024*1024)) | sudo tee -a /etc/sysctl.conf
+echo kern.maxfilesperproc=$((1024*1024)) | sudo tee -a /etc/sysctl.conf
+
 
 # speed up git status (to run only in chromium repo)
 git config status.showuntrackedfiles no
 git update-index --untracked-cache
+
+
+# !! EHHH. to be honest i tried this and it seems to be slow me down. 
+# use watchman with git 2.17 for src changes
+# https://blog.github.com/2018-04-05-git-217-released/#speeding-up-status-with-watchman
+#    brew install watchman
+#    cd ~/chromium/src
+#    curl -o .git/hooks/query-watchman https://raw.githubusercontent.com/git/git/master/templates/hooks--fsmonitor-watchman.sample
+#    git config core.fsmonitor .git/hooks/query-watchman
 
 # also this unrelated thing
 git config user.email "paulirish@chromium.org"
