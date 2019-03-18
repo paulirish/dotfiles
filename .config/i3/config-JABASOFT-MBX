@@ -13,12 +13,12 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# font pango:monospace 10
-font pango:Input 15
+# font pango:monospace 15
+# font pango:Input 15
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-# font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 15
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -274,6 +274,8 @@ exec_always xmodmap ~/.Xmodmap # We don't need the Caps key, so use it as second
 # Touchpad
 exec_always --no-startup-id /usr/bin/xinput set-prop 10 285 1 # Tapping Enabled (285) for Device Touchpad (10)
 exec_always --no-startup-id /usr/bin/libinput-gestures-setup start
+# Configure our touchpad so that we only need to tap instead of click it
+# exec_always --no-startup-id xinput set-prop 10 278 1
 
 # Configure my wallpaper
 exec_always --no-startup-id feh --bg-scale ~/.wallpaper.jpg
@@ -306,9 +308,6 @@ for_window [instance="gitg"] floating enable resize set 1600 1200
 for_window [instance="pavucontrol"] floating enable resize set 800 600
 for_window [class="Pamac-manager"] floating enable resize set 1280x1024
 for_window [instance="meld"] floating enable resize set 1280x1024
-
-# Configure our touchpad so that we only need to tap instead of click it
-exec_always --no-startup-id xinput set-prop 10 278 1
 
 # i3-gaps
 for_window [class="^.*"] border pixel 1
