@@ -13,11 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Input 18
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-# font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 18
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -103,8 +99,8 @@ set $ws1 "1: DEV"
 set $ws2 "2: WEB"
 set $ws3 "3: MISC"
 set $ws4 "4: REMOTE"
-set $ws5 "5: MONGODB"
-set $ws6 "6"
+set $ws5 "5"
+set $ws6 "6: MONGODB"
 set $ws7 "7"
 set $ws8 "8: MEDIA"
 
