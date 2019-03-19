@@ -29,7 +29,6 @@ Plugin 'pangloss/vim-javascript'              " Vastly improved Javascript inden
 Plugin 'mxw/vim-jsx'                          " React JSX syntax highlighting and indenting for vim
 Plugin 'airblade/vim-gitgutter'               " shows a git diff in the gutter
 Plugin 'ap/vim-css-color'                     " Preview colours in source code while editing
-Plugin 'bkad/CamelCaseMotion'               " Change WordMotion to support camelCase written words
 Plugin 'hail2u/vim-css3-syntax'               " CSS3 syntax
 Plugin 'easymotion/vim-easymotion'            " Vim motions on speed
 Plugin 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
@@ -415,14 +414,6 @@ let g:smartpairs_start_from_word = 1
 
 " vim-which-key
 nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
-
-" vim-CamelCaseMotion - Just map w and b
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
 
 " ************** End plugin settings ************
 
