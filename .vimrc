@@ -12,19 +12,19 @@ Plugin 'scrooloose/nerdcommenter.git'
 Plugin 'tpope/vim-unimpaired.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'sotte/presenting.vim'
-Plugin 'suan/vim-instant-markdown'
+" Plugin 'sotte/presenting.vim'
+" Plugin 'suan/vim-instant-markdown'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'vim-scripts/loremipsum'
-Plugin 'Shougo/vimproc.vim'
+" Plugin 'Shougo/vimproc.vim'
 Plugin 'godlygeek/tabular.git'
 Plugin 'danro/rename.vim'
 Plugin 'noahfrederick/vim-hemisu'
-Plugin 'pangloss/vim-javascript'
-Plugin 'maxmellon/vim-jsx-pretty'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'vim-scripts/vim-coffee-script'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'maxmellon/vim-jsx-pretty'
+" Plugin 'leafgarland/typescript-vim'
+" Plugin 'vim-scripts/vim-coffee-script'
 
 call vundle#end()
 filetype plugin indent on
@@ -268,7 +268,7 @@ set relativenumber " Use relative line numbers. Current line is still in status 
 au BufReadPost,BufNewFile * set relativenumber
 
 " Emulate bundles, allow plugins to live independantly. Easier to manage.
-call pathogen#runtime_append_all_bundles()
+" call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
 " JSON
