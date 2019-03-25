@@ -28,8 +28,9 @@ export PATH="/usr/local/sbin:$PATH"
 # nvm
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
+# nvm use
 
-nvm use > /dev/null 2>&1
+# nvm use > /dev/null 2>&1
 # rbenv
 export RBENV_ROOT=/usr/local/var/rbenv
 eval "$(rbenv init -)"
