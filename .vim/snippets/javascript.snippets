@@ -105,7 +105,11 @@ snippet ee
 snippet etbd
 	expect(${1}).${2}toBeDefined();${3}
 snippet etbc
-	expect(${1}).${2}toHaveBeenCalled();${3}
+	expect(${1}).toHaveBeenCalled();${2}
+snippet entbc
+	expect(${1}).not.toHaveBeenCalled();${2}
+snippet etbcw
+	expect(${1}).toHaveBeenCalledWith(${2});${3}
 snippet ctor
 	constructor(${1}) {${2}
 	}
