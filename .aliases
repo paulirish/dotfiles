@@ -154,3 +154,7 @@ alias rails_restart="touch tmp/restart.txt"
 
 # insta markdown
 alias install_markdown="npm -g install instant-markdown-d"
+
+alias be="bundle exec"
+alias rv="ruby -v"
+

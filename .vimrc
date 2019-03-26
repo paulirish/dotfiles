@@ -21,6 +21,7 @@ Plugin 'vim-scripts/loremipsum'
 Plugin 'godlygeek/tabular.git'
 Plugin 'danro/rename.vim'
 Plugin 'noahfrederick/vim-hemisu'
+Plugin 'ngmy/vim-rubocop'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'maxmellon/vim-jsx-pretty'
 " Plugin 'leafgarland/typescript-vim'
@@ -436,4 +437,6 @@ map <leader>jes :w<CR> :!./node_modules/.bin/jest %<CR>
 map <leader>w :w<CR>
 
 map <leader>ts :!clear; ./node_modules/.bin/tsc %<CR>
+
+map <leader>cop :RuboCop<CR>
 
