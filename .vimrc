@@ -25,7 +25,7 @@ Plugin 'ngmy/vim-rubocop'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'maxmellon/vim-jsx-pretty'
 " Plugin 'leafgarland/typescript-vim'
-" Plugin 'vim-scripts/vim-coffee-script'
+Plugin 'vim-scripts/vim-coffee-script'
 
 call vundle#end()
 filetype plugin indent on
@@ -439,4 +439,5 @@ map <leader>w :w<CR>
 map <leader>ts :!clear; ./node_modules/.bin/tsc %<CR>
 
 map <leader>cop :RuboCop<CR>
+map <leader>rt :!bundle exec rails test<CR>
 
