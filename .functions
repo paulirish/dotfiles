@@ -75,31 +75,6 @@ function extract() {
   fi
 }
 
-# animated gifs from any video
-# from alex sexton   gist.github.com/SlexAxton/4989674
-gifify() {
-  if [[ -n "$1" ]]; then
-    if [[ $2 == '--good' ]]; then
-      ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png
-      time convert -verbose +dither -layers Optimize -resize 600x600\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif
-      rm out-static*.png
-    else
-      ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
-    fi
-  else
-    echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
-  fi
-}
-
-# call the node js project to pull automatically the latest version for all defined git repositories
-function gs() {
-  pushd /Users/jan/Projects/NodeProjects/gitsync
-
-  ./gs.sh
-
-  popd
-}
-
 function findin() {
   find $1 -exec grep -i --color $2 {} \; -print
 }
@@ -124,10 +99,6 @@ function install-global-npms() {
   npm install -g live-server yo typescript jsctags prettier npm-which google-translate-cli now-cli
 }
 
-function clip() {
-  cat $1 | pbcopy
-}
-
 function combine_mp3() {
   cat *.mp3 > ../all.mp3
   avconv -i ../all.mp3 -acodec copy $1.mp3
@@ -145,7 +116,7 @@ function free() {
 }
 
 function topByCpu() {
-  top -o cpu
+  top -o %CPU
 }
 
 function dirSize() {
@@ -188,14 +159,13 @@ function gco() {
   git checkout $(git branch --color=never | sort | fzf )
 }
 
-function gfft() {
-  branch=$(git-remote-features | fzf ) || return
-  git fft $branch
-}
-
-function gffp() {
-  branch=$(git-local-features | fzf ) || return
-  git ffp $branch
+function gcor() {
+  local REMOTE_BRANCHES=$(git b -r --color=never | grep -vE "$(git b --color=never | sed ':a;N;$!ba;s/\n/|/g' | sed 's/ //g')" | sed 's/origin\///g')
+  if [ -z $REMOTE_BRANCHES ]; then
+    echo "There are no remote branches or you have all remote branches checked out locally.."
+  else
+    git checkout $(echo $REMOTE_BRANCHES | sort | fzf)
+  fi
 }
 
 function vimf() {
@@ -268,24 +238,6 @@ function docker-rm-all-stopped() {
   docker rm $(docker ps -a | grep Exited | grep -v busybox | awk "{print \$1}")
 }
 
-function docker-clean() {
-  pushd
-  # remove untagged images
-  docker rmi $(docker images | grep none | awk '{ print $3}')
-  # remove unused volumes
-  docker volume rm $(docker volume ls -q )
-  # `shotgun` remove unused networks
-  docker network rm $(docker network ls | grep "_default")
-  # remove stopped + exited containers, I skip Exit 0 as I have old scripts using data containers.
-  docker rm -v $(docker ps -a | grep "Exit [1-255]" | awk '{ print $1 }')
-  # shrink the docker volume file
-  cd ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
-  /Applications/Docker.app/Contents/MacOS/qemu-img convert -O qcow2 Docker.qcow2 Docker2.qcow2
-  mv -f Docker2.qcow2 Docker.qcow2
-
-  popd
-}
-
 function mocha-run() {
   searchPattern=${1:-./**/*.spec.js}
   mocha '${searchPattern}' --recursive --reporter spec
@@ -331,19 +283,6 @@ function man() {
         LESS_TERMCAP_ue=$(printf "\e[0m") \
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
-}
-
-function make-slides() {
-  if [ -z "$1" ]; then
-    echo "The name of the Markdown file has to be passed!"
-  else
-    local INPUT_FILE=$1
-      local OUTPUT_FILE=$(echo $1 | sed 's/\.md/.pdf/')
-
-      docker run --rm -v `pwd`:/tmp janbaer/texlive-pandoc  \
-      -f markdown -t beamer ${@:2}                          \
-      ${INPUT_FILE} -o ${OUTPUT_FILE} 
-  fi
 }
 
 function who-is-using-port() {
