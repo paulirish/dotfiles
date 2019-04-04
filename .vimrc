@@ -65,7 +65,7 @@ set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
-set esckeys " Allow cursor keys in insert mode.
+" set esckeys " Allow cursor keys in insert mode.
 set expandtab " Expand tabs to spaces
 
 " folding
@@ -122,7 +122,7 @@ set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
 set title " Show the filename in the window titlebar.
 set ttyfast " Send more characters at a given time.
-set ttymouse=xterm " Set mouse type to xterm.
+" set ttymouse=xterm " Set mouse type to xterm.
 set undofile " Persistent Undo.
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion).
