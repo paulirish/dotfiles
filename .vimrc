@@ -392,10 +392,11 @@ au FileType rst let b:presenting_slide_separator = '\v(^|\n)\~{4,}'
 nnoremap <leader>cat :tabonly<CR>
 
 " templates
-nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
-nnoremap <leader>bash :-1read $HOME/.vim/.skeleton.bash<CR>
-nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
-nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
+nnoremap <leader>react :-1read $HOME/.vim/.skeleton.component<CR>
+" nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
+" nnoremap <leader>bash :-1read $HOME/.vim/.skeleton.bash<CR>
+" nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
+" nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
 
 " rspec
 map <leader>s :w<CR> :!clear && rspec %<CR>
