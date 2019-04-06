@@ -18,7 +18,6 @@ reload_dunst() {
             -bf "$color15" \
             -cf "$color15" \
             -nf "$color15" \
-            -fn "${DUNST_FONT:-Artwiz Lemon 7}" \
             -geometry "${DUNST_SIZES:-300x30-40+70}" &
 }
 
