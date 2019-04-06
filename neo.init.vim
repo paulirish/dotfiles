@@ -1,24 +1,24 @@
 call plug#begin()
-Plug 'mileszs/ack.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'carlitux/deoplete-ternjs'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete.nvim'
 Plug 'tpope/Vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'danro/rename.vim'
-Plug 'noahfrederick/vim-hemisu'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'Shougo/deoplete.nvim'
 call plug#end()
 
 
 " disable ex-mode
 nnoremap Q <Nop>
-
+set showcmd
 " disable help
 nmap <F1> <nop>
 
@@ -155,19 +155,15 @@ set relativenumber " Use relative line numbers. Current line is still in status 
 au BufReadPost,BufNewFile * set relativenumber
 
 " NERDTree
-map <F2> :NERDTreeToggle<CR>
+" map <F2> :NERDTreeToggle<CR>
 "set autochdir
-let NERDTreeChDirMode=2
-nnoremap <leader>n :NERDTreeToggle .<CR>
+" let NERDTreeChDirMode=2
+" nnoremap <leader>n :NERDTreeToggle .<CR>
 
 " tabs
 noremap <F3> :tabp<CR>
 noremap <F4> :tabn<CR>
 noremap <F5> :tabnew<CR>
-
-" ack
-" nnoremap <C-S-F> :Ack<space>
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:Ack<CR>
 
 " NerdCommneter
 filetype plugin on
@@ -247,4 +243,26 @@ nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
 nnoremap <Leader>et :!es-ctags -R .<CR>
 
 map <leader>w :w<CR>
+
+" Denite
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
+let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+let g:tern_request_timeout = 1
+let g:tern_request_timeout = 6000
+let g:tern#command = ['tern']
+let g:tern#arguments = [' — persistent']
+map <leader>f :Denite file<CR>
+map <leader>b :Denite buffer<CR>
+map <leader>s :Denite grep<CR>
+call denite#custom#var('file/rec', 'command', ['rg', '--files', '--vimgrep'])
+
+" te
+map <leader>te :vsp<CR>:te 
+map <leader>start :tabnew<CR>:te npm start<CR>
 
