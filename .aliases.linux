@@ -19,6 +19,3 @@ alias pacman-upgrade-all="sudo pacman -Syu"
 alias pacman-install="sudo pacman -S --noconfirm $1"
 alias pacman-search="pacman -Ss $1"
 alias pacman-remove="sudo pacman -Rsn --noconfirm $1"
-
-# start gopass within a docker container (build before with docker build -t gopass github.com/gopasspw/gopass#master)
-alias gopass="docker run --rm -ti -v $HOME:/root gopass"
