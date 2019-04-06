@@ -338,6 +338,7 @@ let g:vim_markdown_initial_foldlevel=1
 noremap <Leader>t :NERDTreeToggle<CR>
 inoremap <Leader>t :NERDTreeToggle<CR>
 vnoremap <Leader>t :NERDTreeToggle<CR>
+noremap <Leader>tl :NERDTreeFind<CR><C-w_w>
 noremap <C-S-l> :NERDTreeFind<CR><C-w_w>
 let NERDTreeShowHidden=1
 let NERDTreeRespectWildIgnore=1
