@@ -35,6 +35,7 @@ main() {
     # pgrep i3 && i3-msg reload &
     killall lemonbar && bar&
     # set_scss &
+    xrdb -merge ~/.Xresources
 }
 
 main >/dev/null 2>&1
