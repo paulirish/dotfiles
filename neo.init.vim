@@ -13,6 +13,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'danro/rename.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'tomasr/molokai'
 call plug#end()
 
 
