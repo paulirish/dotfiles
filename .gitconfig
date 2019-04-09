@@ -59,7 +59,7 @@
   insteadOf = "git://github.com/richistron/"
 [user]
 	name = Ricardo Rivas
-	email = ricardor@bluetrailsoft.com
+	email = richistron@gmail.com
 [push]
 	default = current
 [pull]
