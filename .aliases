@@ -95,6 +95,7 @@ alias yi="yarn install --pure-lockfile"
 alias ys="yarn start"
 alias yt="yarn test"
 alias ytw="yarn test:watch"
+alias yui="yarn upgrade-interactive --latest"
 
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
