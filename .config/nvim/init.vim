@@ -236,7 +236,6 @@ map <Leader>vim :so $MYVIMRC<CR>
 " lint
 map <Leader>l :!./node_modules/.bin/eslint % <CR>
 
-
 " ctags
 nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
 " es-ctags (for javascript projects)
@@ -266,4 +265,8 @@ call denite#custom#var('file/rec', 'command', ['rg', '--files', '--vimgrep'])
 " te
 map <leader>te :vsp<CR>:te 
 map <leader>start :tabnew<CR>:te npm start<CR>
+
+" synx devbox
+map <leader>sync :!rsync --exclude=.git ~/lab/axiscare devbox:/home/dev14/codebase
+
 
