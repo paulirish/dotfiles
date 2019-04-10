@@ -14,6 +14,8 @@ Plug 'danro/rename.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tomasr/molokai'
+Plug 'mileszs/ack.vim'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 
 
@@ -156,7 +158,7 @@ set relativenumber " Use relative line numbers. Current line is still in status 
 au BufReadPost,BufNewFile * set relativenumber
 
 " NERDTree
-" map <F2> :NERDTreeToggle<CR>
+ map <F2> :NERDTreeToggle<CR>
 "set autochdir
 " let NERDTreeChDirMode=2
 " nnoremap <leader>n :NERDTreeToggle .<CR>
@@ -233,9 +235,6 @@ map <Leader>no :set nospell<CR>
 " vimrc
 map <Leader>vim :so $MYVIMRC<CR>
 
-" lint
-map <Leader>l :!./node_modules/.bin/eslint % <CR>
-
 " ctags
 nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
 " es-ctags (for javascript projects)
@@ -266,7 +265,14 @@ call denite#custom#var('file/rec', 'command', ['rg', '--files', '--vimgrep'])
 map <leader>te :vsp<CR>:te 
 map <leader>start :tabnew<CR>:te npm start<CR>
 
-" synx devbox
-map <leader>sync :!rsync --exclude=.git ~/lab/axiscare devbox:/home/dev14/codebase
+" sync devbox
+map <leader>sy :te rsync -av --exclude-from=.rsyncignore ssh ./ devbox:/home/dev14/codebase/<CR>
+
+" lint
+map <Leader>l :!./node_modules/.bin/eslint % <CR>
+
+" prettier
+map <Leader>ll :!prettier % <CR>
+
 
 
