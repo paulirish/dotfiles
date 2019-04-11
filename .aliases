@@ -158,4 +158,5 @@ alias install_markdown="npm -g install instant-markdown-d"
 alias be="bundle exec"
 alias bs="bundle show"
 alias b="bundle"
+alias ctags="`brew --prefix`/bin/ctags"
 

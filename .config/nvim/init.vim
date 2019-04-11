@@ -236,6 +236,7 @@ map <Leader>no :set nospell<CR>
 map <Leader>vim :so $MYVIMRC<CR>
 
 " ctags
+set tags=tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
 nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
 " es-ctags (for javascript projects)
 " https://www.npmjs.com/package/es-ctags
@@ -273,6 +274,8 @@ map <Leader>l :!./node_modules/.bin/eslint % <CR>
 
 " prettier
 map <Leader>ll :!prettier % <CR>
+
+
 
 
 
