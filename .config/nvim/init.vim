@@ -260,6 +260,7 @@ let g:tern#arguments = [' — persistent']
 map <leader>f :Denite file<CR>
 map <leader>b :Denite buffer<CR>
 map <leader>s :Denite grep<CR>
+map <leader>t :Denite tag<CR>
 call denite#custom#var('file/rec', 'command', ['rg', '--files', '--vimgrep'])
 
 " te
