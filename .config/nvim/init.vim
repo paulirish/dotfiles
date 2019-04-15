@@ -257,11 +257,15 @@ let g:tern_request_timeout = 1
 let g:tern_request_timeout = 6000
 let g:tern#command = ['tern']
 let g:tern#arguments = [' — persistent']
-map <leader>f :Denite file<CR>
+map <leader>f :Denite file/rec<CR>
 map <leader>b :Denite buffer<CR>
 map <leader>s :Denite grep<CR>
 map <leader>t :Denite tag<CR>
-call denite#custom#var('file/rec', 'command', ['rg', '--files', '--vimgrep'])
+map <C-P> :DeniteProjectDir -buffer-name=git -direction=top file_rec/git<CR>
+map <C-O> :DeniteProjectDir -buffer-name=files -direction=top file_rec<CR>
+call denite#custom#var('file_rec', 'command',['ag', '--follow', '--nocolor', '--nogroup', '-u', '-g', ''])
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
 " te
 map <leader>te :vsp<CR>:te 
