@@ -237,7 +237,7 @@ map <Leader>vim :so $MYVIMRC<CR>
 
 " ctags
 set tags=tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
-nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules .<CR>
+nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules --languages=php --languages=ruby --languages=javascript .<CR>
 " es-ctags (for javascript projects)
 " https://www.npmjs.com/package/es-ctags
 nnoremap <Leader>et :!es-ctags -R .<CR>
