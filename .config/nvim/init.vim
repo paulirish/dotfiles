@@ -205,8 +205,8 @@ map <leader>gb :Gbrowse<CR>
 map <leader>gc :Gcommit<CR>
 map <leader>gd :Gdiff<CR>
 map <leader>ge :Gedit<CR>
-map <leader>gl :Glog -10<CR>
-map <leader>gla :Glog -10 --<CR>
+map <leader>gl :0Glog -10<CR>
+map <leader>gla :0Glog -10 --<CR>
 map <leader>gr :Gread<CR>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :Gwrite<CR>
