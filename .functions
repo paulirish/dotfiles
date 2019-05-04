@@ -323,3 +323,13 @@ function install-go() {
 
   echo "$(go version) is now running on you machine"
 }
+
+function rename-files() {
+  local PREFIX=$1
+  if [ -z "$PREFIX" ]; then
+    echo "You have to provide a prefix for the new filename"
+    return
+  fi
+
+  \ls -t -r | cat -n | while read n f; do mv "${f}" "${PREFIX}-$(printf "%02d" $n).png"; done
+}
