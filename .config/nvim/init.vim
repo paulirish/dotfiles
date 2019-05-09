@@ -128,7 +128,7 @@ let g:Powerline_symbols = 'fancy'
 
 nnoremap <C-p> :bprev<CR>
 nnoremap <C-n> :bnext<CR>
-nnoremap <Leader>ls :ls<CR>
+nnoremap <leader>ls :ls<CR>
 
 " Close Quickfix window (,qq)
 map <leader>qq :cclose<CR>
@@ -238,11 +238,8 @@ map <Leader>vim :so $MYVIMRC<CR>
 " ctags
 set tags=tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
 nnoremap <Leader>tag :!ctags -R --exclude=.git --exclude=node_modules --languages=php --languages=ruby --languages=javascript .<CR>
-" es-ctags (for javascript projects)
-" https://www.npmjs.com/package/es-ctags
-nnoremap <Leader>et :!es-ctags -R .<CR>
-
 map <leader>w :w<CR>
+map <leader>q :q<CR>
 
 " Denite
 let g:deoplete#enable_at_startup = 1
@@ -261,8 +258,6 @@ map <leader>f :Denite file/rec<CR>
 map <leader>b :Denite buffer<CR>
 map <leader>s :Denite grep<CR>
 map <leader>t :Denite tag<CR>
-map <C-P> :DeniteProjectDir -buffer-name=git -direction=top file_rec/git<CR>
-map <C-O> :DeniteProjectDir -buffer-name=files -direction=top file_rec<CR>
 call denite#custom#var('file_rec', 'command',['ag', '--follow', '--nocolor', '--nogroup', '-u', '-g', ''])
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -272,10 +267,11 @@ map <leader>te :vsp<CR>:te
 map <leader>start :tabnew<CR>:te npm start<CR>
 
 " sync devbox
-map <leader>sy :te rsync -av --exclude-from=.rsyncignore ssh ./ devbox:/home/dev14/codebase/<CR>
+map <leader>sy :te rsync -ave ssh ~/lab/axiscare/ devbox:/home/dev14/codebase/ --exclude=.git --exclude=master_src/node_modules --exclude=.idea --exclude=master_src/ac-pages/media --exclude=libraries --exclude=master_src/ac-modules/mobileapp --exclude=master_src/ac-modules/mobileapp --exclude=.DS_Store<CR> 
+map <leader>ssh :te ssh-add -K ~/.ssh/dev14-openssh.key<CR>
 
 " lint
-map <Leader>l :!./node_modules/.bin/eslint % <CR>
+map <Leader>l :!npx eslint % <CR>
 
 " prettier
 map <Leader>ll :!prettier % <CR>
