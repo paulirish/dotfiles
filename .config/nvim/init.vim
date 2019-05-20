@@ -258,17 +258,11 @@ map <leader>f :Denite file/rec<CR>
 map <leader>b :Denite buffer<CR>
 map <leader>s :Denite grep<CR>
 map <leader>t :Denite tag<CR>
-call denite#custom#var('file_rec', 'command',['ag', '--follow', '--nocolor', '--nogroup', '-u', '-g', ''])
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'command', ['ack'])
 
 " te
 map <leader>te :vsp<CR>:te 
 map <leader>start :tabnew<CR>:te npm start<CR>
-
-" sync devbox
-map <leader>sy :te rsync -ave ssh ~/lab/axiscare/ devbox:/home/dev14/codebase/ --exclude=.git --exclude=master_src/node_modules --exclude=.idea --exclude=master_src/ac-pages/media --exclude=libraries --exclude=master_src/ac-modules/mobileapp --exclude=master_src/ac-modules/mobileapp --exclude=.DS_Store<CR> 
-map <leader>ssh :te ssh-add -K ~/.ssh/dev14-openssh.key<CR>
 
 " lint
 map <Leader>l :!npx eslint % <CR>
