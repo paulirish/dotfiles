@@ -116,3 +116,8 @@ if [ $(uname) = "Linux" ]; then
   eval `keychain --agents ssh --eval id_rsa`
 fi
 
+xrdb -load ~/.Xresources
+
+# Deactivate Caps_Lock and use Escape instead of that. It's especially in VIM very helpful
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+
