@@ -30,7 +30,6 @@ font pango:DejaVu Sans Mono 15
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
 bindsym $mod+Return exec /usr/bin/kitty
 bindsym $mod+Ctrl+Return exec gnome-terminal --hide-menubar --zoom=1.5 --profile=Presentation
 bindsym $mod+Shift+Return exec nautilus
@@ -98,6 +97,9 @@ bindsym $mod+a focus parent
 # Hotkeys for the scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad scratchpad show
+
+# Other hotkeys
+bindsym $mod+F3 exec ~/bin/displayselect
 
 # workspaces
 set $ws1 "1: DEV"
