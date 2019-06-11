@@ -286,7 +286,7 @@ exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/pamac-tray
-exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
+exec --no-startup-id /usr/bin/xcompmgr
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Windows styles for apps
