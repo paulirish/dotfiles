@@ -18,7 +18,7 @@ export EEREPO="~/src/citrusleaf/aerospike-server-enterprise"
 export CPATH="/usr/include/lua5.2/"
 export GOPATH="/home/joem/src/GO"
 export GOBIN="${GOPATH}/bin"
-export PATH="${GOBIN}:${PATH}:~/bin:~/bin/cirya-3.0-SNAPSHOT/bin"
+export PATH="${GOBIN}:${PATH}:~/bin:~/bin/cirya-3.0-SNAPSHOT/bin:/home/joem/.yarn/bin"
 
 source $(dirname $(type  -p cirya | sed -e 's/cirya is //g'))/cirya_completion                                 
 

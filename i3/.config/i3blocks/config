@@ -25,6 +25,12 @@ align=center
 # Global properties
 separator_block_width=15
 
+[nmvpn]
+label=VPN:
+interval=5
+command=/home/joem/src/external/i3blocks-contrib/nm-vpn/nm-vpn
+
+
 [MPD]
 label=♪
 command=$HOME/.config/i3/music_name.sh
@@ -126,7 +132,7 @@ color=#ffffff
 [battery]
 #label=BAT
 command=/home/joem/src/external/i3blocks-contrib/battery2/battery2
-interval=30
+interval=10
 align=center
 markup=pango
 
