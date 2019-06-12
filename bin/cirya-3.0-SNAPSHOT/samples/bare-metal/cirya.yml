@@ -1,0 +1,59 @@
+infrastructure:
+  pools:
+    server-pool:
+      provider: fixed
+      instances:
+        192.168.200.221:
+          user: cirya
+          password: cirya123
+          # You can use private key for authenticatio, however this requires either password to be provided or passwordless sudo to be setup.
+          # privateKey: /keys/secret.pem
+      instances:
+        192.168.200.224:
+          user: cirya
+          password: cirya123
+
+    client-pool:
+      provider: fixed
+        192.168.200.223:
+          user: cirya
+          password: cirya123
+        192.168.200.222:
+          user: cirya
+          password: cirya123
+
+containers:
+  groups:
+   aerospike:
+     type: raw
+     pool: server-pool
+
+   client:
+     type: raw
+     pool: client-pool
+
+clusters:
+ aerospike:
+  # the raw machines are centos 7 - use the el7 installer.
+  archivePath: https://www.aerospike.com/download/server/4.3.0.2/artifact/el7
+  aerospikeConfTemplate: aerospike-mesh.conf.ftl
+  params:
+    hbIsMesh: true
+    hbNumMeshSeeds: 100
+
+ benchmark:
+  group: client
+  type: generic
+  archivePath: https://drive.google.com/uc?export=download&id=1M8KV3GupoPhgyUywyy06-6mZ8eczOpzE
+  installScript: file://scripts/install-benchmark.sh
+  startScript: file://scripts/start-benchmark.sh.ftl
+  stopScript: |
+    while pgrep java; do
+      pkill -SIGKILL java
+      sleep 0.5
+    done
+  isRunningScript: pgrep java
+  cleanupScript: file://scripts/cleanup-benchmark.sh.ftl
+  params:
+   logFile: /var/log/benchmark.log
+   connectToCluster: aerospike

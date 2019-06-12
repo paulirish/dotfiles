@@ -1,0 +1,18 @@
+infrastructure:
+  pools:
+    localhost:
+      provider: docker
+
+containers:
+  groups:
+    standard-cluster:
+      image: /aerospike/cirya-ubuntu-18.04
+
+clusters:
+  multicast-test:
+    archivePath: http://www.aerospike.com/download/server/latest/artifact/ubuntu18
+    aerospikeConfTemplate: aerospike-multicast.conf.ftl
+    params:
+      clusterName: multicast-test
+      multicastGroup: 239.1.1.2
+      multicastPort: 5555

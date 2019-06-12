@@ -1,0 +1,107 @@
+// vim:ts=4:sw=4:et
+{
+    // splitv split container with 2 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 890,
+               "width": 1374,
+               "x": 0,
+               "y": 0
+            },
+            "name": "~",
+            "percent": 0.5,
+            "swallows": [
+               {
+               // "class": "^X\\-terminal\\-emulator$",
+               // "instance": "^x\\-terminal\\-emulator$",
+               // "title": "^\\~$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 890,
+               "width": 1374,
+               "x": 0,
+               "y": 0
+            },
+            "name": "~",
+            "percent": 0.5,
+            "swallows": [
+               {
+               // "class": "^X\\-terminal\\-emulator$",
+               // "instance": "^x\\-terminal\\-emulator$",
+               // "title": "^\\~$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // splitv split container with 2 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 890,
+               "width": 1374,
+               "x": 0,
+               "y": 0
+            },
+            "name": "~",
+            "percent": 0.5,
+            "swallows": [
+               {
+               // "class": "^X\\-terminal\\-emulator$",
+               // "instance": "^x\\-terminal\\-emulator$",
+               // "title": "^\\~$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 890,
+               "width": 1374,
+               "x": 0,
+               "y": 0
+            },
+            "name": "~",
+            "percent": 0.5,
+            "swallows": [
+               {
+               // "class": "^X\\-terminal\\-emulator$",
+               // "instance": "^x\\-terminal\\-emulator$",
+               // "title": "^\\~$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

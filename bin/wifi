@@ -1,0 +1,9 @@
+#!/bin/sh
+
+sudo systemctl start wpa_supplicant.service
+iwlist wlp0s20f3 scan
+
+nmcli dev wifi list
+echo if you get nothing out of these commands you may need to do
+echo sudo systemctl start wpa_supplicant.service
+echo now do nmtui-connect
