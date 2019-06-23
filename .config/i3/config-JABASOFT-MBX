@@ -210,7 +210,7 @@ client.placeholder      $bg     $bg     $fg  $bg
 client.background       $bg
 
 # Cycle wallpapers and apply new colorscheme.
-bindsym $mod+shift+w exec "~/bin/wal -i ~/Dropbox/Wallpapers -o ~/bin/wal-set"
+bindsym $mod+shift+w exec "~/bin/wal -i ~/Pictures/Wallpapers -o ~/bin/wal-set"
 
 # Start i3bar to display a workspace bar
 bar {
@@ -252,7 +252,7 @@ bindsym $mod+Shift+s exec ~/.config/i3/suspend.sh
 bindsym $mod+Shift+l exec ~/.config/i3/lock.sh
 
 # Making a screenshot with using scrot
-bindsym --release $mod+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Dropbox/Screenshots'"
+bindsym --release $mod+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/Screenshots'"
 bindsym --release $mod+Shift+y exec "flameshot gui -d 1000"
 
 # Configure the volume - This keys are actually not working,q
@@ -288,14 +288,15 @@ exec_always --no-startup-id greenclip daemon
 # Set resolution and scaling. We only need to do this when we don't want to use the standard scaling
 # exec --no-startup-id xrandr --output eDP-1 --mode 2160x1440 --scale 0.7x0.7
 
-exec --no-startup-id /usr/bin/dropboxd
-exec --no-startup-id /usr/bin/clipit
+# exec --no-startup-id /usr/bin/dropboxd
+exec --no-startup-id /usr/bin/xcompmgr
 exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/pamac-tray
-exec --no-startup-id /usr/bin/compton -f # For transparent dmenu
+exec --no-startup-id /usr/bin/synology-drive
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id greenclip daemon
 
 # exec_always --no-startup-id conky  #-c ~/.config/i3/system-shortcuts
 
