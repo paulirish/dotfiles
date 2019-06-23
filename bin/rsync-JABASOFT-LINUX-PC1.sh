@@ -2,5 +2,5 @@
 
 . ~/bin/rsync-mydata.sh
 
-backup "JABASOFT-DS" "${HOST}" "$(whoami)" ".ssh .config Desktop Documents Downloads Pictures Videos Music Templates Secure"
+backup "JABASOFT-DS" "${HOSTNAME}" "$(whoami)" ".ssh Desktop Documents Downloads Pictures Videos Music Templates Secure"
 

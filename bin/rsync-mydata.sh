@@ -4,9 +4,16 @@ function backup {
   USER=$3
   DIRECTORIES=$4
 
+  if [ -z "${HOSTNAME}" ]; then
+    echo "HOSTNAME is not provided, script aborted"
+    return
+  fi
+  
+  echo "Create backup on server ${SERVER_ADDRESS} for computer ${HOSTNAME} in user-home for ${USER}"
+
   for DIRECTORY_NAME in $DIRECTORIES; do
     rsync -avuz --progress --delete \
-          --exclude="node_modules/" --exclude="DS_store" --exclude=".localized" \
+          --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" \
           -e "ssh -i ~/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT" \
           ~/$DIRECTORY_NAME $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
   done
