@@ -275,6 +275,7 @@ exec_always xmodmap ~/.Xmodmap # We don't need the Caps key, so use it as second
 
 # Touchpad
 exec_always --no-startup-id /usr/bin/xinput set-prop "ELAN2201:00 04F3:3056 Touchpad" "libinput Tapping Enabled" 1
+exec_always --no-startup-id /usr/bin/xinput set-prop "ELAN2201:00 04F3:3056 Touchpad" "libinput Disable While Typing Enabled" 1
 exec_always --no-startup-id /usr/bin/libinput-gestures-setup start
 # Configure our touchpad so that we only need to tap instead of click it
 # exec_always --no-startup-id xinput set-prop 10 278 1
