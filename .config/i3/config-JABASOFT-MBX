@@ -274,7 +274,7 @@ exec_always setxkbmap -option compose:ralt  # Configure the compose key to be ab
 exec_always xmodmap ~/.Xmodmap # We don't need the Caps key, so use it as second Escape key
 
 # Touchpad
-exec_always --no-startup-id /usr/bin/xinput set-prop 10 285 1 # Tapping Enabled (285) for Device Touchpad (10)
+exec_always --no-startup-id /usr/bin/xinput set-prop "ELAN2201:00 04F3:3056 Touchpad" "libinput Tapping Enabled" 1
 exec_always --no-startup-id /usr/bin/libinput-gestures-setup start
 # Configure our touchpad so that we only need to tap instead of click it
 # exec_always --no-startup-id xinput set-prop 10 278 1
