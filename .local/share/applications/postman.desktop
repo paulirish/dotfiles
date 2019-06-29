@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=postman
+Name=Postman
 Exec=$HOME/bin/Postman/Postman
