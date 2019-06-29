@@ -100,24 +100,17 @@ fi
 # Add support for fzf the fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
-  echo "use nix package manager"
-  source ~/.nix-profile/etc/profile.d/nix.sh
-fi
-
 # Source local zshrc with local only settings
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-if [ $(uname) = "Linux" ]; then
-  xmodmap ~/.Xmodmap
-  setxkbmap -option compose:ralt  # Configure the compose key
+xmodmap ~/.Xmodmap
+setxkbmap -option compose:ralt  # Configure the compose key
+# Deactivate Caps_Lock and use Escape instead of that. It's especially in VIM very helpful
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
-  start-ssh-agent
-  eval `keychain --agents ssh --eval id_rsa`
-fi
+start-ssh-agent
+eval `keychain --agents ssh --eval id_rsa`
 
 xrdb -load ~/.Xresources
 
-# Deactivate Caps_Lock and use Escape instead of that. It's especially in VIM very helpful
-xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 

@@ -1,5 +1,6 @@
 # Make vim the default editor
 export EDITOR="vim"
+
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
@@ -19,14 +20,6 @@ export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 export PATH=~/bin:/usr/local/Cellar/git/2.6.3/bin/:/usr/local/bin:/usr/local/OpenIDE.binaries:/Applications/mongodb-osx-x86_64-3.0.5/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# VMware Fusion
-if [ -d "/Applications/VMware Fusion.app/Contents/Library" ]; then
-  export PATH=$PATH:"/Applications/VMware Fusion.app/Contents/Library"
-fi
-
-# export JAVA_HOME=`/usr/libexec/java_home`
-export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
-
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -37,9 +30,8 @@ export POWERLINE_CONFIG_COMMAND=~/Library/Python/2.7/bin/powerline-config
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 # Define where the Go main path is
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=~/Projects/go
-export PATH=$PATH:$GOPATH/bin:~/go/bin
+export GOPATH=~/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-export CDPATH=~/:~/Projects/:~/Projects/go/src/github.com/howcani-project/:~/Projects/go/src/github.com/janbaer/
+export CDPATH=~/:~/Projects/:~/Projects/mdwiki:~/Projects/howcani:~/Projects/mymusic
 
