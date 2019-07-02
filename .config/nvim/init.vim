@@ -17,7 +17,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tomasr/molokai'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
-"Plug 'flowtype/vim-flow'
+Plug 'tybenz/vimdeck', { 'do': 'gem install vimdeck' }
 call plug#end()
 
 
@@ -130,7 +130,6 @@ let g:Powerline_symbols = 'fancy'
 
 nnoremap <C-p> :bprev<CR>
 nnoremap <C-n> :bnext<CR>
-nnoremap <leader>ls :ls<CR>
 
 " Close Quickfix window (,qq)
 map <leader>qq :cclose<CR>
@@ -281,4 +280,11 @@ map <leader>start :tabnew<CR>:te npm start<CR>
 
 " diff
 map <leader>diff :windo diffthis<CR>
+map <leader>[q :cprev<CR>
+map <leader>]q :cnext<CR>
+map <leader>ls :cc<CR>
+map <leader>q :cclose<CR>
+
+" update conf
+map <leader>vim :!cp ~/lab/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim<CR>
 
