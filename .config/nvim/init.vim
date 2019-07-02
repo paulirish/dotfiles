@@ -17,7 +17,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tomasr/molokai'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'tybenz/vimdeck', { 'do': 'gem install vimdeck' }
+Plug 'sotte/presenting.vim'
+Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' }
 call plug#end()
 
 
