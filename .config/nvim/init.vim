@@ -207,8 +207,8 @@ map <leader>gb :Gbrowse<CR>
 map <leader>gc :Gcommit<CR>
 map <leader>gd :Gdiff<CR>
 map <leader>ge :Gedit<CR>
-map <leader>gl :0Glog -10<CR>
-map <leader>gla :0Glog -10 --<CR>
+"map <leader>gl :Glog -10<CR>
+map <leader>gl :Glog -10 --<CR>
 map <leader>gr :Gread<CR>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :Gwrite<CR>
@@ -217,17 +217,11 @@ map <leader>gw :Gwrite<CR>
 nnoremap <leader>cat :tabonly<CR>
 
 " templates
-nnoremap <leader>react :-1read $HOME/.vim/.skeleton.component<CR>
+"nnoremap <leader>react :-1read $HOME/.vim/.skeleton.component<CR>
 " nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>
 " nnoremap <leader>bash :-1read $HOME/.vim/.skeleton.bash<CR>
 " nnoremap <leader>editor :-1read $HOME/.vim/.skeleton.editorconfig<CR>
 " nnoremap <leader>test :-1read $HOME/.vim/.skeleton.test.js<CR>
-
-" rspec
-map <leader>s :w<CR> :!clear && rspec %<CR>
-
-" rails
-map <leader>rm :!rake assets:clobber<CR>
 
 " spell
 map <Leader>es :set spell spelllang=es_mx<CR>
@@ -235,7 +229,7 @@ map <Leader>en :set spell spelllang=en_us<CR>
 map <Leader>no :set nospell<CR>
 
 " vimrc
-map <Leader>vim :so $MYVIMRC<CR>
+"map <Leader>vim :so $MYVIMRC<CR>
 
 " ctags
 set tags=tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags
@@ -277,7 +271,6 @@ map <leader>b :Denite buffer<CR>
 map <leader>s :Denite grep<CR>
 map <leader>t :Denite tag<CR>
 call denite#custom#var('grep', 'command', ['ack'])
-
 
 " better search
 set path+=**
