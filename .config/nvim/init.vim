@@ -1,3 +1,4 @@
+" https://github.com/junegunn/vim-plug
 call plug#begin()
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'carlitux/deoplete-ternjs'
