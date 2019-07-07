@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=clipgrab
-Exec=$HOME/bin/clipgrab
+Name=ClipGrab
+Exec=/usr/bin/ClipGrab.AppImage
