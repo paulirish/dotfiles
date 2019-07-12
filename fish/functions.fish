@@ -60,10 +60,6 @@ function shellswitch
 	chsh -s (brew --prefix)/bin/$argv
 end
 
-function code
-  env VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $argv
-end
-
 function upgradeyarn
   curl -o- -L https://yarnpkg.com/install.sh | bash
 end
