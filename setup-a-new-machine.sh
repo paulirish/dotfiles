@@ -210,9 +210,11 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 ##############################################################################################################
 
 
+## Chromium hacking
 
 # improve perf of git inside of chromium checkout
-# https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
+
+# read https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
 
 # default is (257*1024)
 sudo sysctl kern.maxvnodes=$((512*1024))
@@ -232,6 +234,9 @@ git update-index --untracked-cache
 # faster git server communication.
 # like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
 git config protocol.version 2
+
+# see also "A Chromium Compiling Setup for DevTools Hackers"
+# https://gist.github.com/paulirish/2d84a6db1b41b4020685
 
 # also this unrelated thing
 # git config user.email "xxxx@chromium.org"
