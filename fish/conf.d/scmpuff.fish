@@ -9,7 +9,7 @@ if not type -q scmpuff
     exit 1
 end
 
-functions -e git
+
 alias gs=scmpuff_status
 
 function git
@@ -40,3 +40,23 @@ function git
         eval command "$SCMPUFF_GIT_CMD" $quoted_argv
     end
 end
+
+
+
+
+# # really roundabout way to get `git stash list` to show the date
+# # unfortunately, there's no way to add settings to `git stash list` via config
+# OKAY ACTUALLY I COULDNT GET THIS TO WORK. 
+# set -x _GIT_CMD (which git)
+# functions -c git oldgit # rename scmpuff's git function so I can use below
+# function git -w git
+#     type -q $_GIT_CMD; or set -x _GIT_CMD (which git)
+
+#     if test $argv[1] = 'stash' -a $argv[2] = 'list'
+#         set extra_args "--date=relative"
+#     end
+
+#     eval oldgit $argv $extra_args
+#     return $status
+# end
+
