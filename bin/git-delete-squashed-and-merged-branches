@@ -45,11 +45,11 @@ def get_branch_heads():
 
     for line in lines:
         if not line:
-            print('omg')
             continue
         objectname,sha = line.split('\t')
         branch_name = objectname.replace('refs/heads/', '')
-        branch_to_sha.append([branch_name, sha])
+        if branch_name != 'master':
+            branch_to_sha.append([branch_name, sha])
     return branch_to_sha
 
 
