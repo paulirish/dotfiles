@@ -22,6 +22,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
+	precomposeUnicode = true
 
 [pager]
 	# insanely beautiful diffs ==> npm install -g diff-so-fancy
@@ -63,19 +64,7 @@
 	tool = opendiff
 	renameLimit = 0
 
-# rewrites of repo paths
-[url "git@github.com:"]
-	insteadOf = "https://github.com/"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-	pushInsteadOf = "https://github.com/"
 
-[url "git://github.com/"]
-	insteadOf = "github:"
-
-[url "git@gist.github.com:"]
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
 	
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
@@ -113,3 +102,4 @@
 	showPatch = true
 [log]
 	date = relative
+
