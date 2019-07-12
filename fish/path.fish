@@ -43,6 +43,10 @@ end
 # GO
 set PA $PA "/Users/paulirish/.go/bin"
 
+# `code` binary from VS Code insiders
+set PA $PA "/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin"
+
+
 # Google Cloud SDK.
 if test -f "$HOME/google-cloud-sdk/path.fish.inc"
     source "$HOME/google-cloud-sdk/path.fish.inc"
