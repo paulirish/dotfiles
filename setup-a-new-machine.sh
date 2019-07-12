@@ -229,16 +229,12 @@ echo kern.maxfilesperproc=$((1024*1024)) | sudo tee -a /etc/sysctl.conf
 git config status.showuntrackedfiles no
 git update-index --untracked-cache
 
-
-# use watchman with git 2.17 for src changes
-# https://blog.github.com/2018-04-05-git-217-released/#speeding-up-status-with-watchman
-   brew install watchman
-   cd ~/chromium/src
-   curl -o .git/hooks/query-watchman https://raw.githubusercontent.com/git/git/master/templates/hooks--fsmonitor-watchman.sample
-   git config core.fsmonitor .git/hooks/query-watchman
+# faster git server communication.
+# like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
+git config protocol.version 2
 
 # also this unrelated thing
-git config user.email "paulirish@chromium.org"
+# git config user.email "xxxx@chromium.org"
 
 
 ##############################################################################################################
