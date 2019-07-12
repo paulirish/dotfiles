@@ -1,5 +1,6 @@
 function deps --description "run gclient sync"
-    env GYP_DEFINES=disable_nacl=1 gclient sync --jobs=70
+    # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
+    env GYP_DEFINES=disable_nacl=1 gclient sync --delete_unversioned_trees --reset --jobs=70
 end
 
 function hooks --description "run gclient runhooks"
@@ -13,10 +14,12 @@ function b --description "build chromium"
     set -l cmd "ninja -C "$dir" -j900 -l 48 chrome"  # rvm'd blink_tests 
     echo "  > $cmd"
     eval $cmd
-    echo ""
-    echo "✅ Chrome build complete!  🕵️‍  Finishing blink_tests in the background..."
-    eval "ninja -C $dir -j900 -l 48 blink_tests &"
-    jobs
+    # if test $status = 0
+    #     echo ""
+    #     echo "✅ Chrome build complete!  🕵️‍  Finishing blink_tests in the background..."
+    #     eval "ninja -C $dir -j900 -l 48 blink_tests &"
+    #     jobs
+    # end
 end
 
 function cr --description "open built chromium (accepts runtime flags)"
@@ -63,20 +66,23 @@ function gom --description "run goma setup"
     set -x GOMA_OAUTH2_CONFIG_FILE /Users/paulirish/.goma_oauth2_config
     set -x GOMA_ENABLE_REMOTE_LINK yes
 
-    if not test (curl -X POST --silent http://127.0.0.1:8088/api/accountz)
-        echo "Goma isn't running. Starting it."
-        ~/goma/goma_ctl.py ensure_start
-        return 0
-    end
+    ~/goma/goma_ctl.py ensure_start
+    # maybe i dont need all this shit
+    
+    # if not test (curl -X POST --silent http://127.0.0.1:8088/api/accountz)
+    #     echo "Goma isn't running. Starting it."
+    #     ~/goma/goma_ctl.py ensure_start
+    #     return 0
+    # end
 
-    set -l local_goma_version (curl -X POST --silent http://127.0.0.1:8088/api/taskz | jq '.goma_version[0]')
-    set -l remote_goma_version (~/goma/goma_ctl.py latest_version | ack 'VERSION=(\d+)' | ack -o '\d+')
+    # set -l local_goma_version (curl -X POST --silent http://127.0.0.1:8088/api/taskz | jq '.goma_version[0]')
+    # set -l remote_goma_version (~/goma/goma_ctl.py latest_version | ack 'VERSION=(\d+)' | ack -o '\d+')
 
-    if test local_goma_version = remote_goma_version
-        echo 'Goma is running and up to date, continuing.'
-    else
-        echo 'Goma needs an update. Stopping and restarting.'
-        ~/goma/goma_ctl.py stop
-        ~/goma/goma_ctl.py ensure_start
-    end
+    # if test local_goma_version = remote_goma_version
+    #     echo 'Goma is running and up to date, continuing.'
+    # else
+    #     echo 'Goma needs an update. Stopping and restarting.'
+    #     ~/goma/goma_ctl.py stop
+    #     ~/goma/goma_ctl.py ensure_start
+    # end
 end
