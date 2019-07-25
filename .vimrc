@@ -65,6 +65,7 @@ Plugin 'zxqfl/tabnine-vim'                    " TabCompletion Plugin (Replacemen
 Plugin 'w0rp/ale'                             " Asynchronous Lint Enginge
 Plugin 'zirrostig/vim-schlepp'                " Moving blocks of text easily
 Plugin 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
+Plugin 'prettier/vim-prettier', { 'for': ['javascript', 'less', 'yaml', 'markdown' ]}
 
 call vundle#end()
 
@@ -415,6 +416,11 @@ let g:smartpairs_start_from_word = 1
 
 " vim-which-key
 nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>
+
+" vim-prettier
+let g:prettier#autoformat = 0
+let g:prettier#exec_cmd_async = 1
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 " ************** End plugin settings ************
 
