@@ -96,7 +96,7 @@ function npmlsg() {
 }
 
 function install-global-npms() {
-  npm install -g live-server yo typescript jsctags prettier npm-which google-translate-cli now-cli flow
+  npm install -g live-server yo typescript jsctags prettier npm-which google-translate-cli now-cli flow prettier
 }
 
 function combine_mp3() {
