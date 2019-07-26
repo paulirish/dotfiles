@@ -166,6 +166,9 @@ alias ydla="youtube-dl --audio-format mp3 -x"
 # Show my wallpapers in sxiv
 alias ww="cd ~/Pictures/Wallpapers && sxiv -tf *.* && cd -"
 
+# Show all images of the current directory in a slideshow
+alias slideshow="sxiv -f -S 2 *.*"
+
 # Run Portainer on localhost:9000 without any password to manage my local Docker env
 alias portainer="docker run --rm -d -p 9000:9000 --name=portainer -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer --no-auth"
 alias sen="docker run --rm --name=sen -v /var/run/docker.sock:/run/docker.sock -ti -e TERM tomastomecek/sen"
