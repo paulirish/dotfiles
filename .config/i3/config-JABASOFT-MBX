@@ -109,9 +109,9 @@ set $ws4 "4: REMOTE"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8: MEDIA"
-set $ws9 "9 Beamer"
-set $ws10 "10"
+set $ws8 "8: TESTS"
+set $ws9 "9: Beamer"
+set $ws10 "10: MEDIA"
 
 # Configure workspace 9 for the Beamer
 set $Beamer DP1
@@ -143,7 +143,7 @@ bindsym $mod+Shift+9  move container to workspace $ws9
 bindsym $mod+Shift+0  move container to workspace $ws10
 
 bindsym $mod+Home   workspace $ws1
-bindsym $mod+End    workspace $ws8
+bindsym $mod+End    workspace $ws10
 
 # default workspaces
 assign [class="Clipgrab"] $ws8
