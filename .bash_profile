@@ -30,6 +30,4 @@ export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
 # rbenv
-export RBENV_ROOT=/usr/local/var/rbenv
 eval "$(rbenv init -)"
-
