@@ -137,3 +137,6 @@ shopt -s dirspell 2> /dev/null
 shopt -s globstar 2> /dev/null
 #export PATH="$HOME/.jenv/bin:$PATH"
 #eval "$(jenv init -)"
+if [ -e /home/joem/.nix-profile/etc/profile.d/nix.sh ]; then . /home/joem/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+export PATH="$HOME/.cargo/bin:$PATH"

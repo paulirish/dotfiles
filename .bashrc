@@ -9,3 +9,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 source <(kubectl completion bash)
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/joem/.sdkman"
+[[ -s "/home/joem/.sdkman/bin/sdkman-init.sh" ]] && source "/home/joem/.sdkman/bin/sdkman-init.sh"

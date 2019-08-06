@@ -13,10 +13,11 @@ set $mod Mod4
 
 # gapsssss
 
-gaps inner 5
+#gaps inner 5
 
-smart_gaps on
-for_window [class="^.*"] border pixel 1
+#smart_gaps on
+
+for_window [class="^.*"] border pixel 3
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -24,7 +25,7 @@ for_window [class="^.*"] border pixel 1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 9
+font pango:DejaVu Sans Mono 12
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -43,7 +44,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 50"
+#bindsym $mod+d exec --no-startup-id rofi -modi  'window#run#ssh#combi' -show combi
+
+ bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 50"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -194,7 +197,7 @@ bar {
   colors  {
   #   background #000000
   #   statusline #aaaaaa
-  #   separator  #566E9C
+# separator  #FF0000
 
   # #  class            | border  |  background  |   text  |
   # #-------------------|---------|--------------|---------|
@@ -205,6 +208,13 @@ bar {
     urgent_workspace   #20293A #20293A #FCF5C7
   }
 }
+# # class                 border  backgr. text    indicator
+# client.placeholder      #ff3333 #242424 #242424
+# client.background       #ff3333 #242424 #242424
+# client.focused          #ff3333 #333388 #e5e5e5 #4A4A4A
+# client.unfocused        #ffcccc #111155 #aaaaaa #222222
+# client.focused_inactive #ff5555 #222222 #a9a9a9 #222222
+# client.urgent           #ff0000 #4A4A4A #f7f7f7 #4A4A4A
 
 
 bindsym $mod+F2 exec --no-startup-id .screenlayout/justlappo.sh &&  cp .screenlayout/justlappo.sh .screenlayout/last.sh && xmodmap -e "pointer = 1 2 3 4 5 6 7 8 9 10 11 12"
@@ -225,8 +235,9 @@ exec --no-startup-id echo "screenlayout" >> /tmp/i3configlog
 exec --no-startup-id .screenlayout/last.sh 2>> /tmp/i3configlog
 
 exec --no-startup-id echo "natural scrolling" >> /tmp/i3configlog
-set $mouse_id $(xinput | grep 'Razer Razer Naga 2014\s*id=.*pointer' | awk '{print $7}' | sed 's/id=//')
-exec --no-startup-id xinput --set-prop ${mouse_id} "libinput Natural Scrolling Enabled" 1 2>> /tmp/i3configlog
+#set $mouse_id $(xinput | grep 'Razer Razer Naga 2014\s*id=.*pointer' | awk '{print $7}' | sed 's/id=//')
+exec --no-startup-id xinput set-prop 'pointer:Razer Razer Naga 2014' 'libinput Natural Scrolling Enabled' 1 ; xinput set-prop 'TPPS/2 Elan TrackPoint' 'libinput Natural Scrolling Enabled' 1
+
 
 exec --no-startup-id echo "feh" >> /tmp/i3configlog
 exec --no-startup-id feh --randomize --bg-scale ~/Pictures/* 2>> /tmp/i3configlog
