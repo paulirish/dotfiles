@@ -120,6 +120,8 @@ workspace $ws5 output $Left
 workspace $ws6 output $Right
 workspace $ws7 output $Left
 workspace $ws8 output $Right
+workspace $ws9 output $Left
+workspace $ws10 output $Right
 
 # switch to workspace
 bindsym $mod+1    workspace $ws1
