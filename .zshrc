@@ -113,6 +113,3 @@ eval `keychain --agents ssh --eval id_rsa`
 
 xrdb -load ~/.Xresources
 
-if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
-fi
