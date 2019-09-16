@@ -116,6 +116,11 @@ if type __git_complete &> /dev/null; then
     __git_complete g __git_main
 fi;
 
+# Enable git branch name completion if file exists
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
