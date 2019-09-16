@@ -149,6 +149,9 @@ export PATH=$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH
 # the `push` command which copies the github compare URL to my clipboard is heaven
 bash < <( curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
 
+# autocompletion for git branch names https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+
 
 # Type `git open` to open the GitHub page or website for a repository.
 npm install -g git-open
@@ -161,6 +164,9 @@ npm install -g diff-so-fancy
 
 # trash as the safe `rm` alternative
 npm install --global trash-cli
+
+# more readable git diffs
+npm install --global diff-so-fancy
 
 # install better nanorc config
 # https://github.com/scopatz/nanorc
@@ -204,6 +210,9 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 
 # setting up the sublime symlink
 ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+
+# install nvm (Node Version Nanager, https://github.com/nvm-sh/nvm)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
 
 ###
