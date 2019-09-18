@@ -6,7 +6,7 @@ do
         "w")
                 cp "$file" ~/.wallpaper.jpg &&
     feh --bg-scale "$HOME/.wallpaper.jpg"
-    notify-send -i "$HOME/.wallpaper.jpg" "Wallpaper changed." ;;
+    notify-send -t 2000 -i "$HOME/.wallpaper.jpg" "Wallpaper changed." ;;
         "c")
     [ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ~/.bmdirs | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
     [ -z "$destdir" ] && exit
@@ -30,7 +30,7 @@ do
     echo -n "$fullpath" | xclip -selection clipboard &&
     notify-send "$fullpath copied to clipboard" & ;;
   "d")
-    [ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && rm "$file" && notify-send "$file deleted." ;;
+    rm "$file" && notify-send "$file deleted." ;;
   "G")
     gimp "$file" & ;;
         esac
