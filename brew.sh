@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -eu
+# set -x
+
 # Install command-line tools using Homebrew
 
 # Make sure we’re using the latest Homebrew
@@ -21,6 +24,10 @@ brew install gnu-sed --with-default-names
 # Bash 4
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before running `chsh`.
 brew install bash
+if ! fgrep -q "/usr/local/bin/bash" /etc/shells; then
+    echo "/usr/local/bin/bash" | sudo tee -a /etc/shells
+    chsh -s "/usr/local/bin/bash"
+fi
 
 brew install bash-completion
 
@@ -59,9 +66,19 @@ brew install mtr
 brew install the_silver_searcher
 brew install fzf
 
-brew install git
+$(which git) && mv "$(which git)" "$(which-git)-bak"
+brew install git &&
+    brew link --force git
+brew install gpg2 &&
+brew install pinentry-mac &&
+    echo "pinentry-program /usr/local/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
+brew install cmake
+brew install docker
+brew install kubectl && brew link --overwrite kubernetes-cli
+brew install mysql
+brew install anyenv && eval "$(anyenv init -)" && echo 'eval "$(anyenv init -)"' → "${HOME}/.bash_profile"
+brew install jq
 brew install imagemagick --with-webp
-brew install node # This installs `npm` too using the recommended installation method
 brew install pv
 brew install rename
 brew install tree
@@ -74,8 +91,6 @@ brew install android-platform-tools
 brew install pidcat   # colored logcat guy
 
 brew install ncdu # find where your diskspace went
-
-brew install zsh
 
 # Remove outdated versions from the cellar
 brew cleanup

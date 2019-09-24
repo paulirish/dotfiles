@@ -16,35 +16,31 @@ brew cask install dropbox
 brew cask install gyazo
 brew cask install 1password
 brew cask install rescuetime
-# brew cask install flux
+brew cask install kindle
+brew cask install uhk-agent
+brew cask install spotify
 
 # dev
 brew cask install iterm2
-brew cask install sublime-text
+brew cask install visual-studio-code
 brew cask install imagealpha
 brew cask install imageoptim
-
-# fun
-brew cask install limechat
-# brew cask install miro-video-converter
-# brew cask install horndis               # usb tethering
+brew cask install docker
+brew cask install tunnelblick
+# only the installer
+brew cask install adobe-creative-cloud
 
 # browsers
-# brew cask install google-chrome-canary
-# brew cask install firefoxnightly
-# brew cask install webkit-nightly
-# brew cask install chromium
-# brew cask install torbrowser
+brew cask install google-chrome
+brew cask install firefox
 
 # less often
 brew cask install disk-inventory-x
-brew cask install screenflow
+# brew cask install screenflow
 brew cask install vlc
 brew cask install gpgtools
-brew cask install licecap
 # brew cask install utorrent
-
-brew cask install spotify
+# brew cask install miro-video-converter
 
 brew tap caskroom/fonts 
 brew cask install font-fira-code

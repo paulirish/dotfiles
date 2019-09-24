@@ -14,3 +14,6 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # github.com/trapd00r/LS_COLORS
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ~/.dircolors)"
+
+export GITHUB_EMAIL="24841453+AngryMiddleAgedMan@users.noreply.github.com"
+export GITHUB_NAME="AngryMiddleAgedMan"
