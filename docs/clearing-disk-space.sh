@@ -35,4 +35,7 @@ rm -rf ~/Library/Caches/com.apple.dt.Xcode
 emptytrash
 
 # investigate manually - https://dev.yorhel.nl/ncdu
+ncdu ~
+
+# really roll up those sleeves and get dirty
 ncdu /
