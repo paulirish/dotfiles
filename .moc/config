@@ -28,9 +28,9 @@
 ExecCommand5    = "mv %f ${GOOD_SONGS_DIR}"
 ExecCommand6    = "rm %f"
 
-Fastdir1 = /home/jan/Videos/Youtube/music
+Fastdir1 = /home/jan/Music/Youtube
 Fastdir2 = /media/music
-Fastdir3 = /media/music/_NEW/_GoodSongs
+Fastdir3 = /home/jan/Music/GoodSongs
 
 Theme = /usr/share/moc/themes/transparent-background
 XtermTheme = /usr/share/moc/themes/transparent-background
