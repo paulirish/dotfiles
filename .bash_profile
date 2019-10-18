@@ -139,4 +139,9 @@ shopt -s globstar 2> /dev/null
 #eval "$(jenv init -)"
 if [ -e /home/joem/.nix-profile/etc/profile.d/nix.sh ]; then . /home/joem/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin/cirya/bin:$HOME/.cargo/bin:$PATH"
+source $(dirname $(type  -p cirya | sed -e 's/cirya is //g'))/cirya_completion
+
+export SPARK_HOME=/opt/spark
+export PATH=/opt/spark/bin:/opt/spark/bin:/home/joem/.sdkman/candidates/kotlin/current/bin:/home/joem/.yarn/bin:/home/joem/.config/yarn/global/node_modules/.bin:/home/joem/bin/cirya/bin:/home/joem/.cargo/bin:/home/joem/.nix-profile/bin:/home/joem/.nvm/versions/node/v12.2.0/bin:/home/joem/src/GO/bin:/home/joem/.cargo/bin:/home/joem/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:~/bin:~/bin/cirya-3.0-SNAPSHOT/bin:/home/joem/.yarn/bin:/home/joem/.rvm/bin
+export PATH=/home/joem/.local/bin:/opt/spark/bin:/home/joem/.sdkman/candidates/kotlin/current/bin:/home/joem/.yarn/bin:/home/joem/.config/yarn/global/node_modules/.bin:/home/joem/bin/cirya/bin:/home/joem/.cargo/bin:/home/joem/.nix-profile/bin:/home/joem/.nvm/versions/node/v12.2.0/bin:/home/joem/src/GO/bin:/home/joem/.cargo/bin:/home/joem/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:~/bin:~/bin/cirya-3.0-SNAPSHOT/bin:/home/joem/.yarn/bin:/home/joem/.rvm/bin
