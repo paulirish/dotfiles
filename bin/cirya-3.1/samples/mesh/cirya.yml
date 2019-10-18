@@ -1,0 +1,16 @@
+infrastructure:
+  pools:
+    localhost:
+      provider: docker
+
+containers:
+  groups:
+    standard-cluster:
+      image: /aerospike/cirya-ubuntu-18.04
+
+clusters:
+  mesh-test:
+    archivePath: http://www.aerospike.com/download/server/latest/artifact/ubuntu18
+    aerospikeConfTemplate: aerospike-mesh.conf.ftl
+    params:
+      clusterName: mesh-test

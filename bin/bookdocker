@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -eu
+
+# MAKE SURE DOCKER IS INSTALLED
+if ! which  docker; then
+  echo "You need Docker installed before running this script."
+  echo "To install Docker on Mac, go to https://docs.docker.com/docker-for-mac/install/"
+  echo "To install Docker on Windows, go to https://docs.docker.com/docker-for-windows/install/"
+  exit 1
+fi
+
+# MAKE SURE THEY'RE IN A BOOK DIRECTORY
+if ! echo ${PWD##*/} | grep --quiet book; then
+  echo "You must run this command in a Bookbinder book directory."
+  exit 2
+fi
+
+# WRITE A TEMPORARY DOCKERFILE *
+cat > /tmp/Dockerfile <<HERE
+FROM ruby:2.3
+
+ADD Gemfile* /tmp/
+WORKDIR /tmp
+RUN bundle install
+
+EXPOSE 4567
+
+ENTRYPOINT ["bundle", "exec", "bookbinder"]
+HERE
+
+# CHECKS TO SEE IF YOU'VE ALREADY CREATED A CONTAINER FOR THIS BOOK (based on directory) *
+remote=$(git remote get-url origin)
+remote=${remote##*/} # remote with 'reponame.git'
+remote=${remote%*.git} # without the .git
+image_tag="bookbinder/${remote}"
+
+docker build --file /tmp/Dockerfile . --tag "${image_tag}"
+
+# RUN THE BOOKBINDER CONTAINER FOR THIS BOOK *
+docker run -it -p 4567:4567 -p 35729:35729 --workdir "/workspace/${PWD##*/}" -v $(pwd)/..:/workspace  ${image_tag} "$@"

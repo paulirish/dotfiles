@@ -1,0 +1,27 @@
+infrastructure:
+  pools:
+    localhost:
+      provider: docker
+
+containers:
+  groups:
+    standard-cluster:
+      image: /aerospike/cirya-ubuntu-18.04
+
+clusters:
+  aerospike:
+    archivePath: http://www.aerospike.com/download/server/latest/artifact/ubuntu18
+    aerospikeConfTemplate: aerospike-mesh.conf.ftl
+
+  haproxy:
+    type: generic
+    installScript: |
+      apt-get install -y haproxy
+
+    startScript: service haproxy start
+    stopScript: service haproxy stop
+    statusScript: systemctl --no-page status haproxy
+    templates:
+      haproxy.cfg: /etc/haproxy/haproxy.cfg
+    params:
+      proxyToCluster: aerospike
