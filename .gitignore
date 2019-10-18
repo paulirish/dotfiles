@@ -34,5 +34,6 @@ fishd.*
 .config/fish/fish_history
 fish/fish_history
 
+bin/cirya*
 # random
 shilocation
