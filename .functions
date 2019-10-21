@@ -187,3 +187,7 @@ function g_rand() {
 function docker_ip() {
   docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1
 }
+
+function revert() {
+  git checkout `git rev-list -n 1 HEAD -- $1`^ -- $1
+}
