@@ -4,8 +4,9 @@ alias cd..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
+alias ~="cd ~" 
 alias -- -="cd -"
+alias cdd="cd" # typo
 
 # mv, rm, cp
 alias mv='mv -v'
@@ -14,9 +15,8 @@ alias cp='cp -v'
 
 alias chmox='chmod -x'
 
-alias cask='brew cask' # i <3 u cask
-alias where=which # sometimes i forget
-alias brwe=brew  #typos
+alias cask='brew cask' 
+alias brwe=brew  #typo
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
@@ -35,6 +35,7 @@ export CLICOLOR_FORCE=1
 # ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
 alias ls='gls -AFh ${colorflag} --group-directories-first'
 alias lsd='ls -l | grep "^d"' # only directories
+alias lsf='ls -l | grep "^-"' # only files
 #    `la` defined in .functions
 ###
 
@@ -42,12 +43,6 @@ alias lsd='ls -l | grep "^d"' # only directories
 
 ###
 # GIT STUFF
-
-function clone() {
-    git clone --depth=1 $1
-    cd $(basename ${1%.*})
-    yarn install
-}
 alias push="git push"
 
 # Undo a `git push`
