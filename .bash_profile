@@ -5,23 +5,8 @@
 for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
     [ -r "$file" ] && source "$file"
 done
+
 unset file
-
-# to help sublimelinter etc with finding my PATHS
-case $- in
-   *i*) source ~/.extra
-esac
-
-# generic colouriser
-GRC=`which grc`
-if [ "$TERM" != dumb ] && [ -n "$GRC" ]
-    then
-        alias colourify="$GRC -es --colour=auto"
-        alias configure='colourify ./configure'
-        for app in {diff,make,gcc,g++,ping,traceroute}; do
-            alias "$app"='colourify '$app
-    done
-fi
 
 # highlighting inside manpages and elsewhere
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -59,22 +44,25 @@ export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 shopt -s cmdhist
 
 # Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-# ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
+# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# ^ downside with this is [up] on the readline will go over all history not just this bash session.
 
 
 
 ##
 ## hooking in other apps…
 ##
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
+    return 1 2> /dev/null || exit 1;
+fi;
 
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
+# Load bash compltion for anyenv
+export ANYENV_DIR="$HOME/.anyenv/envs"
+if [ -s "$ANYENV_DIR" ]; then
+  for file in $(ls -1 $ANYENV_DIR); do
+    [ -s "$ANYENV_DIR/$file/completions/$file.bash" ] && \. "$ANYENV_DIR/$file/completions/$file.bash"
+  done
+fi
 
 
 # z beats cd most of the time. `brew install z`
@@ -83,17 +71,8 @@ if which brew > /dev/null; then
     [ -s $zpath ] && source $zpath
 fi;
 
-##
-## Completion…
-##
 
-if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
-    return 1 2> /dev/null || exit 1;
-fi;
-
-# Sorry, very MacOS centric here. :/
 if  which brew > /dev/null; then
-
     # bash completion.
     if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
         source "$(brew --prefix)/share/bash-completion/bash_completion";

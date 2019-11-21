@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# NOTES
+# To clear callbacks, run:
+# trap '' DEBUG
+# PROMPT_COMMAND=
+
+
+
+########## START OF BEFORE HOOK ##########
+# define functions and add into before_each_command
+function set_git_clone_flag() {
+    if [ 'git' = "$1" ] && [ 'clone' = "$2" ]; then
+        echo 'Setting ON_GIT_CLONE=true in .callbacks'
+        export ON_GIT_CLONE=true
+    fi
+}
+
+function before_each_command() {
+    local last_command=( $BASH_COMMAND )
+
+    # run every time #
+    set_git_clone_flag "${last_command[@]}"
+
+    if [ "$PREVPWD" != "$PWD" ]; then
+        # run on changing directories #
+        :
+    fi
+
+    if [ -z "$EXECUTING_LINE" ]; then
+        return
+    fi
+    unset EXECUTING_LINE
+    # run before each first command of a comamnd line #
+}
+########## END OF BEFORE HOOK ##########
+
+
+
+########## START OF AFTER HOOK ##########
+function prevent_duplicate_execs() {
+    EXECUTING_LINE=true
+}
+
+function unset_git_clone_flag() {
+    unset ON_GIT_CLONE
+}
+########## END OF AFTER HOOK ##########
+
+
+
+########## START REGISTERING CALLBACKS ##########
+trap 'before_each_command' DEBUG
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}prevent_duplicate_execs;"
+########## FINISH REGISTERING CALLBACKS ##########

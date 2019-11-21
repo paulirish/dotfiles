@@ -23,6 +23,7 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	precomposeUnicode = true
+	hooksPath = ~/.git_template/hooks
 
 [pager]
 	# insanely beautiful diffs ==> npm install -g diff-so-fancy

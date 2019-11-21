@@ -38,3 +38,6 @@ fish/fish_variables
 
 # random
 shilocation
+
+# gitvariables
+.git_variables

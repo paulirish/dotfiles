@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -eu
+# set -x
+
+HOOK_NAME='post-checkout'
+echo "Executing $HOOK_NAME.."
+
+
+
+########## START OF CHECKOUT HOOK ##########
+########## END OF CHECKOUT HOOK ##########
+
+
+
+########## START OF CLONE HOOK ##########
+# ON_GIT_CLONE is set in .callbacks
+if [ -z "$ON_GIT_CLONE" ]; then
+    exit
+fi
+
+# set/load variables
+REPO_ROOT_DIR="$(git rev-parse --show-toplevel)"
+GPG_SCRIPT="$HOME/.scripts/gitconfig-set-gpg.sh"
+. "$HOME/.gitvariables"
+
+function set_work_account_to_config() {
+    git config --local user.name "$GIT_USER_NAME_WORK"
+    git config --local user.email "$GIT_USER_EMAIL_WORK"
+    git config --local url."$GIT_SSH_NAME_WORK".insteadOf "git@github.com"
+    [[ -f "$GPG_SCRIPT" ]] && "$GPG_SCRIPT"
+}
+
+function set_private_account_to_config() {
+    git config --local user.name "$GIT_USER_NAME_PRIVATE"
+    git config --local user.email "$GIT_USER_EMAIL_PRIVATE"
+    git config --local url."$GIT_SSH_NAME_PRIVATE".insteadOf "git@github.com"
+    [[ -f "$GPG_SCRIPT" ]] && "$GPG_SCRIPT"
+}
+
+# check if current dir is under work or private account
+case "$REPO_ROOT_DIR/" in 
+    *$GIT_REPOS_DIR_WORK/*) 
+        echo "Setting work account to the local gitconfig"
+        set_work_account_to_config
+        ;;
+    *$GIT_REPOS_DIR_PRIVATE/*) 
+        echo "Setting private account to the local gitconfig"
+        set_private_account_to_config
+        ;;
+    *)
+        ;;
+esac
+
+echo 'Unsetting ON_GIT_CLONE in post-checkout'
+unset ON_GIT_CLONE
+
+echo "Done $HOOK_NAME"
+########## END OF CLONE HOOK ##########
