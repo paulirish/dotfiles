@@ -19,7 +19,7 @@ Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sotte/presenting.vim'
 Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' }
-Plug 'flowtype/vim-flow', { 'do': 'npm install -g flow-bin' }
+"Plug 'flowtype/vim-flow', { 'do': 'npm install -g flow-bin' }
 call plug#end()
 
 
