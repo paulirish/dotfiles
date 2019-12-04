@@ -157,7 +157,7 @@ if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.
 
 # Some aliases for starting Docker containers with just one command
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it --name=glances docker.io/nicolargo/glances"
-alias mongo-docker="docker run -d --rm --name mongo -v "$(pwd)/data":/data/db -p 27017:27017 mongo:3.6.7"
+alias mongo-docker="docker run -d --rm --name mongo -v "$(pwd)/data":/data/db -p 27017:27017 mongo:4.2.1"
 
 # Download youtube file from the commandline
 alias ydl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
