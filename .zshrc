@@ -152,3 +152,6 @@ export NVM_DIR="$HOME/.nvm"
 # rbenv
 eval "$(rbenv init - zsh)"
 
+# web essembly
+
+#alias webessembly="source ~/lab/emsdk/emsdk_env.sh"
