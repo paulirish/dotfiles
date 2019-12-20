@@ -24,11 +24,6 @@ alias chmox='chmod +x'
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
 
-# typos
-alias brwe=brew  
-alias gti=git
-alias yearn=yarn
-
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 alias push="git push"
