@@ -14,13 +14,13 @@ function backup {
   for DIRECTORY_NAME in $DIRECTORIES; do
     rsync -avuz --progress --delete \
           --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" \
-          -e "ssh -i ~/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT" \
-          ~/$DIRECTORY_NAME $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
+          -e "ssh -i /home/${USER}/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT" \
+          /home/${USER}/${DIRECTORY_NAME} ${USER}@${SERVER_ADDRESS}:/volume1/homes/${USER}/${HOSTNAME}/
   done
 
   rsync -avuz --progress --delete \
         --exclude=".local/" --include="*.local" --exclude="*" \
-        -e "ssh -i ~/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT" \
-        ~/ $USER@$SERVER_ADDRESS:/volume1/homes/$USER/$HOSTNAME/
+        -e "ssh -i /home/${USER}/.ssh/rsync-key -p ${JABASOFT_DS_SSH_PORT}" \
+        /home/${USER}/ ${USER}@${SERVER_ADDRESS}:/volume1/homes/${USER}/${HOSTNAME}/
 }
 
