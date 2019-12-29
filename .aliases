@@ -181,3 +181,6 @@ alias slowtype="slowtype.sh"
 
 # Shows a fzf based list with all man-pages and gives the user the ability to search for it an select one
 alias man-fzf="man -k . | sort -r | fzf | awk '{print $1}' | xargs -r man "
+
+# Clearing the greenclip history
+alias clear-clip-history="rm ~/.cache/greenclip.history"
