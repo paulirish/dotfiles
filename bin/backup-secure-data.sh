@@ -2,7 +2,7 @@ mount-backup.sh
 
 rsync -avuz --progress \
       ~/Secure/ \
-      /media/jan/Backup/Secure
+      /run/media/jan/BACKUP/Secure
 
 unmount-backup.sh
 
