@@ -50,6 +50,6 @@ brew cask install firefox-nightly
 brew cask install vlc
 # brew cask install licecap
 brew cask install transmission
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-fira-code
 brew cask install font-hack-nerd-font
