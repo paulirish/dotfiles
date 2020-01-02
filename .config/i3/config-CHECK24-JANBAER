@@ -256,7 +256,7 @@ bindsym $mod+Shift+l exec ~/.config/i3/lock.sh
 
 # Making a screenshot with using scrot
 bindsym --release $mod+y exec "flameshot gui -d 1000"
-bindsym --release $mod+Shift+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/Screenshots'"
+bindsym --release $mod+Shift+y exec "/usr/bin/scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'"
 
 # Configure the volume - This keys are actually not working,q
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ #increase sound volume
