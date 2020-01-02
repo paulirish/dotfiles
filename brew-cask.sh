@@ -6,7 +6,7 @@
 
 
 # Additional apps versions
-brew tap caskroom/versions
+brew tap homebrew/cask-versions
 
 # daily
 brew cask install spectacle
