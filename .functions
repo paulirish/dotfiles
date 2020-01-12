@@ -333,3 +333,8 @@ function rename-files() {
 
   \ls -t -r | cat -n | while read n f; do mv "${f}" "${PREFIX}-$(printf "%02d" $n).png"; done
 }
+
+# cht.sh - The only cheatsheet you need
+function cheat() {
+  curl cht.sh/$1
+}
