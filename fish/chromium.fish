@@ -8,12 +8,20 @@ function hooks --description "run gclient runhooks"
 end
 
 function b --description "build chromium"
-	set -l dir (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
+	set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
 	# 1000 will die with 'fatal: posix_spawn: No such file or directory'. 900 never has.
 
-    set -l cmd "ninja -C "$dir" -j900 -l 48 chrome"  # rvm'd blink_tests 
+    set -l cmd "ninja -C "$dir_default" -j900 -l 48 chrome blink_tests"  
     echo "  > $cmd"
+
+    # automatically lower the priority of compiler_proxy
+    set -l script_dir (dirname (status -f))
+    fish $script_dir/chromium_lower_compile_priority.fish &
+
+    # start the compile
     eval $cmd
+
+    # this was cool bit also annoying
     # if test $status = 0
     #     echo ""
     #     echo "✅ Chrome build complete!  🕵️‍  Finishing blink_tests in the background..."
