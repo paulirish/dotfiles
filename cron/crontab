@@ -1,8 +1,12 @@
+# whats in the real crontab and this file are technically two diff things
+# for now we just manually make sure this matches whats in `crontab -e`
+# todo: implement something like this? https://blog.chmd.fr/saving-your-crontab-in-your-dotfiles.html
 #
-# env EDITOR=nano crontab -e
+# to edit real crontab:
+#    env EDITOR=nano crontab -e
 #
-# see cron/ folder
-#    chmod +x *.sh
+# make sure all scripts are executable.
+# chmod +x *.sh
 
 #=====================================================================#
 #     0-23   0-59               0-30  0-6   1-12                      #
