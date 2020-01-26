@@ -12,13 +12,13 @@ function backup {
   echo "Create backup on server ${SERVER_ADDRESS} for computer ${HOSTNAME} in user-home for ${USER}"
 
   for DIRECTORY_NAME in $DIRECTORIES; do
-    rsync -avuz --progress --delete \
+    rsync -avu --progress --delete \
           --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" \
           -e "ssh -i /home/${USER}/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT" \
           /home/${USER}/${DIRECTORY_NAME} ${USER}@${SERVER_ADDRESS}:/volume1/homes/${USER}/${HOSTNAME}/
   done
 
-  rsync -avuz --progress --delete \
+  rsync -avu --progress --delete \
         --exclude=".local/" --include="*.local" --exclude="*" \
         -e "ssh -i /home/${USER}/.ssh/rsync-key -p ${JABASOFT_DS_SSH_PORT}" \
         /home/${USER}/ ${USER}@${SERVER_ADDRESS}:/volume1/homes/${USER}/${HOSTNAME}/
