@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=darktable
-Exec=$HOME/bin/Darktable.AppImage
+Name=RawTherapee
+Exec=/usr/local/bin/RawTherapee.AppImage
