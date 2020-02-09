@@ -17,57 +17,51 @@ set shell=zsh
 set path+=** " Search down into subfolders
 set wildmenu " Display all matching files when tab complete
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'majutsushi/tagbar'                    " displays tags in a window
+Plug 'pangloss/vim-javascript'              " Vastly improved Javascript indentation and syntax support
+Plug 'mxw/vim-jsx'                          " React JSX syntax highlighting and indenting for vim
+Plug 'airblade/vim-gitgutter'               " shows a git diff in the gutter
+Plug 'ap/vim-css-color'                     " Preview colours in source code while editing
+Plug 'hail2u/vim-css3-syntax'               " CSS3 syntax
+Plug 'easymotion/vim-easymotion'            " Vim motions on speed
+Plug 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
+Plug 'garbas/vim-snipmate'                  " implements some of TextMate's snippets features in Vim
+Plug 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
+Plug 'fatih/vim-go'                         " Improving the support for Go in vim
+Plug 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'                     " Use fzf in VIM
+Plug 'kopischke/vim-fetch'                  " Make Vim handle line and column numbers in file names
+Plug 'liuchengxu/vim-which-key'             " Show the current leader mappings
+Plug 'vim-airline/vim-airline'              " statusline plugin for vim
+Plug 'vim-airline/vim-airline-themes'       " Themes for vim-airline
+Plug 'MarcWeber/vim-addon-mw-utils'         " interpret a file by function and cache file automatically (required by ...)
+Plug 'mattn/emmet-vim'                      " Provides support for Emmet in vim
+Plug 'machakann/vim-highlightedyank'        " Make the yanked region visible
+Plug 'mileszs/ack.vim'                      " Provides support for ack and the SilverlightSearcher in vim
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
+Plug 'NLKNguyen/papercolor-theme'           " My prefered theme for working in the presentation (light) mode
+Plug 'scrooloose/nerdtree'                  " A tree explorer plugin for vim
+Plug 'Xuyuanp/nerdtree-git-plugin'          " A plugin of NERDTree showing git status
+Plug 'scrooloose/nerdcommenter'             " plugin for intensely commenting
+Plug 'sgur/vim-editorconfig'                " Yet another EditorConfig plugin for vim
+Plug 'svermeulen/vim-easyclip'              " Simplified clipboard functionality for Vim
+Plug 'szw/vim-maximizer'                    " Maximizes and restores the current window in Vim.
+Plug 'terryma/vim-multiple-cursors'         " This True Sublime Text style multiple selections for Vim
+Plug 'tomtom/tlib_vim'                      " Some utility functions for VIM - Required from ???
+Plug 'tpope/vim-dispatch'                   " Asynchronous build and test dispatcher
+Plug 'tpope/vim-fugitive'                   " A Git wrapper
+Plug 'tpope/vim-repeat'                     " enable repeating supported plugin maps with \".\"
+Plug 'tpope/vim-surround'                   " surround.vim: quoting/parenthesizing made simple
+Plug 'tpope/vim-unimpaired'                 " Pairs of handy bracket mappings
+Plug 'w0rp/ale'                             " Asynchronous Lint Enginge
+Plug 'zirrostig/vim-schlepp'                " Moving blocks of text easily
+Plug 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
+Plug 'prettier/vim-prettier', { 'for': ['javascript', 'less', 'yaml', 'markdown' ]}
 
-Plugin 'majutsushi/tagbar'                    " displays tags in a window
-Plugin 'pangloss/vim-javascript'              " Vastly improved Javascript indentation and syntax support
-Plugin 'mxw/vim-jsx'                          " React JSX syntax highlighting and indenting for vim
-Plugin 'airblade/vim-gitgutter'               " shows a git diff in the gutter
-Plugin 'ap/vim-css-color'                     " Preview colours in source code while editing
-Plugin 'hail2u/vim-css3-syntax'               " CSS3 syntax
-Plugin 'easymotion/vim-easymotion'            " Vim motions on speed
-Plugin 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
-" Plugin 'exvim/ex-autocomplpop'                " Auto complete text when you are writing code
-Plugin 'garbas/vim-snipmate'                  " implements some of TextMate's snippets features in Vim
-Plugin 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
-Plugin 'fatih/vim-go'                         " Improving the support for Go in vim
-Plugin 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'                     " Use fzf in VIM
-Plugin 'kopischke/vim-fetch'                  " Make Vim handle line and column numbers in file names
-Plugin 'liuchengxu/vim-which-key'             " Show the current leader mappings
-Plugin 'vim-airline/vim-airline'              " statusline plugin for vim
-Plugin 'vim-airline/vim-airline-themes'       " Themes for vim-airline
-Plugin 'MarcWeber/vim-addon-mw-utils'         " interpret a file by function and cache file automatically (required by ...)
-Plugin 'mattn/emmet-vim'                      " Provides support for Emmet in vim
-Plugin 'machakann/vim-highlightedyank'        " Make the yanked region visible
-Plugin 'mileszs/ack.vim'                      " Provides support for ack and the SilverlightSearcher in vim
-Plugin 'NLKNguyen/papercolor-theme'           " My prefered theme for working in the presentation (light) mode
-Plugin 'scrooloose/nerdtree'                  " A tree explorer plugin for vim
-Plugin 'Xuyuanp/nerdtree-git-plugin'          " A plugin of NERDTree showing git status
-Plugin 'scrooloose/nerdcommenter'             " plugin for intensely commenting
-Plugin 'sgur/vim-editorconfig'                " Yet another EditorConfig plugin for vim
-Plugin 'svermeulen/vim-easyclip'              " Simplified clipboard functionality for Vim
-Plugin 'szw/vim-maximizer'                    " Maximizes and restores the current window in Vim.
-Plugin 'terryma/vim-multiple-cursors'         " This True Sublime Text style multiple selections for Vim
-Plugin 'tomtom/tlib_vim'                      " Some utility functions for VIM - Required from ???
-Plugin 'tpope/vim-dispatch'                   " Asynchronous build and test dispatcher
-Plugin 'tpope/vim-fugitive'                   " A Git wrapper
-Plugin 'tpope/vim-repeat'                     " enable repeating supported plugin maps with \".\"
-Plugin 'tpope/vim-surround'                   " surround.vim: quoting/parenthesizing made simple
-Plugin 'tpope/vim-unimpaired'                 " Pairs of handy bracket mappings
-Plugin 'zxqfl/tabnine-vim'                    " TabCompletion Plugin (Replacement for YouCompleteMe)
-Plugin 'w0rp/ale'                             " Asynchronous Lint Enginge
-Plugin 'zirrostig/vim-schlepp'                " Moving blocks of text easily
-Plugin 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
-Plugin 'prettier/vim-prettier', { 'for': ['javascript', 'less', 'yaml', 'markdown' ]}
-
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on
 
@@ -423,6 +417,9 @@ let g:prettier#exec_cmd_async = 1
 nmap <Leader>pr <Plug>(Prettier)
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
+" coc - Conquer of Completion
+source ~/.vim/vimrc/vimrc_coc.vim
+
 " ************** End plugin settings ************
 
 " define color scheme
@@ -436,12 +433,11 @@ else
   colorscheme hybrid_material
 endif
 
-
 " Define the highlighting for spell checking
 hi SpellBad ctermfg=015 ctermbg=000 cterm=none guifg=#FFFFFF guibg=#000000 gui=none
 highlight SpellBad cterm=underline
 
-" Add file type based settings
+ " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
 source ~/.vim/vimrc/vimrc_javascript.vim
 " source ~/.vim/vimrc/vimrc_typescript.vim
