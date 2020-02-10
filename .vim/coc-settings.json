@@ -12,5 +12,8 @@
   "snippets.extends": {
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"]
-  }
+  },
+  "snippets.ultisnips.directories": [
+    "~/.vim/snippets"
+  ]
 }
