@@ -1,13 +1,8 @@
 {
+  "coc.preferences.bracketEnterImprove": false,
   "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "typescript",
-    "json",
-    "css",
-    "Markdown"
   ],
   "eslint.options": {
-    "configFile": "~/.eslintrc.yml"
   },
   "snippets.extends": {
     "javascriptreact": ["javascript"],
