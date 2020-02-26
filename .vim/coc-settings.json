@@ -2,8 +2,6 @@
   "coc.preferences.bracketEnterImprove": false,
   "coc.preferences.formatOnSaveFiletypes": [
   ],
-  "eslint.options": {
-  },
   "snippets.extends": {
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"]
