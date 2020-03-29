@@ -66,6 +66,7 @@
   unstage = reset head --
   undo = checkout --
   undolastcommit = reset --hard HEAD~1
+  undounstaged = "!f() { git checkout -- . && git clean -df}; f"
   undopush = git push -f origin HEAD^:master
   undoall = reset --hard
   up = pull
