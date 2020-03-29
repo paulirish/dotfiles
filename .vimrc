@@ -143,6 +143,12 @@ set spellfile=~/.vim/spell/en.utf-8.add
 " Tell vim where to find the tags file
 set tags+=tags
 
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
 command! -nargs=* Wrap set wrap linebreak nolist
 command! -nargs=* Nowrap set nowrap nolinebreak list
 
