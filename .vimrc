@@ -88,6 +88,11 @@ set autoread " reload file when changes happen in other editors
 set tags=./tags
 
 set mouse=a
+if &term =~ '^screen'
+  " tmux knows the extended mouse mode
+  set ttymouse=xterm2 " This gives the support for resizing windows with the mouse
+endif
+
 set bs=2 " make backspace behave like normal again
 
 set wildignore+=*.pyc
