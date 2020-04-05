@@ -325,13 +325,15 @@ function install-go() {
 }
 
 function rename-files() {
-  local PREFIX=$1
-  if [ -z "$PREFIX" ]; then
-    echo "You have to provide a prefix for the new filename"
+  local prefix=$1
+  if [ -z "$prefix" ]; then
+    echo "You have to call the function in the following way rename-files images-from-2020-04-06 jpg. The extension is optional, default is jpg"
     return
   fi
 
-  \ls -t -r | cat -n | while read n f; do mv "${f}" "${PREFIX}-$(printf "%02d" $n).png"; done
+  local extension=${2:-jpg}
+
+  \ls -t -r | cat -n | while read n f; do mv "${f}" "${prefix}-$(printf "%02d" $n).${extension}"; done
 }
 
 # cht.sh - The only cheatsheet you need
