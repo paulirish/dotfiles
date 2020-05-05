@@ -168,6 +168,7 @@ webmify(){
 # direct it all to /dev/null
 function nullify() {
   "$@" >/dev/null 2>&1
+}
 
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
