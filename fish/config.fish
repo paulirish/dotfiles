@@ -102,10 +102,6 @@ set -gx LESS_TERMCAP_so \e'[38;5;246m'    # begin standout-mode - info box
 set -gx LESS_TERMCAP_ue \e'[0m'           # end underline
 set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
-# typos
-abbr bwre brew
-abbr gti git
-abbr yearn yarn
 
 # this currently messes with newlines in my prompt. lets debug it later.
 # test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
