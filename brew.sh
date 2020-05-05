@@ -2,6 +2,9 @@
 
 # Install command-line tools using Homebrew
 
+# (Optionally) Turn off brew's analytics https://docs.brew.sh/Analytics
+# brew analytics off
+
 # Make sure we’re using the latest Homebrew
 brew update
 
