@@ -168,11 +168,6 @@ webmify(){
 # direct it all to /dev/null
 function nullify() {
   "$@" >/dev/null 2>&1
-}
-
-
-# visual studio code. a la `subl`
-function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $*; }
 
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
