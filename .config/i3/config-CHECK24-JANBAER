@@ -212,9 +212,6 @@ client.placeholder      $bg     $bg     $fg  $bg
 
 client.background       $bg
 
-# Cycle wallpapers and apply new colorscheme.
-bindsym $mod+shift+w exec "~/bin/wal -i ~/Pictures/Wallpapers -o ~/bin/wal-set"
-
 # Start i3bar to display a workspace bar
 bar {
   colors {
