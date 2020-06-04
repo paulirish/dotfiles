@@ -15,7 +15,7 @@ alias json-pretty="paste | python -m json.tool | copy"
 alias start-ssh-agent="eval \"$(ssh-agent)\""
 
 # aliases for pacman
-alias pacman-upgrade-all="sudo pacman -Syu"
+alias pacman-upgrade-all="sudo pacman -Syu && trizen -Su --noconfirm --noedit && trizen --clean"
 alias pacman-install="sudo pacman -S --noconfirm $1"
 alias pacman-search="pacman -Ss $1"
 alias pacman-remove="sudo pacman -Rsn --noconfirm $1"
