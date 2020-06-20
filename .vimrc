@@ -27,6 +27,7 @@ Plug 'ap/vim-css-color'                     " Preview colours in source code whi
 Plug 'hail2u/vim-css3-syntax'               " CSS3 syntax
 Plug 'easymotion/vim-easymotion'            " Vim motions on speed
 Plug 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
+Plug 'evanleck/vim-svelte'                  " Support for Svelte
 Plug 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
 Plug 'fatih/vim-go'                         " Improving the support for Go in vim
 Plug 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
