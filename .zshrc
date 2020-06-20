@@ -113,3 +113,6 @@ eval `keychain --agents ssh --eval id_rsa`
 
 xrdb -load ~/.Xresources
 
+# Some kubernetes things
+[ -f ~/.kube/kube-config.yaml ] && export KUBECONFIG=~/.kube/kube-config.yaml
+
