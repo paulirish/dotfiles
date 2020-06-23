@@ -1,6 +1,7 @@
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-json', 
+  \ 'coc-svelte', 
   \ 'coc-snippets', 
   \ 'coc-tabnine', 
   \ 'coc-yaml', 
