@@ -65,6 +65,7 @@
 	default = current
 [pull]
 	default = upstream
+	rebase = false
 [gc]
 	auto = 0
 [branch]
