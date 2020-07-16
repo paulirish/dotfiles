@@ -142,6 +142,10 @@ alias be="bundle exec"
 alias bs="bundle show"
 alias b="bundle"
 
+# delete me zone
+export NPM_TOKEN=nope 
+# delete me zone
+
 # path 
 export PATH="/usr/local/sbin:$PATH"
 
@@ -156,3 +160,4 @@ eval "$(rbenv init - zsh)"
 # web essembly
 
 #alias webessembly="source ~/lab/emsdk/emsdk_env.sh"
+
