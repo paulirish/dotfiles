@@ -141,6 +141,7 @@ alias nginx_reload="brew services reload nginx-full"
 alias be="bundle exec"
 alias bs="bundle show"
 alias b="bundle"
+alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 
 # delete me zone
 export NPM_TOKEN=nope 
