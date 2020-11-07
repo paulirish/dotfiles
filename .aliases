@@ -22,10 +22,10 @@ fi
 alias l="ls -l ${colorflag}"
 
 # List all files colorized in long format, including dot files
-alias lsa="ls -la ${colorflag}"
+alias lsa="exa --long --header --git --all"
 
 # List only directories
-alias lsd='ls -l | grep "^d"'
+alias lsd="lsa --only-dirs"
 
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
@@ -92,6 +92,7 @@ alias md="mkdircd"
 # Yarn aliases
 alias y="yarn"
 alias yi="yarn install --pure-lockfile"
+alias yl="yarn lint"
 alias ys="yarn start"
 alias yt="yarn test"
 alias ytw="yarn test:watch"
@@ -99,17 +100,16 @@ alias yui="yarn upgrade-interactive --latest"
 
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
-alias dropbox='cd ~/DropBox'
 alias blog='cd ~/Projects/WebSites/blog'
 alias mh='cd ~/Projects/WebSites/myhomepage'
 alias pr='cd ~/Projects'
-alias mdw='cd ~/Projects/mdwiki_next'
+alias mdw='cd ~/Projects/mdwiki'
 alias mdwiki='cd ~/Projects/mdwiki'
 alias dotfiles='cd ~/Projects/dotfiles'
 alias dockerfiles='cd ~/Projects/dockerfiles'
 alias howcani='cd ~/Projects/howcani'
 alias mykatas='cd ~/Projects/Katas/MyKatas'
-alias notes="cd ~/Dropbox/Notes"
+alias notes="cd ~/SynologyDrive/Notes"
 alias mymusic="cd ~/Projects/mymusic"
 
 if [ $UID -ne 0 ]; then
@@ -177,7 +177,7 @@ alias sen="docker run --rm --name=sen -v /var/run/docker.sock:/run/docker.sock -
 alias make-presentation="make-slides"
 
 # Alias for slowtype.sh from Klaus Knopper
-alias slowtype="slowtype.sh"
+alias slowtype="slowtype.sh -h -n"
 
 # Shows a fzf based list with all man-pages and gives the user the ability to search for it an select one
 alias man-fzf="man -k . | sort -r | fzf | awk '{print $1}' | xargs -r man "
