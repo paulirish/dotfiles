@@ -97,6 +97,7 @@ alias ys="yarn start"
 alias yt="yarn test"
 alias ytw="yarn test:watch"
 alias yui="yarn upgrade-interactive --latest"
+alias yd="yarn debug"
 
 # goto my folders
 alias wiki='cd ~/Projects/wiki'
