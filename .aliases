@@ -124,6 +124,7 @@ alias runTests=watchTests
 # Run tmux with a predefined set
 alias devmux='tmux -f ~/.dev.tmux.conf attach'
 alias tmuxexit='tmux kill-server'
+alias mux='tmux new -d -s delete-me && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t delete-me && tmux attach || tmux attach'
 alias exitall=tmuxexit
 
 alias reload="source ~/.zshrc"
