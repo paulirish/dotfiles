@@ -62,6 +62,7 @@ alias ts="tig status"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ifconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias ipinfo="curl ipinfo.io/$1"
 
 # Enhanced WHOIS lookups
 alias whois="whois -h whois-servers.net"
