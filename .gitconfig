@@ -24,7 +24,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
-        editor = 'nvim'
+        editor = 'vim'
 [color "branch"]
 	; current = yellow reverse
 	; local = yellow
