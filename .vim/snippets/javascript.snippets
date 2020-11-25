@@ -244,3 +244,13 @@ snippet cdm
 	}
 snippet frag
 	<React.Fragment>${1}</React.Fragment>
+snippet testCases
+	describe('${1} spec', () => {
+		const testCases = [
+			[${2}],
+		];
+
+		test.each(testCases)('${3}', (${4}) => {${5}
+		});
+	});
+
