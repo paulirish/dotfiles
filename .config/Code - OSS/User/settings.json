@@ -5,7 +5,7 @@
     "workbench.settings.editor": "ui"
     "window.zoomLevel": 2,
     "diffEditor.ignoreTrimWhitespace": false,
-    "jest.runAllTestsFirst": false,€ý,€ý,
+    "jest.runAllTestsFirst": false,
     "sshfs.configs": [
         {
             "host": "check24-janbaer",
@@ -15,65 +15,73 @@
         }
     ],
     "launch": {
-        "configurations": [
-            {
-                "name": "Launch Koa-Server",
-                "type": "node",
-                "request": "launch",
-                "program": "${workspaceRoot}/sources/server.js",
-                "stopOnEntry": false,
-                "args": [],
-                "cwd": "${workspaceRoot}",
-                "preLaunchTask": null,
-                "runtimeExecutable": null,
-                "runtimeArgs": [
-                ],
-                "console": "internalConsole",
-                "sourceMaps": false,
-                "protocol": "inspector"
-              },
-              {
-                "name": "Attach to Process",
-                "type": "node",
-                "request": "attach",
-                "processId": "${command:PickProcess}",
-                "port": 5858,
-                "sourceMaps": false,
-                "protocol": "inspector"
-              },
-              {
-                "type": "node",
-                "request": "launch",
-                "name": "Jest Debug Tests",
-                "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-                "cwd": "${workspaceFolder}",
-                "args": [
-                  "--config=${workspaceFolder}/jest.config.json",
-                  "--runInBand",
-                  "--no-cache"
-                ],
-                "console": "internalConsole",
-                "internalConsoleOptions": "neverOpen",
-                "disableOptimisticBPs": true
-              },
-              {
-                "type": "node",
-                "request": "launch",
-                "name": "Jest Debug Current File",
-                "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-                "cwd": "${workspaceFolder}",
-                "args": [
-                  "--config=${workspaceFolder}/jest.config.json",
-                  "--runInBand",
-                  "--no-cache",
-                  "--testPathPattern=${fileBasenameNoExtension}"
-                ],
-                "console": "internalConsole",
-                "internalConsoleOptions": "neverOpen",
-                "disableOptimisticBPs": true
-              }         
-
-        ],
-        "compounds": []
+      "configurations": [
+        {
+          "name": "Launch Koa-Server",
+          "type": "node",
+          "request": "launch",
+          "program": "${workspaceRoot}/sources/server.js",
+          "stopOnEntry": false,
+          "args": [],
+          "cwd": "${workspaceRoot}",
+          "preLaunchTask": null,
+          "runtimeExecutable": null,
+          "runtimeArgs": [
+          ],
+          "console": "internalConsole",
+          "sourceMaps": false,
+          "protocol": "inspector"
+        },
+        {
+          "name": "Attach to Process",
+          "type": "node",
+          "request": "attach",
+          "processId": "${command:PickProcess}",
+          "port": 5858,
+          "sourceMaps": false,
+          "protocol": "inspector"
+        },
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Jest Debug Tests",
+          "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+          "cwd": "${workspaceFolder}",
+          "args": [
+            "--config=${workspaceFolder}/jest.config.json",
+            "--runInBand",
+            "--no-cache"
+          ],
+          "console": "internalConsole",
+          "internalConsoleOptions": "neverOpen",
+          "disableOptimisticBPs": true
+        },
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Jest Debug Current File",
+          "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+          "cwd": "${workspaceFolder}",
+          "args": [
+            "--config=${workspaceFolder}/jest.config.json",
+            "--runInBand",
+            "--no-cache",
+            "--testPathPattern=${fileBasenameNoExtension}"
+          ],
+          "console": "internalConsole",
+          "internalConsoleOptions": "neverOpen",
+          "disableOptimisticBPs": true
+        },
+        {
+          "type": "go",
+          "name": "Launch Go",
+          "request": "launch",
+          "mode": "auto",
+          "program": "${fileDirname}",
+          "env": {},
+          "args": []
+        }
+      ],
+      "compounds": []
     }
 }
