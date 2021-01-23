@@ -304,8 +304,10 @@ for_window [instance="remmina"] floating enable
 for_window [instance="seahorse"] floating enable resize set 800 600
 for_window [instance="gitg"] floating enable resize set 1600 1200
 for_window [instance="pavucontrol"] floating enable resize set 800 600
-for_window [class="Pamac-manager"] floating enable resize set 1280x1024
-for_window [instance="meld"] floating enable resize set 1280x1024
+for_window [class="Pamac-manager"] floating enable resize set 1280 1024
+for_window [class="Meld"] floating enable resize set 1280 1024
+for_window [class="Gedit"] floating enable resize set 1280 1024
+for_window [class="Gnome-calculator"] floating enable
 
 # Configure our touchpad so that we only need to tap instead of click it
 exec_always --no-startup-id xinput set-prop 10 278 1

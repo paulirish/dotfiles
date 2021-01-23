@@ -307,8 +307,10 @@ for_window [instance="remmina"] floating enable
 for_window [instance="seahorse"] floating enable resize set 800 600
 for_window [instance="gitg"] floating enable resize set 1600 1200
 for_window [instance="pavucontrol"] floating enable resize set 800 600
-for_window [class="Pamac-manager"] floating enable resize set 1280x1024
-for_window [instance="meld"] floating enable resize set 1280x1024
+for_window [class="Pamac-manager"] floating enable resize set 1280 1024
+for_window [class="Meld"] floating enable resize set 1280 1024
+for_window [class="Gedit"] floating enable resize set 1280 1024
+for_window [class="Gnome-calculator"] floating enable
 
 # i3-gaps
 for_window [class="^.*"] border pixel 1
