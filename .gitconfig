@@ -137,3 +137,6 @@
 
 [include]
   path = ~/.gitconfig.local
+
+[includeIf "gitdir:~/Projects/check24/"]
+  path = ~/.gitconfig_check24
