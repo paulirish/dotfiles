@@ -1,29 +1,27 @@
 #                                    LS_COLORS
 # Maintainers: Magnus Woldrich <m@japh.se>,
-#              Ryan Delaney <ryan.delaney@gmail.com> OpenGPG: 0D98863B4E1D07B6
+#              Ryan Delaney <ryan.patrick.delaney@protonmail.com>
 #         URL: https://github.com/trapd00r/LS_COLORS
-#     Version: 0.254
-#     Updated: Tue Mar 29 21:25:30 AEST 2016
 #
 #   This is a collection of extension:color mappings, suitable to use as your
 #   LS_COLORS environment variable. Most of them use the extended color map,
 #   described in the ECMA-48 document; in other words, you'll need a terminal
 #   with capabilities of displaying 256 colors.
 #
-#   As of this writing, around 300 different filetypes/extensions is supported.
+#   As of this writing, over 500 different filetypes/extensions are supported.
 #   That's indeed a lot of extensions, but there's a lot more! Therefore I need
 #   your help.
 #
 #   Fork this project on github, add the extensions you are missing, and send me
 #   a pull request.
 #
-#   For files that usually ends up next to each other, like html, css and js,
+#   For files that usually end up next to each other, like html, css and js,
 #   try to pick colors that fit nicely together. Filetypes with multiple
 #   possible extensions, like htm and html, should have the same color.
 
 # This program is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.  See the Perl Artistic License for more details.
+# PARTICULAR PURPOSE. See the Perl Artistic License for more details.
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the Perl Artistic License as published by the Perl Foundation,
@@ -60,6 +58,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # documents {{{1
 *README               38;5;220;1
 *README.rst           38;5;220;1
+*README.md            38;5;220;1
 *LICENSE              38;5;220;1
 *COPYING              38;5;220;1
 *INSTALL              38;5;220;1
@@ -86,15 +85,27 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .tex                  38;5;184
 .textile              38;5;184
 # key-value, non-relational data {{{2
+.bib                  38;5;178
 .json                 38;5;178
+.jsonl                38;5;178
+.jsonnet              38;5;178
+.libsonnet            38;5;142
+.ndjson               38;5;178
 .msg                  38;5;178
 .pgn                  38;5;178
 .rss                  38;5;178
 .xml                  38;5;178
+.fxml                 38;5;178
+.toml                 38;5;178
 .yaml                 38;5;178
 .yml                  38;5;178
 .RData                38;5;178
 .rdata                38;5;178
+.xsd                  38;5;178
+.dtd                  38;5;178
+.sgml                 38;5;178
+.rng                  38;5;178
+.rnc                  38;5;178
 # }}}
 # binary {{{2
 .cbr                  38;5;141
@@ -103,12 +114,12 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .djvu                 38;5;141
 .pdf                  38;5;141
 .PDF                  38;5;141
+.mobi                 38;5;141
+.epub                 38;5;141
 # words {{{3
 .docm                 38;5;111;4
 .doc                  38;5;111
 .docx                 38;5;111
-.eps                  38;5;111
-.ps                   38;5;111
 .odb                  38;5;111
 .odt                  38;5;111
 .rtf                  38;5;111
@@ -125,6 +136,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pptsm                38;5;166;4
 # spreadsheet {{{3
 .csv                  38;5;78
+.tsv                  38;5;78
 #   Open document spreadsheet
 .ods                  38;5;112
 .xla                  38;5;76
@@ -136,12 +148,19 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 #   Excel module
 .xltm                 38;5;73;4
 .xltx                 38;5;73
+#   macOS office suite {{{3
+.pages                38;5;111
+.numbers              38;5;112
+.key                  38;5;166
 # }}}
 # }}}
 # configs {{{2
+*config               1
 *cfg                  1
 *conf                 1
 *rc                   1
+*authorized_keys      1
+*known_hosts          1
 .ini                  1
 .plist                1
 #   vim
@@ -150,6 +169,22 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pcf                  1
 #   adobe photoshop proof settings file
 .psf                  1
+#   Sublime Text config
+.hidden-color-scheme  1
+.hidden-tmTheme       1
+.last-run             1
+.merged-ca-bundle     1
+.sublime-build        1
+.sublime-commands     1
+.sublime-keymap       1
+.sublime-settings     1
+.sublime-snippet      1
+.sublime-project      1
+.sublime-workspace    1
+.tmTheme              1
+.user-ca-bundle       1
+# eclipse
+.epf                  1
 # }}}
 # }}}
 # code {{{1
@@ -168,11 +203,16 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .sh                   38;5;172
 .zsh                  38;5;172
 .vim                  38;5;172
+.kak                  38;5;172
 
 # interpreted {{{2
 .ahk                  38;5;41
 # python
 .py                   38;5;41
+.ipynb                38;5;41
+# ruby
+.rb                   38;5;41
+.gemspec              38;5;41
 # perl
 .pl                   38;5;208
 .PL                   38;5;160
@@ -189,6 +229,16 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .R                    38;5;49
 # GrADS script
 .gs                   38;5;81
+# Clojure
+.clj                  38;5;41
+.cljs                 38;5;41
+.cljc                 38;5;41
+# Clojure gorilla REPL worksheet
+.cljw                 38;5;41
+# Scala
+.scala                38;5;41
+# Dart
+.dart                 38;5;51
 
 # compiled {{{2
 #
@@ -197,6 +247,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 #   LISP
 .cl                   38;5;81
 .lisp                 38;5;81
+.rkt                  38;5;81
 #   lua
 .lua                  38;5;81
 #   Moonscript
@@ -228,27 +279,60 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .go                   38;5;81
 #   fortran
 .f                    38;5;81
+.F                    38;5;81
 .for                  38;5;81
 .ftn                  38;5;81
+.f90                  38;5;81
+.F90                  38;5;81
+.f95                  38;5;81
+.F95                  38;5;81
+.f03                  38;5;81
+.F03                  38;5;81
+.f08                  38;5;81
+.F08                  38;5;81
+# Nim
+.nim                  38;5;81
+.nimble               38;5;81
 #   pascal
 .s                    38;5;110
 .S                    38;5;110
 #   Rust
 .rs                   38;5;81
+#   AppleScript
+.scpt                 38;5;219
 #   Swift
 .swift                38;5;219
 #   ?
 .sx                   38;5;81
+# Vala
+.vala                 38;5;81
+.vapi                 38;5;81
 #   interface file in GHC - https://github.com/trapd00r/LS_COLORS/pull/9
 .hi                   38;5;110
 #   haskell
 .hs                   38;5;81
 .lhs                  38;5;81
+#   agda
+.agda                 38;5;81
+.lagda                38;5;81
+.lagda.tex            38;5;81
+.lagda.rst            38;5;81
+.lagda.md             38;5;81
+.agdai                38;5;110
+#   Zig
+.zig                  38;5;81
+# V
+.v                    38;5;81
 
 # binaries {{{2
 # compiled apps for interpreted languages
 .pyc                  38;5;240
 # }}}
+# orchestration {{{2
+.tf                   38;5;168
+.tfstate              38;5;168
+.tfvars               38;5;168
+# orchestration 2}}}
 # html {{{2
 .css                  38;5;125;1
 .less                 38;5;125;1
@@ -265,7 +349,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .coffee               38;5;074;1
 .java                 38;5;074;1
 .js                   38;5;074;1
-.jsm                  38;5;074;1
+.mjs                  38;5;074;1
 .jsm                  38;5;074;1
 .jsp                  38;5;074;1
 # }}}
@@ -287,6 +371,11 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 *Makefile             38;5;155
 *MANIFEST             38;5;243
 *pm_to_blib           38;5;240
+# Functional Configuration
+.nix                  38;5;155
+.dhall                38;5;178
+# ruby rake
+.rake                 38;5;155
 # automake
 .am                   38;5;242
 .in                   38;5;242
@@ -303,11 +392,14 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 #}}}
 # graphics {{{1
 .bmp                  38;5;97
+.dicom                38;5;97
 .tiff                 38;5;97
 .tif                  38;5;97
 .TIFF                 38;5;97
 .cdr                  38;5;97
+.flif                 38;5;97
 .gif                  38;5;97
+.icns                 38;5;97
 .ico                  38;5;97
 .jpeg                 38;5;97
 .JPG                  38;5;97
@@ -315,7 +407,10 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .nth                  38;5;97
 .png                  38;5;97
 .psd                  38;5;97
+.pxd                  38;5;97
+.pxm                  38;5;97
 .xpm                  38;5;97
+.webp                 38;5;97
 # }}}
 # vector {{{1
 .ai                   38;5;99
@@ -357,17 +452,25 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .VOB                  38;5;115;1
 .vob                  38;5;115;1
 # }}}
+# subtitles {{{1
+.ass                  38;5;117
+.srt                  38;5;117
+.ssa                  38;5;117
+.sub                  38;5;117
+.sup                  38;5;117 # bitmap image track
+.vtt                  38;5;117
+#}}}
 # audio {{{1
 .3ga                  38;5;137;1
 .S3M                  38;5;137;1
 .aac                  38;5;137;1
+.amr                  38;5;137;1
 .au                   38;5;137;1
+.caf                  38;5;137;1
 .dat                  38;5;137;1
 .dts                  38;5;137;1
 .fcm                  38;5;137;1
 .m4a                  38;5;137;1
-.mid                  38;5;137;1
-.midi                 38;5;137;1
 .mod                  38;5;137;1
 .mp3                  38;5;137;1
 .mp4a                 38;5;137;1
@@ -383,6 +486,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .cda                  38;5;136;1
 .flac                 38;5;136;1
 .alac                 38;5;136;1
+.mid                  38;5;136;1
 .midi                 38;5;136;1
 .pcm                  38;5;136;1
 .wav                  38;5;136;1
@@ -398,6 +502,9 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pfm                  38;5;66
 .ttf                  38;5;66
 .otf                  38;5;66
+# Web Open Font Format
+.woff                 38;5;66
+.woff2                38;5;66
 #   postscript fonts
 .PFA                  38;5;66
 .pfa                  38;5;66
@@ -418,16 +525,20 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .sz                   38;5;40
 .tar                  38;5;40
 .tgz                  38;5;40
+.warc                 38;5;40
+.WARC                 38;5;40
 .xz                   38;5;40
 .z                    38;5;40
-.Z                    38;5;40
 .zip                  38;5;40
 .zipx                 38;5;40
 .zoo                  38;5;40
 .zpaq                 38;5;40
+.zst                  38;5;40
+.zstd                 38;5;40
 .zz                   38;5;40
   # packaged apps {{{2
 .apk                  38;5;215
+.ipa                  38;5;215
 .deb                  38;5;215
 .rpm                  38;5;215
 .jad                  38;5;215
@@ -448,7 +559,6 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .part                 38;5;239
   # }}}
 # partition images {{{2
-.dmg                  38;5;124
 .iso                  38;5;124
 .bin                  38;5;124
 .nrg                  38;5;124
@@ -483,7 +593,10 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .BUP                  38;5;241
 .bak                  38;5;241
 .o                    38;5;241 #   *nix Object file (shared libraries, core dumps etc)
+*core                 38;5;241 #   Linux user core dump file (from /proc/sys/kernel/core_pattern)
+.mdump                38;5;241 #   Mini DuMP crash report
 .rlib                 38;5;241 #   Static rust library
+.dll                  38;5;241 #   dynamic linked library
 # temporary files
 .swp                  38;5;244
 .swo                  38;5;244
@@ -493,11 +606,13 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pid                  38;5;248
 .state                38;5;248
 *lockfile             38;5;248
+*lock                 38;5;248
 # error logs
 .err                  38;5;160;1
 .error                38;5;160;1
 .stderr               38;5;160;1
 # state dumps
+.aria2                38;5;241
 .dump                 38;5;241
 .stackdump            38;5;241
 .zcompdump            38;5;241
@@ -540,10 +655,29 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .md5                  38;5;116
 .properties           38;5;116
 .sfv                  38;5;116
-.srt                  38;5;116
 .theme                38;5;116
 .torrent              38;5;116
 .urlview              38;5;116
+.webloc               38;5;116
+.lnk                  38;5;39
+# }}}
+# macOS files {{{1
+*CodeResources        38;5;239 # code signing apps
+*PkgInfo              38;5;239 # app bundle id
+.nib                  38;5;57  # UI
+.car                  38;5;57  # asset catalog
+.dylib                38;5;241 # shared lib
+#   Xcode files {{{2
+.entitlements         1
+.pbxproj              1
+.strings              1
+.storyboard           38;5;196
+.xcconfig             1
+.xcsettings           1
+.xcuserstate          1
+.xcworkspacedata      1
+.xib                  38;5;208
+# }}}
 # }}}
 # encrypted data {{{1
 .asc                  38;5;192;3
@@ -555,9 +689,11 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .p12                  38;5;192;3
 .pem                  38;5;192;3
 .pgp                  38;5;192;3
-.asc                  38;5;192;3
-.enc                  38;5;192;3
-.sig                  38;5;192;3
+.p7s                  38;5;192;3
+*id_dsa                38;5;192;3
+*id_rsa                38;5;192;3
+*id_ecdsa              38;5;192;3
+*id_ed25519            38;5;192;3
 # 1}}}
 # emulators {{{1
 .32x                  38;5;213
@@ -588,6 +724,20 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
   # Sega
 .sms                  38;5;213
 # }}}
+#   Texas Instruments Calculator files {{{1
+# for more see http://tibasicdev.wikidot.com/file-extensions
+.8xp                  38;5;121
+.8eu                  38;5;121
+.82p                  38;5;121
+.83p                  38;5;121
+.8xe                  38;5;121
+# }}}
+# 3D printing {{{1
+.stl                  38;5;216
+.dwg                  38;5;216
+.ply                  38;5;216
+.wrl                  38;5;216
+# }}}
 # unsorted {{{1
 #
 #   Portable Object Translation for GNU Gettext
@@ -596,14 +746,12 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pcb                  38;5;7
 #   groff (rendering app for texinfo)
 .mm                   38;5;7
-#   perldoc
-.pod                  38;5;7
-#   GIMP brush
+#   GIMP files
 .gbr                  38;5;7
+.scm                  38;5;7
+.xcf                  38;5;7
 # printer spool file
 .spl                  38;5;7
-#   GIMP project file
-.scm                  38;5;7
 # RStudio project file
 .Rproj                38;5;11
 #   Nokia Symbian OS files
@@ -617,6 +765,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .example              38;5;7
 .feature              38;5;7
 .ger                  38;5;7
+.ics                  38;5;7 # calendar information
 .map                  38;5;7
 .mf                   38;5;7
 .mfasl                38;5;7
@@ -626,30 +775,20 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .pi                   38;5;7
 .plt                  38;5;7
 .pm                   38;5;7
-.rb                   38;5;7
 .rdf                  38;5;7
-.rst                  38;5;7
 .ru                   38;5;7
 .sch                  38;5;7
 .sty                  38;5;7
 .sug                  38;5;7
-.t                    38;5;7
 .tdy                  38;5;7
 .tfm                  38;5;7
 .tfnt                 38;5;7
 .tg                   38;5;7
 .vcard                38;5;7
-.vcf                  38;5;7
+.vcf                  38;5;7 #contact information
 .xln                  38;5;7
 #   AppCode files
 .iml                  38;5;166
-#   Xcode files
-.xcconfig             1
-.entitlements         1
-.strings              1
-.storyboard           38;5;196
-.xcsettings           1
-.xib                  38;5;208
 # }}}
 # termcap {{{1
 TERM ansi
@@ -702,6 +841,7 @@ TERM xterm-256color
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
+TERM xterm-kitty
 # }}}
 
 
