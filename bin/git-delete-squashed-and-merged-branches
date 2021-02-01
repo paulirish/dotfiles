@@ -3,7 +3,7 @@
 
 # prereqs:
 #
-#     pip install pygithub
+#     pip3 install pygithub
 #
 
 # usage:
@@ -27,9 +27,9 @@ import subprocess
 import time
 
 yellow = '\033[93m'
+brightblack = '\u001b[30;1m'
 reset = '\033[0m'
 DRY_RUN = len(sys.argv) > 1 and sys.argv[1] == '--dry-run'
-
 
 tokenpath = os.path.expanduser('~/.githubtoken')
 tokenfile = open(tokenpath)
@@ -67,7 +67,11 @@ def main():
         res = G.search_issues(sha)
         shortsha = sha[0:7]
         issue_closed_states = [issue.state == 'closed' for issue in res]
-        
+        open_issues = [issue for issue in res if issue.state != 'closed']
+
+        # todo: filter found issues to see if they are from remotes that we care about.
+        # eg not this shit https://github.com/DrippingFuture/lighthouse/pull/1
+
         if not issue_closed_states:
             msg = '🔃  No PRs found'
             retval = 4
@@ -82,6 +86,8 @@ def main():
             retval = 2
 
         print('{}{}{} ({}):\n{}'.format(yellow, branch, reset, shortsha, msg))
+        for issue in open_issues:
+            print('    · "{}" {}{}{}'.format(issue.title, brightblack, issue.html_url, reset))
 
         if retval == 0:
             if DRY_RUN:
