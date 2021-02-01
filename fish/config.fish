@@ -110,5 +110,8 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 # uninstall by removing these lines or running `tabtab uninstall yarn`
 [ -f /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish ]; and . /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish
 
-# rvm default
+
+ # fzf should be populated via the silver searcher: https://github.com/junegunn/fzf#respecting-gitignore
+set -gx FZF_DEFAULT_COMMAND 'command ag -l -g ""'
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
