@@ -112,6 +112,6 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 
  # fzf should be populated via the silver searcher: https://github.com/junegunn/fzf#respecting-gitignore
+ # note.. without `ag` this is a good fallback: set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx FZF_DEFAULT_COMMAND 'command ag -l -g ""'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-
