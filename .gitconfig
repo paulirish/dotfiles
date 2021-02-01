@@ -12,6 +12,7 @@
 	cherrypick = cherry-pick
 	cherry = cherry-pick
 	cp = cherry-pick
+	diffbranch = !"git diff $(git merge-base HEAD origin/master)"
 
 	# show commit log of unique commits of this branch (not on master)
 	diffcommitsfrommaster = log --no-merges master..
