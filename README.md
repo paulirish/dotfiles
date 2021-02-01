@@ -121,3 +121,16 @@ One-off binaries that aren't via an npm global or homebrew. [git open](https://g
 ### Syntax highlighting for these files
 
 If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Package Control](http://wbond.net/sublime_packages/package_control)
+
+### 2020 update
+
+Rust folks have made a few things that are changing things.
+
+ - most folks know `bat`  as a `cat` replacement
+ - https://github.com/dandavison/delta seems a lot better than the diff-so-fancy project that i started. :/
+ - https://github.com/ogham/exa is better `ls` and gets all the trapd00r/LS_COLORS stuff etc.
+ - https://github.com/bigH/git-fuzzy interactive git thing. deprecates my `git recent` script. and probably some other things.
+
+ Also I'd like to migrate to using homesick or https://www.atlassian.com/git/tutorials/dotfiles
+
+ also interested in https://github.com/dandavison/open-in-editor
