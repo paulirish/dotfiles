@@ -9,6 +9,10 @@ set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
 
 set -l PA ""
 
+
+# corp git
+set PA $PA "/usr/local/git/current/bin"
+
 for entry in (string split \n $PATH_DIRS)
     # resolve the {$HOME} substitutions
     set -l resolved_path (eval echo $entry)
