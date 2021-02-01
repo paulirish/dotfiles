@@ -3,7 +3,8 @@
 # and after changes.. a `bcr` will recompile and relaunch chrome.
 
 function deps () {
-    env GYP_DEFINES=disable_nacl=1 gclient sync
+    # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
+    env GYP_DEFINES=disable_nacl=1 gclient sync --delete_unversioned_trees --reset 
 }
 
 function hooks () {
@@ -11,9 +12,9 @@ function hooks () {
 }
 
 function b () {
-    local dir=$(git rev-parse --show-cdup)/out/Default
+    local dir=./$(git rev-parse --show-cdup)/out/Default
     # autoninja will automatically determine your -j number based on CPU cores
-    local cmd="autoninja -C \"$dir\" chrome" 
+    local cmd="ninja -C $(realpath $dir) -j900 -l 60 chrome" 
     echo "  > $cmd"
     eval "$cmd"
     if [ $? -eq 0 ]; then
@@ -21,6 +22,14 @@ function b () {
         
     fi
 }
+
+function dtb () {
+    local dir_default=$(grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
+    local cmd="autoninja -C "$dir_default""  
+    echo "  > $cmd"
+    eval $cmd
+}
+
 
 # you can also add any extra args: `cr --user-data-dir=/tmp/lol123"
 function cr () {
@@ -30,15 +39,31 @@ function cr () {
     eval "$cmd"
 }
 
+function dtcr () {
+    local crpath="$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
+    local dtpath=$(realpath out/Default/resources/inspector)
+    local cmd="$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile"
+    echo "  > $cmd"
+    eval $cmd
+}
+
+
 
 function gom () {
     # these probably dont make sense for everyone.
     export GOMAMAILTO=/dev/null
-    export GOMA_OAUTH2_CONFIG_FILE=$HOME/.goma_oauth2_config
+
     export GOMA_ENABLE_REMOTE_LINK=yes
 
-    ~/goma/goma_ctl.py ensure_start
+    goma_ctl ensure_start
 }
+
+function dtbcr () {
+    if dtb; then
+        dtcr
+    fi
+}
+
 
 function bcr () {
     if b; then
