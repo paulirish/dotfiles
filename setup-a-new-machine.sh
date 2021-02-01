@@ -127,9 +127,10 @@ fi
 ##############################################################################################################
 ### homebrew!
 
-# (if your machine has /usr/local locked down (like google's), you can do this to place everything in ~/.homebrew
-mkdir $HOME/.homebrew && curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C $HOME/.homebrew
-export PATH=$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH
+# (if your machine has /usr/local locked down (like google's), you can do this to place everything in ~/homebrew
+mkdir $HOME/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $HOME/homebrew
+export PATH=$HOME/homebrew/bin:$HOME/homebrew/sbin:$PATH
+# maybe you still need an LD_LIBRARY export thing
 
 # install all the things
 ./brew.sh
