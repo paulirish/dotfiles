@@ -10,6 +10,8 @@ function ..... ; cd ../../../.. ; end
 function g        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
 
+# uses npm if its an npm repo. https://www.npmjs.com/package/narn
+alias yarn=narn
 
 alias li=lighthouse
 alias lperf 'lighthouse --only-categories=performance'
@@ -38,7 +40,10 @@ alias ag='ag --follow --hidden -W (math $COLUMNS - 11)'
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
-alias master="git checkout master"
+alias master="git checkout main ^ /dev/null || git checkout master"
+
+alias resetmouse='printf '"'"'\e[?1000l'"'"
+
 
 # Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
