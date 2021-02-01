@@ -115,3 +115,4 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
  # note.. without `ag` this is a good fallback: set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx FZF_DEFAULT_COMMAND 'command ag -l -g ""'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+
