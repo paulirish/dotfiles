@@ -86,6 +86,11 @@
 [push]
 	default = current
 	followTags = true
+[pull]
+	ff = only
+	default = current
+[checkout]
+	defaultRemote = origin
 
 # use separate file for username / github token / etc
 [include]
@@ -110,4 +115,3 @@
 	showPatch = true
 [log]
 	date = relative
-
