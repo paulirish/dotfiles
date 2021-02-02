@@ -7,19 +7,15 @@ SAVEHIST=100000
 # vim bindings
 bindkey -v
 
-
 fpath=( "$HOME/.zfunctions" $fpath )
-
 
 # antigen time!
 source ~/code/antigen/antigen.zsh
-
 
 ######################################################################
 ### install some antigen bundles
 
 local b="antigen-bundle"
-
 
 # Don't load the oh-my-zsh's library. Takes too long. No need.
 	# antigen use oh-my-zsh
@@ -65,8 +61,6 @@ $b sindresorhus/pure
 ###
 #################################################################################################
 
-
-
 # bind UP and DOWN arrow keys for history search
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -81,7 +75,6 @@ auto-ls () {
 	hash gls >/dev/null 2>&1 && CLICOLOR_FORCE=1 gls -aFh --color --group-directories-first || ls
 }
 chpwd_functions=( auto-ls $chpwd_functions )
-
 
 # Enable autosuggestions automatically
 zle-line-init() {
