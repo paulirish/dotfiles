@@ -2,24 +2,24 @@ module.exports = {
 
   "extends": [
     "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "kentcdodds/possible-errors",
-    "kentcdodds/best-practices",
-    "kentcdodds/es6/possible-errors",
-    "kentcdodds/import",
-    "plugin:promise/recommended",
-    "xo/esnext",
-    "plugin:unicorn/recommended",
-    "google"
+    // "plugin:import/errors",
+    // "plugin:import/warnings",
+    // "kentcdodds/possible-errors",
+    // "kentcdodds/best-practices",
+    // "kentcdodds/es6/possible-errors",
+    // "kentcdodds/import",
+    // "plugin:promise/recommended",
+    // "xo/esnext",
+    // "plugin:unicorn/recommended",
+    // "google"
   ],
   "plugins": [
-    "unicorn",
-    "import",
-    "json",
-    "eslint-comments",
-    "optimize-regex",
-    "promise"
+    // "unicorn",
+    // "import",
+    // "json",
+    // "eslint-comments",
+    // "optimize-regex",
+    // "promise"
   ],
 
   "env": {
@@ -46,13 +46,13 @@ module.exports = {
       "varsIgnorePattern": "(^_$)"
     }],
 
-    "eslint-comments/disable-enable-pair": "error",
-    "eslint-comments/no-duplicate-disable": "error",
-    "eslint-comments/no-unlimited-disable": "error",
-    "eslint-comments/no-unused-disable": "error",
-    "eslint-comments/no-unused-enable": "error",
+    // "eslint-comments/disable-enable-pair": "error",
+    // "eslint-comments/no-duplicate-disable": "error",
+    // "eslint-comments/no-unlimited-disable": "error",
+    // "eslint-comments/no-unused-disable": "error",
+    // "eslint-comments/no-unused-enable": "error",
 
-    "optimize-regex/optimize-regex": "warn",
+    // "optimize-regex/optimize-regex": "warn",
 
     "valid-jsdoc": "off", // it's wrong pretty often
     "comma-dangle": "off",
@@ -60,7 +60,7 @@ module.exports = {
     "curly": "off",
     "arrow-parens": ["error", "as-needed"],
     "no-return-assign": "off",
-    "unicorn/prefer-type-error": "off",
+    // "unicorn/prefer-type-error": "off",
     "require-jsdoc": "off",
     "no-implicit-coercion": "off",
     "capitalized-comments": "warn"
