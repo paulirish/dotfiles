@@ -64,7 +64,6 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
 
 
-
 # z beats cd most of the time. `brew install z`
 if which brew > /dev/null; then
     zpath="$(brew --prefix)/etc/profile.d/z.sh"
@@ -98,21 +97,22 @@ if  which brew > /dev/null; then
     fi;
 fi;
 
-
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type __git_complete &> /dev/null; then
     __git_complete g __git_main
 fi;
 
-# Enable git branch name completion if file exists
+
+# Enable git branch name completion. 
+# curl -L https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
+
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
-
 
 ##
 ## better `cd`'ing
