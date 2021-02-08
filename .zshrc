@@ -132,26 +132,36 @@ alias docker_container="docker ps -a"
 alias r_reset="rails db:drop; rails db:create; rails db:migrate; rails db:seed;"
 alias r="rails"
 alias rs="rspec"
-alias mysql_start="brew services start mysql@5.7"
-alias mysql_stop="brew services stop mysql@5.7"
+alias mysql_start="brew services start mysql@5.6"
+alias mysql_stop="brew services stop mysql@5.6"
 alias nginx_start="brew services start nginx-full"
 alias nginx_stop="brew services stop nginx-full"
 alias nginx_restart="brew services restart nginx-full"
 alias nginx_reload="brew services reload nginx-full"
+
+# bundler
 alias be="bundle exec"
 alias bs="bundle show"
 alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
-
+export BUNDLER_EDITOR=vim
 
 # rbenv
 eval "$(rbenv init -)"
 
+
 # brew paths
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# spork
+alias spork_up="RAILS_ENV=test bundle exec spork"
+alias spork_test="bundle exec rspec --drb"
