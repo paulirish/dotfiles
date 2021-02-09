@@ -41,13 +41,10 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 
 # GIT STUFF
 alias g="git"
-
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
-
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
-
 alias gs="git status"
 alias gc="git commit -m "
 alias gp="git pull"
@@ -57,6 +54,9 @@ alias gf="git fetch -p"
 alias gfp="git fp"
 
 alias ts="tig status"
+
+# Prettify json
+alias json-pretty="python -m json.tool"
 
 # IP addresses
 alias myip="curl -s ipinfo.io | jq -r .ip"

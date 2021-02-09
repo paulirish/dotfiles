@@ -8,9 +8,6 @@ alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
 alias copy='xsel --clipboard --input'
 alias paste='xsel --clipboard --output'
 
-# Prettify the json which is currently in the clipboard and paste it back to the clipboard after
-alias json-pretty="paste | python -m json.tool | copy"
-
 # Sometimes we need to start the ssh-agent manually
 alias start-ssh-agent="eval \"$(ssh-agent)\""
 
