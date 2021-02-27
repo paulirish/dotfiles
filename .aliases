@@ -35,10 +35,6 @@ else
   export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
 fi
 
-# `cat` with beautiful colors. requires Pygments installed.
-# sudo easy_install Pygments
-alias ccat='pygmentize -O style=monokai -f console256 -g'
-
 # GIT STUFF
 alias g="git"
 # Undo a `git push`
@@ -156,8 +152,6 @@ alias serve-godoc="godoc -http=:8000"
 # Sometimes we need to start the ssh-agent manually
 alias start-ssh-agent="eval \"$(ssh-agent)\""
 
-if [ $(uname) = "Linux" ]; then source ~/.aliases.linux; else source ~/.aliases.macos; fi
-
 # Some aliases for starting Docker containers with just one command
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it --name=glances docker.io/nicolargo/glances"
 alias mongo-docker="docker run -d --rm --name mongo -v "$(pwd)/data":/data/db -p 27017:27017 mongo:latest"
@@ -187,3 +181,20 @@ alias man-fzf="man -k . | sort -r | fzf | awk '{print $1}' | xargs -r man "
 
 # Clearing the greenclip history
 alias clear-clip-history="rm ~/.cache/greenclip.history"
+
+# Backup homefolders
+alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
+alias rsync-jabasoft-mbx="~/bin/rsync-JABASOFT-MBX.sh"
+
+# You need to install xsel with apt-get before using it
+alias copy='xsel --clipboard --input'
+alias paste='xsel --clipboard --output'
+
+# Sometimes we need to start the ssh-agent manually
+alias start-ssh-agent="eval \"$(ssh-agent)\""
+
+# aliases for pacman
+alias pacman-upgrade-all="sudo pamac upgrade -a"
+alias pacman-install="sudo pamac install --noconfirm $1"
+alias pacman-search="pacman search -a $1"
+alias pacman-remove="sudo pamac remove --noconfirm $1"
