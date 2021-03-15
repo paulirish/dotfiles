@@ -266,6 +266,7 @@ for_window [class="Meld"] floating enable resize set 1280 1024
 for_window [class="Gedit"] floating enable resize set 1280 1024
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="Virt-manager"] floating enable resize set 800 600
+for_window [class="Bijiben"] floating enable resize set 800 600
 
 # Some mouse specific bindings
 bindsym mod$+button3 workspace back_and_forth
