@@ -195,7 +195,7 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 # Install fisher
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 # Install theme
-fisher add oh-my-fish/theme-bobthefish
+fisher install oh-my-fish/theme-bobthefish
 
 
 
