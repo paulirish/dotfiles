@@ -18,7 +18,7 @@ brew install moreutils
 # GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
 brew install findutils
 # GNU `sed`, overwriting the built-in `sed`
-brew install gnu-sed --with-default-names
+brew install gnu-sed
 
 
 # Bash 4
@@ -27,10 +27,10 @@ brew install bash
 
 brew install bash-completion
 
-brew install homebrew/completions/brew-cask-completion
+brew install brew-cask-completion
 
-# Install wget with IRI support
-brew install wget --with-iri
+# Install wget
+brew install wget
 
 # Install more recent versions of some OS X tools
 brew install vim --with-override-system-vi
@@ -63,7 +63,7 @@ brew install the_silver_searcher
 brew install fzf
 
 brew install git
-brew install imagemagick --with-webp
+brew install imagemagick
 brew install node # This installs `npm` too using the recommended installation method
 brew install pv
 brew install rename
@@ -73,7 +73,6 @@ brew install ffmpeg --with-libvpx
 
 brew install terminal-notifier
 
-brew install android-platform-tools
 brew install pidcat   # colored logcat guy
 
 brew install ncdu # find where your diskspace went

@@ -181,7 +181,7 @@ git clone https://github.com/rupa/z.git ~/code/z
 
 # github.com/thebitguru/play-button-itunes-patch
 # disable itunes opening on media keys
-git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
+# git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
 
 
 # my magic photobooth symlink -> dropbox. I love it.
@@ -195,22 +195,25 @@ git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-but
 # for the c alias (syntax highlighted cat)
 sudo easy_install Pygments
 
+# Add new bash v5 to `/etc/shells`
+echo $(brew --prefix)/bin/bash | sudo tee -a /etc/shells
 
-# change to bash 4 (installed by homebrew)
-BASHPATH=$(brew --prefix)/bin/bash
-#sudo echo $BASHPATH >> /etc/shells
-sudo bash -c 'echo $(brew --prefix)/bin/bash >> /etc/shells'
-chsh -s $BASHPATH # will set for current user only.
-echo $BASH_VERSION # should be 4.x not the old 3.2.X
-# Later, confirm iterm settings aren't conflicting.
+# Add fish to `/etc/shells`
+FISHPATH=$(brew --prefix)/bin/fish
+echo $FISHPATH | sudo tee -a /etc/shells
+chsh -s $FISHPATH
 
+# Install fisher
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+# Install theme
+fisher add oh-my-fish/theme-bobthefish
 
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
 #   (admittedly not as easy to maintain)
 
 
 # setting up the sublime symlink
-ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+# ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
 # install nvm (Node Version Nanager, https://github.com/nvm-sh/nvm)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
