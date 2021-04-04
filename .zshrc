@@ -35,7 +35,6 @@ $b atom
 
 # homebrew  - autocomplete on `brew install`
 $b brew
-$b brew-cask
 
 # Tracks your most used directories, based on 'frecency'.
 $b robbyrussell/oh-my-zsh plugins/z

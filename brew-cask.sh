@@ -9,46 +9,46 @@
 brew tap homebrew/cask-versions
 
 # daily
-brew cask install spectacle
-# brew cask install gyazo
-# brew cask install rescuetime
-# brew cask install nordvpn
-# brew cask install flux
+brew install --cask spectacle
+# brew install --cask gyazo
+# brew install --cask rescuetime
+# brew install --cask nordvpn
+# brew install --cask flux
 
 # dev
-brew cask install iterm2
-brew cask install hyper
-brew cask install visual-studio-code
-brew cask install atom
-brew cask install imagealpha
-brew cask install imageoptim
-brew cask install charles
-brew cask install sequel-pro
-brew cask install psequel
-brew cask install slack
-brew cask install docker
-brew cask install android-sdk
-brew cask install android-platform-tools
-# brew cask install java
+brew install --cask iterm2
+brew install --cask hyper
+brew install --cask visual-studio-code
+brew install --cask atom
+brew install --cask imagealpha
+brew install --cask imageoptim
+brew install --cask charles
+brew install --cask sequel-pro
+brew install --cask psequel
+brew install --cask slack
+brew install --cask docker
+brew install --cask android-sdk
+brew install --cask android-platform-tools
+# brew install --cask java
 
 # fun
-# brew cask install limechat
-# brew cask install miro-video-converter
-# brew cask install horndis               # usb tethering
+# brew install --cask limechat
+# brew install --cask miro-video-converter
+# brew install --cask horndis               # usb tethering
 
 # browsers
-brew cask install google-chrome
-brew cask install google-chrome-canary
-brew cask install tor-browser
-brew cask install firefox-nightly
-# brew cask install webkit-nightly
-# brew cask install chromium
+brew install --cask google-chrome
+brew install --cask google-chrome-canary
+brew install --cask tor-browser
+brew install --cask firefox-nightly
+# brew install --cask webkit-nightly
+# brew install --cask chromium
 
 # less often
-# brew cask install disk-inventory-x
-# brew cask install screenflow
-brew cask install vlc
-# brew cask install licecap
+# brew install --cask disk-inventory-x
+# brew install --cask screenflow
+brew install --cask vlc
+# brew install --cask licecap
 brew tap homebrew/cask-fonts
-brew cask install font-fira-code
-brew cask install font-hack-nerd-font
+brew install --cask font-fira-code
+brew install --cask font-hack-nerd-font
