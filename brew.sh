@@ -33,7 +33,7 @@ brew install brew-cask-completion
 brew install wget
 
 # Install more recent versions of some OS X tools
-brew install vim --with-override-system-vi
+brew install vim
 brew install nano
 brew install grep
 brew install openssh
@@ -69,7 +69,7 @@ brew install pv
 brew install rename
 brew install tree
 brew install zopfli
-brew install ffmpeg --with-libvpx
+brew install ffmpeg
 
 brew install terminal-notifier
 

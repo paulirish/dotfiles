@@ -6,11 +6,7 @@
 
 
 # Additional apps versions
-<<<<<<< HEAD
-brew install caskroom/cask/brew-cask
-=======
 brew tap homebrew/cask-versions
->>>>>>> refs/remotes/origin/master
 
 # daily
 brew cask install spectacle
