@@ -47,7 +47,7 @@ export HISTTIMEFORMAT='%F %T '
 
 # keep history up to date, across sessions, in realtime
 #  http://unix.stackexchange.com/a/48113
-export HISTCONTROL="erasedups:ignoreboth"       # no duplicate entries
+export HISTCONTROL="ignoredups"       # no duplicate entries, but keep space-prefixed commands
 export HISTSIZE=100000                          # big big history (default is 500)
 export HISTFILESIZE=$HISTSIZE                   # big big history
 type shopt &> /dev/null && shopt -s histappend  # append to history, don't overwrite it
@@ -62,17 +62,6 @@ shopt -s cmdhist
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
-
-
-
-##
-## hooking in other apps…
-##
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
 
@@ -114,6 +103,11 @@ fi;
 if type __git_complete &> /dev/null; then
     __git_complete g __git_main
 fi;
+
+# Enable git branch name completion if file exists
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
 
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit

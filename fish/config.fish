@@ -8,7 +8,7 @@ source ~/.config/fish/android.fish
 source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
-source ~/.config/fish/conf.d/scmpuff.fish
+# source ~/.config/fish/conf.d/scmpuff.fish
 
 # for things not checked into git..
 if test -e "$HOME/.extra.fish";
@@ -16,9 +16,10 @@ if test -e "$HOME/.extra.fish";
 end
 
 # THEME PURE #
-set fish_function_path $HOME/.config/fish/functions/pure $fish_function_path
+set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_function_path
+set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
+source $HOME/.config/fish/functions/pure/conf.d/pure.fish
 
-# GO
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 
@@ -43,7 +44,7 @@ set -g fish_color_command 5f87d7
 set -g fish_color_comment 808080
 set -g fish_color_cwd 87af5f
 set -g fish_color_cwd_root 5f0000
-# set -g fish_color_error 870000 --bold
+set -g fish_color_error 870000 --bold
 set -g fish_color_escape af5f5f
 set -g fish_color_history_current 87afd7
 set -g fish_color_host 5f87af
@@ -65,6 +66,13 @@ set -g fish_color_separator 999
 set -g __fish_git_prompt_showdirtystate 'yes'
 set -g __fish_git_prompt_showupstream auto
 set -g pure_git_untracked_dirty false
+
+# pure
+set pure_threshold_command_duration 1
+set pure_separate_prompt_on_error true
+set pure_begin_prompt_with_current_directory false
+set -U pure_color_success (set_color green)
+set -U pure_color_git_dirty (set_color cyan)
 
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
@@ -100,4 +108,7 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 # this currently messes with newlines in my prompt. lets debug it later.
 # test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
-# rvm default
+ # fzf should be populated via the silver searcher: https://github.com/junegunn/fzf#respecting-gitignore
+ # note.. without `ag` this is a good fallback: set -gx FZF_DEFAULT_COMMAND 'fd --type f'
+set -gx FZF_DEFAULT_COMMAND 'command ag -l -g ""'
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"

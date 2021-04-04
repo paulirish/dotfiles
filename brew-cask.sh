@@ -6,7 +6,7 @@
 
 
 # Additional apps versions
-brew tap caskroom/versions
+brew install caskroom/cask/brew-cask
 
 # daily
 brew cask install spectacle
@@ -46,7 +46,6 @@ brew cask install docker
 # brew cask install screenflow
 brew cask install vlc
 # brew cask install licecap
-brew cask install transmission
 brew tap caskroom/fonts
 brew cask install font-fira-code
 brew cask install font-hack-nerd-font

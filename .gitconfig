@@ -3,7 +3,7 @@
 	fpush = push --force
 	s = status
 	sclone = clone --depth=1
-	amend = commit --amend --all
+	amend = commit --amend --all --no-edit
 	undocommit = reset HEAD~
 	hreset = reset --hard
 	co = checkout
@@ -12,6 +12,13 @@
 	cherrypick = cherry-pick
 	cherry = cherry-pick
 	cp = cherry-pick
+	diffbranch = !"git diff $(git merge-base HEAD origin/master)"
+
+	# show commit log of unique commits of this branch (not on master)
+	diffcommitsfrommaster = log --no-merges master..
+	# show unified diff of unique commits of this branch
+	difffrommaster = diff master...
+	# ^^^^ Holy crap two dots vs three dots, so important. https://stackoverflow.com/a/48681527
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
@@ -22,14 +29,32 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
+	precomposeUnicode = true
 
 [pager]
-	# insanely beautiful diffs ==> npm install -g diff-so-fancy
-	diff = diff-so-fancy | less --tabs=4 -RFX
-	show = diff-so-fancy | less --tabs=4 -RFX
+	# or not... # insanely beautiful diffs ==> npm install -g diff-so-fancy
+	# https://github.com/dandavison/delta
+	diff = delta # diff-so-fancy | less --tabs=4 -RFX
+	show = delta # diff-so-fancy | less --tabs=4 -RFX
+
+
+[delta]
+	max-line-length = 700
+	max-line-distance = 0.3 # better word-diff?
+    # plus-style = "#012800"
+    # minus-style = "#340001"
+    # zero-style = "#999999"
+    syntax-theme = base16
+    # hyperlinks = true # broken? https://github.com/dandavison/delta/issues/362
+    # navigate = true # eh. not great with short diffs.
+
+    file-decoration-style = yellow ol ul
+    file-style = bold yellow ul
+    hunk-header-decoration-style = none
 
 [interactive]
-	# disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
+	diffFilter = delta --color-only
+  	# disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
 	# diffFilter = "diff-so-fancy"
 
 # so much color
@@ -42,8 +67,11 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-    newMoved = cyan
-    oldMoved = blue
+
+	newMoved = cyan dim
+	oldMoved = blue dim
+	newMovedAlternative = cyan italic
+	oldMovedAlternative = blue italic
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = "red bold 52"
@@ -60,27 +88,13 @@
 
 # git mergetool
 [merge]
-	tool = p4merge
-[mergetool]
-	prompt = false
-	keepBackup = false
-[mergetool "p4merge"]
-	path = /usr/local/bin/p4merge
+	tool = opendiff
+	renameLimit = 0
 
-# rewrites of repo paths
+
 [url "git@github.com:"]
-	insteadOf = "https://github.com/"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-	pushInsteadOf = "https://github.com/"
+	insteadOf = https://github.com/
 
-[url "git://github.com/"]
-	insteadOf = "github:"
-
-[url "git@gist.github.com:"]
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
-	
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
@@ -92,10 +106,18 @@
 [push]
 	default = current
 	followTags = true
+[pull]
+	ff = only
+	default = current
+[checkout]
+	defaultRemote = origin
 
 # use separate file for username / github token / etc
 [include]
-	path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
+
+#[init]
+#	templatedir = ~/.git_template
 
 [filter "lfs"]
 	clean = git-lfs clean %f
@@ -108,8 +130,7 @@
     # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
     # https://blog.github.com/2018-04-05-git-217-released/
     colorMoved = zebra
-[remote "origin"]
-	fetch = +refs/heads/*:refs/remotes/origin/*
+
 [stash]
 	showPatch = true
 [log]

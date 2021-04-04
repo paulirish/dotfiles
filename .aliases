@@ -14,7 +14,6 @@ alias cp='cp -v'
 
 alias chmox='chmod -x'
 
-alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
 alias brwe=brew  #typos
 
@@ -55,7 +54,7 @@ alias undopush="git push -f origin HEAD^:master"
 
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
-alias master="git checkout master"
+alias master="git checkout main 2>/dev/null || git checkout master"
 
 # Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

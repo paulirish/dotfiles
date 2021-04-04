@@ -45,7 +45,7 @@ log() {
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
-	local port="${1:-8000}"
+	local port="${1:-8011}"
 	open "http://localhost:${port}/" &
  	# statikk is good because it won't expose hidden folders/files by default.
  	# yarn global add statikk
@@ -150,7 +150,7 @@ gifify() {
 	if [[ $2 == '--good' ]]; then
 	  ffmpeg -i "$1" -r 10 -vcodec png out-static-%05d.png
 	  time convert -verbose +dither -layers Optimize -resize 900x900\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > "$1.gif"
-	  rm out-static*.png
+	  rm -f out-static*.png
 	else
 	  ffmpeg -i "$1" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "$1.gif"
 	fi
@@ -169,10 +169,6 @@ webmify(){
 function nullify() {
   "$@" >/dev/null 2>&1
 }
-
-
-# visual studio code. a la `subl`
-function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $*; }
 
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells

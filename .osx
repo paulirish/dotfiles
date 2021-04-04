@@ -111,7 +111,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Restart automatically if the computer freezes
 sudo systemsetup -setrestartfreeze on
 
-# go into computer sleep mode after 20min
+# go into computer sleep mode after 15min
 sudo systemsetup -setcomputersleep 15
 
 # Check for software updates daily, not just once per week
@@ -277,8 +277,8 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # Enable spring loading for directories
 defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 
-# Remove the spring loading delay for directories
-defaults write NSGlobalDomain com.apple.springing.delay -float 0
+# I dont want the drag n drop happening SUPERFAST. https://discussions.apple.com/thread/7160895
+defaults write NSGlobalDomain com.apple.springing.delay -float 2
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true

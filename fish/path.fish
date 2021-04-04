@@ -18,17 +18,12 @@ for entry in (string split \n $PATH_DIRS)
 end
 
 # # rvm
-# if which -s rvm; 
+# if which -s rvm;
 # 	set PA $PA /Users/dbachko/.rvm/gems/ruby-2.2.1/bin
 # end
 
-# GO
-set PA $PA $HOME/go/bin
 
-set -U fish_user_paths $PA
 set -l paths "
-$GOPATH/bin
-"
 
 for entry in (string split \n $paths)
     # resolve the {$HOME} substitutions
@@ -38,9 +33,12 @@ for entry in (string split \n $paths)
     end
 end
 
+# GO
+set PA $PA $HOME/go/bin
+
 # Google Cloud SDK.
 if test -f "$HOME/google-cloud-sdk/path.fish.inc"
     source "$HOME/google-cloud-sdk/path.fish.inc"
 end
 
-set -U fish_user_paths $PA
+set --export PATH $PA

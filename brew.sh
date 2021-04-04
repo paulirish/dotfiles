@@ -2,6 +2,9 @@
 
 # Install command-line tools using Homebrew
 
+# (Optionally) Turn off brew's analytics https://docs.brew.sh/Analytics
+# brew analytics off
+
 # Make sure we’re using the latest Homebrew
 brew update
 
@@ -31,10 +34,10 @@ brew install wget --with-iri
 
 # Install more recent versions of some OS X tools
 brew install vim --with-override-system-vi
-brew install homebrew/dupes/nano
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
+brew install nano
+brew install grep
+brew install openssh
+brew install screen
 
 # z hopping around folders
 brew install z
@@ -48,22 +51,24 @@ brew install hub
 
 # mtr - ping & traceroute. best.
 brew install mtr
-  # allow mtr to run without sudo
-  mtrlocation=$(brew info mtr | grep Cellar | sed -e 's/ (.*//') #  e.g. `/Users/dbachko/.homebrew/Cellar/mtr/0.86`
-  sudo chmod 4755 $mtrlocation/sbin/mtr
-  sudo chown root $mtrlocation/sbin/mtr
+
+    # allow mtr to run without sudo
+    mtrlocation=$(brew info mtr | grep Cellar | sed -e 's/ (.*//') #  e.g. `/Users/paulirish/.homebrew/Cellar/mtr/0.86`
+    sudo chmod 4755 $mtrlocation/sbin/mtr
+    sudo chown root $mtrlocation/sbin/mtr
 
 
 # Install other useful binaries
 brew install the_silver_searcher
 brew install fzf
-# brew install thefuck
+
 brew install git
 brew install imagemagick --with-webp
 brew install node # This installs `npm` too using the recommended installation method
 brew install pv
 brew install rename
 brew install tree
+brew install zopfli
 brew install ffmpeg --with-libvpx
 
 brew install terminal-notifier
@@ -72,8 +77,6 @@ brew install android-platform-tools
 brew install pidcat   # colored logcat guy
 
 brew install ncdu # find where your diskspace went
-
-# brew install zsh
 
 brew install fish
 

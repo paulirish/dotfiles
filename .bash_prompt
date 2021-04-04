@@ -108,7 +108,7 @@ set_prompts() {
 
 
         ## early exit for Chromium & Blink repo, as the dirty check takes ~5s
-        ## also recommended (via goo.gl/wAVZLa ) : sudo sysctl kern.maxvnodes=$((512*1024))
+        ## see other Chromium repo hacking optimizations: https://github.com/paulirish/dotfiles/blob/master/setup-a-new-machine.sh#L214
         repoUrl=$(git config --get remote.origin.url)
         if grep -q chromium.googlesource.com <<<$repoUrl; then
             dirty=" ⁂"

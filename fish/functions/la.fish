@@ -1,6 +1,6 @@
 
 function la --description "List detailed contents. Octal permission, user, modified date, size, filename"
-  ls -l $argv | awk '
+  ls --color=always -l $argv | awk '
     {
       k=0;
       for (i=0;i<=8;i++)
