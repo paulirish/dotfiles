@@ -24,7 +24,6 @@ brew install --cask imagealpha
 brew install --cask imageoptim
 brew install --cask charles
 brew install --cask sequel-pro
-brew install --cask psequel
 brew install --cask slack
 brew install --cask docker
 brew install --cask android-sdk

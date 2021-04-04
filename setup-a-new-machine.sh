@@ -206,7 +206,7 @@ chsh -s $FISHPATH
 # Install fisher
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 # Install theme
-fisher add oh-my-fish/theme-bobthefish
+fisher install oh-my-fish/theme-bobthefish
 
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
 #   (admittedly not as easy to maintain)
