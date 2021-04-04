@@ -310,3 +310,11 @@ function fns --description "Interactively search/preview fish shell functions an
         functions "$item_name" | bat --color=always --plain --language=fish --line-range :500
     end
 end
+
+function cond -d 'initialize conda'
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+  # <<< conda initialize <<<
+  conda activate py2
+end
