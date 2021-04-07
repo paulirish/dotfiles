@@ -208,6 +208,9 @@ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fi
 # Install theme
 fisher install oh-my-fish/theme-bobthefish
 
+# Install utils
+fisher install edc/bass
+
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
 #   (admittedly not as easy to maintain)
 
