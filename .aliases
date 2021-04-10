@@ -154,7 +154,6 @@ alias start-ssh-agent="eval \"$(ssh-agent)\""
 
 # Some aliases for starting Docker containers with just one command
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it --name=glances docker.io/nicolargo/glances"
-alias mongo-docker="docker run -d --rm --name mongo -v "$(pwd)/data":/data/db -p 27017:27017 mongo:latest"
 
 # Download youtube file from the commandline
 alias ydl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"

@@ -340,3 +340,11 @@ function rename-files() {
 function cheat() {
   curl cht.sh/$1
 }
+
+function mongo-docker() {
+  local port=${1:-27017}
+  local version=${2:-latest}
+
+  local name="mongo-${port}-${version}"
+  docker run -it --rm --name ${name} -v "$(pwd)/data":/data/db -p ${port}:27017 mongo:${version}
+}
