@@ -1,19 +1,11 @@
 {
     "go.useLanguageServer": true,
-    "workbench.colorTheme": "Monokai",
+    "workbench.colorTheme": "Tomorrow Night Blue",
     "workbench.statusBar.visible": true,
-    "workbench.settings.editor": "ui"
+    "workbench.settings.editor": "ui",
     "window.zoomLevel": 2,
     "diffEditor.ignoreTrimWhitespace": false,
     "jest.runAllTestsFirst": false,
-    "sshfs.configs": [
-        {
-            "host": "check24-janbaer",
-            "name": "check24-janbaer",
-            "privateKeyPath": "$HOME/.ssh/id_rsa",
-            "username": "janbaer"
-        }
-    ],
     "launch": {
       "configurations": [
         {
