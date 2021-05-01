@@ -47,10 +47,34 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-#
-# https://github.com/emallson/gulp-zsh-completion.git
-# https://github.com/yonchu/grunt-zsh-completion.git
-plugins=(common-aliases gulp copyfile copydir dirhistory extract git-extras nvm web-search python yarn kubectl )
+plugins=(
+  alias-finder
+  ansible
+  common-aliases
+  dirhistory
+  extract
+  git-extras
+  golang
+  httpie
+  nvm
+  npm
+  python
+  kubectl
+  packer
+  pass
+  pod
+  ripgrep
+  rsync
+  systemd
+  terraform
+  tmux
+  web-search
+  yarn
+)
+
+ZSH_WEB_SEARCH_ENGINES=(
+  devdocs "https://devdocs.io/"
+)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
