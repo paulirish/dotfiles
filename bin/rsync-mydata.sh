@@ -19,7 +19,7 @@ function backup {
   done
 
   rsync -avu --progress --delete \
-        --exclude=".local/" --include="*.local" --exclude="*" \
+        --exclude=".local/" --include="*.local" --include=".smb" --exclude="*" \
         -e "ssh -i /home/${USER}/.ssh/rsync-key -p ${JABASOFT_DS_SSH_PORT}" \
         /home/${USER}/ ${USER}@${SERVER_ADDRESS}:/volume1/homes/${USER}/${HOSTNAME}/
 }
