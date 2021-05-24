@@ -197,3 +197,6 @@ alias pacman-upgrade-all="sudo pamac upgrade -a"
 alias pacman-install="sudo pamac install --noconfirm $1"
 alias pacman-search="pacman search -a $1"
 alias pacman-remove="sudo pamac remove --noconfirm $1"
+
+# generate a password with a length of 20 characters from the commandline
+alias passwd-gen="pwgen 20 1"
