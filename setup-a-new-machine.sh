@@ -17,9 +17,7 @@ cd ~/migration
 
 # what is worth reinstalling?
 brew leaves              > brew-list.txt    # all top-level brew installs
-brew cask list           > cask-list.txt
 npm list -g --depth=0    > npm-g-list.txt
-yarn global list --depth=0 > yarn-g-list.txt
 
 # then compare brew-list to what's in `brew.sh`
 #   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
@@ -160,21 +158,19 @@ npm install -g git-open
 # fancy listing of recent branches
 npm install -g git-recent
 
-# sexy git diffs
-npm install -g diff-so-fancy
-
 # trash as the safe `rm` alternative
 npm install --global trash-cli
 
 # more readable git diffs
 npm install --global diff-so-fancy
 
+# my preferred statik webserver
+npm install -g statikk
+
 # install better nanorc config
 # https://github.com/scopatz/nanorc
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
-# github.com/rupa/z   - oh how i love you
-git clone https://github.com/rupa/z.git ~/code/z
 # consider reusing your current .z file if possible. it's painful to rebuild :)
 # z is hooked up in .bash_profile
 
