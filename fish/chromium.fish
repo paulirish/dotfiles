@@ -52,7 +52,7 @@ end
 
 function dtcr --description "run chrome with dev devtools"
     set -l crpath "$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
-    set -l dtpath (realpath out/Default/resources/inspector)
+    set -l dtpath (realpath out/Default/gen/front_end)
     set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile"
     echo "  > $cmd"
     eval $cmd
