@@ -73,7 +73,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
 * `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
-* `.osx` - run on a fresh osx setup
+* `.macos` - run on a fresh mac os setup
 * `brew.sh` & `brew-cask.sh` - homebrew initialization
 
 #### git, brah
@@ -111,7 +111,7 @@ export PATH
 Mathias's repo is the canonical for this, but you should probably run his or mine after reviewing it.
 
 ```bash
-./.osx
+./.macos
 ```
 
 ### `~/bin`
