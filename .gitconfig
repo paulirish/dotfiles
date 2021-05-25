@@ -50,10 +50,11 @@
 
     file-decoration-style = yellow ol ul
     file-style = bold yellow ul
-    hunk-header-decoration-style = none
+    hunk-header-decoration-style = blue
+    hunk-header-line-number-style = purple bold
 
 [interactive]
-	diffFilter = delta --color-only
+	# diffFilter = delta --color-only
   	# disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
 	# diffFilter = "diff-so-fancy"
 

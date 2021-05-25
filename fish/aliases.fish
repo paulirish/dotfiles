@@ -39,7 +39,8 @@ alias ag='ag --follow --hidden -W (math $COLUMNS - 11)'
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
-alias master="git checkout main ^ /dev/null || git checkout master"
+alias main="git checkout main ^ /dev/null || git checkout master"
+alias master="main"
 
 alias resetmouse='printf '"'"'\e[?1000l'"'"
 
