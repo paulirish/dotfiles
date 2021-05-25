@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+
+# FYI there's also this technique which looks at remotes: https://stackoverflow.com/a/17029936
+
+
 branches_to_die=$(git branch --no-color --merged origin/master | grep -v '\smaster$')
 echo "Local branches to be deleted:"
 echo "$branches_to_die"
@@ -30,3 +35,4 @@ read -p "> " confirm
 echo ""
 echo "Pruning all remotes"
 git remote | xargs -n 1 git remote prune
+ 
