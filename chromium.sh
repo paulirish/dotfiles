@@ -41,7 +41,7 @@ function cr () {
 
 function dtcr () {
     local crpath="$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
-    local dtpath=$(realpath out/Default/resources/inspector)
+    local dtpath=$(realpath out/Default/gen/front_end)
     local cmd="$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile"
     echo "  > $cmd"
     eval $cmd
