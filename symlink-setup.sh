@@ -12,6 +12,10 @@
 
 
 
+# unrelated other thing you need to do:
+#     git submodule update --init
+
+
 # jump down to line ~140 for the start.
 
 

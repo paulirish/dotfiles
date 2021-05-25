@@ -29,6 +29,10 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
+# Use `which` along with symlink resolving
+whichlink() {
+    greadlink -f $(which $@)
+}
 
 
 # git commit browser. needs fzf
