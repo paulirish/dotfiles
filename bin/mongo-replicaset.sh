@@ -3,7 +3,11 @@
 COMMAND=${1:-start}
 VERSION=${2:-latest}
 
-# docker network create mongo-replicaset-local
+DOCKER_NETWORK="mongo-replicaset-local"
+NETWORK_ID=$(docker network ls --filter name=$DOCKER_NETWORK -q)
+if [ -z "${NETWORK_ID}"  ]; then
+  docker network create $DOCKER_NETWORK
+fi
 
 REPLICASET="mongo-replicaset-local"
 
@@ -17,7 +21,7 @@ function run-docker() {
 
   docker run -d                   \
     --name ${name}                \
-    --net mongo-replicaset-local  \
+    --net $DOCKER_NETWORK         \
     -p ${port}:${port}            \
     -v "$(pwd)/${name}":/data/db  \
     mongo:${VERSION}              \
