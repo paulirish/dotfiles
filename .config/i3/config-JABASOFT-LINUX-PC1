@@ -17,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 14
+font pango:DejaVu Sans Mono 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -37,11 +37,11 @@ bindsym $mod+Shift+Return exec nautilus
 bindsym $mod+Shift+q kill
 
 # configure launcher menus
-bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "DejaVu Sans Mono 15" -fake-background "#e53935"
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-15'"
-bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 15 -opacity "70" -dmenu -i -p "locate:")"
-bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "85" -font "DejaVu Sans Mono 15"
-bindsym $mod+shift+p exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -i -lines 10 -eh 1 -width 50 -opacity "85" -font "DejaVu Sans Mono 15"
+bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "DejaVu Sans Mono 12" -fake-background "#e53935"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'DejaVu Sans Mono-12'"
+bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 12 -opacity "70" -dmenu -i -p "locate:")"
+bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -padding 50 -opacity "85" -font "DejaVu Sans Mono 12"
+bindsym $mod+shift+p exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -i -lines 10 -eh 1 -width 50 -opacity "85" -font "DejaVu Sans Mono 12"
 
 # change focus
 bindsym $mod+j focus left
