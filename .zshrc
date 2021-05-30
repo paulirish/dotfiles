@@ -60,7 +60,6 @@ plugins=(
   npm
   python
   kubectl
-  packer
   pass
   pod
   ripgrep
