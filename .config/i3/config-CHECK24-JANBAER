@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:DejaVu Sans Mono 18
+font pango:DejaVu Sans Mono 12
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -34,11 +34,11 @@ bindsym $mod+Shift+Return exec nautilus
 bindsym $mod+Shift+q kill
 
 # configure launcher menus
-bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "Input 18" -fake-background "#e53935"
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'Input -18'"
+bindsym $mod+space exec rofi -show run -lines 5 -opacity "70" -font "Input 12" -fake-background "#e53935"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'Input -12'"
 bindsym $mod+shift+d exec xdg-open "$(locate home media | rofi -threads 0 -width 50 -lines 15 -opacity "70" -dmenu -i -p "locate:")"
-bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -opacity "85" -font "Input 18"
-bindsym $mod+shift+p exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -i -lines 10 -eh 1 -width 50 -opacity "85" -font "Input 18"
+bindsym $mod+Tab exec rofi -show window -i -lines 10 -eh 1 -width 50 -opacity "85" -font "Input 12"
+bindsym $mod+shift+p exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -i -lines 10 -eh 1 -width 50 -opacity "85" -font "Input 12"
 
 # change focus
 bindsym $mod+j focus left
