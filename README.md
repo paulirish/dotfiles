@@ -1,28 +1,8 @@
-# Paul's dotfiles
+# Mike's dotfiles
 
-* I maintain this repo as *my* dotfiles, but I'm keenly aware people are using it for theirs.
-* You're quite welcome to make suggestions, however I may decline if it's not of personal value to me.
-* If you're starting off anew, consider forking [mathias](https://github.com/mathiasbynens/dotfiles/) or [alrra](https://github.com/alrra/dotfiles/). [paulmillr](https://github.com/paulmillr/dotfiles) and [gf3](https://github.com/gf3/dotfiles) also have great setups
-
-## Setup
-#### installing & using
-
-* fork this to your own acct
-* clone that repo
-* read and run parts of `setup-a-new-machine.sh`
-* read and run `symlink-setup.sh`
-  * git config needs attention, read the notes.
-* use it. yay!
-
-#### maintenance
-
-* commit/push changes you want.
-* you can also hypothetically cherry-pick commits from me and mathias and our fork ecosystem.
-
-#### shell
-
-This repo contains config for bash, zsh, and fish. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained; zsh, less so. If you're using fish you'll want to do a `git submodule update --init`.
-
+* I maintain this repo as *my* dotfiles, forked from the amazing Paul Irish
+* All bash awesomeness is from Paul
+* `.spacemacs` has some inspiration by [gf3](https://github.com/gf3/dotfiles)
 
 ## my favorite parts.
 
@@ -39,8 +19,6 @@ Basically it makes typing into the prompt amazing.
 * case insensitivity.
 * tab all the livelong day.
 
-
-
 ### Moving around in folders (`z`, `...`, `cdf`)
 `z` helps you jump around to whatever folder. It uses actual real magic to determine where you should jump to. Seperately there's some `...` aliases to shorten `cd ../..` and `..`, `....` etc. Then, if you have a folder open in Finder, `cdf` will bring you to it.
 ```sh
@@ -52,7 +30,6 @@ cdf       # cd to whatever's up in Finder
 ```
 `z` learns only once its installed so you'll have to cd around for a bit to get it taught.
 Lastly, I use `open .` to open Finder from this path. (That's just available normally.)
-
 
 
 ## overview of files
@@ -73,7 +50,6 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
 * `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
-* `.macos` - run on a fresh mac os setup
 * `brew.sh` & `brew-cask.sh` - homebrew initialization
 
 #### git, brah
@@ -83,7 +59,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 * `.gitignore`
 
 
-### `.extra` for your private configuration
+### `.extra` for private configuration
 
 There will be items that don't belong to be committed to a git repo, because either 1) it shoudn't be the same across your machines or 2) it shouldn't be in a git repo. Kick it off like this:
 
@@ -128,7 +104,6 @@ Rust folks have made a few things that are changing things.
 
  - most folks know `bat`  as a `cat` replacement
  - https://github.com/dandavison/delta seems a lot better than the diff-so-fancy project that i started. :/
- - https://github.com/ogham/exa is better `ls` and gets all the trapd00r/LS_COLORS stuff etc.
  - https://github.com/bigH/git-fuzzy interactive git thing. deprecates my `git recent` script. and probably some other things.
 
  Also I'd like to migrate to using homesick or https://www.atlassian.com/git/tutorials/dotfiles

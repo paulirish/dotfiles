@@ -7,15 +7,15 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-# mv, rm, cp
+# make mv, rm, cp, ln verbose
 alias mv='mv -v'
 alias rm='rm -i -v'
 alias cp='cp -v'
+alias ln='ln -v'
 
 alias chmox='chmod -x'
 
 alias where=which # sometimes i forget
-alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
@@ -35,9 +35,21 @@ export CLICOLOR_FORCE=1
 alias ls='gls -AFh ${colorflag} --group-directories-first'
 alias lsd='ls -l | grep "^d"' # only directories
 #    `la` defined in .functions
+
+# exa shortcuts (https://github.com/ogham/exa)
+alias e='exa'
+alias el='exa -l --git'
+alias ela='exa -la --git'
 ###
 
-
+###
+# SERVER LOGINS
+alias tscc='ssh mcuoco@tscc-login2.sdsc.edu'
+alias iblm='ssh mcuoco@iblm1.salk.edu'
+alias tunneliblm='ssh -fNL 6464:localhost:6464 mcuoco@iblm4.salk.edu'
+alias logg='ssh mcuoco@logg-cluster-1.salk.edu'
+alias tunneltscc="ssh -fNL 5288:localhost:5288 mcuoco@tscc-login2.sdsc.edu"
+###
 
 ###
 # GIT STUFF
@@ -70,6 +82,7 @@ alias free_diskspace_report="diskspace_report"
 
 # Shortcuts
 alias g="git"
+alias lg="lazygit"
 alias v="vim"
 alias ungz="gunzip -k"
 

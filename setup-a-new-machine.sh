@@ -53,7 +53,6 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"App
 # random git branches you never pushed anywhere?
 # git untracked files (or local gitignored stuff). stuff you never added, but probably want..
 
-
 # OneTab history pages, because chrome tabs are valuable.
 
 # usage logs you've been keeping.
