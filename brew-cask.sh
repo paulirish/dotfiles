@@ -8,23 +8,18 @@
 # Install native apps
 
 # daily
-brew install --cask rectangle
+# brew install --cask rectangle
 brew install --cask 1password
-brew install --cask rescuetime
+brew install --cask rescuetime # time tracking
 
 # dev
 brew install --cask iterm2
 brew install --cask sublime-text
-brew install --cask imageoptim
-
-# fun
-brew install --cask limechat
+brew install --cask imageoptim # image compression
 
 # less often
-brew install --cask disk-inventory-x
-brew install --cask screenflow
+# brew install --cask screenflow # for screen recording
 brew install --cask vlc
-brew install --cask gpgtools
 
 brew install --cask spotify
 

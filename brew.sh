@@ -87,7 +87,7 @@ brew install jq gron
 brew install ncdu # find where your diskspace went
 
 
-brew install scrcpy # control/view android phone from PC. amazing
+#brew install scrcpy # control/view android phone from PC. amazing
 brew install youtube-dl
 
 # will probably need these at some point
