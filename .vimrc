@@ -240,10 +240,6 @@ augroup general_config
   imap <PageDown> <C-O><C-D>
   " }}}
 
-  " Relative numbers {{{
-  set relativenumber " Use relative line numbers. Current line is still in status bar.
-  au BufReadPost,BufNewFile * set relativenumber
-  " }}}
 augroup END
 " }}}
 
