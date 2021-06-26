@@ -44,11 +44,14 @@ alias ela='exa -la --git'
 
 ###
 # SERVER LOGINS
-alias tscc='ssh mcuoco@tscc-login2.sdsc.edu'
-alias iblm='ssh mcuoco@iblm1.salk.edu'
 alias tunneliblm='ssh -fNL 6464:localhost:6464 mcuoco@iblm4.salk.edu'
-alias logg='ssh mcuoco@logg-cluster-1.salk.edu'
 alias tunneltscc="ssh -fNL 5288:localhost:5288 mcuoco@tscc-login2.sdsc.edu"
+###
+
+###
+# VPNs, depends on 1password-cli
+alias vpn_ucsd="printf '0\nmcuoco\n${UCSD_PASS}\ny' | vpn -s connect vpn.ucsd.edu"
+alias vpn_salk="printf '0\nmcuoco\n${SALK_PASS}\ny' | vpn -s connect vpnfp.salk.edu"
 ###
 
 ###
