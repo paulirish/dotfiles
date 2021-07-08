@@ -54,6 +54,7 @@ brew install mtr
 # Install other useful binaries
 brew install the_silver_searcher # ack is an alternative, tbh i forget which i like more.
 brew install fzf
+brew install git-delta
 
 brew install imagemagick
 brew install node # This installs `npm` too using the recommended installation method
