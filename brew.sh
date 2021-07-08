@@ -61,6 +61,7 @@ brew install mtr
 # Install other useful binaries
 brew install the_silver_searcher
 brew install fzf
+brew install git-delta
 
 brew install git
 brew install imagemagick
