@@ -200,3 +200,8 @@ alias pacman-remove="sudo pamac remove --noconfirm $1"
 
 # generate a password with a length of 20 characters from the commandline
 alias passwd-gen="pwgen 20 1"
+
+# Add aliases for file-types
+alias -s {md,txt,js,css,html}=vim
+alias -s {png,jpg,jpeg}=eog
+
