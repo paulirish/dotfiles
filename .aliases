@@ -40,12 +40,15 @@ alias lsd='ls -l | grep "^d"' # only directories
 alias e='exa'
 alias el='exa -l --git'
 alias ela='exa -la --git'
+alias ll='ls -la'
 ###
 
 ###
 # SERVER LOGINS
 alias tunneliblm='ssh -fNL 6464:localhost:6464 mcuoco@iblm4.salk.edu'
+alias tunnelbanjo='ssh -f mcuoco@banjo -L 5678:localhost:5678 -N'
 alias tunneltscc="ssh -fNL 5288:localhost:5288 mcuoco@tscc-login2.sdsc.edu"
+alias tunnellogg="ssh -f mcuoco@logg1 -L 5678:localhost:5678 -N"
 ###
 
 ###
@@ -102,5 +105,5 @@ alias emptytrash=" \
 "
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u"
+alias brew_update="brew -v update; brew upgrade --force-bottle; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u"
 alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-document'
