@@ -27,30 +27,6 @@ rsync -havz --progress --partial --append-verify login@host:/full/path ./
 adb shell pm list packages | grep canary | sed 's/package://'     # com.chrome.canary
 adb shell pm path com.chrome.canary | sed 's/package://'  # /data/app/com.chrome.canary-2/base.apk
 
-
-# pull it
-adb pull /data/app/com.chrome.canary-1/base.apk
-
-# get the vrsion of base.apk and save to $chromeversion
-chromeversion=$(/Applications/Genymotion.app/Contents/MacOS/tools/aapt dump badging base.apk | grep "package:" | sed "s/.*versionName\='//" | sed "s/'.*//")
-chromefilename="chrome-$chromeversion.apk"
-
-# rename. optionally with version
-mv base.apk $chromefilename
-
-# plug in the new phone
-# yes really do it
-# check when done
-   adb devices
-
-
-# force install it.
-adb install -r $chromefilename
-
-
-# optionally clean up the apk
-rm $chromefilename
-
 ###
 ###############################################################################################################
 
