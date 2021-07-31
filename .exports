@@ -22,15 +22,6 @@ eval "$(gdircolors -b ~/.dircolors)"
 PATH=$PATH:~/code/bin
 PATH=$PATH:~/code/git-fuzzy/bin
 
-## from old .bash_profile:
-#export PATH="/usr/local/opt/ruby/bin:$PATH"
-#export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH
-#export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-#export PATH="$PATH:/Users/mcuoco/Library/Python/2.7/bin"
-
-# Aliases
-alias python=python3
-
 #iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
