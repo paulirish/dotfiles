@@ -19,8 +19,8 @@ command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ~/.dircolors)"
 
 # export packages to PATH
-PATH=$PATH:~/code/bin
-PATH=$PATH:~/code/git-fuzzy/bin
+export PATH=$PATH:~/code/bin
+export PATH=$PATH:~/code/git-fuzzy/bin
 
 #iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
