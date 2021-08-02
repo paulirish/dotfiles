@@ -211,47 +211,6 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
 
-###
-##############################################################################################################
-
-
-## Chromium hacking
-
-# improve perf of git inside of chromium checkout
-
-# read https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
-
-# default is (257*1024)
-sudo sysctl kern.maxvnodes=$((512*1024))
-echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
-
-# https://facebook.github.io/watchman/docs/install.html#mac-os-file-descriptor-limits
-sudo sysctl -w kern.maxfiles=$((10*1024*1024))
-sudo sysctl -w kern.maxfilesperproc=$((1024*1024))
-echo kern.maxfiles=$((10*1024*1024)) | sudo tee -a /etc/sysctl.conf
-echo kern.maxfilesperproc=$((1024*1024)) | sudo tee -a /etc/sysctl.conf
-
-# also it looks like there's still a session limit thx to ulimit.
-# this sets file descriptor max (per shell session above 256). (see `man ulimit`)
-ulimit -n 98304 # same as ulimit -n $((1024*1024))
-# see https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c for how this will stick around.......
-
-
-# speed up git status (to run only in chromium repo)
-git config status.showuntrackedfiles no
-git update-index --untracked-cache
-
-# faster git server communication.
-# like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
-git config protocol.version 2
-
-# see also "A Chromium Compiling Setup for DevTools Hackers"
-# https://gist.github.com/paulirish/2d84a6db1b41b4020685
-
-# also this unrelated thing
-# git config user.email "xxxx@chromium.org"
-
-
 ##############################################################################################################
 ### remaining configuration
 ###
