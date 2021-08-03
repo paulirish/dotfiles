@@ -254,7 +254,7 @@ exec --no-startup-id /usr/bin/synology-drive
 exec --no-startup-id greenclip daemon
 
 # Windows styles for apps
-for_window [instance="keepassx"] floating enable resize set 800 600
+for_window [instance="keepassx"] floating enable resize set 1600 1200
 for_window [instance="vlc"] floating enable
 for_window [instance="lxappearance"] floating enable
 for_window [instance="remmina"] floating enable

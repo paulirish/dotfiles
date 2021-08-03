@@ -299,7 +299,7 @@ exec --no-startup-id greenclip daemon
 # exec_always --no-startup-id conky  #-c ~/.config/i3/system-shortcuts
 
 # Windows styles for apps
-for_window [instance="keepassx"] floating enable resize set 800 600
+for_window [instance="keepassx"] floating enable resize set 1600 1200
 for_window [instance="blueman-manager"] floating enable resize set 800 600
 for_window [instance="vlc"] floating enable
 for_window [instance="lxappearance"] floating enable
