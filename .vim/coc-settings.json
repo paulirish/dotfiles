@@ -4,6 +4,7 @@
   ],
   "snippets.extends": {
     "javascriptreact": ["javascript"],
+    "svelte": ["javascript"],
     "typescript": ["javascript"]
   },
   "snippets.ultisnips.directories": [

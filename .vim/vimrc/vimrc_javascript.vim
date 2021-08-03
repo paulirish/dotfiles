@@ -24,3 +24,8 @@ au BufWinLeave *.js* mkview
 au BufWinEnter *.js* silent loadview
 
 let g:jsx_ext_required = 0 " Activate Jsx support also for js files
+
+" Svelte settings
+let g:svelte_indent_script = 0
+let g:svelte_indent_style = 0
+" autocmd FileType svelte setlocal formatoptions+=ro

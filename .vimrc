@@ -59,8 +59,7 @@ Plug 'tpope/vim-unimpaired'                 " Pairs of handy bracket mappings
 Plug 'w0rp/ale'                             " Asynchronous Lint Enginge
 Plug 'zirrostig/vim-schlepp'                " Moving blocks of text easily
 Plug 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
-Plug 'prettier/vim-prettier', { 'for': ['javascript', 'less', 'yaml', 'markdown' ]}
-Plug 'jvirtanen/vim-hcl'                    " Syntaxhighlighting for Hashicorp hcl2 files
+Plug 'prettier/vim-prettier', { 'for': ['javascript', 'svelte', 'less', 'yaml', 'markdown' ]}
 
 call plug#end()
 
