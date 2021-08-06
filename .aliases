@@ -48,7 +48,7 @@ alias ll='ls -la'
 alias tunneliblm='ssh -fNL 6464:localhost:6464 mcuoco@iblm4.salk.edu'
 alias tunnelbanjo='ssh -f mcuoco@banjo -L 5678:localhost:5678 -N'
 alias tunneltscc="ssh -fNL 5288:localhost:5288 mcuoco@tscc-login2.sdsc.edu"
-alias tunnellogg="ssh -f mcuoco@logg1 -L 5678:localhost:5678 -N"
+alias tunnellogg="ssh -f mcuoco@logg1 -L 5679:localhost:5679 -N"
 ###
 
 ###
