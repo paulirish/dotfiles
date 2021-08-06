@@ -87,7 +87,7 @@ export PATH
 Mathias's repo is the canonical for this, but you should probably run his or mine after reviewing it.
 
 ```bash
-./.macos
+./.macos.sh
 ```
 
 ### `~/bin`
@@ -102,10 +102,18 @@ If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.co
 
 Rust folks have made a few things that are changing things.
 
- - most folks know `bat`  as a `cat` replacement
- - https://github.com/dandavison/delta seems a lot better than the diff-so-fancy project that i started. :/
  - https://github.com/bigH/git-fuzzy interactive git thing. deprecates my `git recent` script. and probably some other things.
 
- Also I'd like to migrate to using homesick or https://www.atlassian.com/git/tutorials/dotfiles
-
  also interested in https://github.com/dandavison/open-in-editor
+
+## TO-DO 
+
+- [ ] add git configuration
+- [ ] add custom mac and mac appsettings
+  - dock 
+  - alfred
+  - Spark
+  - iTerm
+- [ ] vim initialization 
+
+
