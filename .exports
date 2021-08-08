@@ -21,6 +21,7 @@ eval "$(gdircolors -b ~/.dircolors)"
 # export packages to PATH
 export PATH=$PATH:~/code/bin
 export PATH=$PATH:~/code/git-fuzzy/bin
+export PATH=$PATH:/opt/cisco/anyconnect/bin
 
 #iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
