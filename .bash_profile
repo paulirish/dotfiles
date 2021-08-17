@@ -2,7 +2,7 @@
 # Load our dotfiles like ~/.bash_prompt, etc…
 #   ~/.extra can be used for settings you don’t want to commit,
 #   Use it to configure your PATH, thus it being first in line.
-for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{bash_prompt,exports,aliases,functions,extra}; do
     [ -r "$file" ] && source "$file"
 done
 unset file
@@ -74,7 +74,7 @@ if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
 fi;
 
 # Sorry, very MacOS centric here. :/
-if  which brew > /dev/null; then
+if which brew > /dev/null; then
 
     # bash completion.
     if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
@@ -124,5 +124,6 @@ shopt -s dirspell 2> /dev/null
 
 # Turn on recursive globbing (enables ** to recurse all directories)
 shopt -s globstar 2> /dev/null
+
 
 
