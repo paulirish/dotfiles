@@ -1,12 +1,12 @@
 # Mike's dotfiles
 
-* I maintain this repo as *my* dotfiles, forked from the amazing Paul Irish
+* I maintain this repo as *my* dotfiles, forked from the amazing [Paul Irish](https://github.com/paulirish)
 * All bash awesomeness is from Paul
-* `.spacemacs` has some inspiration by [gf3](https://github.com/gf3/dotfiles)
+* `.spacemacs` has some inspiration from [gf3](https://github.com/gf3/dotfiles)
 
 ## my favorite parts.
 
-### [`.aliases`](https://github.com/paulirish/dotfiles/blob/master/.aliases) and [`.functions`](https://github.com/paulirish/dotfiles/blob/master/.functions)
+### [`.aliases`](https://github.com/mikecuoco/dotfiles/blob/master/.aliases) and [`.functions`](https://github.com/mikecuoco/dotfiles/blob/master/.functions)
 
 So many goodies.
 
@@ -90,10 +90,6 @@ Mathias's repo is the canonical for this, but you should probably run his or min
 ./.macos.sh
 ```
 
-### `~/bin`
-
-One-off binaries that aren't via an npm global or homebrew. [git open](https://github.com/paulirish/git-open), [wifi-password](https://github.com/rauchg/wifi-password), [coloredlogcat](https://developer.sinnerschrader-mobile.com/colored-logcat-reloaded/507/), [git-overwritten](https://github.com/mislav/dotfiles/blob/master/bin/git-overwritten), and `subl` for Sublime Text.
-
 ### Syntax highlighting for these files
 
 If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Package Control](http://wbond.net/sublime_packages/package_control)
@@ -109,11 +105,7 @@ Rust folks have made a few things that are changing things.
 ## TO-DO 
 
 - [ ] add git configuration
-- [ ] add custom mac and mac appsettings
-  - dock 
-  - alfred
-  - Spark
-  - iTerm
-- [ ] vim initialization 
+- [ ] test `tunnel()`
+- [ ] add `check_tunnel()`
 
 
