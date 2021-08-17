@@ -29,8 +29,6 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
-
-
 # git commit browser. needs fzf
 log() {
   git log --graph --color=always \
@@ -41,8 +39,6 @@ log() {
                 xargs -I % sh -c 'git show --color=always % | less -R'"
 }
 
-
-
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
 	local port="${1:-8011}"
@@ -52,13 +48,10 @@ function server() {
  	statikk --port "$port" .
 }
 
-
 # Copy w/ progress
 cp_p () {
   rsync -WavP --human-readable --progress $1 $2
 }
-
-
 
 # get gzipped size
 function gz() {
@@ -176,17 +169,6 @@ shellswitch () {
 	chsh -s $(brew --prefix)/bin/$1
 }
 
-# initialize nvm
-function nv () {
-	export NVM_DIR="/Users/paulirish/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-}
-
-# initialize rvm
-function rv () {
-	[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-}
-
 # initialize conda
 cond () {
 	__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -200,4 +182,30 @@ cond () {
 	    fi
 	fi
 	unset __conda_setup
+}
+
+##
+## Functions for remote connection
+##
+
+# VPN with Cisco Anyconnect, using 1password-stored passwords
+# Must be 
+connect () {
+	if [[ $1 == "ucsd" ]]; then
+		PASS=$(op get item hkbrgyxuubyudypzqlnanpdiya --fields password)
+		printf "3\nmcuoco\n${PASS}\ny" | vpn -s connect vpn.ucsd.edu # connect to 2-Step Secured - allthruucsd
+	elif [[ $1 == "salk" ]]; then
+		PASS=$(op get item ltzmpxtabm66b5acokjubr6g3m --fields password)
+		printf "0\nmcuoco\n${PASS}\ny" | vpn -s connect vpnfp.salk.edu
+	else 
+		echo "ERROR: please enter 'ucsd' or 'salk'"
+	fi 
+} 
+
+# SSH Tunneling
+# usage:
+#		1. Host
+#   2. Port
+tunnel () {
+	ssh -f mcuoco@$1 -o ExitOnForwardFailure=yes -L $2:localhost:$2 sleep 10
 }
