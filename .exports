@@ -1,6 +1,10 @@
 # for some reason my USER=mike by default
 export USER=mcuoco
 
+# add homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 # vim as default
 export EDITOR="vim"
 
@@ -11,8 +15,6 @@ export MANPAGER="less -X"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
 # here's LS_COLORS
 # github.com/trapd00r/LS_COLORS
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
@@ -20,8 +22,6 @@ eval "$(gdircolors -b ~/.dircolors)"
 
 # export packages to PATH
 export PATH=$PATH:~/code/bin
-export PATH=$PATH:~/code/git-fuzzy/bin
-export PATH=$PATH:/opt/cisco/anyconnect/bin
 
 #iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
@@ -31,3 +31,6 @@ export DATE=$(date "+%Y-%m-%d%n")
 
 # tell apple to shutup about zsh
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# set passwords
+# eval $(op signin my)
