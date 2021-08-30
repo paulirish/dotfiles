@@ -22,6 +22,12 @@ end
 # 	set PA $PA /Users/dbachko/.rvm/gems/ruby-2.2.1/bin
 # end
 
+set PA $PA /usr/local/Cellar/atlassian-plugin-sdk/8.2.6
+
+# GOLANG configurations
+set -x GOPATH $HOME/golang
+set -x GOROOT /usr/local/opt/go/libexec
+set PA $GOPATH/bin $GOROOT/bin $PA
 
 set -l paths "
 
@@ -32,9 +38,6 @@ for entry in (string split \n $paths)
         set PA $PA "$resolved_path"
     end
 end
-
-# GO
-set PA $PA $HOME/go/bin
 
 # Google Cloud SDK.
 if test -f "$HOME/google-cloud-sdk/path.fish.inc"
