@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Gnome Document Viewer
+Exec=/usr/bin/evince %u
