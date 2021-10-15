@@ -156,8 +156,8 @@ alias start-ssh-agent="eval \"$(ssh-agent)\""
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it --name=glances docker.io/nicolargo/glances"
 
 # Download youtube file from the commandline
-alias ydl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
-alias ydla="youtube-dl --audio-format mp3 -x"
+alias ydl="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
+alias ydla="yt-dlp --audio-format mp3 -x"
 
 # Show my wallpapers in sxiv
 alias ww="cd ~/Pictures/Wallpapers && sxiv -tf *.* && cd -"
