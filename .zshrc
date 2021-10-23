@@ -67,6 +67,7 @@ plugins=(
   systemd
   terraform
   tmux
+  vi-mode
   web-search
   yarn
 )
@@ -140,4 +141,3 @@ xrdb -load ~/.Xresources
 
 # Some kubernetes things
 [ -f ~/.kube/kube-config.yaml ] && export KUBECONFIG=~/.kube/kube-config.yaml
-
