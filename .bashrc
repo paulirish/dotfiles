@@ -146,6 +146,8 @@ alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 
 
+export EDITOR=vim
+
 # windows stuff
 alias explorer='explorer.exe `wslpath -w "$PWD"`'
 
