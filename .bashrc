@@ -158,3 +158,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 
+# GPG ubuntu export
+export GPG_TTY=$(tty)
+
