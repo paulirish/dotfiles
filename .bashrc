@@ -160,4 +160,5 @@ eval "$(rbenv init -)"
 
 # GPG ubuntu export
 export GPG_TTY=$(tty)
+export AWS_VAULT_BACKEND=pass
 
