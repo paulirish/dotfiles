@@ -160,5 +160,12 @@ eval "$(rbenv init -)"
 
 # GPG ubuntu export
 export GPG_TTY=$(tty)
+
+# aws-vault
 export AWS_VAULT_BACKEND=pass
+# export AWS_VAULT_PROMPT=terminal
+# export AWS_VAULT_KEYCHAIN_NAME=login
+
+ #tfenv
+export PATH="$HOME/.tfenv/bin:$PATH"
 
