@@ -3,7 +3,7 @@ export OSH=/home/richistron/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="font"
+OSH_THEME="bobby"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -163,8 +163,8 @@ export GPG_TTY=$(tty)
 
 # aws-vault
 export AWS_VAULT_BACKEND=pass
-# export AWS_VAULT_PROMPT=terminal
-# export AWS_VAULT_KEYCHAIN_NAME=login
+export AWS_VAULT_PROMPT=terminal
+export AWS_VAULT_KEYCHAIN_NAME=login
 
  #tfenv
 export PATH="$HOME/.tfenv/bin:$PATH"
