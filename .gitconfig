@@ -25,6 +25,7 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
         editor = 'vim'
+        whitespace = cr-at-eol
 [color "branch"]
 	; current = yellow reverse
 	; local = yellow
@@ -64,7 +65,7 @@
 [push]
 	default = current
 [pull]
-	default = upstream
+	default = current
 	rebase = false
 [gc]
 	auto = 0
