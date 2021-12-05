@@ -3,13 +3,14 @@ function rsync_remote() {
   local hostname=$2
   local user=$3
   local source_path=$4
+  local includes_exludes=${@:5}
 
   echo "backup directory $source_path"
   echo "------------------------------------------"
 
-  rsync -avu --progress --delete \
-        --exclude=".local/" --include="*.local" --include=".smb" --exclude="*" \
-        ${@:5} \
+  rsync -avu --progress --delete                                                    \
+        ${includes_exludes}                                                         \
+        -e "ssh -i /home/${user}/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT"           \
         ${source_path} ${user}@${server_address}:/volume1/homes/${user}/${hostname}/
 
   echo ""
@@ -19,6 +20,7 @@ function rsync_local() {
   local hostname=$1
   local user=$2
   local source_path=$3
+  local includes_exludes=${@:4}
 
   local target_dir="/run/media/jan/TRANSFER_SSD/${user}/${hostname}/"
 
@@ -28,7 +30,7 @@ function rsync_local() {
   echo "------------------------------------------"
 
   rsync -avu --progress --delete \
-        ${@:4} \
+        ${includes_exludes}                                                         \
         ${source_path} $target_dir
 }
 
