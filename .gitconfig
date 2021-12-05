@@ -25,7 +25,11 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
         editor = 'vim'
+        # windows withespace (you don't need this for unix
         whitespace = cr-at-eol
+	autocrlf = true
+        safecrlf = false
+        # windows withespace end
 [color "branch"]
 	; current = yellow reverse
 	; local = yellow
