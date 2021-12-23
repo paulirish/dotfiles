@@ -24,6 +24,7 @@ brew install --cask spotify
 brew install --cask slack 
 brew install --cask discord
 brew install --cask zoom
+brew install --cask whatsapp
 mas install 1176895641 # Spark email client
 mas install 1482454543 # Twitter client
 
@@ -32,7 +33,8 @@ brew install --cask transmission
 
 # cloud storage / backups
 brew install rclone
-brew install mackup
+brew install awscli
+brew install google-cloud-sdk
 brew install --cask rcloneosx
 brew install --cask google-drive google-drive-file-stream
 brew install --cask dropbox
@@ -45,7 +47,8 @@ brew install --cask rstudio # IDE
 brew install --cask imagej fiji # microscopy image stuff
 brew install --cask adobe-creative-cloud # making figures
 brew install --cask docker # containers!
-# Add conda??
+mas install 497799835 # XCode
+# TODO: Add conda
 
 # less frequently used things
 brew install --cask screenflow # for screen recording

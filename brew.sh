@@ -42,6 +42,7 @@ brew install z
 brew install entr
 
 # git stuff
+brew install libgit2
 brew install svn
 brew install git
 brew install gh # github cli
@@ -80,11 +81,14 @@ brew install ncdu # find where your diskspace went
 brew install tldr
 brew install watchman
 brew install trash-cli
+brew install datamash
+brew install xsv
 
 # citations
 brew install pandoc
 
 # bioinfo / data science
+brew install cookiecutter
 brew tap brewsci/bio
 brew install r
 brew install cookiecutter
@@ -92,6 +96,7 @@ brew install igv
 brew install samtools
 brew install bcftools
 brew install bedtools
+brew install brewsci/bio/nextflow
 
 #brew install scrcpy # control/view android phone from PC. amazing
 brew install youtube-dl
