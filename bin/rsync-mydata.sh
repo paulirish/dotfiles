@@ -22,7 +22,7 @@ function rsync_local() {
   local source_path=$3
   local includes_exludes=${@:4}
 
-  local target_dir="/run/media/jan/TRANSFER_SSD/${user}/${hostname}/"
+  local target_dir="/run/media/jan/BACKUP_TO_USB/${user}/${hostname}/"
 
   mkdir -p $target_dir
 
@@ -49,14 +49,14 @@ function backup {
   echo "Create backup on server ${server_address} for computer ${hostname} in user-home for ${user}"
 
   for directory_name in $directories; do
-    if [ "${server_address}" == "SSD" ]; then
+    if [ "${server_address}" == "USB" ]; then
       rsync_local $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized"
     else
       rsync_remote $server_address $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized"
     fi
   done
 
-  if [ "${server_address}" == "SSD" ]; then
+  if [ "${server_address}" == "USB" ]; then
     rsync_local $hostname $user "${home_dir}/" --exclude=".local/" --include="*.local" --include=".smb" --exclude="*"
   else
     rsync_remote $server_address $hostname $user "${home_dir}/" --exclude=".local/" --include="*.local" --include=".smb" --exclude="*"
