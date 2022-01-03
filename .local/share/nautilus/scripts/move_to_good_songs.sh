@@ -8,5 +8,5 @@ notify-send "Move to GoodSonges" "Move the following files $NAUTILUS_SCRIPT_SELE
 
 for arg
 do
-  mv "$arg" /media/music/_NEW/_GoodSongs
+  mv "$arg" /home/jan/Music/GoodSongs
 done
