@@ -134,8 +134,8 @@ alias docker_container="docker ps -a"
 alias r_reset="rails db:drop; rails db:create; rails db:migrate; rails db:seed;"
 alias r="rails"
 alias rs="rspec"
-alias mysql_start="brew services start mysql@5.6"
-alias mysql_stop="brew services stop mysql@5.6"
+alias mysql_start="brew services start mysql@5.7"
+alias mysql_stop="brew services stop mysql@5.7"
 alias nginx_start="brew services start nginx-full"
 alias nginx_stop="brew services stop nginx-full"
 alias nginx_restart="brew services restart nginx-full"
@@ -148,12 +148,8 @@ alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 export BUNDLER_EDITOR=vim
 
-# rbenv
-eval "$(rbenv init -)"
-
-
 # brew paths
-export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
@@ -167,3 +163,25 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # spork
 alias spork_up="RAILS_ENV=test bundle exec spork"
 alias spork_test="bundle exec rspec --drb"
+
+# aws
+export AWS_VAULT_PROMPT=osascript
+export AWS_VAULT_KEYCHAIN_NAME=login
+
+# rbenv
+eval "$(rbenv init -)"
+
+# erl
+export PATH="/usr/local/opt/erlang@22/bin:$PATH"
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+export PATH="/usr/local/sbin:$PATH"
+
+# Docker stuff
+setup_docker() {
+    eval $(minikube docker-env)
+}
+start_docker() {
+    minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
+    minikube pause  #disable the k8s stuff
+    eval $(minikube docker-env)    
+}
