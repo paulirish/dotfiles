@@ -25,7 +25,7 @@ Plugin 'ngmy/vim-rubocop'
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
 " Plugin 'leafgarland/typescript-vim'
-Plugin 'vim-scripts/vim-coffee-script'
+" Plugin 'vim-scripts/vim-coffee-script'
 
 call vundle#end()
 filetype plugin indent on
@@ -386,13 +386,13 @@ map <leader>dp :diffput<CR>
 map <leader>ga :Git a<CR>
 map <leader>gb :Gblame<CR>
 map <leader>gb :Gbrowse<CR>
-map <leader>gc :Gcommit<CR>
+map <leader>gc :Git commit<CR>
 map <leader>gd :Gdiff<CR>
 map <leader>ge :Gedit<CR>
 map <leader>gl :Glog -10<CR>
 map <leader>gla :Glog -10 --<CR>
 map <leader>gr :Gread<CR>
-map <leader>gs :Gstatus<CR>
+map <leader>gs :Git<CR>
 map <leader>gw :Gwrite<CR>
 
 " presenting.vim
