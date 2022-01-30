@@ -205,3 +205,5 @@ alias passwd-gen="pwgen 20 1"
 alias -s {md,txt,js,css,html}=vim
 alias -s {png,jpg,jpeg}=eog
 
+# Helpfule aliases for Kubernetes
+alias kbb="kubectl run busybox --image=yauritux/busybox-curl --rm -it --restart=Never /bin/sh"
