@@ -16,9 +16,13 @@
 
 	# show commit log of unique commits of this branch (not on master)
 	diffcommitsfrommaster = log --no-merges master..
-	# show unified diff of unique commits of this branch
-	difffrommaster = diff master...
-	# ^^^^ Holy crap two dots vs three dots, so important. https://stackoverflow.com/a/48681527
+	# show unified diff of unique commits of this branch (and working tree)
+	difffrommaster = diff master:
+	# ^^^^ diff master... (with THREE dots) is similar, but doesn't include working tree
+	#     ^^^^ also, two dots vs three dots, so important. https://stackoverflow.com/a/48681527
+
+	# What's the ancestor commit this branch shares with master?
+	diffbase = merge-base HEAD origin/master
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
@@ -30,38 +34,33 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	precomposeUnicode = true
-
-[pager]
-	# or not... # insanely beautiful diffs ==> npm install -g diff-so-fancy
 	# https://github.com/dandavison/delta
-	diff = delta # diff-so-fancy | less --tabs=4 -RFX
-	show = delta # diff-so-fancy | less --tabs=4 -RFX
-
+	pager = delta
 
 [delta]
 	max-line-length = 700
-	max-line-distance = 0.3 # better word-diff?
-    # plus-style = "#012800"
-    # minus-style = "#340001"
-    # zero-style = "#999999"
-    syntax-theme = base16
-    # hyperlinks = true # broken? https://github.com/dandavison/delta/issues/362
-    # navigate = true # eh. not great with short diffs.
+	# max-line-distance = 0.3 # better word-diff?
+	syntax-theme = base16
+	hyperlinks = true # i filed https://github.com/dandavison/delta/issues/362 but in 2022 i can't see brokenness in the issue nor repro weirdness. but i installed latest `less` anyway
+	# navigate = true # eh. not great with short diffs.
 
-    file-decoration-style = yellow ol ul
-    file-style = bold yellow ul
-    hunk-header-decoration-style = blue
-    hunk-header-line-number-style = purple bold
+	file-style = bold yellow ul
+	file-decoration-style = yellow ol ul
+	hunk-header-decoration-style = blue
+	hunk-header-line-number-style = purple bold
 
 [interactive]
-	# diffFilter = delta --color-only
-  	# disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
-	# diffFilter = "diff-so-fancy"
+	diffFilter = delta --color-only --features=interactive
+
+[diff]
+	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+	# https://blog.github.com/2018-04-05-git-217-released/
+	colorMoved = default
 
 # so much color
 [color]
 	ui = auto
-[color "diff"]
+[color "diff"]  # i still love these choices in 2022.
 	meta = yellow bold
 	commit = green bold
 	frag = magenta bold
@@ -73,11 +72,6 @@
 	oldMoved = blue dim
 	newMovedAlternative = cyan italic
 	oldMovedAlternative = blue italic
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = "red bold 52"
-	newNormal = "green bold"
-	newHighlight = "green bold 22"
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -86,6 +80,12 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+
+[color "diff-highlight"]  # mostly dead. only needed when using diff-so-fancy
+	oldNormal = red bold
+	oldHighlight = "red bold 52"
+	newNormal = "green bold"
+	newHighlight = "green bold 22"
 
 # git mergetool
 [merge]
@@ -115,7 +115,7 @@
 
 # use separate file for username / github token / etc
 [include]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 
 #[init]
 #	templatedir = ~/.git_template
@@ -127,12 +127,10 @@
 
 [fetch]
 	prune = true
-[diff]
-    # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
-    # https://blog.github.com/2018-04-05-git-217-released/
-    colorMoved = zebra
 
 [stash]
 	showPatch = true
 [log]
 	date = relative
+[protocol]
+	version = 2
