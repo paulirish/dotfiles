@@ -2,7 +2,7 @@
 
 
 # finding files with locate and updatedb
-LC_ALL=C sudo /Users/paulirish/.homebrew/bin/gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups"
+LC_ALL=C sudo /Users/paulirish/homebrew/bin/gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups"
 
 which glocate > /dev/null && alias locate=glocate
 locate navbar
