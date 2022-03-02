@@ -207,3 +207,4 @@ alias -s {png,jpg,jpeg}=eog
 
 # Helpfule aliases for Kubernetes
 alias kbb="kubectl run busybox --image=yauritux/busybox-curl --rm -it --restart=Never /bin/sh"
+alias kalpine="kubectl run alpine --image=alpine --rm -it --restart=Never /bin/sh"
