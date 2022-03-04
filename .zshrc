@@ -148,6 +148,28 @@ alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 export BUNDLER_EDITOR=vim
 
+### FUNCTIONS
+setup_docker() {
+    eval $(minikube docker-env)
+}
+
+start_docker() {
+    minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
+    minikube pause  #disable the k8s stuff
+    eval $(minikube docker-env)    
+}
+
+clean_branch() {
+  if [ -z "$1" ]; then
+    echo "missing parameter 'clean_branch main'"
+  else
+    g up
+    g b -D $1
+    g ch $1
+  fi
+}
+### FUNCTIONS
+
 # brew paths
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
@@ -176,12 +198,3 @@ export PATH="/usr/local/opt/erlang@22/bin:$PATH"
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 export PATH="/usr/local/sbin:$PATH"
 
-# Docker stuff
-setup_docker() {
-    eval $(minikube docker-env)
-}
-start_docker() {
-    minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
-    minikube pause  #disable the k8s stuff
-    eval $(minikube docker-env)    
-}
