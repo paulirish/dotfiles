@@ -30,7 +30,7 @@ ExecCommand6    = "rm %f"
 
 Fastdir1 = /home/jan/Music/Youtube
 Fastdir2 = /media/pve/music
-Fastdir3 = "/run/user/1000/gvfs/smb-share:server=jabasoft-ds,share=music"
+Fastdir3 = /media/jan/music
 Fastdir4 = /home/jan/Music/GoodSongs
 
 Theme = /usr/share/moc/themes/transparent-background
