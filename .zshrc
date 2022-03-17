@@ -149,15 +149,15 @@ alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 export BUNDLER_EDITOR=vim
 
 ### FUNCTIONS
-setup_docker() {
-    eval $(minikube docker-env)
-}
+# setup_docker() {
+    # eval $(minikube docker-env)
+# }
 
-start_docker() {
-    minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
-    minikube pause  #disable the k8s stuff
-    eval $(minikube docker-env)    
-}
+# start_docker() {
+    # minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
+    # minikube pause  #disable the k8s stuff
+    # eval $(minikube docker-env)    
+# }
 
 clean_branch() {
   if [ -z "$1" ]; then
@@ -167,6 +167,14 @@ clean_branch() {
     g b -D $1
     g ch $1
   fi
+}
+
+push_to() {
+  current_branch="$(git branch --show-current)"
+  clean_branch $1
+  g merge $current_branch --no-edit
+  g push origin $1
+  g ch $current_branch
 }
 ### FUNCTIONS
 
@@ -198,3 +206,5 @@ export PATH="/usr/local/opt/erlang@22/bin:$PATH"
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 export PATH="/usr/local/sbin:$PATH"
 
+# asdf
+. /usr/local/opt/asdf/libexec/asdf.sh
