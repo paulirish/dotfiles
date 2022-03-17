@@ -392,7 +392,7 @@ map <leader>ge :Gedit<CR>
 map <leader>gl :Glog -10<CR>
 map <leader>gla :Glog -10 --<CR>
 map <leader>gr :Gread<CR>
-map <leader>gs :Git<CR>
+map <leader>gs :Git status<CR>
 map <leader>gw :Gwrite<CR>
 
 " presenting.vim
