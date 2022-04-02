@@ -33,6 +33,7 @@ Plug 'fatih/vim-go'                         " Improving the support for Go in vi
 Plug 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'                     " Use fzf in VIM
+Plug 'jvirtanen/vim-hcl'                    " Syntaxhighlighting  for Hashicorp language (Terraform)
 Plug 'kopischke/vim-fetch'                  " Make Vim handle line and column numbers in file names
 Plug 'liuchengxu/vim-which-key'             " Show the current leader mappings
 Plug 'vim-airline/vim-airline'              " statusline plugin for vim
