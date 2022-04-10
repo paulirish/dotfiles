@@ -14,3 +14,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # github.com/trapd00r/LS_COLORS
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ~/.dircolors)"
+
+
+# fzf should be populated via the silver searcher (to respect gitignore and be faster): https://github.com/junegunn/fzf#respecting-gitignore
+# note.. without `ag` this is a good fallback: export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='command ag -l -g ""'

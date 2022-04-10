@@ -108,7 +108,7 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 [ -f /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish ]; and . /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish
 
 
- # fzf should be populated via the silver searcher: https://github.com/junegunn/fzf#respecting-gitignore
+ # fzf should be populated via the silver searcher (to respect gitignore and be faster): https://github.com/junegunn/fzf#respecting-gitignore
  # note.. without `ag` this is a good fallback: set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx FZF_DEFAULT_COMMAND 'command ag -l -g ""'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
