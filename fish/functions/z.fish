@@ -58,7 +58,7 @@ function z -d "Jump to a recent directory."
                     for( i in rank ) print i "|" 0.9*rank[i] "|" time[i] # aging
                 } else for( i in rank ) print i "|" rank[i] "|" time[i]
             }
-        ' $z_datafile ^/dev/null > $tempfile
+        ' $z_datafile 2> /dev/null > $tempfile
         if [ $status -ne 0 -a -f $z_datafile ]
             command rm -f "$tempfile"
         else
