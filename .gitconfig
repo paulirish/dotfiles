@@ -42,6 +42,8 @@
 	# max-line-distance = 0.3 # better word-diff?
 	syntax-theme = base16
 	hyperlinks = true # i filed https://github.com/dandavison/delta/issues/362 but in 2022 i can't see brokenness in the issue nor repro weirdness. but i installed latest `less` anyway
+	                  # oh i found it. it doubles up the sha and adds some `8;;` at the end.
+					  # to fix.... install latest less (`less -V` should be >= v570). shouldn't need to set DELTA_PAGER.
 	# navigate = true # eh. not great with short diffs.
 
 	file-style = bold yellow ul
