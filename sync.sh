@@ -8,12 +8,11 @@ copyFiles() {
 
 copyFiles
 
-HOST_NAME=$(cat /etc/hostname)
+HOST_NAME=$(hostname)
 
 # Rename i3 configs
-if [ -f ~/.config/i3/config-${HOST_NAME} ]; then
-  mv ~/.config/i3/config-${HOST_NAME} ~/.config/i3/config
-  mv ~/.config/i3/i3status-${HOST_NAME}.conf ~/.config/i3/i3status.conf
+if [ -f ~/.config/i3/config_${HOST_NAME} ]; then
+  mv ~/.config/i3/config_${HOST_NAME} ~/.config/i3/config
 fi
 
 IS_I3_RUNNING=$(ps aux | grep i3 | grep -v grep)
