@@ -260,7 +260,7 @@ function latex-watch() {
 }
 
 function alpine() {
-  docker run -it --rm -v $(pwd):/tmp -w /tmp janbaer/alpine
+  docker run -it --rm -u root -v $(pwd):/tmp -w /tmp alpine:latest
 }
 
 function setwal() {
