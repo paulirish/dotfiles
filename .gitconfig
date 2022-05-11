@@ -19,6 +19,7 @@
         sub = submodule
         patch = format-patch -1
         r = reset
+	yolo = commit -m '$(curl --silent --fail https://whatthecommit.com/index.txt)'
 [color]
 	ui = always
 [core]
