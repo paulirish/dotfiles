@@ -1,36 +1,35 @@
 [alias]
-	c = commit
-        aa = add .
+    c = commit
+	aa = add .
 	tool = mergetool
 	up = fetch --all --prune
-        p = push
-        m = merge
-        st = status -s
-        a = add -i
-        d = diff --color --color-words --abbrev
-        dc = diff --color --color-words --abbrev --cached
+    p = push
+    m = merge
+    st = status -s
+    a = add -i
+    d = diff --color --color-words --abbrev
+    dc = diff --color --color-words --abbrev --cached
 	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	rt = reset HEAD --hard
 	am = commit --amend
 	rollback = reset HEAD~10 --hard
-        ch = checkout
-        b = branch
-        find = rev-list -n 1 HEAD
-        sub = submodule
-        patch = format-patch -1
-        r = reset
+    ch = checkout
+    b = branch
+    find = rev-list -n 1 HEAD
+    sub = submodule
+    patch = format-patch -1
+    r = reset
 [color]
 	ui = always
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
-        editor = 'vim'
-        # windows withespace (you don't need this for unix
-        # @see https://stackoverflow.com/questions/1889559/git-diff-to-ignore-m
-        # @see https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
-        whitespace = cr-at-eol
-	autocrlf = input
-        # windows withespace end
+	editor = 'vim'
+    # windows withespace (you don't need this for unix
+    # @see https://stackoverflow.com/questions/1889559/git-diff-to-ignore-m
+    # @see https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
+    # whitespace = cr-at-eol
+    autocrlf = input
 [color "branch"]
 	; current = yellow reverse
 	; local = yellow
