@@ -176,6 +176,11 @@ push_to() {
   g push origin $1
   g ch $current_branch
 }
+
+g_rand() {
+  git commit -m "$(curl http://whatthecommit.com/index.txt)"
+}
+
 ### FUNCTIONS
 
 # brew paths
@@ -208,3 +213,5 @@ export PATH="/usr/local/sbin:$PATH"
 
 # asdf
 . /usr/local/opt/asdf/libexec/asdf.sh
+
+
