@@ -178,7 +178,7 @@ push_to() {
 }
 
 g_rand() {
-  git commit -m "$(curl http://whatthecommit.com/index.txt)"
+  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
 }
 
 ### FUNCTIONS
