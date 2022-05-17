@@ -215,3 +215,6 @@ export PATH="/usr/local/sbin:$PATH"
 . /usr/local/opt/asdf/libexec/asdf.sh
 
 
+# rancher
+export PATH="$HOME/.rd/bin:$PATH"
+
