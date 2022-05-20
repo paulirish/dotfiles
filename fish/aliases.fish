@@ -15,6 +15,9 @@ alias yarn=narn
 
 alias li=lighthouse
 alias lperf 'lighthouse --only-categories=performance'
+alias comp 'node build/build-report-components.js && yarn eslint --fix report/renderer/components.js'
+alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
+alias reportwatch 'find report lighthouse-core/test/results/sample_v2.json | entr bash -c "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash lighthouse-core/scripts/copy-util-commonjs.sh'
 
 # mv, rm, cp
 alias mv 'command gmv --interactive --verbose'
