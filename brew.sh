@@ -50,7 +50,6 @@ brew install entr
 brew install gh
 # nicer git diffs
 brew install git-delta
-brew install git
 
 # better `top`
 brew install glances

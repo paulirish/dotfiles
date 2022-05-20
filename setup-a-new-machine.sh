@@ -230,7 +230,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 sudo sysctl kern.maxvnodes=$((512*1024))
 echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
 
-# https://facebook.github.io/watchman/docs/install.html#mac-os-file-descriptor-limits
+# https://facebook.github.io/watchman/docs/install.html#mac-os-file-descriptor-limits  (WARNING: this may only be needed prior to Big Sur?)
 sudo sysctl -w kern.maxfiles=$((10*1024*1024))
 sudo sysctl -w kern.maxfilesperproc=$((1024*1024))
 echo kern.maxfiles=$((10*1024*1024)) | sudo tee -a /etc/sysctl.conf
