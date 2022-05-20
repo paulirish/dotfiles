@@ -1,21 +1,19 @@
 function deps --description "run gclient sync"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
-    env GYP_DEFINES=disable_nacl=1 gclient sync --delete_unversioned_trees --reset --jobs=70
+    # also reset seems to reset branch position in the devtools-internal repo??? weird.
+    env gclient sync --delete_unversioned_trees --jobs=70
 end
 
 function hooks --description "run gclient runhooks"
-    env GYP_DEFINES=disable_nacl=1 gclient runhooks
+    env gclient runhooks
 end
 
 function b --description "build chromium"
 	set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-	# 1000 will die with 'fatal: posix_spawn: No such file or directory'. 900 never has.  1000 is too much for my imacpro
-    set -l cmd "ninja -C "$dir_default" -j900 -l 60 chrome blink_tests"  
+    # autoninja is better than trying to set -j and -l manually.
+    # and yay, nice cmd built-in, so no more need to do this:  `renice +19 -n (pgrep ninja); renice +19 -n (pgrep compiler_proxy)`
+    set -l cmd "nice -n 19 autoninja -C "$dir_default" chrome"  # blink_tests  
     echo "  > $cmd"
-
-    # DISABLED automatically lower the priority of compiler_proxy
-    # set -l script_dir (dirname (status -f))
-    # fish $script_dir/chromium_lower_compile_priority.fish &
 
     # start the compile
     eval $cmd
@@ -45,15 +43,15 @@ end
 
 function cr --description "open built chromium (accepts runtime flags)"
     set -l dir (git rev-parse --show-cdup)/out/Default
-    set -l cmd "./$dir/Chromium.app/Contents/MacOS/Chromium $argv"
+    set -l cmd "./$dir/Chromium.app/Contents/MacOS/Chromium --disable-features=DialMediaRouteProvider $argv"
     echo "  > $cmd"
     eval $cmd
 end
 
 function dtcr --description "run chrome with dev devtools"
     set -l crpath "$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
-    set -l dtpath (realpath out/Default/gen/front_end)
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile"
+    set -l dtpath (realpath out/Default/gen)
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile --disable-features=DialMediaRouteProvider $argv"
     echo "  > $cmd"
     eval $cmd
 end
