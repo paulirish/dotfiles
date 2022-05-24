@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Text Editor
+Exec=/usr/bin/gedit %u
