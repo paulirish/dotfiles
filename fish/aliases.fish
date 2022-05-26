@@ -42,8 +42,9 @@ alias ag='ag --follow --hidden -W (math $COLUMNS - 11)'
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
-alias gitdefaultbranchname="git branch --no-color --no-column --sort=-committerdate --list master main | head -n1 | xargs"
-alias main="git checkout (gitdefaultbranchname)"
+# is it a `main` or a `master` repo?
+alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
+alias main="git checkout (gitmainormaster)"
 alias master="main"
 
 alias resetmouse='printf '"'"'\e[?1000l'"'"

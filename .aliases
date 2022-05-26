@@ -56,8 +56,8 @@ alias undopush="git push -f origin HEAD^:master"
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
 
 
-alias gitdefaultbranchname="git branch --no-color --no-column --sort=-committerdate --list master main | head -n1 | xargs"
-alias main="git checkout $(gitdefaultbranchname)"
+alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
+alias main="git checkout $(gitmainormaster)"
 alias master="main"
 
 

@@ -10,25 +10,28 @@
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	cherrypick = cherry-pick
-	cherry = cherry-pick
 	cp = cherry-pick
-	diffbranch = !"git diff $(git merge-base HEAD origin/master)"
 
-	# show commit log of unique commits of this branch (not on master)
-	diffcommitsfrommaster = log --no-merges master..
-	# show unified diff of unique commits of this branch (and working tree)
-	difffrommaster = diff master:
-	# ^^^^ diff master... (with THREE dots) is similar, but doesn't include working tree
-	#     ^^^^ also, two dots vs three dots, so important. https://stackoverflow.com/a/48681527
-
-	# What's the ancestor commit this branch shares with master?
-	diffbase = merge-base HEAD origin/master
-
-	# Show the diff between the latest commit and the current state
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
-	reup = rebase-update # depot_tools specific
+	# If you do `git git status`, this sorts out the duplicate
 	git = !exec git
+
+	# Essentially GitHub's compare view: show all 'ahead' changes (incl working tree) vs the merge-base
+	diffbranch = !"git diff $(git diffbase)"
+	# Show commit log of unique commits of this branch (not on main)
+	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
+
+	# Show unified diff of this branch (and working tree) vs main branch. Includes the diff of 'behind' commits too :/
+	# DISABLED cuz I think this might just be useless. We'll see.
+	# difffrommain = !"git diff origin/$(git mainormaster):"
+	# ^^^^                 diff origin/main...  (with THREE dots) is similar, but doesn't include working tree
+	#                                                 ^^^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
+
+	# Two utils: 
+	#   What's the ancestor commit this branch shares with main?
+	diffbase = !"git merge-base HEAD origin/$(git mainormaster)"
+	#   Is it a `main` or a `master` repo?
+	mainormaster = !"git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
+
 
 [core]
 	excludesfile = ~/.gitignore
