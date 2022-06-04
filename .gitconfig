@@ -72,13 +72,14 @@
   up = pull
   whereis = "!f() { git branch -r --contains $1; }; f"
 
-[color]
-  ui = always
-
 [core]
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
   autocrlf=input
+  pager = delta
+
+[color]
+  ui = always
 
 [color "branch"]
   current = yellow reverse
@@ -140,3 +141,9 @@
 
 [includeIf "gitdir:~/Projects/check24/"]
   path = ~/.gitconfig_check24
+
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  line-numbers = true
+  side-by-side = false
