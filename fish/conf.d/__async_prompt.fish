@@ -9,7 +9,6 @@ set -g __async_prompt_tmpdir (command mktemp -d)
 
 # Setup after the user defined prompt functions are loaded.
 function __async_prompt_setup_on_startup --on-event fish_prompt
-    echo "hi"
     functions -e (status current-function)
 
     for func in (__async_prompt_config_functions)
