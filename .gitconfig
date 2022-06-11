@@ -2,18 +2,21 @@
 	c = commit -am
 	fpush = push --force
 	s = status
+	ts = status # I do the `gi ts` typo all the time
 	sclone = clone --depth=1
 	amend = commit --amend --all --no-edit
 	undocommit = reset HEAD~
 	hreset = reset --hard
 	co = checkout
 	df = diff --color --color-words --abbrev
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
 	cherrypick = cherry-pick
 	cp = cherry-pick
 
 	# If you do `git git status`, this sorts out the duplicate
 	git = !exec git
+
+	mergeorigin = !"git merge origin/$(git mainormaster)"
 
 	# Essentially GitHub's compare view: show all 'ahead' changes (incl working tree) vs the merge-base
 	diffbranch = !"git diff $(git diffbase)"
@@ -47,7 +50,7 @@
 	hyperlinks = true # i filed https://github.com/dandavison/delta/issues/362 but in 2022 i can't see brokenness in the issue nor repro weirdness. but i installed latest `less` anyway
 	                  # oh i found it. it doubles up the sha and adds some `8;;` at the end.
 					  # to fix.... install latest less (`less -V` should be >= v570). shouldn't need to set DELTA_PAGER.
-	line-numbers = true
+	# line-numbers = true # seems nice until you want to copypaste and they're there…
 	# navigate = true # eh. not great with short diffs.
 
 	file-style = bold yellow ul

@@ -8,6 +8,7 @@ function ..... ; cd ../../../.. ; end
 
 # Utilities
 function g        ; git $argv ; end
+function gi        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
 
 # uses npm if its an npm repo. https://www.npmjs.com/package/narn
