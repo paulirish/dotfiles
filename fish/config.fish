@@ -4,7 +4,6 @@ set default_machine "paulirish-macbookair2"
 
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
-source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
 # source ~/.config/fish/conf.d/scmpuff.fish
