@@ -7,8 +7,6 @@ function ....  ; cd ../../.. ; end
 function ..... ; cd ../../../.. ; end
 
 # Utilities
-function g        ; git $argv ; end
-function gi        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
 
 # uses npm if its an npm repo. https://www.npmjs.com/package/narn
@@ -29,10 +27,14 @@ alias chmox='chmod +x'
 
 alias where=which # sometimes i forget
 
-# typos
-abbr bwre brew
+# typos and abbreviations
+abbr g git
+abbr gi git
 abbr gti git
 abbr yearn yarn
+abbr v vim
+abbr bwre brew
+
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
@@ -60,10 +62,6 @@ alias wget="curl -O"
 # Recursively delete `.DS_Store` files
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
-# Shortcuts
-alias g="git"
-alias gi="git"
-alias v="vim"
 alias ungz="gunzip -k"
 
 # File size
