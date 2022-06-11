@@ -14,6 +14,7 @@ if test -e "$HOME/.extra.fish";
 end
 
 # THEME PURE #
+set -g async_prompt_functions _pure_prompt_git
 set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_function_path
 set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
 source $HOME/.config/fish/functions/pure/conf.d/pure.fish
