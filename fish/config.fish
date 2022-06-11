@@ -19,22 +19,8 @@ set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_functi
 set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
 source $HOME/.config/fish/functions/pure/conf.d/pure.fish
 
-export GOPATH=$HOME/.go/
-
-# Completions
-function make_completion --argument-names alias command
-    echo "
-    function __alias_completion_$alias
-        set -l cmd (commandline -o)
-        set -e cmd[1]
-        complete -C\"$command \$cmd\"
-    end
-    " | .
-    complete -c $alias -a "(__alias_completion_$alias)"
-end
-
-make_completion g 'git'
-
+# I don't need a prompt symbol for you-got-things-in-yr-stash
+set --erase pure_symbol_git_stash
 
 # Readline colors
 set -g fish_color_autosuggestion 555 yellow
