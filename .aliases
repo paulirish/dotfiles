@@ -57,7 +57,7 @@ alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup 
 
 
 alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
-alias main="git checkout $(gitmainormaster)"
+alias main="git checkout \$(gitmainormaster)"
 alias master="main"
 
 

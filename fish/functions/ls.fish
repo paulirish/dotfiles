@@ -28,7 +28,7 @@
     if type gls 1>/dev/null 2>/dev/null
       gls $param $argv
     else
-      ls $param $argv
+      command ls $param $argv
     end
   end
 
