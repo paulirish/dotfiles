@@ -21,7 +21,7 @@
 
 #### shell
 
-This repo contains config for bash, zsh, and fish. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained; zsh, less so. If you're using fish you'll want to do a `git submodule update --init`.
+This repo contains config for fish and bash. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained. If you're using fish you'll want to do a `git submodule update --init`.
 
 
 ## my favorite parts.
@@ -77,8 +77,6 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 * `brew.sh` & `brew-cask.sh` - homebrew initialization
 
 #### git, brah
-* `.git`
-* `.gitattributes`
 * `.gitconfig`
 * `.gitignore`
 
