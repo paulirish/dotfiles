@@ -69,7 +69,7 @@
 # so much color
 [color]
 	ui = auto
-[color "diff"]  # i still love these choices in 2022.
+[color "diff"]
 	meta = yellow bold
 	commit = green bold
 	frag = magenta bold
