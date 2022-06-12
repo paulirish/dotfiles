@@ -3,11 +3,6 @@
 
 default_username='paulirish'
 
-
-if which thefuck > /dev/null; then
-    eval "$(thefuck --alias)"
-fi;
-
 # Automatically trim long paths in the prompt (requires Bash 4.x)
 PROMPT_DIRTRIM=2
 
