@@ -7,44 +7,56 @@
 ##############################################################################################################
 ###  backup old machine's key items
 
-mkdir -p ~/migration/home
+mkdir -p ~/migration/home/
+mkdir -p ~/migration/Library/"Application Support"/
+mkdir -p ~/migration/Library/Preferences/
+mkdir -p ~/migration/Library/Application Support/
+mkdir -p ~/migration/rootLibrary/Preferences/SystemConfiguration/
+
 cd ~/migration
 
 # what is worth reinstalling?
-brew leaves      		> brew-list.txt    # all top-level brew installs
-brew cask list 			> cask-list.txt
-npm list -g --depth=0 	> npm-g-list.txt
-
+brew leaves              > brew-list.txt    # all top-level brew installs
+npm list -g --depth=0    > npm-g-list.txt
 
 # then compare brew-list to what's in `brew.sh`
 #   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
 
-# let's hold on to these
+# backup some dotfiles likely not under source control
+cp -Rp \
+    ~/.bash_history \
+    ~/.extra ~/.extra.fish \
+    ~/.gitconfig.local \
+    ~/.gnupg \
+    ~/.nano \
+    ~/.nanorc \
+    ~/.netrc \
+    ~/.ssh \
+    ~/.z   \
+        ~/migration/home
 
-cp ~/.extra ~/migration/home
-cp ~/.z ~/migration/home
+cp -Rp ~/Documents ~/migration
 
-cp -R ~/.ssh ~/migration/home
-cp -R ~/.gnupg ~/migration/home
+cp -Rp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration/rootLibrary/Preferences/SystemConfiguration/ # wifi
 
-cp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration  # wifi
+cp -Rp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration/Library/Preferences/
+cp -Rp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration/Library/Preferences/
 
-cp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration
-cp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration
+cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
+cp -Rp ~/Library/Fonts ~/migration/Library/ # all those fonts you've installed
 
-cp -R ~/Library/Services ~/migration # automator stuff
+# editor settings & plugins
+cp -Rp ~/Library/Application\ Support/Sublime\ Text\ * ~/migration/Library/"Application Support"
+cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"Application Support"
 
-cp -R ~/Documents ~/migration
+# also consider...
+# random git branches you never pushed anywhere?
+# git untracked files (or local gitignored stuff). stuff you never added, but probably want..
 
-cp ~/.bash_history ~/migration # back it up for fun?
 
-cp ~/.gitconfig.local ~/migration
+# OneTab history pages, because chrome tabs are valuable.
 
-cp ~/.z ~/migration # z history file.
-
-# sublime text settings
-cp "~/Library/Application Support/Sublime Text 3/Packages" ~/migration
-
+# usage logs you've been keeping.
 
 # iTerm settings.
   # Prefs, General, Use settings from Folder
@@ -55,13 +67,14 @@ cp "~/Library/Application Support/Sublime Text 3/Packages" ~/migration
 # Timestats chrome extension stats
 #   chrome-extension://ejifodhjoeeenihgfpjijjmpomaphmah/options.html#_options
 # 	gotta export into JSON through devtools:
-#     copy(JSON.stringify(localStorage, null, '  '))
+#     copy(JSON.stringify(localStorage))
 #     pbpaste > timestats-canary.json.txt
 
-# Current Chrome tabs via OneTab
+# software licenses.
+#   sublimetext's is in its Application Support folder
 
-# software licenses like sublimetext
-
+# maybe ~/Pictures and such
+cp -Rp ~/Pictures ~/migration
 
 ### end of old machine backup
 ##############################################################################################################
@@ -71,6 +84,8 @@ cp "~/Library/Application Support/Sublime Text 3/Packages" ~/migration
 ##############################################################################################################
 ### XCode Command Line Tools
 #      thx https://github.com/alrra/dotfiles/blob/ff123ca9b9b/os/os_x/installs/install_xcode.sh
+
+# !!! doesnt work, need to update this section..
 
 if ! xcode-select --print-path &> /dev/null; then
 
@@ -112,9 +127,10 @@ fi
 ##############################################################################################################
 ### homebrew!
 
-# (if your machine has /usr/local locked down (like google's), you can do this to place everything in ~/.homebrew
-mkdir $HOME/.homebrew && curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C $HOME/.homebrew
-export PATH=$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH
+# (if your machine has /usr/local locked down (like google's), you can do this to place everything in ~/homebrew
+mkdir $HOME/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $HOME/homebrew
+export PATH=$HOME/homebrew/bin:$HOME/homebrew/sbin:$PATH
+# maybe you still need an LD_LIBRARY export thing
 
 # install all the things
 ./brew.sh
@@ -134,15 +150,29 @@ export PATH=$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH
 # the `push` command which copies the github compare URL to my clipboard is heaven
 bash < <( curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
 
+# autocompletion for git branch names https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+
 
 # Type `git open` to open the GitHub page or website for a repository.
 npm install -g git-open
+
+# fancy listing of recent branches
+npm install -g git-recent
+
 # trash as the safe `rm` alternative
 npm install --global trash-cli
 
+# more readable git diffs
+npm install --global diff-so-fancy
 
-# github.com/rupa/z   - oh how i love you
-git clone https://github.com/rupa/z.git ~/code/z
+# my preferred statik webserver
+npm install -g statikk
+
+# install better nanorc config
+# https://github.com/scopatz/nanorc
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+
 # consider reusing your current .z file if possible. it's painful to rebuild :)
 # z is hooked up in .bash_profile
 
@@ -152,25 +182,16 @@ git clone https://github.com/rupa/z.git ~/code/z
 git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
 
 
-# my magic photobooth symlink -> dropbox. I love it.
-# 	 + first move Photo Booth folder out of Pictures
-# 	 + then start Photo Booth. It'll ask where to put the library.
-# 	 + put it in Dropbox/public
-# 	* Now… you can record photobooth videos quickly and they upload to dropbox DURING RECORDING
-# 	* then you grab public URL and send off your video message in a heartbeat.
-
-
-# for the c alias (syntax highlighted cat)
-sudo easy_install Pygments
-
 
 # change to bash 4 (installed by homebrew)
 BASHPATH=$(brew --prefix)/bin/bash
-#sudo echo $BASHPATH >> /etc/shells
-sudo bash -c 'echo $(brew --prefix)/bin/bash >> /etc/shells'
+sudo bash -c "echo $BASHPATH >> /etc/shells"
 chsh -s $BASHPATH # will set for current user only.
 echo $BASH_VERSION # should be 4.x not the old 3.2.X
+# repeat for fish, zsh
 # Later, confirm iterm settings aren't conflicting.
+
+
 
 
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
@@ -180,9 +201,34 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 # setting up the sublime symlink
 ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
+# install nvm (Node Version Nanager, https://github.com/nvm-sh/nvm)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
 
 ###
 ##############################################################################################################
+
+
+## Chromium hacking
+
+# improve perf of git inside of chromium checkout
+
+# Read https://chromium.googlesource.com/chromium/src/+/HEAD/docs/mac_build_instructions.md#improving-performance-of
+# => Do the maxvnodes stuff.
+sudo sysctl kern.maxvnodes=… blah blah something…
+# Also, I used to have some kern.maxfiles(perproc) tweaks here too, but I'm not convinced they're a win for git performance
+#   (FB's watchman doesn't recommend them now that it uses some fsevents API.)
+
+# speed up git status (to run only in chromium repo)
+git config status.showuntrackedfiles no
+git config core.untrackedCache true
+git update-index --untracked-cache
+# also this unrelated thing
+git config user.email "xxxx@chromium.org"
+
+# see also "A Chromium Compiling Setup for DevTools Hackers"
+# https://gist.github.com/paulirish/2d84a6db1b41b4020685
+
 
 
 
@@ -195,9 +241,9 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 # prezto and antigen communties also have great stuff
 #   github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
 
-# set up osx defaults
-#   maybe something else in here https://github.com/hjuutilainen/dotfiles/blob/master/bin/osx-user-defaults.sh
-sh .osx
+# set up macos defaults
+#   maybe something else in here https://github.com/hjuutilainen/dotfiles/tree/master/bin
+sh .macos
 
 # setup and run Rescuetime!
 

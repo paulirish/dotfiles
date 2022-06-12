@@ -29,6 +29,10 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
+# Use `which` along with symlink resolving
+whichlink() {
+    greadlink -f $(which $@)
+}
 
 
 # git commit browser. needs fzf
@@ -45,11 +49,11 @@ log() {
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
-	local port="${1:-8000}"
+	local port="${1:-8011}"
 	open "http://localhost:${port}/" &
-	# statik is good because it won't expose hidden folders/files by default.
-	# npm install -g statik
-	statik --port "$port" .
+ 	# statikk is good because it won't expose hidden folders/files by default.
+ 	# yarn global add statikk
+ 	statikk --port "$port" .
 }
 
 
@@ -148,11 +152,11 @@ camerausedby() {
 gifify() {
   if [[ -n "$1" ]]; then
 	if [[ $2 == '--good' ]]; then
-	  ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png
-	  time convert -verbose +dither -layers Optimize -resize 900x900\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif
-	  rm out-static*.png
+	  ffmpeg -i "$1" -r 10 -vcodec png out-static-%05d.png
+	  time convert -verbose +dither -layers Optimize -resize 900x900\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > "$1.gif"
+	  rm -f out-static*.png
 	else
-	  ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
+	  ffmpeg -i "$1" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "$1.gif"
 	fi
   else
 	echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
@@ -162,7 +166,7 @@ gifify() {
 # turn that video into webm.
 # brew reinstall ffmpeg --with-libvpx
 webmify(){
-	ffmpeg -i $1 -vcodec libvpx -acodec libvorbis -isync -copyts -aq 80 -threads 3 -qmax 30 -y $2 $1.webm
+	ffmpeg -i "$1" -vcodec libvpx -acodec libvorbis -isync -copyts -aq 80 -threads 3 -qmax 30 -y "$2" "$1.webm"
 }
 
 # direct it all to /dev/null
@@ -170,12 +174,34 @@ function nullify() {
   "$@" >/dev/null 2>&1
 }
 
-
-# visual studio code. a la `subl`
-function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
-
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
 shellswitch () {
 	chsh -s $(brew --prefix)/bin/$1
+}
+
+# initialize nvm
+function nv () {
+	export NVM_DIR="/Users/paulirish/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+
+# initialize rvm
+function rv () {
+	[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+}
+
+# initialize conda
+cond () {
+	__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+	if [ $? -eq 0 ]; then
+	    eval "$__conda_setup"
+	else
+	    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+	        . "/opt/miniconda3/etc/profile.d/conda.sh"
+	    else
+	        export PATH="/opt/miniconda3/bin:$PATH"
+	    fi
+	fi
+	unset __conda_setup
 }

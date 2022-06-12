@@ -20,7 +20,7 @@ function cdz --description 'Change to a directory using fuzzy finder. (Usually f
 	# TODO. this can probably be improved ot use locate instead, e.g.
 	#    file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
 	# from https://github.com/junegunn/fzf/wiki/examples
-	find $base -type d -path '*/\.*' -prune -o -type d -print ^ /dev/null | fzf +m --query=$query --select-1 --exit-0 > $TMPDIR/dirs
+	find $base -type d -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m --query=$query --select-1 --exit-0 > $TMPDIR/dirs
 
 	set dir (cat $TMPDIR/dirs)
 

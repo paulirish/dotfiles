@@ -4,8 +4,12 @@
 default_username='paulirish'
 
 
-eval "$(thefuck --alias)"
+if which thefuck > /dev/null; then
+    eval "$(thefuck --alias)"
+fi;
 
+# Automatically trim long paths in the prompt (requires Bash 4.x)
+PROMPT_DIRTRIM=2
 
 if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
     return 1 2> /dev/null || exit 1;
@@ -78,9 +82,9 @@ set_prompts() {
 
         userhost=""
         userhost+="\[${userStyle}\]$USER "
-        userhost+="${white}at "
-        userhost+="${orange}$HOSTNAME "
-        userhost+="${white}in"
+        userhost+="\[${white}\]at "
+        userhost+="\[${orange}\]$HOSTNAME "
+        userhost+="\[${white}\]in"
 
         if [ $USER != "$default_username" ]; then echo $userhost ""; fi
     }
@@ -104,7 +108,7 @@ set_prompts() {
 
 
         ## early exit for Chromium & Blink repo, as the dirty check takes ~5s
-        ## also recommended (via goo.gl/wAVZLa ) : sudo sysctl kern.maxvnodes=$((512*1024))
+        ## see other Chromium repo hacking optimizations: https://github.com/paulirish/dotfiles/blob/master/setup-a-new-machine.sh#L214
         repoUrl=$(git config --get remote.origin.url)
         if grep -q chromium.googlesource.com <<<$repoUrl; then
             dirty=" ⁂"
@@ -135,7 +139,7 @@ set_prompts() {
     PS1+="\n\[$bold\]"
     PS1+="\[$(usernamehost)\]"                              # username at host
     PS1+="\[$green\]\w"                                     # working directory
-    PS1+="\$(prompt_git \"$white on $purple\" \"$cyan\")"   # git repository details
+    PS1+="\$(prompt_git \"\[$white\] on \[$purple\]\" \"\[$cyan\]\")"   # git repository details
     PS1+="\n"
     PS1+="\[$reset$white\]\\$ \[$reset\]"
 

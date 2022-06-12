@@ -1,0 +1,5 @@
+{
+  "files.exclude": {
+    "functions/pure/tests": true
+  }
+}

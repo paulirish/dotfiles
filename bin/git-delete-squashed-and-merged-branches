@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# prereqs:
+#
+#     pip3 install pygithub
+#
+
+# usage:
+#     git delete-squashed-and-merged-branches --dry-run  # won't actually delete shit
+#     git delete-squashed-and-merged-branches            # probably will delete shit
+
+# get a github personal access token and put it in ~/.githubtoken
+
+# thanks!
+# this script is a bit of a combo from:
+#   danvk   https://gist.github.com/danvk/a715357444ff3c1a05c4cff730eea8e1
+#   larsks  https://github.com/larsks/github-tools/blob/master/git-is-merged
+#   paulirish
+
+from glob import glob
+import os.path
+
+import sys
+import github
+import subprocess
+import time
+
+yellow = '\033[93m'
+brightblack = '\u001b[30;1m'
+reset = '\033[0m'
+DRY_RUN = len(sys.argv) > 1 and sys.argv[1] == '--dry-run'
+
+tokenpath = os.path.expanduser('~/.githubtoken')
+tokenfile = open(tokenpath)
+token = tokenfile.read().strip();
+
+
+def get_branch_heads():
+    '''Returns an Array<[branchname, SHA]> of local branches.'''
+    branch_to_sha = []
+    # %09 is a tab, which we later split on
+    refsoutput = subprocess.check_output(["git", "for-each-ref", "--sort=-committerdate", "refs/heads/", "--format=%(refname)%09%(objectname)"])
+    lines = refsoutput.decode().split('\n')
+
+    for line in lines:
+        if not line:
+            continue
+        objectname,sha = line.split('\t')
+        branch_name = objectname.replace('refs/heads/', '')
+        if branch_name != 'master':
+            branch_to_sha.append([branch_name, sha])
+    return branch_to_sha
+
+
+def main():
+    G = github.Github(login_or_token=token)
+
+    retval = 0
+    items = get_branch_heads()
+
+    print(f"Looking at {len(items)} total local heads, from newest to oldest.")
+
+    for [branch, sha] in items:
+        print('\n')
+        time.sleep(2) # search only allows 30 req/min. https://developer.github.com/v3/search/#rate-limit
+        res = G.search_issues(sha)
+        shortsha = sha[0:7]
+        issue_closed_states = [issue.state == 'closed' for issue in res]
+        open_issues = [issue for issue in res if issue.state != 'closed']
+
+        # todo: filter found issues to see if they are from remotes that we care about.
+        # eg not this shit https://github.com/DrippingFuture/lighthouse/pull/1
+
+        if not issue_closed_states:
+            msg = '🔃  No PRs found'
+            retval = 4
+        elif all(issue_closed_states):
+            msg = '💀  All PRs are closed. Ready to 🗑'
+            retval = 0
+        elif any(issue_closed_states):
+            msg = '🌀  Some (BUT not all) PRs are closed'
+            retval = 1
+        else:
+            msg = '🔃  All PRs still open'
+            retval = 2
+
+        print('{}{}{} ({}):\n{}'.format(yellow, branch, reset, shortsha, msg))
+        for issue in open_issues:
+            print('    · "{}" {}{}{}'.format(issue.title, brightblack, issue.html_url, reset))
+
+        if retval == 0:
+            if DRY_RUN:
+                print('❎  Without --dry-run, would delete branch %s' % branch)
+            else:
+                print('❌  Deleting local branch %s' % branch)
+                subprocess.check_call(['git', 'branch', '-D', branch])
+
+    sys.exit(retval)
+
+if __name__ == '__main__':
+    main()

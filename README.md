@@ -2,7 +2,7 @@
 
 * I maintain this repo as *my* dotfiles, but I'm keenly aware people are using it for theirs.
 * You're quite welcome to make suggestions, however I may decline if it's not of personal value to me.
-* If you're starting off consider forking [mathias](https://github.com/mathiasbynens/dotfiles/) or [alrra](https://github.com/alrra/dotfiles/). paulmillr and gf3 also have great setups
+* If you're starting off anew, consider forking [mathias](https://github.com/mathiasbynens/dotfiles/) or [alrra](https://github.com/alrra/dotfiles/). [paulmillr](https://github.com/paulmillr/dotfiles) and [gf3](https://github.com/gf3/dotfiles) also have great setups
 
 ## Setup
 #### installing & using
@@ -21,7 +21,7 @@
 
 #### shell
 
-This repo contains config for bash, zsh, and fish. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and zsh stuff are both well maintained; zsh, less so.
+This repo contains config for bash, zsh, and fish. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained; zsh, less so. If you're using fish you'll want to do a `git submodule update --init`.
 
 
 ## my favorite parts.
@@ -73,7 +73,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
 * `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
-* `.osx` - run on a fresh osx setup
+* `.macos` - run on a fresh mac os setup
 * `brew.sh` & `brew-cask.sh` - homebrew initialization
 
 #### git, brah
@@ -111,7 +111,7 @@ export PATH
 Mathias's repo is the canonical for this, but you should probably run his or mine after reviewing it.
 
 ```bash
-./.osx
+./.macos
 ```
 
 ### `~/bin`
@@ -121,3 +121,16 @@ One-off binaries that aren't via an npm global or homebrew. [git open](https://g
 ### Syntax highlighting for these files
 
 If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Package Control](http://wbond.net/sublime_packages/package_control)
+
+### 2020 update
+
+Rust folks have made a few things that are changing things.
+
+ - most folks know `bat`  as a `cat` replacement
+ - https://github.com/dandavison/delta seems a lot better than the diff-so-fancy project that i started. :/
+ - https://github.com/ogham/exa is better `ls` and gets all the trapd00r/LS_COLORS stuff etc.
+ - https://github.com/bigH/git-fuzzy interactive git thing. deprecates my `git recent` script. and probably some other things.
+
+ Also I'd like to migrate to using homesick or https://www.atlassian.com/git/tutorials/dotfiles
+
+ also interested in https://github.com/dandavison/open-in-editor
