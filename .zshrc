@@ -53,6 +53,7 @@ plugins=(
   common-aliases
   dirhistory
   extract
+  fzf-zsh-plugin
   git-extras
   golang
   httpie
