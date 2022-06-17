@@ -138,5 +138,9 @@ eval `keychain --agents ssh --eval id_rsa --eval id_ed25519`
 
 xrdb -load ~/.Xresources
 
+source ~/.config/zsh/cursor-shape.conf
+
 # Some kubernetes things
 [ -f ~/.kube/kube-config.yaml ] && export KUBECONFIG=~/.kube/kube-config.yaml
+
+
