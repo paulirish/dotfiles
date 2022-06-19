@@ -191,21 +191,23 @@ cond () {
 # VPN with Cisco Anyconnect, using 1password-stored passwords
 # Must be 
 connect () {
-	if [[ $1 == "ucsd" ]]; then
-		PASS=$(op get item hkbrgyxuubyudypzqlnanpdiya --fields password)
+	if [[ $1 == "ucsd_easy" ]]; then
+		PASS=$(op item get hkbrgyxuubyudypzqlnanpdiya --fields password)
+		printf "0\nmcuoco\n${PASS}\ny" | vpn -s connect vpn.ucsd.edu # connect to 2-Step Secured - EasyConnect
+	elif [[ $1 == "ucsd_all" ]]; then 
+		PASS=$(op item get hkbrgyxuubyudypzqlnanpdiya --fields password)
 		printf "3\nmcuoco\n${PASS}\ny" | vpn -s connect vpn.ucsd.edu # connect to 2-Step Secured - allthruucsd
 	elif [[ $1 == "salk" ]]; then
-		PASS=$(op get item ltzmpxtabm66b5acokjubr6g3m --fields password)
-		printf "0\nmcuoco\n${PASS}\ny" | vpn -s connect vpnfp.salk.edu
+		PASS=$(op item get ltzmpxtabm66b5acokjubr6g3m --fields password)
+		printf "1\nmcuoco\n${PASS}\ny" | vpn -s connect vpnfp.salk.edu # connect to Salk
 	else 
-		echo "ERROR: please enter 'ucsd' or 'salk'"
+		echo "ERROR: please enter 'ucsd_easy', 'ucsd_all', or 'salk'"
 	fi 
 } 
 
 # SSH Tunneling
 # usage:
-#		1. Host
-#   2. Port
+#   tunnel {hostname} {port_number}
 tunnel () {
-	ssh -f mcuoco@$1 -o ExitOnForwardFailure=yes -L $2:localhost:$2 sleep 10
+	ssh mcuoco@$1 -L $2:localhost:$2 
 }
