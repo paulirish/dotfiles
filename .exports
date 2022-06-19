@@ -32,5 +32,5 @@ export DATE=$(date "+%Y-%m-%d%n")
 # tell apple to shutup about zsh
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-# set passwords
-# eval $(op signin my)
+# cromwell jar
+export CROMWELL_JAR="/opt/homebrew/Cellar/cromwell/78/libexec/cromwell.jar"
