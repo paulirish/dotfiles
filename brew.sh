@@ -52,7 +52,7 @@ brew install git-open # open github repos from the command line
 brew install git-recent # see recent branches
 
 # better `top`
-brew install glances
+brew install htop
 
 # linting for .sh files
 brew install shellcheck 
@@ -97,6 +97,8 @@ brew install samtools
 brew install bcftools
 brew install bedtools
 brew install brewsci/bio/nextflow
+brew install broadinstitute/dsp/cromshell
+brew install cromwell
 
 #brew install scrcpy # control/view android phone from PC. amazing
 brew install youtube-dl

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# TODO: combine this file with brew.sh
 
 # to maintain cask ....
 #     brew update && brew cleanup
