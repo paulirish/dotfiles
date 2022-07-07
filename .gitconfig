@@ -69,9 +69,11 @@
 [push]
 	default = current
 [pull]
-	default = upstream
+	default = current
 	rebase = false
 [gc]
 	auto = 0
 [branch]
 	autoSetupMerge = always
+[init]
+	defaultBranch = main
