@@ -88,7 +88,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -143,5 +143,4 @@ source ~/.config/zsh/cursor-shape.conf
 
 # Some kubernetes things
 [ -f ~/.kube/kube-config.yaml ] && export KUBECONFIG=~/.kube/kube-config.yaml
-
 
