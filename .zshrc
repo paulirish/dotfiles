@@ -199,6 +199,9 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 alias spork_up="RAILS_ENV=test bundle exec spork"
 alias spork_test="bundle exec rspec --drb"
 
+# rubocop
+alias police="git status -s | awk '{print \$2}' | grep '\.rb$' | xargs rubocop" 
+
 # aws
 export AWS_VAULT_PROMPT=osascript
 export AWS_VAULT_KEYCHAIN_NAME=login
@@ -215,6 +218,6 @@ export PATH="/usr/local/sbin:$PATH"
 . /usr/local/opt/asdf/libexec/asdf.sh
 
 
-# rancher
+# Rancher
 export PATH="$HOME/.rd/bin:$PATH"
 
