@@ -202,3 +202,7 @@ alias explorer='explorer.exe `wslpath -w "$PWD"`'
 
 # Linux brew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# rbenv
+eval "$(rbenv init -)"
+
