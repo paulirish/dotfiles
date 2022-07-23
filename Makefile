@@ -24,7 +24,7 @@ endif
 mac: intellij zshrc vim git tmux
 
 .PHONY: linux
-linux: intellij bashrc git tmux
+linux: intellij bashrc vim git tmux
 
 .PHONY: vim
 vim:
