@@ -140,32 +140,65 @@ alias nginx_start="brew services start nginx-full"
 alias nginx_stop="brew services stop nginx-full"
 alias nginx_restart="brew services restart nginx-full"
 alias nginx_reload="brew services reload nginx-full"
+alias police="git status -s | awk '{print \$2}' | grep '\.rb$' | xargs rubocop"
+
+# bundler
 alias be="bundle exec"
 alias bs="bundle show"
 alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 
+export BUNDLER_EDITOR=vim
+
+### FUNCTIONS
+# setup_docker() {
+    # eval $(minikube docker-env)
+# }
+
+# start_docker() {
+    # minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
+    # minikube pause  #disable the k8s stuff
+    # eval $(minikube docker-env)
+# }
+
+clean_branch() {
+  if [ -z "$1" ]; then
+    echo "missing parameter 'clean_branch main'"
+  else
+    g up
+    g b -D $1
+    g ch $1
+  fi
+}
+
+push_to() {
+  current_branch="$(git branch --show-current)"
+  clean_branch $1
+  g merge $current_branch --no-edit
+  g push origin $1
+  g ch $current_branch
+}
+
+g_rand() {
+  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
+}
+
+### FUNCTIONS
+
+# rubocop
 
 export EDITOR=vim
 
 # windows stuff
 alias explorer='explorer.exe `wslpath -w "$PWD"`'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-
 # GPG ubuntu export
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)
 
 # aws-vault
-export AWS_VAULT_BACKEND=pass
-export AWS_VAULT_PROMPT=terminal
-export AWS_VAULT_KEYCHAIN_NAME=login
+# export AWS_VAULT_BACKEND=pass
+# export AWS_VAULT_PROMPT=terminal
+# export AWS_VAULT_KEYCHAIN_NAME=login
 
- #tfenv
-export PATH="$HOME/.tfenv/bin:$PATH"
-
+# Linux brew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
