@@ -200,9 +200,7 @@ alias explorer='explorer.exe `wslpath -w "$PWD"`'
 # export AWS_VAULT_PROMPT=terminal
 # export AWS_VAULT_KEYCHAIN_NAME=login
 
-# Linux brew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# rbenv
-eval "$(rbenv init -)"
+# asdf
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 
