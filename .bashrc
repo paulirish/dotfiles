@@ -3,7 +3,7 @@ export OSH=/home/richistron/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="bobby"
+OSH_THEME="90210"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
