@@ -17,13 +17,11 @@ export HISTTIMEFORMAT
 # Make some commands not show up in history
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
-export PATH=~/bin:/usr/local/Cellar/git/2.6.3/bin/:/usr/local/bin:/usr/local/OpenIDE.binaries:/Applications/mongodb-osx-x86_64-3.0.5/bin:$PATH
+export PATH=~/bin:/usr/local/bin:/home/jan/.bun/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-export POWERLINE_CONFIG_COMMAND=~/Library/Python/2.7/bin/powerline-config
 
 # This is for FZS to ignore all files and folder that are listed in the .gitignore file
 # You need to install ag for this
@@ -33,5 +31,5 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export GOPATH=~/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-export CDPATH=~/:~/Projects/:~/Projects/mdwiki:~/Projects/howcani:~/Projects/mymusic
+export CDPATH=~/:~/Projects/:~/Projects/howcani:~/Projects/mymusic
 
