@@ -46,7 +46,7 @@ function backup {
     return
   fi
 
-  echo "Create backup on server ${server_address} for computer ${hostname} in user-home for ${user}"
+  echo "Create backup on server ${server_address} for computer ${hostname} in user-home for ${user} at $(date +%d-%m-%yT%H:%M:%S)"
 
   for directory_name in $directories; do
     if [ "${server_address}" == "USB" ]; then
