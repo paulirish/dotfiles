@@ -41,6 +41,7 @@ Plug 'vim-airline/vim-airline-themes'       " Themes for vim-airline
 Plug 'MarcWeber/vim-addon-mw-utils'         " interpret a file by function and cache file automatically (required by ...)
 Plug 'mattn/emmet-vim'                      " Provides support for Emmet in vim
 Plug 'machakann/vim-highlightedyank'        " Make the yanked region visible
+Plug 'mhinz/vim-startify'                   " Replace the orginal start-screen with MRU and bookmarks
 Plug 'mileszs/ack.vim'                      " Provides support for ack and the SilverlightSearcher in vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'NLKNguyen/papercolor-theme'           " My prefered theme for working in the presentation (light) mode
