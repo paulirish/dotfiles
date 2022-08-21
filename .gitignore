@@ -40,3 +40,7 @@ shilocation
 
 # tmp staff
 supervise
+
+# JFE
+**/__generated_apollo__/**
+

@@ -25,7 +25,7 @@ end
 set PA $PA /usr/local/Cellar/atlassian-plugin-sdk/8.2.6
 
 # GOLANG configurations
-set -x GOPATH $HOME/golang
+set -x GOPATH $HOME/go
 set -x GOROOT /usr/local/opt/go/libexec
 set PA $GOPATH/bin $GOROOT/bin $PA
 
