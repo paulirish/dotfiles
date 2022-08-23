@@ -188,7 +188,7 @@ g_rand() {
 ### FUNCTIONS
 
 ### stdin hacko for git add -a
-stty icrnl
+# stty icrnl
 
 # brew paths
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
