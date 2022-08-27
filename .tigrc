@@ -2,6 +2,7 @@ set mouse = true
 set tab-size = 2
 
 bind status p !git push
+bind status P !git push --force-with-lease
 bind generic Y !@sh -c "echo %(commit) | xsel --clipboard --input"
 
 bind tree F !tig --follow %(file)
