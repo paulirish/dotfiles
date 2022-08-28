@@ -213,3 +213,4 @@ alias kerrorevents="kubectl get events --field-selector type!=Normal -A"
 # Alias for viewing markdown files in the terminal
 alias md=glow
 
+alias JABASOFT-DS="ssh jan@jabasoft-ds"
