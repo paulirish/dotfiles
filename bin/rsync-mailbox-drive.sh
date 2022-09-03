@@ -13,7 +13,7 @@ function rsync_remote() {
   rsync -avu --progress --delete                                                    \
         ${includes_exludes}                                                         \
         -e "ssh -i /home/${user}/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT"           \
-        "${source_path}" ${user}@${server_address}:/volume1/homes/${user}/${hostname}/
+        "${source_path}" ${user}@${server_address}:/volume1/backup/${hostname}/
 
   echo ""
 }
