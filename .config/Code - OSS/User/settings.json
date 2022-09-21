@@ -5,7 +5,7 @@
     "workbench.settings.editor": "ui",
     "window.zoomLevel": 2,
     "diffEditor.ignoreTrimWhitespace": false,
-    "jest.runAllTestsFirst": false,
+    "jest.autoRun": "watch",
     "launch": {
       "configurations": [
         {
@@ -21,17 +21,36 @@
           "runtimeArgs": [
           ],
           "console": "internalConsole",
-          "sourceMaps": false,
-          "protocol": "inspector"
+          "outputCapture": "std",
+          "sourceMaps": false
         },
+        {
+          "name": "Debug migration",
+          "type": "node",
+          "request": "launch",
+          "program": "${workspaceRoot}/migrations/VERBU-9653/migrate.js",
+          "stopOnEntry": false,
+          "args": [],
+          "cwd": "${workspaceRoot}",
+          "preLaunchTask": null,
+          "runtimeExecutable": null,
+          "runtimeArgs": [
+          ],
+          "env": {
+            "USE_SSH": "true"
+          },
+          "console": "internalConsole",
+          "outputCapture": "std",
+          "sourceMaps": false
+        },
+
         {
           "name": "Attach to Process",
           "type": "node",
           "request": "attach",
           "processId": "${command:PickProcess}",
           "port": 5858,
-          "sourceMaps": false,
-          "protocol": "inspector"
+          "sourceMaps": false
         },
         {
           "type": "node",
@@ -45,8 +64,8 @@
             "--no-cache"
           ],
           "console": "internalConsole",
-          "internalConsoleOptions": "neverOpen",
-          "disableOptimisticBPs": true
+          "outputCapture": "std",
+          "internalConsoleOptions": "neverOpen"
         },
         {
           "type": "node",
@@ -61,8 +80,8 @@
             "--testPathPattern=${fileBasenameNoExtension}"
           ],
           "console": "internalConsole",
-          "internalConsoleOptions": "neverOpen",
-          "disableOptimisticBPs": true
+          "outputCapture": "std",
+          "internalConsoleOptions": "neverOpen"
         },
         {
           "type": "go",
