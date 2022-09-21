@@ -33,3 +33,6 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 export CDPATH=~/:~/Projects/:~/Projects/howcani:~/Projects/mymusic
 
+# Show colored output when running molecule
+export PY_COLORS="1"
+export ANSIBLE_FORCE_COLOR="1"
