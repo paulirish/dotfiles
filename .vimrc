@@ -457,7 +457,7 @@ set splitbelow splitright
  " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
 source ~/.vim/vimrc/vimrc_javascript.vim
-" source ~/.vim/vimrc/vimrc_typescript.vim
+source ~/.vim/vimrc/vimrc_typescript.vim
 source ~/.vim/vimrc/vimrc_html_css.vim
 source ~/.vim/vimrc/vimrc_markdown.vim
 source ~/.vim/vimrc/vimrc_hcl.vim
