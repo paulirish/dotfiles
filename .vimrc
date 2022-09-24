@@ -463,6 +463,7 @@ source ~/.vim/vimrc/vimrc_javascript.vim
 source ~/.vim/vimrc/vimrc_html_css.vim
 source ~/.vim/vimrc/vimrc_markdown.vim
 source ~/.vim/vimrc/vimrc_hcl.vim
+source ~/.vim/vimrc/vimrc_yaml.vim
 "source ~/.vim/vimrc/vimrc_python.vim
 
 " Show another cursor when changing into the insert mode
