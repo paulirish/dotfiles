@@ -435,14 +435,13 @@ source ~/.vim/vimrc/vimrc_coc.vim
 " ************** End plugin settings ************
 
 " define color scheme
-let g:hybrid_transparent_background = 1
+let g:hybrid_transparent_background = 0
+colorscheme PaperColor
 
 if $VIM_BACKGROUND == 'light'
   set background=light
-  colorscheme PaperColor
 else
   set background=dark
-  colorscheme PaperColor
 endif
 
 " Define the highlighting for spell checking
