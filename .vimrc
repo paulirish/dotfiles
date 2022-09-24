@@ -28,11 +28,12 @@ Plug 'hail2u/vim-css3-syntax'               " CSS3 syntax
 Plug 'easymotion/vim-easymotion'            " Vim motions on speed
 Plug 'elzr/vim-json'                        " Improve JSON support: Distinct highlighting of keywords vs values
 Plug 'evanleck/vim-svelte'                  " Support for Svelte
-Plug 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
 Plug 'fatih/vim-go'                         " Improving the support for Go in vim
+Plug 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
 Plug 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'                     " Use fzf in VIM
+Plug 'junegunn/goyo.vim'                    " Writing text with Zen mode (distaction free)
 Plug 'jvirtanen/vim-hcl'                    " Syntaxhighlighting  for Hashicorp language (Terraform)
 Plug 'kopischke/vim-fetch'                  " Make Vim handle line and column numbers in file names
 Plug 'liuchengxu/vim-which-key'             " Show the current leader mappings
@@ -59,7 +60,6 @@ Plug 'tpope/vim-repeat'                     " enable repeating supported plugin 
 Plug 'tpope/vim-surround'                   " surround.vim: quoting/parenthesizing made simple
 Plug 'tpope/vim-unimpaired'                 " Pairs of handy bracket mappings
 Plug 'zirrostig/vim-schlepp'                " Moving blocks of text easily
-Plug 'kristijanhusak/vim-hybrid-material'   " This color theme is for the dark mode with transparent background
 Plug 'prettier/vim-prettier', { 'for': ['javascript', 'svelte', 'less', 'yaml', 'markdown' ]}
 
 call plug#end()
@@ -221,10 +221,8 @@ command! TigStatus call s:tig_status()
 function! TogglePresentationMode()
   if(&background == 'dark')
     set background=light
-    colorscheme PaperColor
   else
     set background=dark
-    colorscheme hybrid_material
   endif
 endfunction
 
@@ -443,7 +441,7 @@ if $VIM_BACKGROUND == 'light'
   colorscheme PaperColor
 else
   set background=dark
-  colorscheme hybrid_material
+  colorscheme PaperColor
 endif
 
 " Define the highlighting for spell checking
