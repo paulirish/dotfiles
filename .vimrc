@@ -19,6 +19,7 @@ set wildmenu " Display all matching files when tab complete
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'pearofducks/ansible-vim'              " Support for Ansible
 Plug 'majutsushi/tagbar'                    " displays tags in a window
 Plug 'pangloss/vim-javascript'              " Vastly improved Javascript indentation and syntax support
 Plug 'mxw/vim-jsx'                          " React JSX syntax highlighting and indenting for vim
