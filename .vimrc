@@ -301,7 +301,6 @@ imap <leader>{ {}<ESC>i
 imap <leader>{<space> {  }<ESC><left>i
 imap <leader>{{ {{  }}<ESC><left><left>i
 
-
 " Fixing the copy & paste madness
 "vmap <C-y> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
 "imap <C-v> <Esc><C-v>a
@@ -450,6 +449,12 @@ endif
 " Define the highlighting for spell checking
 hi SpellBad ctermfg=015 ctermbg=000 cterm=none guifg=#FFFFFF guibg=#000000 gui=none
 highlight SpellBad cterm=underline
+
+"stop auto commenting, this is hurtful more then it is useful
+set formatoptions-=cro
+
+"split settings so they are not stupid like defaults
+set splitbelow splitright
 
  " Add file type based settings
 source ~/.vim/vimrc/vimrc_go.vim
