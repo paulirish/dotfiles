@@ -41,7 +41,7 @@ rand_img() {
     # Pick a random image.
     wal="${files[RANDOM % ${#files[@]}]}"
 
-    # Set the image to the first in the directory if the shuffle failes.
+    # Set the image to the first in the directory if the shuffle fails.
     [[ ! -f "$wal" ]] && wal="${files[0]}"
 
     out "image: Using image, $wal"

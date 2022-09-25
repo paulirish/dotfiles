@@ -5,13 +5,13 @@ function rsync_remote() {
   local hostname=$2
   local user=$3
   local source_path=$4
-  local includes_exludes=${@:5}
+  local includes_excludes=${@:5}
 
   echo "backup $source_path"
   echo "------------------------------------------"
 
   rsync -avu --progress --delete                                                    \
-        ${includes_exludes}                                                         \
+        ${includes_excludes}                                                        \
         -e "ssh -i /home/${user}/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT"           \
         "${source_path}" ${user}@${server_address}:/volume1/backup/${hostname}/
 
