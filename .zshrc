@@ -130,6 +130,7 @@ alias plistbuddy="/usr/libexec/PlistBuddy"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+alias decolorize='sed -r "s/\\x1B\\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
 alias docker_container="docker ps -a"
 alias r_reset="rails db:drop; rails db:create; rails db:migrate; rails db:seed;"
 alias r="rails"
