@@ -56,3 +56,8 @@ git:
 .PHONY: nvim
 nvim:
 	cp -r .config ~/
+
+.PHONY: z
+z:
+	git clone git@github.com:rupa/z.git ~/z
+

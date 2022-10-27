@@ -213,3 +213,6 @@ export PATH="/usr/local/sbin:$PATH"
 # Rancher
 export PATH="$HOME/.rd/bin:$PATH"
 
+# https://github.com/rupa/z
+. $HOME/z/z.sh
+
