@@ -349,6 +349,12 @@ function mongo-docker() {
   docker run -it --rm --name ${name} -v "$(pwd)/data":/data/db -p ${port}:27017 mongo:${version}
 }
 
+function docker-ubuntu() {
+  local version=${1:-focal}
+  local name="ubuntu-${version}"
+  docker run -it --rm --name ${name} -v "$(pwd)":/tmp/ubuntu ubuntu:${version}
+}
+
 # Integration of fzf in Tmux
 function tm() {
   [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
