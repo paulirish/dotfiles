@@ -227,6 +227,20 @@ function! TogglePresentationMode()
   endif
 endfunction
 
+function! ReplaceUmlaute()
+  " Save cursor position
+  let l:save = winsaveview()
+  " Remove trailing whitespace
+  %s/Ae/Ä/gIce
+  %s/Oe/Ö/gIce
+  %s/Ue/Ü/gIce
+  %s/ae/ä/gIce
+  %s/oe/ö/gIce
+  %s/ue/ü/gIce
+  " Move cursor to original position
+  call winrestview(l:save)
+  echo "Replaced all to Umlaute"
+endfunction
 " ************* End custom functions  ************
 
 " ************* Begin custom keymappings ************
@@ -320,6 +334,7 @@ map <C-G> :TigStatus<CR><CR>
 nnoremap <Leader>z :call ToggleErrors()<CR>
 
 nnoremap <Leader>pp :call TogglePresentationMode()<CR>
+vnoremap <Leader>ru :call ReplaceUmlaute()<CR>
 
 " Delete surrounding space (deletes the previous and the following space)
 " It's not perfect for all cases, but sometimes usefull
