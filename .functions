@@ -363,3 +363,9 @@ function tm() {
   fi
   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
+
+function jupyter() {
+  mkdir -p ~/Projects/jupyter-notebooks
+  cd ~/Projects/jupyter-notebooks
+  docker run --name jupyter --rm -p 8888:8888 -v "$(pwd):/home/jovyan" jupyter/scipy-notebook:ubuntu-22.04
+}
