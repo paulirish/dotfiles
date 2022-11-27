@@ -34,11 +34,17 @@ function dtb () {
 }
 
 
+# https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
+#                          # Avoid the blocking startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
+#                                                  # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
+clutch_chrome_flags="--use-mock-keychain --disable-features=DialMediaRouteProvider"
+
+
 # you can also add any extra args: `cr --user-data-dir=/tmp/lol123"
 # (disable DialMediaRouteProvider gets rid of that "do you want to accept incoming connections" prompt)
 function cr () {
     local dir=$(git rev-parse --show-cdup)/out/Default
-    local cmd="./$dir/Chromium.app/Contents/MacOS/Chromium --disable-features=DialMediaRouteProvider $argv"
+    local cmd="./$dir/Chromium.app/Contents/MacOS/Chromium $clutch_chrome_flags $argv"
     echo "  > $cmd"
     eval "$cmd"
 }
@@ -46,7 +52,7 @@ function cr () {
 function dtcr () {
     local crpath="$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
     local dtpath=$(realpath out/Default/gen/front_end)
-    local cmd="$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile --disable-features=DialMediaRouteProvider $argv"
+    local cmd="$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv"
     echo "  > $cmd"
     eval "$cmd"
 }

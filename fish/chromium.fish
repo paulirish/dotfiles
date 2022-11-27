@@ -1,3 +1,4 @@
+
 function deps --description "run gclient sync"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
     # also reset seems to reset branch position in the devtools-internal repo??? weird.
@@ -33,7 +34,6 @@ function b --description "build chromium"
     # end
 end
 
-
 function dtb --description "build devtools"
     set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
     set -l cmd "autoninja -C "$dir_default""  
@@ -41,9 +41,15 @@ function dtb --description "build devtools"
     eval $cmd
 end
 
+# https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
+#                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
+#                                                  # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
+set clutch_chrome_flags "--use-mock-keychain --disable-features=DialMediaRouteProvider"
+
+
 function cr --description "open built chromium (accepts runtime flags)"
     set -l dir (git rev-parse --show-cdup)/out/Default
-    set -l cmd "./$dir/Chromium.app/Contents/MacOS/Chromium --disable-features=DialMediaRouteProvider $argv"
+    set -l cmd "./$dir/Chromium.app/Contents/MacOS/Chromium $clutch_chrome_flags $argv"
     echo "  > $cmd"
     eval $cmd
 end
@@ -51,7 +57,15 @@ end
 function dtcr --description "run chrome with dev devtools"
     set -l crpath "$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
     set -l dtpath (realpath out/Default/gen/front_end)
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile --disable-features=DialMediaRouteProvider $argv"
+    if test ! -e "$dtpath/devtools_app.html"
+        echo "Not found at: $dtpath/devtools_app.html"
+        set dtpath (realpath out/Default/gen)
+    end
+    if test ! -e "$dtpath/devtools_app.html" # elsa?
+        echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
+    end
+
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv"
     echo "  > $cmd"
     eval $cmd
 end
@@ -117,4 +131,25 @@ function gom --description "run goma setup"
     #     ~/goma/goma_ctl.py stop
     #     ~/goma/goma_ctl.py ensure_start
     # end
+end
+
+function glurpgrab --description "dl mac-cross build from glurp"
+    rsync --archive --verbose --itemize-changes --human-readable --delete paulirish@glurp:chromium/src/out/Mac-cross/Chromium.app $HOME/chromium/src/out/Mac-cross-from-glurp/ 
+
+    maccr
+end
+
+function maccr
+    set -l dtpath (realpath /Users/paulirish/chromium-devtools/devtools-frontend/out/Default/gen/front_end)
+    if test ! -e "$dtpath/devtools_app.html"
+        echo "Not found at: $dtpath/devtools_app.html"
+        set dtpath (realpath /Users/paulirish/chromium-devtools/devtools-frontend/out/Default/gen)
+    end
+    if test ! -e "$dtpath/devtools_app.html" # elsa?
+        echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
+    end
+
+    set -l cmd "$HOME/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium --user-data-dir=/tmp/glurp-mac-cross $clutch_chrome_flags --custom-devtools-frontend=file://$dtpath"
+    echo "  > $cmd"
+    eval $cmd
 end
