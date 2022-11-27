@@ -106,7 +106,7 @@ Mathias's repo is the canonical for this, but you should probably run his or min
 
 ### `~/bin`
 
-One-off binaries that aren't via an npm global or homebrew. [git open](https://github.com/paulirish/git-open), [wifi-password](https://github.com/rauchg/wifi-password), [coloredlogcat](https://developer.sinnerschrader-mobile.com/colored-logcat-reloaded/507/), and `subl` for Sublime Text.
+One-off binaries that aren't via an npm global or homebrew. [git open](https://github.com/paulirish/git-open), `subl` for Sublime Text, and some other git utilities.
 
 
 ### 2020 update
