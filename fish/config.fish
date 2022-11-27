@@ -1,10 +1,8 @@
-set default_user "paulirish"
-set default_machine "paulirish-macbookair2"
-
 # I've noticed this file gets called 3 times. Looks like one is from pureprompt.
 # todo, investigate later.
 # status stack-trace
 
+# TODO: path and aliases are kinda slow to source. optimize later.
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/functions.fish
@@ -87,6 +85,3 @@ set -g fish_pager_color_progress cyan
 # TODO debug this
 # this currently messes with newlines in my prompt. lets debug it later.
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
-# fancy `ls` colors. this adds 20ms to shell init. from ~70 to ~90.
-eval (gdircolors -c ~/.dircolors)

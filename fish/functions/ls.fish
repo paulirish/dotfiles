@@ -4,6 +4,11 @@
 
 function ls --description "List contents of directory"
 
+  # install LS_COLORS if it hasn't been already. do it now instead of shell init cuz it costs 20ms.
+  if not test -n "$LS_COLORS"
+    eval (gdircolors -c ~/.dircolors)
+  end
+
   # previously had this set to...
   #   set -l     param --color=always  # afaik, this isn't neccessary: set --export CLICOLOR_FORCE 1
   set -l param --color=auto;
