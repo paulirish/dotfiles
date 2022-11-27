@@ -123,10 +123,11 @@ function emptytrash -d 'Empty the Trash on all mounted volumes and the main HDD.
     rm -rfv ~/Library/Caches/Firefox/Profiles/98ne80k7.dev-edition-default/cache2
 end
 
-function cond -d 'initialize conda'
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-  # <<< conda initialize <<<
-  conda activate py2
+function conda -d 'lazy initialize conda'
+  functions --erase conda
+  eval /opt/miniconda3/bin/conda "shell.fish" "hook" | source
+  # There's some opportunity to use `psub` but I don't really understand it.
+  conda $argv
 end
+
+# NVM doesnt support fish and its stupid to try to make it work there.

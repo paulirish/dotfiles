@@ -171,28 +171,29 @@ shellswitch () {
 	chsh -s $(brew --prefix)/bin/$1
 }
 
-# initialize nvm
-function nv () {
+# lazy initialize nvm
+# https://news.ycombinator.com/item?id=33582219
+# i kinda like volta more but i forget it.
+# https://github.com/Schniz/fnm also exists.
+function nvm {
+	unset -f nvm
 	export NVM_DIR="/Users/paulirish/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+	. "$NVM_DIR/nvm.sh" 
+	nvm "${@}"
 }
 
-# initialize rvm
-function rv () {
-	[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# lazy initialize rvm
+# 2022-11 apparently a while ago i noted that i prefer rbenv? 
+# and apparently theres another competitor that looks better than all those
+function rvm {
+	unset -f rvm
+	source "$HOME/.rvm/scripts/rvm"
+	rvm "${@}"
 }
 
-# initialize conda
-cond () {
-	__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-	if [ $? -eq 0 ]; then
-	    eval "$__conda_setup"
-	else
-	    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-	        . "/opt/miniconda3/etc/profile.d/conda.sh"
-	    else
-	        export PATH="/opt/miniconda3/bin:$PATH"
-	    fi
-	fi
-	unset __conda_setup
+# lazy initialize conda
+function conda {
+	unset -f conda
+	source <(/opt/miniconda3/bin/conda shell.bash hook)
+	conda "${@}"
 }
