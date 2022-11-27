@@ -4,29 +4,21 @@
 * You're quite welcome to make suggestions, however I may decline if it's not of personal value to me.
 * If you're starting off anew, consider forking [mathias](https://github.com/mathiasbynens/dotfiles/) or [alrra](https://github.com/alrra/dotfiles/). [paulmillr](https://github.com/paulmillr/dotfiles) and [gf3](https://github.com/gf3/dotfiles) also have great setups
 
+
 ## Setup
-#### installing & using
 
-* fork this to your own acct
-* clone that repo
-* read and run parts of `setup-a-new-machine.sh`
-* read and run `symlink-setup.sh`
-  * git config needs attention, read the notes.
-* use it. yay!
-
-#### maintenance
-
-* commit/push changes you want.
-* you can also hypothetically cherry-pick commits from me and mathias and our fork ecosystem.
+I would not suggest you just wholesale use my dotfiles. But there's a few files where there's great goodies you can steal.
 
 #### shell
 
 This repo contains config for fish and bash. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained. If you're using fish you'll want to do a `git submodule update --init`.
 
-
 ## my favorite parts.
 
-### [`.aliases`](https://github.com/paulirish/dotfiles/blob/master/.aliases) and [`.functions`](https://github.com/paulirish/dotfiles/blob/master/.functions)
+### aliases and functions
+
+* [`aliases.fish`](./fish/aliases.fish) and [`functions.fish`](./fish/functions.fish) and [`fish/functions/*`](./fish/functions/)
+* [`.aliases`](./.aliases) and [`.functions`](./.functions)
 
 So many goodies.
 
@@ -39,7 +31,7 @@ Basically it makes typing into the prompt amazing.
 * case insensitivity.
 * tab all the livelong day.
 
-
+### [.gitconfig](./gitconfig)
 
 ### Moving around in folders (`z`, `...`, `cdf`)
 `z` helps you jump around to whatever folder. It uses actual real magic to determine where you should jump to. Seperately there's some `...` aliases to shorten `cd ../..` and `..`, `....` etc. Then, if you have a folder open in Finder, `cdf` will bring you to it.
@@ -114,11 +106,8 @@ Mathias's repo is the canonical for this, but you should probably run his or min
 
 ### `~/bin`
 
-One-off binaries that aren't via an npm global or homebrew. [git open](https://github.com/paulirish/git-open), [wifi-password](https://github.com/rauchg/wifi-password), [coloredlogcat](https://developer.sinnerschrader-mobile.com/colored-logcat-reloaded/507/), [git-overwritten](https://github.com/mislav/dotfiles/blob/master/bin/git-overwritten), and `subl` for Sublime Text.
+One-off binaries that aren't via an npm global or homebrew. [git open](https://github.com/paulirish/git-open), [wifi-password](https://github.com/rauchg/wifi-password), [coloredlogcat](https://developer.sinnerschrader-mobile.com/colored-logcat-reloaded/507/), and `subl` for Sublime Text.
 
-### Syntax highlighting for these files
-
-If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Package Control](http://wbond.net/sublime_packages/package_control)
 
 ### 2020 update
 
