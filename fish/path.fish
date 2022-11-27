@@ -1,4 +1,8 @@
 
+# 2022-11 comment: this whole file feels gross. 
+# also feels like https://fishshell.com/docs/current/cmds/fish_add_path.html would clean it up a lot
+
+
 # Grab my $PATHs from ~/.extra
 set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
     # clean up bash PATH setting pattern
@@ -18,11 +22,6 @@ for entry in (string split \n $PATH_DIRS)
         set PA $PA "$resolved_path"
     end
 end
-
-# # rvm
-# if which -s rvm;
-# 	set PA $PA /Users/paulirish/.rvm/gems/ruby-2.2.1/bin
-# end
 
 
 set -l paths "

@@ -1,12 +1,14 @@
 set default_user "paulirish"
 set default_machine "paulirish-macbookair2"
 
+# I've noticed this file gets called 3 times. Looks like one is from pureprompt.
+# todo, investigate later.
+# status stack-trace
 
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
-# source ~/.config/fish/conf.d/scmpuff.fish
 
 # for things not checked into git..
 if test -e "$HOME/.extra.fish";
