@@ -35,6 +35,9 @@
 	#   Is it a `main` or a `master` repo?
 	mainormaster = !"git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
 
+	# fyi to change a git checkout from master to main.. (gh's suggested commands:)
+	#    git branch -m master main; git fetch origin; git branch -u origin/main main; git remote set-head origin -a
+
 
 [core]
 	excludesfile = ~/.gitignore
@@ -65,6 +68,11 @@
 	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
 	# https://blog.github.com/2018-04-05-git-217-released/
 	colorMoved = default
+
+# special hunk parsing for .pdl. https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitattributes.html#_defining_a_custom_hunk_header
+[diff "pdl"]
+	xfuncname = "^((experimental )*domain.*)"
+	xfuncname = "^  type.*"
 
 # so much color
 [color]
@@ -116,6 +124,7 @@
 [push]
 	default = current
 	followTags = true
+	autoSetupRemote = true
 [pull]
 	ff = only
 	default = current
