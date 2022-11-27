@@ -19,8 +19,6 @@ alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
-alias ag='ag -f --hidden'
-
 ###
 # time to upgrade `ls`
 
@@ -60,6 +58,7 @@ alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerd
 alias main="git checkout \$(gitmainormaster)"
 alias master="main"
 
+alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
 
 # Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"

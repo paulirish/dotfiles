@@ -16,7 +16,7 @@ alias li=lighthouse
 alias lperf 'lighthouse --only-categories=performance'
 alias comp 'node build/build-report-components.js && yarn eslint --fix report/renderer/components.js'
 alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
-alias reportwatch 'find report lighthouse-core/test/results/sample_v2.json | entr bash -c "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash lighthouse-core/scripts/copy-util-commonjs.sh'
+alias reportwatch 'find report core/test/results/sample_v2.json | entr bash -c "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
 
 # mv, rm, cp
 alias mv 'command gmv --interactive --verbose'
@@ -34,16 +34,18 @@ abbr gti git
 abbr yearn yarn
 abbr v vim
 abbr bwre brew
+abbr brwe brew
 
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 alias push="git push"
 
-alias ag='ag --follow --hidden -W (math $COLUMNS - 11)'
+alias ag='ag -W (math $COLUMNS - 11)'  # i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
 
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
+
 
 # is it a `main` or a `master` repo?
 alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
@@ -51,6 +53,8 @@ alias main="git checkout (gitmainormaster)"
 alias master="main"
 
 alias resetmouse='printf '"'"'\e[?1000l'"'"
+
+alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
 
 
 # Networking. IP address, dig, DNS

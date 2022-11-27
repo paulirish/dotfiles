@@ -31,7 +31,8 @@ cdf() {  # short for cdfinder
 
 # Use `which` along with symlink resolving
 whichlink() {
-    greadlink -f $(which $@)
+	# This dopeass conditional stolen from sheerun's dotfiles
+	$(type -p greadlink readlink | head -1) -f $(which $@)
 }
 
 
