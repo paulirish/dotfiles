@@ -171,14 +171,24 @@ shellswitch () {
 	chsh -s $(brew --prefix)/bin/$1
 }
 
+# from https://github.com/davidaurelio/dotfiles/blob/ce3d4117762f15ed92287e1049efefadfefb557a/.bash_functions
+todatauri () {
+  local M=`file "$1" --mime-type | sed 's/^.*: //'`;
+  local D=`openssl base64 -in "$1"|tr -d '\n'`;
+  echo "data:$M;base64,$D";
+}
+
+
 # lazy initialize nvm
 # https://news.ycombinator.com/item?id=33582219
-# i kinda like volta more but i forget it.
-# https://github.com/Schniz/fnm also exists.
+# Alternatives:
+# * i kinda like volta more but i forget it.
+# * https://github.com/Schniz/fnm also exists.
+# * https://asdf-vm.com/ has lots of fans. i want to try it.
 function nvm {
 	unset -f nvm
 	export NVM_DIR="/Users/paulirish/.nvm"
-	. "$NVM_DIR/nvm.sh" 
+	. "$NVM_DIR/nvm.sh" --no-use
 	nvm "${@}"
 }
 

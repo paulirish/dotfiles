@@ -41,7 +41,7 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 
 alias push="git push"
 
-alias ag='ag -W (math $COLUMNS - 11)'  # i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
+alias ag='ag -W (math $COLUMNS - 12)'  # i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
 
 alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"

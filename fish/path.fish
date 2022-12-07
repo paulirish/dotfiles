@@ -1,7 +1,7 @@
 
 # 2022-11 comment: this whole file feels gross. 
 # also feels like https://fishshell.com/docs/current/cmds/fish_add_path.html would clean it up a lot
-
+# also a .paths file seems like a great idea. https://github.com/davidaurelio/dotfiles/blob/ce3d4117762f15ed92287e1049efefadfefb557a/.profile#L16-L22
 
 # Grab my $PATHs from ~/.extra
 set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
