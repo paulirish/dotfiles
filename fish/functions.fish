@@ -14,9 +14,6 @@ function subl --description 'Open Sublime Text'
   end
 end
 
-function loc --description "zfz with locatef"
-  glocate --database=(brew --prefix)/var/locate/locatedb --all --ignore-case --null $argv | ggrep --null --invert-match --extended-regexp '~$' | fzf --read0 -0 -1 -m
-end
 
 function killf
   if ps -ef | sed 1d | fzf -m | awk '{print $2}' > $TMPDIR/fzf.result
