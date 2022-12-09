@@ -47,6 +47,7 @@ Plug 'mhinz/vim-startify'                   " Replace the orginal start-screen w
 Plug 'mileszs/ack.vim'                      " Provides support for ack and the SilverlightSearcher in vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'NLKNguyen/papercolor-theme'           " My prefered theme for working in the presentation (light) mode
+Plug 'rust-lang/rust.vim'                   " Support for Rust in VIM
 Plug 'scrooloose/nerdtree'                  " A tree explorer plugin for vim
 Plug 'Xuyuanp/nerdtree-git-plugin'          " A plugin of NERDTree showing git status
 Plug 'scrooloose/nerdcommenter'             " plugin for intensely commenting
