@@ -144,3 +144,7 @@ source ~/.config/zsh/cursor-shape.conf
 # Some kubernetes things
 [ -f ~/.kube/kube-config.yaml ] && export KUBECONFIG=~/.kube/kube-config.yaml
 
+# pnpm
+export PNPM_HOME="/home/jan/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end%
