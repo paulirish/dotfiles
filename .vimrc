@@ -346,7 +346,6 @@ nnoremap ds<space> F<space>xf<space>x
 " ************** Begin plugin settings ************
 
 " Vim-Airline settings
-let g:airline#extensions#ale#enabled = 1
 
 " Emmet settings
 let g:user_emmet_mode='in'
@@ -421,14 +420,6 @@ nnoremap <Leader>vv :Ack! <cword> <CR>
 
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
-
-" Ale
-let g:ale_fix_on_save = 0
-let g:ale_completion_enabled = 1
-let g:ale_lint_on_text_changed = 0
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-let g:ale_open_list = 0
 
 " HighlightedYank
 map y <Plug>(highlightedyank)
