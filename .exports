@@ -21,8 +21,11 @@ export LESS_TERMCAP_so=$(printf '\e[01;33m')													# enter standout mode â
 export LESS_TERMCAP_ue=$(printf '\e[0m')															# leave underline mode
 export LESS_TERMCAP_us=$(printf '\e[04;36m')													# enter underline mode â€“ cyan
 
-# fzf should be populated via the silver searcher (to respect gitignore and be faster): https://github.com/junegunn/fzf#respecting-gitignore
-# note.. without `ag` this is a good fallback: export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_COMMAND='command ag --files-with-matches --filename-pattern ""'
-export FZF_CTRL_T_COMMAND='command ag --files-with-matches --filename-pattern ""'
 
+# fzf should be populated via `fd` which is the fastest file/dir finder. (respects gitignore, etc)
+# note.. `fd` seems faster than `ag`.. but if i wanted to use `ag` this is good: command ag --files-with-matches --filename-pattern ""
+# fd > 8.1 got slower. https://github.com/sharkdp/fd/issues/1131
+#    so.. here's the install for the last fast one: CARGO_NET_GIT_FETCH_WITH_CLI=true cargo install --vers 8.1.1 fd-find
+export FZF_DEFAULT_COMMAND='fd'
+export FZF_CTRL_T_COMMAND='fd'
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {} 2>/dev/null || tree -C {}'"
