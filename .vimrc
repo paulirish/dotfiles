@@ -443,7 +443,7 @@ source ~/.vim/vimrc/vimrc_coc.vim
 
 " define color scheme
 let g:hybrid_transparent_background = 0
-colorscheme PaperColor
+colorscheme shine
 
 if $VIM_BACKGROUND == 'light'
   set background=light
