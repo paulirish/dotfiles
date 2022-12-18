@@ -36,6 +36,14 @@ function notif --description "make a macos notification that the prev command is
     -- "$history[1]"
 end
 
+function stab --description "stabalize a video"
+  set -l vid $argv[1]
+  ffmpeg -i "$vid" -vf vidstabdetect=stepsize=32 -f null -; 
+  ffmpeg -i "$vid" -vf vidstabtransform=interpol=bicubic "$vid.stab.mkv"; 
+  ffmpeg -i "$vid" -i "$vid.stab.mkv"  -filter_complex vstack "$vid.stacked.mkv"
+end
+
+
 function md --wraps mkdir -d "Create a directory and cd into it"
   command mkdir -p $argv
   if test $status = 0
