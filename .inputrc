@@ -13,16 +13,31 @@ set show-all-if-ambiguous on
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
 
+
+# Show all autocomplete results at once
+set page-completions off
+
+
+# If set to 'on', when listing completions, Readline displays the common prefix of the set of possible completions using a different color. The color definitions are taken from the value of the LS_COLORS environment variable. The default is 'off'.
+set colored-completion-prefix on
+
+# If set to 'on', Readline displays possible completions using different colors to indicate their file type. The color definitions are taken from the value of the LS_COLORS environment variable. The default is 'off'.
+set colored-stats on
+
+
 # Use the text that has already been typed as the prefix for searching through
 # commands (basically more intelligent Up/Down behavior)
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
+
+# macOS Option + Left/Right arrow keys to move the cursor wordwise
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
 # Do not autocomplete hidden files unless the pattern explicitly begins with a dot
 set match-hidden-files off
 
-# Show all autocomplete results at once
-set page-completions off
 
 # If there are more than 200 possible completions for a word, ask to show them all
 set completion-query-items 200
