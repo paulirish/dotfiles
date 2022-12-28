@@ -215,3 +215,6 @@ alias md=glow
 
 # Alias for using molecule
 alias mo="molecule"
+
+# Aliases for Helix
+alias hx="helix"

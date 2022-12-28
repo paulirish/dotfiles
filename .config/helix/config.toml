@@ -1,0 +1,4 @@
+theme = "solarized_dark"
+
+[editor]
+line-number = "relative"
