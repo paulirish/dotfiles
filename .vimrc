@@ -199,12 +199,20 @@ function! NumberToggle()
   endif
 endfunc
 
-" Function to toggle on/off the quickfixlist
+" Function to toggle on/off the locationlist
 function! ToggleErrors()
   let old_last_winnr = winnr('$')
   lclose
   if old_last_winnr == winnr('$')
     lopen
+  endif
+endfunction
+
+function! ToggleQuickFix()
+  if empty(filter(getwininfo(), 'v:val.quickfix'))
+      copen
+  else
+      cclose
   endif
 endfunction
 
@@ -301,9 +309,12 @@ nnoremap <F6> <C-W>w
 map <S-Tab> :tabnext<CR>
 map <F8> :tabnew<CR>
 
-noremap <Leader>x :cclose<CR> " Close the QuickFix window
+noremap <Leader>x :call ToggleQuickFix()<CR> " Close the QuickFix window
+nnoremap <Leader>z :call ToggleErrors()<CR>
 noremap <Leader>xa :qa<CR>
 noremap <Leader>sw :Switch<CR>
+nnoremap <Leader>pp :call TogglePresentationMode()<CR>
+vnoremap <Leader>ru :call ReplaceUmlaute()<CR>
 
 "quick pairs
 imap <leader>' ''<ESC>i
@@ -331,11 +342,6 @@ noremap <F4> :Autoformat<CR>
 "autocmd QuickFixCmdPost    l* nested lwindow
 
 map <C-G> :TigStatus<CR><CR>
-
-nnoremap <Leader>z :call ToggleErrors()<CR>
-
-nnoremap <Leader>pp :call TogglePresentationMode()<CR>
-vnoremap <Leader>ru :call ReplaceUmlaute()<CR>
 
 " Delete surrounding space (deletes the previous and the following space)
 " It's not perfect for all cases, but sometimes usefull
@@ -469,6 +475,7 @@ source ~/.vim/vimrc/vimrc_html_css.vim
 source ~/.vim/vimrc/vimrc_markdown.vim
 source ~/.vim/vimrc/vimrc_hcl.vim
 source ~/.vim/vimrc/vimrc_yaml.vim
+source ~/.vim/vimrc/vimrc_rust.vim
 "source ~/.vim/vimrc/vimrc_python.vim
 
 " Show another cursor when changing into the insert mode
