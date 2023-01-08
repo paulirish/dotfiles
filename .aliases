@@ -218,3 +218,6 @@ alias mo="molecule"
 
 # Aliases for Helix
 alias hx="helix"
+
+# Change theme for my terminal interactively
+alias kt="kitty +kitten themes --reload-in=all"
