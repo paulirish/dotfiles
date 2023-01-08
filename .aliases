@@ -221,3 +221,13 @@ alias hx="helix"
 
 # Change theme for my terminal interactively
 alias kt="kitty +kitten themes --reload-in=all"
+
+# Some Rust specific aliases
+alias cg="cargo"
+alias cgb="cargo build"
+alias cgc="cargo check"
+alias cgcl="cargo clippy"
+alias cgr="cargo run"
+alias cgt="cargo test"
+alias cgw="cargo watch"
+alias cgwt="cargo watch -x test"
