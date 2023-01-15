@@ -2,6 +2,9 @@
 cd "$(dirname "$0")"
 git pull
 
+# recompile VIM German spell file
+vim -e -s -c "mkspell! ~/Projects/dotfiles/.vim/spell/de.utf-8.add" -c qa
+
 copyFiles() {
   rsync --exclude ".git/" --exclude "sync.sh" --exclude "README.md" --exclude "terminal" --exclude "readme.md" -av . ~
 }
@@ -19,4 +22,3 @@ IS_I3_RUNNING=$(ps aux | grep i3 | grep -v grep)
 if [ -n "${IS_I3_RUNNING}" ]; then
   i3-msg reload
 fi
-
