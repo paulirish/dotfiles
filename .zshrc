@@ -213,6 +213,9 @@ export PATH="/usr/local/sbin:$PATH"
 # Rancher
 export PATH="$HOME/.rd/bin:$PATH"
 
+# buildkit
+export DOCKER_BUILDKIT=1
+
 # https://github.com/rupa/z
 . $HOME/z/z.sh
 
