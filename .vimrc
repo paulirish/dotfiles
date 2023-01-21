@@ -32,6 +32,7 @@ Plug 'evanleck/vim-svelte'                  " Support for Svelte
 Plug 'fatih/vim-go'                         " Improving the support for Go in vim
 Plug 'gorkunov/smartpairs.vim'              " Completion Enchanted visual (selection) mode for Vim
 Plug 'ekalinin/Dockerfile.vim'              " Syntaxhighlighting for Dockerfiles
+Plug 'joshdick/onedark.vim'                 " Theme inspired by Atom
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'                     " Use fzf in VIM
 Plug 'junegunn/goyo.vim'                    " Writing text with Zen mode (distaction free)
@@ -449,7 +450,7 @@ source ~/.vim/vimrc/vimrc_coc.vim
 
 " define color scheme
 let g:hybrid_transparent_background = 0
-colorscheme PaperColor
+colorscheme onedark
 
 if $VIM_BACKGROUND == 'light'
   set background=light
