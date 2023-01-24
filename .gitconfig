@@ -104,6 +104,10 @@
 	newNormal = "green bold"
 	newHighlight = "green bold 22"
 
+[log]
+	# https://github.com/git/git/commit/acdd37769de8b0fe37a74bfc0475b63bdc55e9dc
+	date = human
+
 # git mergetool
 [merge]
 	tool = opendiff
@@ -149,10 +153,9 @@
 
 [stash]
 	showPatch = true
-[log]
-	date = relative
 
 # faster git server communication.
 # like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
 [protocol]
 	version = 2
+
