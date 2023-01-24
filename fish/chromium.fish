@@ -65,7 +65,9 @@ function dtcr --description "run chrome with dev devtools"
         echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
     end
 
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv"
+    # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
+    set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv '$landing_url'"
     echo "  > $cmd"
     eval $cmd
 end

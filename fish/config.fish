@@ -58,6 +58,9 @@ set pure_begin_prompt_with_current_directory false
 set -U pure_color_success (set_color green)
 set -U pure_color_git_dirty (set_color cyan)
 
+set -U pure_color_git_unpushed_commits (set_color yellow)
+set -U pure_color_git_unpulled_commits (set_color brgreen)
+
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
 set __fish_git_prompt_char_upstream_equal ''
