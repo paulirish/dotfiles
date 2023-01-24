@@ -11,7 +11,7 @@ set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
     sed "s/~\//{\$HOME}\//")
 
 
-set -l PA ""
+set -l PA $PATH
 
 
 

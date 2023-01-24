@@ -179,9 +179,12 @@ todatauri () {
 }
 
 
-# lazy initialize nvm
+##
+# lazy initialize nvm, rvm, miniconda
 # https://news.ycombinator.com/item?id=33582219
-# Alternatives:
+##
+
+# npm alternatives:
 # * i kinda like volta more but i forget it.
 # * https://github.com/Schniz/fnm also exists.
 # * https://asdf-vm.com/ has lots of fans. i want to try it.

@@ -118,6 +118,11 @@ Rust folks have made a few things that are changing things.
  - https://github.com/ogham/exa is better `ls` and gets all the trapd00r/LS_COLORS stuff etc.
  - https://github.com/bigH/git-fuzzy interactive git thing. deprecates my `git recent` script. and probably some other things.
 
- Also I'd like to migrate to using homesick or https://www.atlassian.com/git/tutorials/dotfiles
+### Dotfiles mgmt todo
+ Also I'd like to migrate to using one of these:
+ - homesick or 
+ - https://www.atlassian.com/git/tutorials/dotfiles
+ - https://github.com/nix-community/home-manager
+ - https://www.chezmoi.io/
 
  also interested in https://github.com/dandavison/open-in-editor

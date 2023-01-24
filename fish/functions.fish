@@ -38,9 +38,11 @@ end
 
 function stab --description "stabalize a video"
   set -l vid $argv[1]
-  ffmpeg -i "$vid" -vf vidstabdetect=stepsize=32 -f null -; 
-  ffmpeg -i "$vid" -vf vidstabtransform=interpol=bicubic "$vid.stab.mkv"; 
-  ffmpeg -i "$vid" -i "$vid.stab.mkv"  -filter_complex vstack "$vid.stacked.mkv"
+  ffmpeg -i "$vid" -vf vidstabdetect=stepsize=32:result="$vid.trf" -f null -; 
+  ffmpeg -i "$vid" -b:v 5700K -vf vidstabtransform=interpol=bicubic:input="$vid.trf" "$vid.mkv";  # :optzoom=2 seems nice in theory but i dont love it. kinda want a combo of 1 and 2. (dont zoom in past the static zoom level, but adaptively zoom out to full when possible)
+  ffmpeg -i "$vid" -i "$vid.mkv" -b:v 3000K -filter_complex hstack "$vid.stack.mkv"
+  # vid=Dalton1990/Paultakingusaroundthehouseagai ffmpeg -i "$vid.mp4" -i "$vid.mkv" -b:v 3000K -filter_complex hstack $HOME/Movies/"Paultakingusaroundthehouseagai.stack.mkv"
+  command rm $vid.trf
 end
 
 
