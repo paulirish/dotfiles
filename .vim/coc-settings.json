@@ -5,7 +5,7 @@
   "diagnostic.infoSign": "?",
   "diagnostic.checkCurrentLine": true,
   "coc.preferences.bracketEnterImprove": false,
-  "coc.preferences.formatOnSaveFiletypes": [],
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
   "snippets.extends": {
     "javascriptreact": ["javascript"],
     "svelte": ["javascript"],
