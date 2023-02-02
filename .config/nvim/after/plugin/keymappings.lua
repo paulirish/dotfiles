@@ -1,3 +1,19 @@
+function map(mode, shortcut, command)
+  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
+end
+
+function nmap(shortcut, command)
+  map('n', shortcut, command)
+end
+
+function imap(shortcut, command)
+  map('i', shortcut, command)
+end
+
+function vmap(shortcut, command)
+  map('v', shortcut, command)
+end
+
 -- quick pairs
 vim.api.nvim_set_keymap("i", "<leader>'", "''<ESC>i", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<leader>\"", '""<ESC>i', { noremap = true, silent = true })
@@ -7,12 +23,9 @@ vim.api.nvim_set_keymap("i", "<leader>[", "[]<ESC>i", { noremap = true, silent =
 vim.api.nvim_set_keymap("i", "<leader>{", "{}<ESC>i", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<leader>{{", "{{}}<ESC><left>i", { noremap = true, silent = true })
 
--- reload init.lua
--- nmap("<leader>rr", ":source $MYVIMRC<CR>")
-
 -- quick exit
-nmap("<leader>e", ":q<CR>")
-nmap("<leader>x", ":x<CR>")
+nmap("<leader>q", ":q<CR>")
+nmap("<leader>xx", ":x<CR>")
 
 -- select all
 nmap("<leader>a", "ggVG")
@@ -34,9 +47,7 @@ vmap("<C-K>", "<Plug>SchleppUp")
 vmap("<C-J>", "<Plug>SchleppDown")
 vmap("<C-H>", "<Plug>SchleppLeft")
 vmap("<C-L>", "<Plug>SchleppRight")
--- vmap("C-J", ":m '>+1<CR>gv=gv")
--- vmap("C-K", ":m '<-2<CR>gv=gv")
 
 nmap("<leader>", ":WhichKey<CR>")
-nmap("<C-G>", ":terminal tig status<ESC>i")
+-- nmap("<C-G>", ":terminal tig status<ESC>i")
 
