@@ -34,6 +34,8 @@ vmap("<C-K>", "<Plug>SchleppUp")
 vmap("<C-J>", "<Plug>SchleppDown")
 vmap("<C-H>", "<Plug>SchleppLeft")
 vmap("<C-L>", "<Plug>SchleppRight")
+-- vmap("C-J", ":m '>+1<CR>gv=gv")
+-- vmap("C-K", ":m '<-2<CR>gv=gv")
 
 nmap("<leader>", ":WhichKey<CR>")
 nmap("<C-G>", ":terminal tig status<ESC>i")

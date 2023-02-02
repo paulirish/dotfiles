@@ -1,6 +1,6 @@
 return function(use)
-  use ({ 'codota/tabnine-nvim', 
-    run = "./dl_binaries.sh"
+  use ({ 'codota/tabnine-nvim',
+    run = "./dl_binaries.sh",
     config = function()
       require('tabnine').setup({
         disable_auto_comment=true,
@@ -13,10 +13,11 @@ return function(use)
     end
   })
 
-  use 'liuchengxu/vim-which-key'  -- Show the current leader mappings
-  -- use 'zirrostig/vim-schlepp' -- Moving blocks of text easily
+  use 'liuchengxu/vim-which-key'      -- Show the current leader mappings
+  use 'zirrostig/vim-schlepp'         -- Moving blocks of text easily
   -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
-  use 'scrooloose/nerdtree'   -- A tree explorer plugin for vim
+  use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
+  use 'easymotion/vim-easymotion'     -- Vim motions on speed
   use({
     "folke/which-key.nvim",
       config = function()
