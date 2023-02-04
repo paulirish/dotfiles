@@ -16,8 +16,10 @@ return function(use)
   use 'liuchengxu/vim-which-key'      -- Show the current leader mappings
   use 'zirrostig/vim-schlepp'         -- Moving blocks of text easily
   -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
+  use 'tpope/vim-surround'            -- surround.vim: quoting/parenthesizing made simple
   use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
   use 'easymotion/vim-easymotion'     -- Vim motions on speed
+  use 'rafamadriz/friendly-snippets'  -- Set of preconfigured snippets for different languages.
   use({
     "folke/which-key.nvim",
       config = function()

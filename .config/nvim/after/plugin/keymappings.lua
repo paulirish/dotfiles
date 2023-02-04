@@ -1,16 +1,16 @@
-function map(mode, shortcut, command)
+local function map(mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
 
-function nmap(shortcut, command)
+local function nmap(shortcut, command)
   map('n', shortcut, command)
 end
 
-function imap(shortcut, command)
+local function imap(shortcut, command)
   map('i', shortcut, command)
 end
 
-function vmap(shortcut, command)
+local function vmap(shortcut, command)
   map('v', shortcut, command)
 end
 
@@ -50,4 +50,8 @@ vmap("<C-L>", "<Plug>SchleppRight")
 
 nmap("<leader>", ":WhichKey<CR>")
 -- nmap("<C-G>", ":terminal tig status<ESC>i")
+
+-- Lsp keys
+nmap("<leader>gr", "<cmd>lua vim.lsp.buf.rename()<CR>")
+
 

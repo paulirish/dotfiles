@@ -1,0 +1,6 @@
+{
+  "spo": {
+    "prefix": "spo",
+    "body": "jest.spyOn(${1}, '${2}').mockResolvedValue(${3})"
+  }
+}
