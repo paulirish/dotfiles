@@ -78,6 +78,7 @@ alias cleanup_ds_store="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Some other Shortcuts
 alias v="vim"
+alias n="nvim -c 'Telescope find_files'"
 alias e="vim -c 'startinsert'"
 alias edit="vim"
 alias cls='clear'

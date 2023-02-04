@@ -23,9 +23,11 @@ vim.api.nvim_set_keymap("i", "<leader>[", "[]<ESC>i", { noremap = true, silent =
 vim.api.nvim_set_keymap("i", "<leader>{", "{}<ESC>i", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<leader>{{", "{{}}<ESC><left>i", { noremap = true, silent = true })
 
--- quick exit
-nmap("<leader>q", ":q<CR>")
-nmap("<leader>xx", ":x<CR>")
+-- quick exit or save
+nmap("<leader>q", "<cmd>q<CR>")
+nmap("<leader>e", "<cmd>q<CR>")
+nmap("<leader>xx", "<cmd>x<CR>")
+nmap("<leader>w", "<cmd>w<CR>")
 
 -- select all
 nmap("<leader>a", "ggVG")

@@ -20,6 +20,7 @@ return function(use)
   use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
   use 'easymotion/vim-easymotion'     -- Vim motions on speed
   use 'rafamadriz/friendly-snippets'  -- Set of preconfigured snippets for different languages.
+  use 'terryma/vim-multiple-cursors'  -- This True Sublime Text style multiple selections for Vim
   use({
     "folke/which-key.nvim",
       config = function()
