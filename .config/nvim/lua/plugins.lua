@@ -15,12 +15,18 @@ return function(use)
 
   use 'liuchengxu/vim-which-key'      -- Show the current leader mappings
   use 'zirrostig/vim-schlepp'         -- Moving blocks of text easily
-  -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
-  use 'tpope/vim-surround'            -- surround.vim: quoting/parenthesizing made simple
-  use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
+  use 'Xuyuanp/nerdtree-git-plugin'   -- A plugin of NERDTree showing git status
   use 'easymotion/vim-easymotion'     -- Vim motions on speed
+  use 'mileszs/ack.vim'               -- Provides support for ack and the SilverlightSearcher in vim
   use 'rafamadriz/friendly-snippets'  -- Set of preconfigured snippets for different languages.
+  use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
+  use 'svermeulen/vim-easyclip'       -- Simplified clipboard functionality for Vim
+  use 'szw/vim-maximizer'             -- Maximizes and restores the current window in Vim.
   use 'terryma/vim-multiple-cursors'  -- This True Sublime Text style multiple selections for Vim
+  use 'tpope/vim-repeat'              -- Enable repeating supported plugin maps with \".\"
+  use 'tpope/vim-surround'            -- surround.vim: quoting/parenthesizing made simple
+  -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
+
   use({
     "folke/which-key.nvim",
       config = function()

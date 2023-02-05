@@ -14,33 +14,55 @@ local function vmap(shortcut, command)
   map('v', shortcut, command)
 end
 
+local function cmd(command)
+  return table.concat({ '<Cmd>', command, '<CR>' })
+end
+
+nmap("<leader>rl", cmd("source $MYVIMRC")) -- Reload neovim config
+
 -- quick pairs
-vim.api.nvim_set_keymap("i", "<leader>'", "''<ESC>i", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<leader>\"", '""<ESC>i', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<leader>`", "``<ESC>i", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<leader>(", "()<ESC>i", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<leader>[", "[]<ESC>i", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<leader>{", "{}<ESC>i", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<leader>{{", "{{}}<ESC><left>i", { noremap = true, silent = true })
+imap("<leader>'", "''<ESC>i")
+imap("<leader>\"", '""<ESC>i')
+imap("<leader>`", "``<ESC>i")
+imap("<leader>(", "()<ESC>i")
+imap("<leader>[", "[]<ESC>i")
+imap("<leader>{", "{}<ESC>i")
+imap("<leader>{{", "{{}}<ESC><left>i")
 
 -- quick exit or save
-nmap("<leader>q", "<cmd>q<CR>")
-nmap("<leader>e", "<cmd>q<CR>")
-nmap("<leader>xx", "<cmd>x<CR>")
-nmap("<leader>w", "<cmd>w<CR>")
+nmap("<leader>q", cmd("q"))       -- Exit current window
+nmap("<leader>e", cmd("quit"))    -- Exit current window
+nmap("<leader>xx", cmd("x"))      -- Save and exit
+nmap("<leader>w", cmd("update"))  -- Save current changes
 
 -- select all
-nmap("<leader>a", "ggVG")
+nmap("<leader>aa", "ggVG")
 
 -- toggle highlight search
-nmap("<leader>h", ":set hlsearch!<CR>")
+nmap("<leader>h", cmd("set hlsearch!"))
+
+-- Repeatable indentation
+vmap('<', '<gv')
+vmap('>', '>gv')
 
 -- enable spell check
-nmap(";s", ":set spell<CR>")
+nmap(";s", cmd("set spell"))
+
+-- Improve Tab and Window navigation
+nmap('<F2>', '<cmd>vertical wincmd f<CR> <C-W>R')  -- Open the file under the cursor in a vertical split
+nmap('<F6>', '<C-W>w')
+nmap('<F8>', cmd('tabnew'))
+nmap('<S-Tab>', cmd('tabnext'))
+
+-- Add space below or over current line, but exit insert mode again
+nmap('[<space>', '<S-o><esc>')
+nmap(']<space>', 'o<esc>')
+
+-- ** Customized keys for plugins **
 
 -- NERDTree
-nmap("<leader>t", ":NERDTreeToggle<CR>")
-nmap("<leader>tl", ":NERDTreeFind<CR><C-w_w>")
+nmap("<leader>t", cmd("NERDTreeToggle"))
+nmap("<leader>tl", "<cmd>NERDTreeFind<CR><C-w_w>")
 
 -- Vim-Schlepp settings
 -- let g:Schlepp#allowSquishingLines = 1
@@ -50,10 +72,20 @@ vmap("<C-J>", "<Plug>SchleppDown")
 vmap("<C-H>", "<Plug>SchleppLeft")
 vmap("<C-L>", "<Plug>SchleppRight")
 
-nmap("<leader>", ":WhichKey<CR>")
+-- nmap("<leader>", cmd("WhichKey"))
 -- nmap("<C-G>", ":terminal tig status<ESC>i")
 
 -- Lsp keys
-nmap("<leader>gr", "<cmd>lua vim.lsp.buf.rename()<CR>")
+nmap("<leader>gr", cmd("lua vim.lsp.buf.rename()"))
 
+-- Maximizer keys
+nmap("<silent>F3", cmd("MaximizerToggle"))
 
+-- vim.keymap.set('n', '<leader>nn', function()
+--   if vim.opt.relativenumber == false then
+--     vim.opt.relativenumber = true
+--   else
+--     vim.opt.relativenumber = false
+--   end
+--   print(tostring(vim.opt.relativenumber))
+-- end, { desc = "Toogles relativenumber" })
