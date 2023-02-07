@@ -248,7 +248,6 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 vim.keymap.set('n', '<c-p>', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>vv', require('telescope.builtin').live_grep, { desc = '[S]earch current [W]ord' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`

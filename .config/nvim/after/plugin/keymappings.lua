@@ -81,6 +81,9 @@ nmap("<leader>gr", cmd("lua vim.lsp.buf.rename()"))
 -- Maximizer keys
 nmap("<silent>F3", cmd("MaximizerToggle"))
 
+-- Search for current word with ACK plugin
+nmap('<leader>vv', cmd('Ack! <cword>'))
+
 -- vim.keymap.set('n', '<leader>nn', function()
 --   if vim.opt.relativenumber == false then
 --     vim.opt.relativenumber = true

@@ -22,3 +22,9 @@ vim.opt.relativenumber = false
 
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeRespectWildIgnore = 1
+
+-- Settings for ACK plugin
+vim.g.ackprg = 'rg -S --no-heading --hidden --vimgrep'
+vim.cmd('cnoreabbrev ag Ack!')
+vim.cmd('cnoreabbrev rg Ack!')
+vim.cmd('cnoreabbrev ack Ack!')
