@@ -25,6 +25,7 @@ return function(use)
   use 'terryma/vim-multiple-cursors'  -- This True Sublime Text style multiple selections for Vim
   use 'tpope/vim-repeat'              -- Enable repeating supported plugin maps with \".\"
   use 'tpope/vim-surround'            -- surround.vim: quoting/parenthesizing made simple
+  use 'hashivim/vim-terraform'        -- Highlighting for Terraform
   -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
 
   use({
