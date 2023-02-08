@@ -62,6 +62,14 @@ nmap('<S-Tab>', cmd('tabnext'))
 nmap('[<space>', '<S-o><esc>')
 nmap(']<space>', 'o<esc>')
 
+-- Dont copy anything I want to delete into the unamed register
+-- I want to use X for that
+nmap('<Del>', '"_x')
+vmap('<Del>', '"_x')
+nmap('dd', '"_dd')
+vmap('d', '"_x')
+nmap('xx', '""dd')
+
 -- ** Customized keys for plugins **
 
 -- NERDTree
@@ -69,30 +77,13 @@ nmap("<leader>t", cmd("NERDTreeToggle"))
 nmap("<leader>tl", "<cmd>NERDTreeFind<CR><C-w_w>")
 
 -- Vim-Schlepp settings
--- let g:Schlepp#allowSquishingLines = 1
--- let g:Schlepp#allowSquishingBlocks = 1
 vmap("<C-K>", "<Plug>SchleppUp")
 vmap("<C-J>", "<Plug>SchleppDown")
 vmap("<C-H>", "<Plug>SchleppLeft")
 vmap("<C-L>", "<Plug>SchleppRight")
-
--- nmap("<leader>", cmd("WhichKey"))
--- nmap("<C-G>", ":terminal tig status<ESC>i")
-
--- Lsp keys
-nmap("<leader>gr", cmd("lua vim.lsp.buf.rename()"))
 
 -- Maximizer keys
 nmap("<silent>F3", cmd("MaximizerToggle"))
 
 -- Search for current word with ACK plugin
 nmap('<leader>vv', cmd('Ack! <cword>'))
-
--- vim.keymap.set('n', '<leader>nn', function()
---   if vim.opt.relativenumber == false then
---     vim.opt.relativenumber = true
---   else
---     vim.opt.relativenumber = false
---   end
---   print(tostring(vim.opt.relativenumber))
--- end, { desc = "Toogles relativenumber" })

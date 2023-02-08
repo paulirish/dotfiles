@@ -20,7 +20,6 @@ return function(use)
   use 'mileszs/ack.vim'               -- Provides support for ack and the SilverlightSearcher in vim
   use 'rafamadriz/friendly-snippets'  -- Set of preconfigured snippets for different languages.
   use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
-  use 'svermeulen/vim-easyclip'       -- Simplified clipboard functionality for Vim
   use 'szw/vim-maximizer'             -- Maximizes and restores the current window in Vim.
   use 'terryma/vim-multiple-cursors'  -- This True Sublime Text style multiple selections for Vim
   use 'tpope/vim-repeat'              -- Enable repeating supported plugin maps with \".\"
