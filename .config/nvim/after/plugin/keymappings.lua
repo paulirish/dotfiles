@@ -35,6 +35,10 @@ nmap("<leader>e", cmd("quit"))    -- Exit current window
 nmap("<leader>xx", cmd("x"))      -- Save and exit
 nmap("<leader>w", cmd("update"))  -- Save current changes
 
+-- Show TIG status in a floating window to commit current changes
+nmap("<leader>ts", cmd('FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 tig status'))
+nmap("<leader>lg", cmd('FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=lazygit --autoclose=2 lazygit'))
+
 -- select all
 nmap("<leader>aa", "ggVG")
 
