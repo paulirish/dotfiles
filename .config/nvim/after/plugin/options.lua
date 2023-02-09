@@ -13,7 +13,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 
-vim.o.listchars = 'space:·,trail:·,precedes:«,extends:»,eol:↲'
+vim.o.listchars = 'space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸▸'
 vim.opt.list = true
 
 vim.opt.wildignore = {".git", ".vscode", "node_modules", "target" }
@@ -41,4 +41,3 @@ require('tabnine').setup({
   suggestion_color = {gui = "#808080", cterm = 244},
   execlude_filetypes = {"TelescopePrompt"}
 })
-
