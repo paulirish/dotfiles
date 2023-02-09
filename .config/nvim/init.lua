@@ -29,6 +29,8 @@ require('packer').startup(function(use)
     },
   }
 
+  use { 'SmiteshP/nvim-navic', requires = 'neovim/nvim-lspconfig' }
+
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -52,7 +54,7 @@ require('packer').startup(function(use)
   use 'lewis6991/gitsigns.nvim'
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'nvim-lualine/lualine.nvim'
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
@@ -154,6 +156,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+local function get_navic()
+  local navic = require("nvim-navic")
+  if navic.is_available() then
+    return navic.get_location()
+  else
+    return
+  end
+end
+
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
@@ -169,7 +180,7 @@ require('lualine').setup {
     lualine_c = {'filename'},
     lualine_x = {},
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {{ get_navic }}
   },
   sections = {
     lualine_a = {'mode'},
@@ -180,7 +191,6 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
 }
-
 -- Enable Comment.nvim
 require('Comment').setup()
 
@@ -322,12 +332,12 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
   --
-  -- In this case, we create a function that lets us more easily define mappings specific
+  -- In this case, we create a function that ets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
@@ -335,6 +345,10 @@ local on_attach = function(_, bufnr)
     end
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  if client.server_capabilities.documentSymbolProvider then
+    require('nvim-navic').attach(client, bufnr)
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
