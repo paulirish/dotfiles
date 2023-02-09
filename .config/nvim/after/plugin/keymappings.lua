@@ -87,3 +87,7 @@ nmap("<silent>F3", cmd("MaximizerToggle"))
 
 -- Search for current word with ACK plugin
 nmap('<leader>vv', cmd('Ack! <cword>'))
+
+-- Use ColorScheme PaperColor and ToggleBackground from dark to light and back
+nmap('<leader>pc', cmd('lua SetPaperColor()'))
+nmap('<leader>pp', cmd('lua ToggleBackground()'))

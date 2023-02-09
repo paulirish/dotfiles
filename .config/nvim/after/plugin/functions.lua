@@ -19,3 +19,16 @@ vim.cmd [[
 
   call LoadLocalVimrc()
 ]]
+
+function SetPaperColor ()
+  vim.cmd.colorscheme('PaperColor')
+  vim.opt.background = 'light'
+end
+
+function ToggleBackground()
+  if vim.opt.background:get() == 'dark' then
+    vim.opt.background = 'light'
+  else
+    vim.opt.background = 'dark'
+  end
+end

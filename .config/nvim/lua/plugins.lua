@@ -28,6 +28,9 @@ return function(use)
   use 'voldikss/vim-floaterm'         -- Showing a floating terminal for example TIG
   -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
 
+  use 'NLKNguyen/papercolor-theme'
+
+
   use({
     "folke/which-key.nvim",
       config = function()
