@@ -1,17 +1,4 @@
 return function(use)
-  use ({ 'codota/tabnine-nvim',
-    run = "./dl_binaries.sh",
-    config = function()
-      require('tabnine').setup({
-        disable_auto_comment=true,
-        accept_keymap="<Tab>",
-        dismiss_keymap = "<C-]>",
-        debounce_ms = 300,
-        suggestion_color = {gui = "#808080", cterm = 244},
-        execlude_filetypes = {"TelescopePrompt"}
-      })
-    end
-  })
 
   use 'liuchengxu/vim-which-key'      -- Show the current leader mappings
   use 'zirrostig/vim-schlepp'         -- Moving blocks of text easily
@@ -30,6 +17,7 @@ return function(use)
 
   use 'NLKNguyen/papercolor-theme'
 
+  use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
 
   use({
     "folke/which-key.nvim",
