@@ -16,6 +16,7 @@ return function(use)
   -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
 
   use 'NLKNguyen/papercolor-theme'
+  use 'marko-cerovac/material.nvim'
 
   use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
 

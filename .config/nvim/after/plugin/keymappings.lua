@@ -91,3 +91,5 @@ nmap('<leader>vv', cmd('Ack! <cword>'))
 -- Use ColorScheme PaperColor and ToggleBackground from dark to light and back
 nmap('<leader>pc', cmd('lua SetPaperColor()'))
 nmap('<leader>pp', cmd('lua ToggleBackground()'))
+nmap('<leader>cs', cmd('lua require("material.functions").find_style()'))
+
