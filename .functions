@@ -172,6 +172,10 @@ function vimf() {
   vim -O $(fzf -m --preview 'head -150 {} | pygmentize -O style=monokai' | tr '\n' ' ')
 }
 
+function nvimf() {
+  nvim -O $(fzf -m --preview 'head -150 {} | pygmentize -O style=monokai' | tr '\n' ' ')
+}
+
 function cdf() {
   dir=$(find . -maxdepth 1 -type d | grep -v $foldersToExclude | sort | fzf --preview 'exa --long --header --git --all --color=always {}') && cd "$dir"
 }
