@@ -7,7 +7,7 @@ require('tabnine').setup({
   execlude_filetypes = {"TelescopePrompt"}
 })
 
-require("nvim-navic").setup { -- requires to install scode-codicons-git
+require("nvim-navic").setup({ -- requires to install vscode-codicons-git
   icons = {
     File = ' ',
     Module = ' ',
@@ -41,4 +41,19 @@ require("nvim-navic").setup { -- requires to install scode-codicons-git
   depth_limit = 0,
   depth_limit_indicator = "..",
   safe_output = true
-}
+})
+
+require('neoclip').setup({
+  default_register = '"',
+  enable_persistent_history = true,
+  db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+  continuous_sync = true,
+  keys = {
+    telescope = {
+      n = {
+        paste = '<c-p>',
+      },
+    },
+  },
+})
+require('telescope').load_extension 'neoclip'

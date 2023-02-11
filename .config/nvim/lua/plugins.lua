@@ -20,6 +20,21 @@ return function(use)
 
   use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
 
+  use 'kkharji/sqlite.lua'
+
+  -- telescope plugins
+  use {
+    'AckslD/nvim-neoclip.lua',
+    requires = {
+      {'kkharji/sqlite.lua', module = 'sqlite'},
+      {'nvim-telescope/telescope.nvim'},
+    },
+    config = function()
+      print('Hello neoclip')
+      require('neoclip').setup()
+    end,
+  }
+
   use({
     "folke/which-key.nvim",
       config = function()
