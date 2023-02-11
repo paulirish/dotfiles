@@ -88,6 +88,9 @@ nmap("<silent>F3", cmd("MaximizerToggle"))
 -- Search for current word with ACK plugin
 nmap('<leader>vv', cmd('Ack! <cword>'))
 
+-- Show Git diff and commits with using Delta as diff viewer
+nmap('<leader>tgc', cmd('lua require ("user.telescope-git").git_commits()'))
+nmap('<leader>tgs', cmd('lua require ("user.telescope-git").git_status()'))
 -- Use ColorScheme PaperColor and ToggleBackground from dark to light and back
 nmap('<leader>pc', cmd('lua SetPaperColor()'))
 nmap('<leader>pp', cmd('lua ToggleBackground()'))
