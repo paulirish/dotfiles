@@ -215,12 +215,18 @@ require('gitsigns').setup {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local actions = require "telescope.actions"
+
 require('telescope').setup {
   defaults = {
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+      },
+      n = {
+        ["<c-q"] = actions.send_to_qflist + actions.open_qflist, -- Send current list to quick-fix-list
+        ["?"] = actions.which_key, -- Show predefined keys with using which_key
       },
     },
     file_ignore_patterns = {
