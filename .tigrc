@@ -15,4 +15,8 @@ bind status <F4> @git difftool -y %(commit) %(file)
 
 bind generic <F5> @git difftool -d --no-symlinks %(commit)
 
+bind generic <ESC> view-close
+bind generic <Ctrl-K> next
+bind generic <Ctrl-J> next
+
 bind refs R !git checkout %(commit) -- %(file)
