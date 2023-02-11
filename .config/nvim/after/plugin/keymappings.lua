@@ -35,9 +35,8 @@ nmap("<leader>e", cmd("quit"))    -- Exit current window
 nmap("<leader>xx", cmd("x"))      -- Save and exit
 nmap("<leader>w", cmd("update"))  -- Save current changes
 
--- Show TIG status in a floating window to commit current changes
-nmap("<leader>ts", cmd('FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 tig status'))
-nmap("<leader>lg", cmd('FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=lazygit --autoclose=2 lazygit'))
+-- Show Git status in a floating window to commit current changes with using TIG
+nmap("<leader>gs", cmd('FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 tig status'))
 
 -- select all
 nmap("<leader>aa", "ggVG")
@@ -73,7 +72,7 @@ nmap('xx', '""dd')
 -- ** Customized keys for plugins **
 
 -- NERDTree
-nmap("<leader>t", cmd("NERDTreeToggle"))
+nmap("<c-t>", cmd("NERDTreeToggle"))
 nmap("<leader>tl", "<cmd>NERDTreeFind<CR><C-w_w>")
 
 -- Vim-Schlepp settings
@@ -91,10 +90,18 @@ nmap('<leader>vv', cmd('Ack! <cword>'))
 -- Show Git diff and commits with using Delta as diff viewer
 nmap('<leader>tgc', cmd('lua require ("user.telescope-git").git_commits()'))
 nmap('<leader>tgs', cmd('lua require ("user.telescope-git").git_status()'))
+
+-- Use ColorScheme PaperColor and ToggleBackground from dark to light and back
+nmap('<leader>pc', cmd('lua SetPaperColor()'))
+
 -- Use ColorScheme PaperColor and ToggleBackground from dark to light and back
 nmap('<leader>pc', cmd('lua SetPaperColor()'))
 nmap('<leader>pp', cmd('lua ToggleBackground()'))
 nmap('<leader>cs', cmd('lua require("material.functions").find_style()'))
 
+-- My Telescope key mappings
+nmap('<c-p>', cmd("Telescope find_files"))
 nmap('<leader>tp', cmd('Telescope neoclip'))
 nmap('<leader>tr', cmd('Telescope repo'))
+
+nmap('<leader>,', cmd('WhichKey'))
