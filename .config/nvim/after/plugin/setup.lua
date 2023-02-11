@@ -56,4 +56,21 @@ require('neoclip').setup({
     },
   },
 })
+
+require("telescope").setup {
+  extensions = {
+    repo = {
+      list = {
+        fd_opts = {
+        },
+        search_dirs = {
+          "~/Projects",
+        },
+      },
+    },
+  },
+}
+
+-- Load telescope extensions
 require('telescope').load_extension 'neoclip'
+require'telescope'.load_extension'repo'

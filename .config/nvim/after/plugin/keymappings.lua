@@ -94,3 +94,4 @@ nmap('<leader>pp', cmd('lua ToggleBackground()'))
 nmap('<leader>cs', cmd('lua require("material.functions").find_style()'))
 
 nmap('<leader>tp', cmd('Telescope neoclip'))
+nmap('<leader>tr', cmd('Telescope repo'))
