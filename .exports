@@ -1,5 +1,9 @@
-# Make vim the default editor
-export EDITOR="vim"
+# Make nvim the default editorm except for SSH connections
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
@@ -23,7 +27,7 @@ export PATH=~/bin:/usr/local/bin:/home/jan/.bun/bin:~/bin/studio3t:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# This is for FZS to ignore all files and folder that are listed in the .gitignore file
+# This is for FZF to ignore all files and folder that are listed in the .gitignore file
 # You need to install ag for this
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
