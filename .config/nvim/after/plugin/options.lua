@@ -37,5 +37,5 @@ vim.cmd('let g:Schlepp#allowSquishingBlock = 1')
 vim.g.rooter_cd_cmd = 'lcd'
 
 -- Set my prefered colorscheme
-vim.cmd('colorscheme material')
-require('material.functions').change_style('palenight')
+-- require('material.functions').change_style('palenight')
+vim.cmd('colorscheme onedark')
