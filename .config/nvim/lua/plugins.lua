@@ -20,9 +20,9 @@ return function(use)
 
   use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
 
-  use 'kkharji/sqlite.lua'          -- Necessary for nvim-neoclip
-  use 'nvim-lua/plenary.nvim'       -- Necessary for telescope-repo
-  use 'airblade/vim-rooter'         -- Necessary for telescope-repo, otherwise it would not change the directory
+  use 'kkharji/sqlite.lua'          -- Required from nvim-neoclip
+  use 'nvim-lua/plenary.nvim'       -- Required from telescope-repo
+  use 'airblade/vim-rooter'         -- Required from telescope-repo, otherwise it would not change the directory
 
   -- telescope plugins
   use {
@@ -33,13 +33,13 @@ return function(use)
     }
   }
   use 'cljoly/telescope-repo.nvim'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   use({
     "folke/which-key.nvim",
       config = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
-        require("which-key").setup({})
       end
   })
 end

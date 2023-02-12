@@ -1,6 +1,6 @@
 -- Implement delta as previewer for diffs
 -- Needs to install the syntax highlighting pager for Git diff Delta
--- https://github.com/dandavison/delta#configuration
+-- https://github.com/dandavison/delta#configuration 
 
 local previewers = require('telescope.previewers')
 local builtin = require('telescope.builtin')

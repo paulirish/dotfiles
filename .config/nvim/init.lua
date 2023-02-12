@@ -1,5 +1,5 @@
--- This file is based on https://github.com/nvim-lua/kickstart.nvim
--- ****************************************************************
+-- This file is based on https://github.com/nvim-lua/kickstart.nvim 
+-- *****************************************************************
 
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
@@ -61,9 +61,6 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/plugins.lua
   local has_plugins, plugins = pcall(require, 'plugins')
@@ -242,9 +239,6 @@ require('telescope').setup {
     },
   },
 }
-
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
