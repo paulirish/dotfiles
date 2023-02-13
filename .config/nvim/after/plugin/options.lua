@@ -16,9 +16,11 @@ vim.opt.swapfile = false
 vim.o.listchars = 'space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸▸'
 vim.opt.list = true
 
-vim.opt.wildignore = {".git", ".vscode", "node_modules", "target" }
+vim.opt.wildignore = {'.git', '.vscode', 'node_modules', 'target' }
 
 vim.opt.relativenumber = false
+
+vim.opt.foldmethod = 'manual'
 
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeRespectWildIgnore = 1
