@@ -58,7 +58,7 @@ vmap('>', '>gv')
 nmap(';s', cmd('set spell'), 'Enable spell check')
 
 -- Improve Tab and Window navigation
-nmap('<F2>', '<cmd>vertical wincmd f<CR> <C-W>R')  -- Open the file under the cursor in a vertical split
+nmap('<F2>', '<cmd>vertical wincmd f<CR> <C-W>R', 'Open the file under the cursor in a vertical split')
 nmap('<F6>', '<C-W>w')
 nmap('<F8>', cmd('tabnew'))
 nmap('<S-Tab>', cmd('tabnext'))
@@ -74,6 +74,8 @@ vmap('<Del>', '"_x')
 nmap('dd', '"_dd')
 vmap('d', '"_x')
 nmap('xx', '""dd')
+
+nmap('<leader>h', 'set hlsearch!', 'Toggle highlight search')
 
 -- ** Customized keys for plugins **
 
