@@ -38,7 +38,7 @@ nmap('<leader>w', cmd('update'), 'Save current changes')
 
 -- Show Git status in a floating window to commit current changes with using TIG
 nmap(
-  '<leader>gs',
+  '<c-g>',
   cmd('FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 tig status'),
   'Show Tig status in floating window'
 )
@@ -48,7 +48,7 @@ nmap('<leader>aa', 'ggVG', 'Selec the whole text')
 nmap('<leader>h', cmd('set hlsearch!'), 'toggle highlight search')
 
 -- Better handling for folding or unfolding with space key
-nmap('<space>', 'za<CR>', 'Fold or unfold currnt text')
+nmap('<space>', 'za<CR>', 'Fold or unfold current text')
 
 -- Repeatable indentation
 vmap('<', '<gv')
