@@ -55,6 +55,7 @@ require('packer').startup(function(use)
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim'
+  use 'arkav/lualine-lsp-progress'
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
@@ -166,14 +167,14 @@ end
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
-    icons_enabled = false,
-    theme = 'onedark',
-    component_separators = '|',
-    section_separators = '',
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
   },
   tabline = {
     lualine_a = {},
-    lualine_b = {'branch'},
+    lualine_b = {},
     lualine_c = {'filename'},
     lualine_x = {},
     lualine_y = {},
@@ -181,9 +182,21 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'lsp_progress'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_b = {'branch', 'diff', 'diagnostics', 'filename'},
+    lualine_c = {},
+    lualine_x = {
+      'encoding',
+      {
+        'fileformat',
+        icons_enabled = true,
+        symbols = {
+          unix = 'LF',
+          dos = 'CRLF',
+          mac = 'CR',
+        },
+      },
+      'filetype'
+    },
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
