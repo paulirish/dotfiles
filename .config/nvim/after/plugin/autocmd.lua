@@ -32,6 +32,7 @@ vim.cmd([[
     autocmd!
     autocmd BufNewFile,BufRead .ansiblelint set filetype=yaml
     autocmd BufNewFile,BufRead .yamllint set filetype=yaml
+    autocmd BufNewFile,BufRead .y*ml.j2 set filetype=yaml " Jinja2 templates
     autocmd Filetype yaml set cursorcolumn
     " autocmd BufRead *.y*ml normal zR " When opening the file, unfold all. Fold all with zM
     autocmd BufWinLeave *.y*ml mkview
