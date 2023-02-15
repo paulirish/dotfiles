@@ -362,13 +362,16 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+  ansiblels = {},
+  bashls = {},
   gopls = {},
   -- pyright = {},
   rust_analyzer = {},
-  tsserver = {},
+  tsserver = {}, -- javascript and typescript
   html = {},
-  sumneko_lua = {
+  jsonls = {},
+  remark_ls = {}, -- Markdown
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -377,6 +380,7 @@ local servers = {
       },
     },
   },
+  yamlls = {},
 }
 
 -- Setup neovim lua configuration
