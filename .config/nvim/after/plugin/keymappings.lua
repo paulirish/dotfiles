@@ -75,7 +75,9 @@ nmap('dd', '"_dd')
 vmap('d', '"_x')
 nmap('xx', '""dd')
 
-nmap('<leader>h', 'set hlsearch!', 'Toggle highlight search')
+nmap('<leader>h', cmd('set hlsearch!'), 'Toggle highlight search')
+
+nmap('<leader>rs', cmd('!./sync.sh'), 'Run sync.sh')
 
 -- ** Customized keys for plugins **
 
