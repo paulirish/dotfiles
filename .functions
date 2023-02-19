@@ -172,7 +172,7 @@ function vimf() {
   vim -O $(fzf -m --preview 'head -150 {} | pygmentize -O style=monokai' | tr '\n' ' ')
 }
 
-function nv() {
+function nf() {
   nvim -O $(fzf -m --preview 'head -150 {} | pygmentize -O style=monokai' | tr '\n' ' ')
 }
 
