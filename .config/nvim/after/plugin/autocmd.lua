@@ -1,5 +1,9 @@
 vim.cmd([[
+  " set verbosefile=~/tmp/nvim-messages.log
+  " set verbose=9 " see https://neovim.io/doc/user/options.html#'verbose' 
+
   au FileType gitcommit set tw=100 " The default is 72 and for me it's mostly not enough
+  " au BufRead * normal zR
 
   augroup bash
     autocmd!
@@ -11,7 +15,6 @@ vim.cmd([[
 
   augroup lua
     autocmd!
-    " autocmd BufRead *.lua normal zR " When opening the file, unfold all. Fold all with zM
     autocmd FileType rust setlocal shiftwidth=2 tabstop=2 softtabstop=2 preserveindent nowrap foldmethod=indent
     autocmd BufWinLeave *.lua mkview
     autocmd BufWinEnter *.lua silent! loadview
@@ -23,9 +26,7 @@ vim.cmd([[
     autocmd FileType rust compiler cargo
     autocmd FileType rust lua vim.keymap.set('n', '<leader>rr', '<cmd>RustRunnables<cr>')
     autocmd FileType rust lua vim.keymap.set('n', '<leader>rf', '<cmd>lua vim.lsp.buf.format({ async = true })<cr>')
-    " autocmd FileType rust lua vim.keymap.set('n', '<leader>rb', '<cmd>Make build<cr>')
     " autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })
-    " autocmd BufRead *.rs normal zR " When opening the file, unfold all. Fold all with zM
     autocmd BufWinLeave *.rs mkview
     autocmd BufWinEnter *.rs silent! loadview
   augroup END
@@ -45,5 +46,14 @@ vim.cmd([[
     autocmd Filetype yaml set cursorcolumn
     autocmd BufWinLeave *.y*ml mkview
     autocmd BufWinEnter *.y*ml silent! loadview
+  augroup END
+
+  augroup golang
+    autocmd!
+    autocmd FileType go setlocal noexpandtab preserveindent tabstop=2 shiftwidth=2 softtabstop=2 nowrap foldmethod=indent
+    autocmd FileType go lua vim.keymap.set('n', '<leader>gr', '<cmd>GoRun<cr>')
+    autocmd FileType go lua vim.keymap.set('n', '<leader>gt', '<cmd>GoTest<cr>')
+    autocmd BufWinLeave *.go mkview
+    autocmd BufWinEnter *.go silent! loadview
   augroup END
 ]])

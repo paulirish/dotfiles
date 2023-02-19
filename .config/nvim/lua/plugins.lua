@@ -45,4 +45,7 @@ return function(use)
 
   -- Better support for Rust
   use 'simrat39/rust-tools.nvim'
+
+  -- Better support for Go
+  use 'fatih/vim-go'
 end
