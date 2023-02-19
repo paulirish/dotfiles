@@ -42,4 +42,7 @@ return function(use)
         vim.o.timeoutlen = 500
       end
   })
+
+  -- Better support for Rust
+  use 'simrat39/rust-tools.nvim'
 end
