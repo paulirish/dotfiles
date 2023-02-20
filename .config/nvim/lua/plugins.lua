@@ -43,9 +43,7 @@ return function(use)
       end
   })
 
-  -- Better support for Rust
-  use 'simrat39/rust-tools.nvim'
-
-  -- Better support for Go
-  use 'fatih/vim-go'
+  use 'simrat39/rust-tools.nvim' -- Better support for Rust
+  use 'fatih/vim-go' -- Better support for Go
+  use 'jose-elias-alvarez/null-ls.nvim' -- Using various additional tools without direct lsp support
 end
