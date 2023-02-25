@@ -77,7 +77,7 @@ nmap('xx', '""dd')
 
 nmap('<leader>h', cmd('set hlsearch!'), 'Toggle highlight search')
 
-nmap('<leader>rs', cmd('!./sync.sh'), 'Run sync.sh')
+nmap('<leader>rs', cmd('!./sync.sh'), 'Run sync.sh') -- Run the sync.sh script
 
 -- ** Customized keys for plugins **
 
@@ -110,3 +110,5 @@ nmap('<leader>cst', cmd('lua require("material.functions").find_style()'))
 nmap('<c-p>', cmd('Telescope find_files'), 'Telescope find files')
 nmap('<leader>tp', cmd('Telescope neoclip'), 'Telescope neoclip')
 nmap('<leader>tr', cmd('Telescope repo'), 'Telescope repos')
+
+nmap('<leader>lf', cmd('lua vim.lsp.buf.format{ async = true }'), 'Formatting with LSP')
