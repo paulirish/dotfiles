@@ -52,10 +52,10 @@ cmp.setup {
       select = true,
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
+      if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
@@ -89,11 +89,15 @@ cmp.setup {
     { name = 'cmp_tabnine' },
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
     { name = 'cmdline' },
-    { name = 'nvim_lsp_signature_help' },
+  },
+  experimental = {
+    ghost_text = true,
+    native_menu = false,
   },
   enabled = function()
     if require"cmp.config.context".in_treesitter_capture("comment")==true or require"cmp.config.context".in_syntax_group("Comment") then
