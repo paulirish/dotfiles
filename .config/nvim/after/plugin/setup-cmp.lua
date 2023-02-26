@@ -76,6 +76,7 @@ cmp.setup {
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       vim_item.menu = ({
+        cmp_tabnine = "[TabNine]",
         nvim_lsp = "[LSP]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
@@ -85,6 +86,7 @@ cmp.setup {
     end,
   },
   sources = {
+    { name = 'cmp_tabnine' },
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },

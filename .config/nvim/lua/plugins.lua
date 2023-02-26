@@ -18,7 +18,7 @@ return function(use)
   use 'NLKNguyen/papercolor-theme'
   use 'marko-cerovac/material.nvim'
 
-  use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
+  use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
   use 'kkharji/sqlite.lua'          -- Required from nvim-neoclip
   use 'nvim-lua/plenary.nvim'       -- Required from telescope-repo
