@@ -9,6 +9,7 @@ return function(use)
   use 'rafamadriz/friendly-snippets'  -- Set of preconfigured snippets for different languages.
   use 'scrooloose/nerdtree'           -- A tree explorer plugin for vim
   use 'szw/vim-maximizer'             -- Maximizes and restores the current window in Vim.
+  use 'svermeulen/vim-cutlass'        -- Plugin that adds a 'cut' operation separate from 'delete'
   use 'terryma/vim-multiple-cursors'  -- This True Sublime Text style multiple selections for Vim
   use 'tpope/vim-repeat'              -- Enable repeating supported plugin maps with \".\"
   use 'tpope/vim-surround'            -- surround.vim: quoting/parenthesizing made simple
@@ -50,13 +51,6 @@ return function(use)
   use 'fatih/vim-go' -- Better support for Go
   use 'jose-elias-alvarez/null-ls.nvim' -- Using various additional tools without direct lsp support
 
-  use {
-    "ThePrimeagen/refactoring.nvim",  -- Refactoring for various languages like GO, TS, JS - see https://github.com/ThePrimeagen/refactoring.nvim
-    requires = {
-      {"nvim-lua/plenary.nvim"},
-      {"nvim-treesitter/nvim-treesitter"}
-    }
-  }
   use { -- https://github.com/windwp/nvim-autopairs
     "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end

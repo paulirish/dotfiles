@@ -25,7 +25,7 @@ vim.cmd([[
     autocmd FileType rust setlocal shiftwidth=2 tabstop=2 softtabstop=2 preserveindent nowrap foldmethod=indent
     autocmd FileType rust compiler cargo
     autocmd FileType rust lua vim.keymap.set('n', '<leader>rr', '<cmd>RustRunnables<cr>')
-    autocmd FileType rust lua vim.keymap.set('n', '<leader>rf', '<cmd>lua vim.lsp.buf.format({ async = true })<cr>')
+    " autocmd FileType rust lua vim.keymap.set('n', '<leader>rf', '<cmd>lua vim.lsp.buf.format({ async = true })<cr>')
     " autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })
     autocmd BufWinLeave *.rs mkview
     autocmd BufWinEnter *.rs silent! loadview

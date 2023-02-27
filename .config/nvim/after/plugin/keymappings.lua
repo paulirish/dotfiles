@@ -67,17 +67,14 @@ nmap('<S-Tab>', cmd('tabnext'))
 nmap('[<space>', '<S-o><esc>')
 nmap(']<space>', 'o<esc>')
 
--- Dont copy anything I want to delete into the unamed register
--- I want to use X for that
-nmap('<Del>', '"_x')
-vmap('<Del>', '"_x')
-nmap('dd', '"_dd')
-vmap('d', '"_x')
-nmap('xx', '""dd')
-
 nmap('<leader>h', cmd('set hlsearch!'), 'Toggle highlight search')
 
-nmap('<leader>rs', cmd('!./sync.sh'), 'Run sync.sh') -- Run the sync.sh script
+nmap('<leader>rs', cmd('!./sync.sh'), '[R]un [s]ync.sh') -- Run the sync.sh script
+
+-- Custom keys for LSP
+nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+nmap('<leader>lf', cmd('lua vim.lsp.buf.format{ async = true }'), 'Formatting with LSP')
 
 -- ** Customized keys for plugins **
 
@@ -97,6 +94,11 @@ nmap('<silent>F3', cmd('MaximizerToggle'))
 -- Search for current word with ACK plugin
 nmap('<leader>vv', cmd('Ack! <cword>'))
 
+-- Mapping for Cutlass to use x for cut operations
+nmap('x', 'd')
+vmap('x', 'd')
+nmap('xx', 'dd')
+
 -- Show Git diff and commits with using Delta as diff viewer
 nmap('<leader>tgc', cmd('lua require ("user.telescope-git").git_commits()'), 'Show Git commits in Telescope')
 nmap('<leader>tgs', cmd('lua require ("user.telescope-git").git_status()'), 'Show Git status in Telescope')
@@ -110,5 +112,3 @@ nmap('<leader>cst', cmd('lua require("material.functions").find_style()'))
 nmap('<c-p>', cmd('Telescope find_files'), 'Telescope find files')
 nmap('<leader>tp', cmd('Telescope neoclip'), 'Telescope neoclip')
 nmap('<leader>tr', cmd('Telescope repo'), 'Telescope repos')
-
-nmap('<leader>lf', cmd('lua vim.lsp.buf.format{ async = true }'), 'Formatting with LSP')
