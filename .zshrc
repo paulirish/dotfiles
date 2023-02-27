@@ -6,7 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 export DEFAULT_USER=`whoami`
-ZSH_THEME="cobalt2"
+# ZSH_THEME="cobalt2"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -150,3 +150,6 @@ source ~/.config/zsh/cursor-shape.conf
 export PNPM_HOME="/home/jan/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end%
+
+# Adding starship for a more informative prompt https://starship.rs/de-DE/config/ 
+eval "$(starship init zsh)"
