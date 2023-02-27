@@ -16,8 +16,10 @@ return function(use)
   use 'voldikss/vim-floaterm'         -- Showing a floating terminal for example TIG
   -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
 
+  -- Some nice colorschemes
   use 'NLKNguyen/papercolor-theme'
   use 'marko-cerovac/material.nvim'
+  use 'folke/tokyonight.nvim'
 
   use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
