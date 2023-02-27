@@ -26,7 +26,7 @@ vim.cmd([[
     autocmd FileType rust compiler cargo
     autocmd FileType rust lua vim.keymap.set('n', '<leader>rr', '<cmd>RustRunnables<cr>')
     " autocmd FileType rust lua vim.keymap.set('n', '<leader>rf', '<cmd>lua vim.lsp.buf.format({ async = true })<cr>')
-    " autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })
+    autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })
     autocmd BufWinLeave *.rs mkview
     autocmd BufWinEnter *.rs silent! loadview
   augroup END
