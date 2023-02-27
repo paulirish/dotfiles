@@ -36,8 +36,10 @@ local luasnip = require('luasnip')
 
 cmp.setup {
   completion = {
-    autocomplete = false, -- The Completion should only be shown when I press <C-Space>
+    keyword_length = 2,
+    -- autocomplete = false, -- The Completion should only be shown when I press <C-Space>
   },
+  preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -46,25 +48,24 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ['<C-e>'] = cmp.mapping.close(),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<C-j>'] = cmp.mapping(function (fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      elseif cmp.visible() then
-        cmp.select_next_item()
       else
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+        cmp.select_next_item()
       else
         fallback()
       end
@@ -97,7 +98,9 @@ cmp.setup {
   },
   experimental = {
     ghost_text = true,
-    native_menu = false,
+  },
+  view = {
+    -- entries = 'native'
   },
   enabled = function()
     if require"cmp.config.context".in_treesitter_capture("comment")==true or require"cmp.config.context".in_syntax_group("Comment") then
