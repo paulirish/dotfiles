@@ -58,7 +58,7 @@ format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 [package]
 symbol = "🎁"
 style = "bg:#212736"
-format = '[[ via $symbol $version ](fg:#769ff0 bg:#212736)]($style)'
+format = '[[ $symbol $version ](fg:#769ff0 bg:#212736)]($style)'
 
 [time]
 disabled = true
