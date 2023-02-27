@@ -55,4 +55,8 @@ return function(use)
       {"nvim-treesitter/nvim-treesitter"}
     }
   }
+  use { -- https://github.com/windwp/nvim-autopairs
+    "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+  }
 end
