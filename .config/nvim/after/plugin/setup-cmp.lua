@@ -28,16 +28,24 @@ local kind_icons = {
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
-require("luasnip.loaders.from_vscode").lazy_load()
-
 -- nvim-cmp setup
-local cmp = require('cmp')
-local luasnip = require('luasnip')
+local cmp_status_ok, cmp = pcall(require, 'cmp')
+if not cmp_status_ok then
+  return
+end
+
+local luasnip_status_ok, luasnip = pcall(require, 'luasnip')
+if not luasnip_status_ok then
+  return
+end
+
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = {'/home/jan/Projects/dotfiles/.vim/snippets'} })
 
 cmp.setup {
   completion = {
     keyword_length = 2,
-    autocomplete = false, -- The Completion should only be shown when I press <C-Space>
+    autocomplete = false,
   },
   preselect = cmp.PreselectMode.None,
   snippet = {
