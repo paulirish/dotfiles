@@ -56,4 +56,9 @@ vim.cmd([[
     autocmd BufWinLeave *.go mkview
     autocmd BufWinEnter *.go silent! loadview
   augroup END
+
+  augroup CmpDebounceAuGroup
+    au!
+    au TextChangedI * lua require("user.debounce-cmp").debounce(1500)
+  augroup END
 ]])

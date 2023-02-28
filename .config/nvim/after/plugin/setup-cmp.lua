@@ -37,7 +37,7 @@ local luasnip = require('luasnip')
 cmp.setup {
   completion = {
     keyword_length = 2,
-    -- autocomplete = false, -- The Completion should only be shown when I press <C-Space>
+    autocomplete = false, -- The Completion should only be shown when I press <C-Space>
   },
   preselect = cmp.PreselectMode.None,
   snippet = {
@@ -54,7 +54,7 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      -- select = true, -- This line leads to using the first entry without selecting it
     },
     ['<C-j>'] = cmp.mapping(function (fallback)
       if luasnip.expand_or_jumpable() then
