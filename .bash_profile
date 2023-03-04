@@ -60,7 +60,7 @@ export HISTFILESIZE=$HISTSIZE                   # big big history
 type shopt &> /dev/null && shopt -s histappend  # append to history, don't overwrite it
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+export HISTIGNORE="exit:ls:bg:fg:history:clear"
 
 # Save multi-line commands as one command
 shopt -s cmdhist
