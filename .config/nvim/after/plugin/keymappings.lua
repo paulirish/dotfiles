@@ -33,7 +33,7 @@ imap('<leader>{{', '{{}}<ESC><left>i')
 -- quick exit or save
 nmap('<leader>q', cmd('q'), 'Exit current window')
 nmap('<leader>e', cmd('quit'), 'Exit current window')
-nmap('<leader>xx', cmd('x'), 'Save and exit current window')
+-- nmap('<leader>x', cmd('x'), 'Save and exit current window')
 nmap('<leader>w', cmd('update'), 'Save current changes')
 
 -- Show Git status in a floating window to commit current changes with using TIG
@@ -112,3 +112,8 @@ nmap('<leader>cst', cmd('lua require("material.functions").find_style()'))
 nmap('<c-p>', cmd('Telescope find_files'), 'Telescope find files')
 nmap('<leader>tp', cmd('Telescope neoclip'), 'Telescope neoclip')
 nmap('<leader>tr', cmd('Telescope repo'), 'Telescope repos')
+
+-- Plugin Trouble
+nmap('<leader>xx', cmd('TroubleToggle workspace_diagnostics'), 'Toggle diagnostics list')
+nmap('<leader>xr', cmd('TroubleRefresh'), 'Refresh diagnostics list')
+nmap('<leader>xq', cmd('TroubleToggle quickfix'), 'Refresh diagnostics list')
