@@ -16,7 +16,8 @@ alias li=lighthouse
 alias lperf 'lighthouse --only-categories=performance'
 alias comp 'node build/build-report-components.js && yarn eslint --fix report/renderer/components.js'
 alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
-alias reportwatch 'find report core/test/results/sample_v2.json | entr bash -c "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
+# pretty sure watchexec has just won my heart after years of using `entr`
+alias reportwatch 'watchexec "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
 
 # mv, rm, cp
 alias mv 'command gmv --interactive --verbose'

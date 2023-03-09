@@ -1,18 +1,19 @@
 #!/bin/bash
 
 # usage:
-# after `git pull`, a full build is now `depsbcr`
+# after `git pull`, a full build is now `depsbcr` or `deps && b && cr`
 # and after changes.. a `bcr` will recompile and relaunch chrome.
 
 # 2021 update: __dt versions of these functions are added for the chromium-devtools repo. 
 
 function deps () {
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
-    env GYP_DEFINES=disable_nacl=1 gclient sync --delete_unversioned_trees --reset 
+    # also reset seems to reset branch position in the devtools-internal repo??? weird.
+    gclient sync --delete_unversioned_trees --jobs=70
 }
 
 function hooks () {
-    env GYP_DEFINES=disable_nacl=1 gclient runhooks
+    gclient runhooks
 }
 
 function b () {
@@ -20,9 +21,13 @@ function b () {
     # autoninja will automatically determine your -j number based on CPU cores
     local cmd="autoninja -C $(realpath $dir) chrome" 
     echo "  > $cmd"
-    eval "$cmd"
+    # start the compile
+    eval $cmd
+
     if [ $? -eq 0 ]; then
-        printf "\n✅ Chrome build complete!\n"
+        osascript -e 'display notification "" with title "✅ Chromium compile done"'
+    else
+        osascript -e 'display notification "" with title "❌ Chromium compile failed"'
     fi
 }
 
@@ -43,14 +48,14 @@ clutch_chrome_flags="--use-mock-keychain --disable-features=DialMediaRouteProvid
 # you can also add any extra args: `cr --user-data-dir=/tmp/lol123"
 # (disable DialMediaRouteProvider gets rid of that "do you want to accept incoming connections" prompt)
 function cr () {
-    local dir=$(git rev-parse --show-cdup)/out/Default
+    local dir="./$(git rev-parse --show-cdup)/out/Default"
     local cmd="./$dir/Chromium.app/Contents/MacOS/Chromium $clutch_chrome_flags $argv"
     echo "  > $cmd"
     eval "$cmd"
 }
 
 function dtcr () {
-    local crpath="$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
+    local crpath="./$(git rev-parse --show-cdup)/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
     local dtpath=$(realpath out/Default/gen/front_end)
     local cmd="$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv"
     echo "  > $cmd"
@@ -62,7 +67,6 @@ function dtcr () {
 function gom () {
     # these probably dont make sense for everyone.
     export GOMAMAILTO=/dev/null
-
     export GOMA_ENABLE_REMOTE_LINK=yes
 
     goma_ctl ensure_start

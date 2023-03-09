@@ -2,11 +2,11 @@
 function deps --description "run gclient sync"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
     # also reset seems to reset branch position in the devtools-internal repo??? weird.
-    env gclient sync --delete_unversioned_trees --jobs=70
+    gclient sync --delete_unversioned_trees --jobs=70
 end
 
 function hooks --description "run gclient runhooks"
-    env gclient runhooks
+    gclient runhooks
 end
 
 function b --description "build chromium"
@@ -34,9 +34,10 @@ function b --description "build chromium"
     # end
 end
 
-function dtb --description "build devtools"
+# needs `brew install watchexec`. https://watchexec.github.io/
+function dtb --description "build devtools with a watch loop"    
     set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-    set -l cmd "autoninja -C "$dir_default""  
+    set -l cmd "watchexec \"autoninja -C $dir_default\""  
     echo "  > $cmd"
     eval $cmd
 end
@@ -48,14 +49,14 @@ set clutch_chrome_flags "--use-mock-keychain --disable-features=DialMediaRoutePr
 
 
 function cr --description "open built chromium (accepts runtime flags)"
-    set -l dir (git rev-parse --show-cdup)/out/Default
+    set -l dir "./$(git rev-parse --show-cdup)/out/Default"
     set -l cmd "./$dir/Chromium.app/Contents/MacOS/Chromium $clutch_chrome_flags $argv"
     echo "  > $cmd"
     eval $cmd
 end
 
 function dtcr --description "run chrome with dev devtools"
-    set -l crpath "$HOME/chromium-devtools/devtools-frontend/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
+    set -l crpath "./$(git rev-parse --show-cdup)/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
     set -l dtpath (realpath out/Default/gen/front_end)
     if test ! -e "$dtpath/devtools_app.html"
         echo "Not found at: $dtpath/devtools_app.html"
@@ -66,7 +67,7 @@ function dtcr --description "run chrome with dev devtools"
     end
 
     # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
-    set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
+    set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
     set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv '$landing_url'"
     echo "  > $cmd"
     eval $cmd
