@@ -36,6 +36,12 @@ function notif --description "make a macos notification that the prev command is
     -- "$history[1]"
 end
 
+function all_binaries_in_path --description "list all binaries available in \$PATH, even if theres conflicts"
+  # based on https://unix.stackexchange.com/a/120790/110766 but tweaked to work on mac. and then made it faster.
+  find -L $PATH -maxdepth 1 -perm +111 -type f
+  #gfind -L $PATH -maxdepth 1 -executable -type f # shrug. probably can delete this.
+end
+
 function stab --description "stabalize a video"
   set -l vid $argv[1]
   ffmpeg -i "$vid" -vf vidstabdetect=stepsize=32:result="$vid.trf" -f null -; 

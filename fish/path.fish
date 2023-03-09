@@ -18,34 +18,38 @@ set -l PA $PATH
 for entry in (string split \n $PATH_DIRS)
     # resolve the {$HOME} substitutions
     set -l resolved_path (eval echo $entry)
-    if test -d "$resolved_path"; # and not contains $resolved_path $PATH
+    if contains $resolved_path $PATH;
+        continue; # skip dupes
+    end
+    if test -d "$resolved_path";
         set PA $PA "$resolved_path"
     end
 end
 
 
-set -l paths "
+set -l manually_added_paths "
 # yarn binary
 $HOME/.yarn/bin
 $GOPATH/bin
 
 # yarn global modules (hack for me)
 $HOME/.config/yarn/global/node_modules/.bin
+
+# `code` binary from VS Code
+/Applications/Visual Studio Code.app/Contents/Resources/app/bin
 "
 
-for entry in (string split \n $paths)
+for entry in (string split \n $manually_added_paths)
     # resolve the {$HOME} substitutions
     set -l resolved_path (eval echo $entry)
+    if contains $resolved_path $PATH;
+      
+        continue; # skip dupes
+    end
     if test -d "$resolved_path";
         set PA $PA "$resolved_path"
     end
 end
-
-# GO
-set PA $PA "/Users/paulirish/.go/bin"
-
-# `code` binary from VS Code insiders
-set PA $PA "/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin"
 
 
 # Google Cloud SDK.
