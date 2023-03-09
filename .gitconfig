@@ -29,6 +29,13 @@
 	# ^^^^                 diff origin/main...  (with THREE dots) is similar, but doesn't include working tree
 	#                                                 ^^^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 
+
+	# Squash a branch to one commit against a branch with many non-main commits.
+	# This can't be an alias, but here's the hack.
+	#    # be on the new feature branch, be okay with rewriting it's history.
+	#    git reset --soft (git merge-base Other_Branch_Name HEAD)
+
+
 	# Two utils: 
 	#   What's the ancestor commit this branch shares with main?
 	diffbase = !"git merge-base HEAD origin/$(git mainormaster)"

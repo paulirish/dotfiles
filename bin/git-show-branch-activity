@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# usage:
+#     git show-branch-activity | less --tabs=4 --quit-if-one-screen --RAW-CONTROL-CHARS --no-init
+
+from glob import glob
+import os.path
+
+import sys
+import subprocess
+import time
+
+yellow = '\033[93m'
+red = '\033[31m'
+green = '\033[92m'
+brightblack = '\u001b[30;1m'
+reset = '\033[0m'
+
+
+def get_branch_heads():
+    '''Returns an Array<[branchname, SHA]> of local branches.'''
+    branch_to_sha = []
+    # %09 is a tab, which we later split on
+    refsoutput = subprocess.check_output(["git", "for-each-ref", "--sort=-committerdate", "refs/heads/", "--format=%(refname)%09%(objectname)%09%(committerdate:human)"])
+    lines = refsoutput.decode().split('\n')
+
+    for line in lines:
+        if not line:
+            continue
+        objectname,sha,committerdate = line.split('\t')
+        branch_name = objectname.replace('refs/heads/', '')
+        if branch_name != 'main':
+            branch_to_sha.append([branch_name, sha, committerdate])
+    return branch_to_sha
+
+
+def main():
+    items = get_branch_heads()
+
+    print(f"Looking at {len(items)} total local heads, from newest to oldest.")
+
+    for [branch, sha, committerdate] in items:
+        print('\n')
+        shortsha = sha[0:7]
+
+        print('{}{}{}  {}{}{} {}({}){}:'.format(yellow, branch, reset, red, shortsha, reset, green, committerdate, reset))
+
+        logoutput = subprocess.check_output(["git", "log", "--color=always", "--no-merges", "--pretty=format:'%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset'", 'origin/main..{}'.format(branch)])
+        lines = logoutput.decode().split('\n')
+        for line in lines:
+            print(line)
+
+    sys.exit(0)
+
+if __name__ == '__main__':
+    main()

@@ -10,7 +10,7 @@
 #     git delete-squashed-and-merged-branches --dry-run  # won't actually delete shit
 #     git delete-squashed-and-merged-branches            # probably will delete shit
 
-# get a github personal access token and put it in ~/.githubtoken
+# get a github personal access token (no scopes) and put it in ~/.githubtoken
 
 # thanks!
 # this script is a bit of a combo from:
@@ -48,7 +48,7 @@ def get_branch_heads():
             continue
         objectname,sha = line.split('\t')
         branch_name = objectname.replace('refs/heads/', '')
-        if branch_name != 'master':
+        if branch_name != 'main':
             branch_to_sha.append([branch_name, sha])
     return branch_to_sha
 
