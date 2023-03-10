@@ -4,6 +4,7 @@ return function(use)
   use 'Xuyuanp/nerdtree-git-plugin'  -- A plugin of NERDTree showing git status
   use 'easymotion/vim-easymotion'    -- Vim motions on speed
   use 'evanleck/vim-svelte'          -- Support for Svelte 3 in vim
+  use 'Joorem/vim-haproxy'           -- Syntaxsupport for HAProxy config files
   use 'mileszs/ack.vim'              -- Provides support for ack and the SilverlightSearcher in vim
   use 'rafamadriz/friendly-snippets' -- Set of preconfigured snippets for different languages.
   use 'scrooloose/nerdtree'          -- A tree explorer plugin for vim
