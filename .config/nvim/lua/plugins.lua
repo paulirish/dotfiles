@@ -24,6 +24,20 @@ return function(use)
 
   use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
 
+  -- AI powered autocompletion like TabNine https://github.com/jcdickinson/codeium.nvim 
+  use {
+    'jcdickinson/codeium.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'hrsh7th/nvim-cmp',
+    },
+    config = function()
+      require("codeium").setup({
+      })
+    end
+  }
+
   use 'kkharji/sqlite.lua'    -- Required from nvim-neoclip
   use 'nvim-lua/plenary.nvim' -- Required from telescope-repo
   use 'airblade/vim-rooter'   -- Required from telescope-repo, otherwise it would not change the directory

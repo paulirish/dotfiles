@@ -80,21 +80,23 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
+    fields = { 'kind', 'abbr', 'menu' },
     format = function(entry, vim_item)
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       vim_item.menu = ({
-        cmp_tabnine = "[TabNine]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[Snippet]",
-        buffer = "[Buffer]",
-        path = "[Path]",
+        codeium = '[Codeium]',
+        cmp_tabnine = '[TabNine]',
+        nvim_lsp = '[LSP]',
+        luasnip = '[Snippet]',
+        buffer = '[Buffer]',
+        path = '[Path]',
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
+    { name = "codeium" },
     { name = 'cmp_tabnine' },
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
