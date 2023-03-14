@@ -1,4 +1,4 @@
-SUDO_PWD=$(pass /home/sudo)
+SUDO_PWD=$(gopass show /home/sudo)
 
 echo ${SUDO_PWD} | sudo -S veracrypt -d /media/XXX-KG
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SUDO_PWD=$(pass /home/sudo)
+SUDO_PWD=$(gopass show /home)
 
 for SHARE in video music daten photo setup home; do
   IS_MOUNTED=$(mount -ls | grep ${SHARE})
