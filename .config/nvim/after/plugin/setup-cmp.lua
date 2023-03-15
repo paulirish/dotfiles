@@ -1,5 +1,6 @@
 --   פּ ﯟ   some other good icons requires https://aur.archlinux.org/packages/nerd-fonts-noto-sans-mono-extended 
 local kind_icons = {
+  Codeium = "",
   Text = "",
   Method = "m",
   Function = "",
@@ -83,7 +84,7 @@ cmp.setup {
     fields = { 'kind', 'abbr', 'menu' },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.kind = string.format("%s", kind_icons[vim_item.kind] or vim_item.kind)
       vim_item.menu = ({
         codeium = '[Codeium]',
         cmp_tabnine = '[TabNine]',
