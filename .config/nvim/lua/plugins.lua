@@ -81,4 +81,10 @@ return function(use)
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
   }
+
+  -- https://github.com/sindrets/diffview.nvim
+  use({
+    'sindrets/diffview.nvim',
+    event = 'BufRead',
+  })
 end
