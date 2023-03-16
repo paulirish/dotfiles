@@ -3,7 +3,7 @@ cd "$(dirname "$0")"
 git pull
 
 # recompile VIM German spell file
-vim -e -s -c "mkspell! ~/Projects/dotfiles/.vim/spell/de.utf-8.add" -c qa
+nvim -e -s -c "mkspell! ~/Projects/dotfiles/.config/nvim/spell/de.utf-8.add" -c qa
 
 copyFiles() {
   rsync --exclude ".git/" --exclude "sync.sh" --exclude "README.md" --exclude "terminal" --exclude "readme.md" -av . ~
