@@ -207,12 +207,15 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        ['<c-u>'] = false,
+        ['<c-d>'] = false,
+        ['<c-h>'] = actions.which_key,
+        ['<c-w>'] = actions.send_selected_to_qflist + actions.open_qflist, -- Send current selected list to quick-fix-list
       },
       n = {
-        ["<c-q"] = actions.send_to_qflist + actions.open_qflist, -- Send current list to quick-fix-list
-        ["?"] = actions.which_key, -- Show predefined keys with using which_key
+        ['<c-h>'] = actions.which_key, -- Show predefined keys with using which_key
+        ["<c-q>"] = actions.send_to_qflist + actions.open_qflist, -- Send current list to quick-fix-list
+        ["<c-w>"] = actions.send_selected_to_qflist + actions.open_qflist, -- Send current selected list to quick-fix-list
       },
     },
     file_ignore_patterns = {
