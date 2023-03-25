@@ -22,7 +22,7 @@ function rsync_local() {
   local source_path=$3
   local includes_excludes=${@:4}
 
-  local target_dir="/run/media/jan/BACKUP_TO_USB/${hostname}/${user}"
+  local target_dir="/run/media/jan/BACKUP-HD/${hostname}/${user}"
 
   mkdir -p $target_dir
 
@@ -50,7 +50,7 @@ function backup {
 
   for directory_name in $directories; do
     if [ "${server_address}" == "USB" ]; then
-      rsync_local $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized"
+      rsync_local $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache"
     else
       rsync_remote $server_address $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache"
     fi
