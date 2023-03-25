@@ -41,14 +41,14 @@ if not luasnip_status_ok then
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_snipmate").lazy_load({ paths = {'/home/jan/Projects/dotfiles/.vim/snippets'} })
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = {'~/Projects/dotfiles/.vim/snippets'} })
 
 cmp.setup {
   completion = {
     keyword_length = 2,
     autocomplete = false,
   },
-  preselect = cmp.PreselectMode.None,
+  preselect = cmp.PreselectMode.None, -- We want to select the item explicitly
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -63,7 +63,6 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
-      -- select = true, -- This line leads to using the first entry without selecting it
     },
     ['<C-j>'] = cmp.mapping(function (fallback)
       if luasnip.expand_or_jumpable() then
@@ -92,20 +91,21 @@ cmp.setup {
         luasnip = '[Snippet]',
         buffer = '[Buffer]',
         path = '[Path]',
+        -- cmdline = '[CMD]',
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
+    { name = 'buffer' },
     { name = "codeium" },
     { name = 'cmp_tabnine' },
+    { name = 'luasnip' },
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'luasnip' },
     { name = 'path' },
-    { name = 'buffer' },
-    { name = 'cmdline' },
+    -- { name = 'cmdline' }, -- Deactivated because it's producing unwanted proposals in the editor
   },
   experimental = {
     ghost_text = true,
@@ -123,12 +123,12 @@ cmp.setup {
 }
 
 -- `/` cmdline setup.
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
+-- cmp.setup.cmdline('/', {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
