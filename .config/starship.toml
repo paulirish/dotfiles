@@ -12,6 +12,7 @@ $nodejs\
 $rust\
 $golang\
 $php\
+$kubernetes\
 [](fg:#212736 bg:#1d2230)\
 $time\
 [ ](fg:#1d2230)\
@@ -56,7 +57,7 @@ format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 
 [package]
-symbol = "🎁"
+symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol $version ](fg:#769ff0 bg:#212736)]($style)'
 
@@ -65,3 +66,10 @@ disabled = true
 time_format = "%R" # Hour:Minute Format
 style = "bg:#1d2230"
 format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+
+[kubernetes]
+disabled = false
+symbol = "⛵"
+style = "bg:#212736"
+format = '[[ $symbol  $user on  $cluster in  $namespace](fg:#769ff0 bg:#212736)]($style)'
+detect_files = ["kube-config.yaml"]
