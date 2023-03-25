@@ -154,3 +154,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 # Adding starship for a more informative prompt https://starship.rs/de-DE/config/ 
 eval "$(starship init zsh)"
+#
+# Source local zshrc with local bu specific settings, if file exists
+[ -f ~/.zshrc.bu ] && source ~/.zshrc.bu
+
