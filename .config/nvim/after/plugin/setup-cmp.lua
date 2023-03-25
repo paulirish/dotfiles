@@ -91,7 +91,7 @@ cmp.setup {
         luasnip = '[Snippet]',
         buffer = '[Buffer]',
         path = '[Path]',
-        -- cmdline = '[CMD]',
+        cmdline = '[CMD]',
       })[entry.source.name]
       return vim_item
     end,
@@ -111,7 +111,11 @@ cmp.setup {
     ghost_text = true,
   },
   view = {
-    -- entries = 'native'
+    entries = 'custom'
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered()
   },
   enabled = function()
     if require"cmp.config.context".in_treesitter_capture("comment")==true or require"cmp.config.context".in_syntax_group("Comment") then
@@ -123,16 +127,17 @@ cmp.setup {
 }
 
 -- `/` cmdline setup.
--- cmp.setup.cmdline('/', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = {
---     { name = 'buffer' }
---   }
--- })
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline('/', { -- completion for / search mode
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+cmp.setup.cmdline(':', { -- completion for commandmode
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = 'path' },
+    { name = 'buffer' }
   }, {
       {
         name = 'cmdline',
