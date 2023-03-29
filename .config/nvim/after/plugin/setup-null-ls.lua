@@ -11,6 +11,7 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.diagnostics.ansiblelint,
+    null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.completion.spell,
     null_ls.builtins.formatting.eslint,
     null_ls.builtins.formatting.prettier.with {
@@ -26,7 +27,7 @@ null_ls.setup({
   --     buffer = bufnr,
   --     callback = function()
   --       vim.lsp.buf.format({ async = false, bufnr = bufnr })
-  --     end,
+  --     end
   --   })
   -- end
   -- end,
