@@ -5,13 +5,16 @@ if not null_ls_status_ok then
 end
 
 -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local codespell_ignore_filepath = os.getenv( "HOME" ) .. "/.codespellignore"
 
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.diagnostics.ansiblelint,
-    null_ls.builtins.diagnostics.codespell,
+    null_ls.builtins.diagnostics.codespell.with {
+      extra_args = { "--ignore-words="..codespell_ignore_filepath},
+    },
     null_ls.builtins.completion.spell,
     null_ls.builtins.formatting.eslint,
     null_ls.builtins.formatting.prettier.with {
