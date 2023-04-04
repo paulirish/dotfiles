@@ -2,7 +2,6 @@ return function(use)
   use 'liuchengxu/vim-which-key'     -- Show the current leader mappings
   use 'zirrostig/vim-schlepp'        -- Moving blocks of text easily
   use 'Xuyuanp/nerdtree-git-plugin'  -- A plugin of NERDTree showing git status
-  use 'easymotion/vim-easymotion'    -- Vim motions on speed
   use 'evanleck/vim-svelte'          -- Support for Svelte 3 in vim
   use 'Joorem/vim-haproxy'           -- Syntaxsupport for HAProxy config files
   use 'mileszs/ack.vim'              -- Provides support for ack and the SilverlightSearcher in vim
@@ -87,4 +86,13 @@ return function(use)
     'sindrets/diffview.nvim',
     event = 'BufRead',
   })
+
+  use { -- Replacement for vim-easymotion
+    'phaazon/hop.nvim',
+    branch = 'v2', -- optional but strongly recommended
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
+  }
 end

@@ -66,7 +66,7 @@ vim.cmd('let g:Schlepp#allowSquishingBlock = 1')
 -- vim-router
 vim.g.rooter_cd_cmd = 'lcd'
 
--- Set my prefered colorscheme
+-- Set my preferred colorscheme
 -- require('material.functions').change_style('palenight')
 vim.o.termguicolors = true
 vim.cmd('colorscheme onedark')

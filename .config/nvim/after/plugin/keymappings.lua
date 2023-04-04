@@ -117,3 +117,7 @@ nmap('<leader>tr', cmd('Telescope repo'), 'Telescope repos')
 nmap('<leader>xx', cmd('TroubleToggle workspace_diagnostics'), 'Toggle diagnostics list')
 nmap('<leader>xr', cmd('TroubleRefresh'), 'Refresh diagnostics list')
 nmap('<leader>xq', cmd('TroubleToggle quickfix'), 'Refresh diagnostics list')
+
+-- Keys for hop
+nmap('<leader>,w', cmd('HopWord'), 'Hop word')
+nmap('<leader>,p', cmd('HopPattern'), 'Hop pattern')
