@@ -76,6 +76,21 @@ return function(use)
   use 'fatih/vim-go'                    -- Better support for Go
   use 'jose-elias-alvarez/null-ls.nvim' -- Using various additional tools without direct lsp support
 
+  use({
+    "glepnir/lspsaga.nvim",
+    opt = true,
+    branch = "main",
+    event = "LspAttach",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+    requires = {
+      {"nvim-tree/nvim-web-devicons"},
+      --Please make sure you install markdown and markdown_inline parser
+      {"nvim-treesitter/nvim-treesitter"}
+    }
+  })
+
   use {                                 -- https://github.com/windwp/nvim-autopairs
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
