@@ -11,7 +11,7 @@ I would not suggest you just wholesale use my dotfiles. But there's a few files 
 
 #### shell
 
-This repo contains config for fish and bash. As of March 2016, I'm using fish shell mostly, but fall back to bash once in a while. The bash and fish stuff are both well maintained. If you're using fish you'll want to do a `git submodule update --init`.
+This repo contains config for fish and bash. As of 2016, I primarily use `fish` shell, but fall back to `bash` once in a while. The bash and fish stuff are both well maintained. If you're using fish you'll want to do a `git submodule update --init`.
 
 ## my favorite parts.
 
@@ -32,6 +32,7 @@ Basically it makes typing into the prompt amazing.
 * tab all the livelong day.
 
 ### [.gitconfig](./gitconfig)
+* err'body gotta have their aliases. I'm no different.
 
 ### Moving around in folders (`z`, `...`, `cdf`)
 `z` helps you jump around to whatever folder. It uses actual real magic to determine where you should jump to. Seperately there's some `...` aliases to shorten `cd ../..` and `..`, `....` etc. Then, if you have a folder open in Finder, `cdf` will bring you to it.
@@ -46,21 +47,11 @@ cdf       # cd to whatever's up in Finder
 Lastly, I use `open .` to open Finder from this path. (That's just available normally.)
 
 
-
 ## overview of files
 
-####  Automatic config
-* `.vimrc`, `.vim` - vim config, obv.
-* `.inputrc` - behavior of the actual prompt line
 
 #### shell environment
-* `.aliases`
-* `.bash_profile`
-* `.bash_prompt`
-* `.bashrc`
-* `.exports`
-* `.functions`
-* `.extra` - not included, explained below
+* `.aliases`, `.bash_profile`, `.bash_prompt`, `.bashrc`, `.exports`, `.functions`
 
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
@@ -81,28 +72,11 @@ There will be items that don't belong to be committed to a git repo, because eit
 
 I have some EXPORTS, my PATH construction, and a few aliases for ssh'ing into my servers in there.
 
-I don't know how other folks manage their $PATH, but this is how I do mine:
 
-```shell
-# The top-most paths override here.
-      PATH=/opt/local/bin
-PATH=$PATH:/opt/local/sbin
-PATH=$PATH:/bin
-PATH=$PATH:~/.rvm/bin
-PATH=$PATH:~/code/git-friendly
-# ...
-
-export PATH
-```
-
-
-### Sensible OS X defaults
+### Sensible OS X defaults in `.macos`
 
 Mathias's repo is the canonical for this, but you should probably run his or mine after reviewing it.
 
-```bash
-./.macos
-```
 
 ### `~/bin`
 

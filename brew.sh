@@ -51,9 +51,11 @@ brew install shellcheck # linting for .sh files
 brew install mtr
 
     # allow mtr to run without sudo
-    mtrlocation=$(brew info mtr | grep Cellar | sed -e 's/ (.*//') #  e.g. `/Users/paulirish/homebrew/Cellar/mtr/0.86`
-    sudo chmod 4755 $mtrlocation/sbin/mtr
-    sudo chown root $mtrlocation/sbin/mtr
+    # https://github.com/traviscross/mtr/issues/204#issuecomment-487325796
+    sudo chmod 4755 $location_of_mtr-packet
+    # on my machine i have a `/usr/local/sbin/mtr-packet` and root owns local/sbin. (thx google!?)
+    # thus, i dont use the homebrew mtr.
+
 
 
 # Install other useful binaries
