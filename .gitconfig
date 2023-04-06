@@ -20,15 +20,11 @@
 
 	# Essentially GitHub's compare view: show all 'ahead' changes (incl working tree) vs the merge-base
 	diffbranch = !"git diff $(git diffbase)"
+	# Diff of branch that's not checked out. Doesn't include working tree (but obv doesnt need to)
+	diffbranch-that = !"git diff origin/$(git mainormaster)...\"$1\" #"
 	# Show commit log of unique commits of this branch (not on main)
 	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
-
-	# Show unified diff of this branch (and working tree) vs main branch. Includes the diff of 'behind' commits too :/
-	# DISABLED cuz I think this might just be useless. We'll see.
-	# difffrommain = !"git diff origin/$(git mainormaster):"
-	# ^^^^                 diff origin/main...  (with THREE dots) is similar, but doesn't include working tree
-	#                                                 ^^^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
-
+	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 
 	# Squash a branch to one commit against a branch with many non-main commits.
 	# This can't be an alias, but here's the hack.
@@ -38,12 +34,16 @@
 
 	# Two utils: 
 	#   What's the ancestor commit this branch shares with main?
-	diffbase = !"git merge-base HEAD origin/$(git mainormaster)"
+	diffbase = !"git merge-base origin/$(git mainormaster) HEAD"
 	#   Is it a `main` or a `master` repo?
 	mainormaster = !"git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
 
 	# fyi to change a git checkout from master to main.. (gh's suggested commands:)
 	#    git branch -m master main; git fetch origin; git branch -u origin/main main; git remote set-head origin -a
+
+	# commit (past) WIP changes with a message stating when they happened. (Cuz I sometimes leave changes uncommitted for a while, but want the dates for reference)
+	# todo: maybe use `git commit --date=X` to set a past date. would need to pick one, tho.
+	commitwip = !"git commit -am \"WIP changes from a while ago. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
 
 
 [core]
