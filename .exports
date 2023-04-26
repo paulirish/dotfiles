@@ -29,7 +29,7 @@ export LANG=en_US.UTF-8
 
 # This is for FZF to ignore all files and folder that are listed in the .gitignore file
 # You need to install ag for this
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
 # Define where the Go main path is
 export GOPATH=~/go
