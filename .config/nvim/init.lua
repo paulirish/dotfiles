@@ -261,7 +261,7 @@ vim.keymap.set('n', '<leader>tr', require('telescope.builtin').resume, { desc = 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'bash', 'css', 'javascript', 'json', 'go', 'lua', 'python', 'rust', 'typescript', 'tsx', 'help', 'vim', 'yaml', 'markdown', 'markdown_inline' },
+  ensure_installed = { 'bash', 'css', 'javascript', 'json', 'go', 'lua', 'python', 'rust', 'typescript', 'tsx', 'vimdoc', 'vim', 'yaml', 'markdown', 'markdown_inline' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
