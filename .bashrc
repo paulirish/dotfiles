@@ -141,14 +141,18 @@ alias nginx_start="brew services start nginx-full"
 alias nginx_stop="brew services stop nginx-full"
 alias nginx_restart="brew services restart nginx-full"
 alias nginx_reload="brew services reload nginx-full"
+# rubocop
 alias police="git status -s | awk '{print \$2}' | grep '\.rb$' | xargs rubocop"
-
+# spork
+alias spork_up="RAILS_ENV=test bundle exec spork"
+alias spork_test="bundle exec rspec --drb"
 # bundler
 alias be="bundle exec"
 alias bs="bundle show"
 alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
-
+alias nocolors='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"'
+alias slackmojify="mogrify -resize 128x128 -unsharp 2x1.4+0.5+0 -quality 100 -verbose"
 export BUNDLER_EDITOR=vim
 
 ### FUNCTIONS
