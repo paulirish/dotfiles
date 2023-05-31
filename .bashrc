@@ -79,11 +79,11 @@ source $OSH/oh-my-bash.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -120,7 +120,7 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 alias trimcopy="tr -d '\n' | pbcopy"
 alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 alias g="git"
-alias v="vim"
+alias v="nvim"
 alias fs="stat -f \"%z bytes\""
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
@@ -153,7 +153,7 @@ alias b="bundle"
 alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 alias nocolors='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"'
 alias slackmojify="mogrify -resize 128x128 -unsharp 2x1.4+0.5+0 -quality 100 -verbose"
-export BUNDLER_EDITOR=vim
+export BUNDLER_EDITOR=nvim
 
 ### FUNCTIONS
 # setup_docker() {
@@ -190,9 +190,6 @@ g_rand() {
 
 ### FUNCTIONS
 
-# rubocop
-
-export EDITOR=vim
 
 # windows stuff
 alias explorer='explorer.exe `wslpath -w "$PWD"`'
