@@ -1,79 +1,85 @@
 [alias]
-    c = commit
-	aa = add .
-	tool = mergetool
-	up = fetch --all --prune
-    p = push
-    m = merge
-    st = status -s
-    a = add -i
-    d = diff --color --color-words --abbrev
-    dc = diff --color --color-words --abbrev --cached
-	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	rt = reset HEAD --hard
-	am = commit --amend
-	rollback = reset HEAD~10 --hard
-    ch = checkout
-    b = branch
-    find = rev-list -n 1 HEAD
-    sub = submodule
-    patch = format-patch -1
-    r = reset
+  c = commit
+  aa = add .
+  tool = mergetool
+  up = fetch --all --prune
+  p = push
+  m = merge
+  st = status -s
+  a = add -i
+  d = diff --color --color-words --abbrev
+  dc = diff --color --color-words --abbrev --cached
+  l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  rt = reset HEAD --hard
+  am = commit --amend
+  rollback = reset HEAD~10 --hard
+  ch = checkout
+  b = branch
+  find = rev-list -n 1 HEAD
+  sub = submodule
+  patch = format-patch -1
+  r = reset
 [color]
-	ui = always
+  ui = always
 [core]
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
-	editor = 'nvim'
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  editor = 'nvim'
     # windows withespace (you don't need this for unix
     # @see https://stackoverflow.com/questions/1889559/git-diff-to-ignore-m
     # @see https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
     # whitespace = cr-at-eol
-    autocrlf = input
+  autocrlf = input
 [color "branch"]
-	; current = yellow reverse
-	; local = yellow
-	; remote = green
+  ; current = yellow reverse
+  ; local = yellow
+  ; remote = green
 [color "diff"]
-	; meta = yellow bold
-	; frag = magenta bold
-	; old = red bold
-	; new = green bold
+  ; meta = yellow bold
+  ; frag = magenta bold
+  ; old = red bold
+  ; new = green bold
 [color "status"]
-	; added = yellow
-	; changed = green
-	; untracked = cyan
+  ; added = yellow
+  ; changed = green
+  ; untracked = cyan
 [merge]
-	log = true
-	tool = vimdiff
+  log = true
+  tool = nvimdiff
+[difftool]
+  prompt = true
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [url "git@github.com:"]
-	insteadOf = "gh:"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
 [url "git://github.com/"]
-	insteadOf = "github:"
+  insteadOf = "github:"
 [url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
-	insteadOf = "gist:"
+  insteadOf = "gist:"
 
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
 [url "git@github.com:richistron/"]
   insteadOf = "git://github.com/richistron/"
 [user]
-	name = Ricardo Rivas
-	email = richistron@gmail.com
+  name = Ricardo Rivas
+  email = richistron@gmail.com
 [push]
-	default = current
+  default = current
 [pull]
-	default = current
-	rebase = false
+  default = current
+  rebase = false
 [gc]
-	auto = 0
+  auto = 0
 [branch]
-	autoSetupMerge = always
+  autoSetupMerge = always
 [init]
-	defaultBranch = main
+  defaultBranch = main
