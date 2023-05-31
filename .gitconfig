@@ -24,7 +24,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
-	editor = 'vim'
+	editor = 'nvim'
     # windows withespace (you don't need this for unix
     # @see https://stackoverflow.com/questions/1889559/git-diff-to-ignore-m
     # @see https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
