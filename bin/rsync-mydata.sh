@@ -49,7 +49,7 @@ function backup {
   echo "Create backup on server ${server_address} for computer ${hostname} in user-home for ${user} at $(date +%d-%m-%yT%H:%M:%S)"
 
   if [ -z "${directories}" ]; then
-    rsync_local $hostname $user "${home_dir}/" --exclude="node_modules/" --exclude="go" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache" --exclude=".rustup"
+    rsync_local $hostname $user "${home_dir}/" --exclude="node_modules/" --exclude="go" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache" --exclude=".rustup" --exclude=".local"
     return
   fi
 
