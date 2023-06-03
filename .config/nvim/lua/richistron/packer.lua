@@ -14,8 +14,8 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
-  use("tpope/vim-fugitive")
-  use("tpope/vim-surround")
+  use('tpope/vim-fugitive')
+  use('tpope/vim-surround')
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('editorconfig/editorconfig-vim')

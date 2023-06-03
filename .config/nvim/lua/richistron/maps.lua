@@ -1,6 +1,6 @@
 vim.g.mapleader = ","
 
-vim.keymap.set("n", "<C-p>", vim.cmd.Ex)
+vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<F1>", "<nop>")
 vim.keymap.set("n", "<leader>w", ":w<cr>")
@@ -8,6 +8,11 @@ vim.keymap.set("n", "<leader>q", ":q<cr>")
 vim.keymap.set("n", "<leader>qa", ":qa<cr>")
 vim.keymap.set("n", "<leader>cat", ":tabonly<cr>")
 vim.keymap.set("n", "<leader>te", ":vsp<cr> :te<cr>")
+vim.keymap.set('i', 'jj', '<Esc>')
+vim.keymap.set('i', 'JJ', '<Esc>')
+vim.keymap.set('i', 'kk', '<Esc>')
+vim.keymap.set('i', 'ii', '<Esc>')
+vim.keymap.set({"n", "v"}, "<leader>p", ":set invpaste paste?<CR>")
 vim.keymap.set("n", "<leader>so", function()
   vim.cmd("so")
 end)
@@ -28,7 +33,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({"n", "v"}, "<S-Y>", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
@@ -46,11 +51,12 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 --telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>f', builtin.git_files, {})
-vim.keymap.set('n', '<leader>fa', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fs', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
+vim.keymap.set("n", "<C-x>", vim.cmd.Ex)
+vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+vim.keymap.set('n', '<C-f>', builtin.find_files, {})
+vim.keymap.set('n', '<C-s>', builtin.live_grep, {})
+vim.keymap.set('n', '<C-b>', builtin.buffers, {})
+vim.keymap.set('n', '<C-h>', builtin.help_tags, {})
 
 --fugitive
 vim.keymap.set('n', '<leader>gs', ':Git<CR>')
@@ -71,4 +77,8 @@ vim.keymap.set('n', '<F3>', ':tabnext<cr>')
 vim.keymap.set('n', '<F4>', ':tabprevious<cr>')
 vim.keymap.set('n', '<F5>', ':tabnew<cr>')
 vim.keymap.set('n', '<F2>', vim.cmd.UndotreeToggle)
+
+--ruby
+vim.keymap.set('n', '<leader>rs', ':!rspec %<CR>')
+
 
