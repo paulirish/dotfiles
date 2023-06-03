@@ -44,4 +44,6 @@ return require('packer').startup(function(use)
   }
   use('preservim/nerdcommenter')
   use('vim-airline/vim-airline') 
+  use('vim-airline/vim-airline-themes') 
 end)
+

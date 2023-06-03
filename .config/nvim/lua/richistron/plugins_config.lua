@@ -4,6 +4,9 @@ require('rose-pine').setup({
   variant = 'moon'
 })
 vim.cmd('colorscheme rose-pine')
+vim.cmd [[
+  let g:airline_theme = 'solarized'
+]]
 
 --telescope
 require("telescope").setup {
