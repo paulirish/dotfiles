@@ -78,9 +78,10 @@ alias trimcopy="tr -d '\n' | copy"
 alias cleanup_ds_store="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Some other Shortcuts
-alias v="vim"
-alias e="vim -c 'startinsert'"
-alias edit="vim"
+alias vim="nvim"
+alias v="nvim"
+alias e="nvim -c 'startinsert'"
+alias edit="nvim"
 alias cls='clear'
 alias ccat="pygmentize -O style=monokai -f console256 -g"
 alias rd="rm -rf" # Remove directories without asking me
@@ -203,7 +204,7 @@ alias pacman-remove="sudo pamac remove --noconfirm $1"
 alias passwd-gen="pwgen 20 1"
 
 # Add aliases for file-types
-alias -s {md,txt,js,css,html}=vim
+alias -s {md,txt,js,css,html}="nvim"
 alias -s {png,jpg,jpeg}=eog
 
 # Helpful aliases for Kubernetes
