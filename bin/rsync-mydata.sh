@@ -3,17 +3,16 @@ function rsync_remote() {
   local hostname=$2
   local user=$3
   local source_path=$4
-  local includes_excludes=${@:5}
 
-  echo "backup directory $source_path"
+  local target_path="${user}@${server_address}:/volume1/backup/${hostname}/${user}/"
+
+  echo "backup directory $source_path to $target_path"
   echo "------------------------------------------"
 
   rsync -avu --progress --delete                                                    \
-        ${includes_excludes}                                                        \
-        -e "ssh -i /home/${user}/.ssh/rsync-key -p $JABASOFT_DS_SSH_PORT"           \
-        ${source_path} ${user}@${server_address}:/volume1/backup/${hostname}/${user}/
-
-  echo ""
+        --exclude-from=/home/jan/rsync-remote-excludes                              \
+        -e "ssh -i /home/${user}/.ssh/rsync-key"                                    \
+        ${source_path} ${target_path}
 }
 
 function rsync_local() {
@@ -29,8 +28,8 @@ function rsync_local() {
   echo "backup directory $source_path"
   echo "------------------------------------------"
 
-  rsync -avu --progress --delete \
-        ${includes_excludes}                                                         \
+  rsync -avu --progress --delete                      \
+        --exclude-from=/home/jan/rsync-local-excludes \
         ${source_path} $target_dir
 }
 
@@ -39,7 +38,7 @@ function backup {
   local hostname=$2
   local user=$3
   local directories=$4
-  local home_dir="/home/${user}"
+  local home_dir="/home/${user}/"
 
   if [ -z "${hostname}" ]; then
     echo "hostname is not provided, script aborted"
@@ -48,22 +47,9 @@ function backup {
 
   echo "Create backup on server ${server_address} for computer ${hostname} in user-home for ${user} at $(date +%d-%m-%yT%H:%M:%S)"
 
-  if [ -z "${directories}" ]; then
-    rsync_local $hostname $user "${home_dir}/" --exclude="node_modules/" --exclude="go" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache" --exclude=".rustup" --exclude=".local"
-    return
-  fi
-
-  for directory_name in $directories; do
-    if [ "${server_address}" == "USB" ]; then
-      rsync_local $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache"
-    else
-      rsync_remote $server_address $hostname $user "${home_dir}/${directory_name}" --exclude="node_modules/" --exclude=".DS_store" --exclude=".localized" --exclude="debug" --exclude="*cache"
-    fi
-  done
-
   if [ "${server_address}" == "USB" ]; then
-    rsync_local $hostname $user "${home_dir}/" --exclude=".local/" --include="*.local" --include=".smb" --exclude="*"
+    rsync_local $hostname $user $home_dir
   else
-    rsync_remote $server_address $hostname $user "${home_dir}/" --exclude=".local/" --include="*.local" --include=".smb" --exclude="*"
+    rsync_remote $server_address $hostname $user $home_dir
   fi
 }
