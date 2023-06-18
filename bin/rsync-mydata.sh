@@ -1,55 +1,62 @@
 function rsync_remote() {
   local server_address=$1
-  local hostname=$2
+  local target_dir="${user}@${server_address}:/volume1/backup/${2}/"
   local user=$3
-  local source_path=$4
+  local source_dir="$4/"
+  local exclude_from_file=$5
 
-  local target_path="${user}@${server_address}:/volume1/backup/${hostname}/${user}/"
+  # echo "*******************************"
+  # echo "server_address: $server_address"
+  # echo "target_dir: $target_dir"
+  # echo "user: $user"
+  # echo "source_dir: $source_dir"
+  # echo "exclude_from_file: $exclude_from_file"
+  # echo "*******************************"
 
-  echo "backup directory $source_path to $target_path"
+  echo "backup directory $source_dir to $target_dir"
   echo "------------------------------------------"
 
-  rsync -avu --progress --delete                                                    \
-        --exclude-from=/home/jan/rsync-remote-excludes                              \
-        -e "ssh -i /home/${user}/.ssh/rsync-key"                                    \
-        ${source_path} ${target_path}
+  rsync -avu --progress --delete                    \
+        --exclude-from=$exclude_from_file           \
+        -e "ssh -i /home/$(whoami)/.ssh/rsync-key"  \
+        "${source_dir}" "${target_dir}"
 }
 
 function rsync_local() {
-  local hostname=$1
+  local target_dir="/run/media/jan/BACKUP-HD/${1}/"
   local user=$2
-  local source_path=$3
-  local includes_excludes=${@:4}
+  local source_dir="$3/"
+  local exclude_from_file=$4
 
-  local target_dir="/run/media/jan/BACKUP-HD/${hostname}/${user}"
+  # echo "*******************************"
+  # echo "target_dir: $target_dir"
+  # echo "user: $user"
+  # echo "source_dir: $source_dir"
+  # echo "exclude_from_file: $exclude_from_file"
+  # echo "*******************************"
 
   mkdir -p $target_dir
 
-  echo "backup directory $source_path"
+  echo "backup directory $source_dir to $target_dir"
   echo "------------------------------------------"
 
-  rsync -avu --progress --delete                      \
-        --exclude-from=/home/jan/rsync-local-excludes \
-        ${source_path} $target_dir
+  rsync -avu --progress --delete            \
+        --exclude-from=$exclude_from_file   \
+        "${source_dir}" "${target_dir}"
 }
 
 function backup {
   local server_address=$1
-  local hostname=$2
+  local target_dir=$2
   local user=$3
-  local directories=$4
-  local home_dir="/home/${user}/"
+  local source_dir=$4
+  local exclude_from_file=$5
 
-  if [ -z "${hostname}" ]; then
-    echo "hostname is not provided, script aborted"
-    return
-  fi
-
-  echo "Create backup on server ${server_address} for computer ${hostname} in user-home for ${user} at $(date +%d-%m-%yT%H:%M:%S)"
+  echo "Create backup on target-device ${server_address} for computer $(hostname) for user $(whoami) at $(date +%d-%m-%yT%H:%M:%S)"
 
   if [ "${server_address}" == "USB" ]; then
-    rsync_local $hostname $user $home_dir
+    rsync_local "$target_dir" "$user" "$source_dir" "$exclude_from_file"
   else
-    rsync_remote $server_address $hostname $user $home_dir
+    rsync_remote "$server_address" "$target_dir" "$user" "$source_dir" "$exclude_from_file"
   fi
 }
