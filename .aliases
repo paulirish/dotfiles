@@ -183,10 +183,6 @@ alias man-fzf="man -k . | sort -r | fzf | awk '{print $1}' | xargs -r man "
 # Clearing the greenclip history
 alias clear-clip-history="rm ~/.cache/greenclip.history"
 
-# Backup homefolders
-alias rsync-jabasoft-linux1="~/bin/rsync-JABASOFT-LINUX1.sh"
-alias rsync-jabasoft-mbx="~/bin/rsync-JABASOFT-MBX.sh"
-
 # You need to install xsel with apt-get before using it
 alias copy='xsel --clipboard --input'
 alias paste='xsel --clipboard --output'
