@@ -41,7 +41,7 @@ if not luasnip_status_ok then
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_snipmate").lazy_load({ paths = {'~/Projects/dotfiles/.vim/snippets'} })
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = {'~/.config/nvim/snippets'} })
 
 cmp.setup {
   completion = {
