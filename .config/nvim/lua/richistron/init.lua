@@ -1,0 +1,5 @@
+require('richistron.packer')
+require('richistron.lsp')
+require('richistron.set')
+require('richistron.maps')
+require('richistron.plugins_config')
