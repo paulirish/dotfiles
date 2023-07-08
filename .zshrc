@@ -147,11 +147,6 @@ source ~/.config/zsh/cursor-shape.conf
 
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
-# pnpm
-export PNPM_HOME="/home/jan/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end%
-
 # Adding starship for a more informative prompt https://starship.rs/de-DE/config/ 
 eval "$(starship init zsh)"
 #
