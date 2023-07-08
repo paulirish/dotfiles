@@ -35,7 +35,7 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 export GOPATH=~/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-export CDPATH=~/:~/Projects/:~/Projects/howcani:~/Projects/mymusic
+export CDPATH=~/:~/Projects/:~/Projects/check24/:~/Projects/check24/bu-ansible/:/media/jan/mailbox-drive/Jan\ Baer/:/media/jan/mailbox-drive/Jan\ Baer\CHECK24/
 
 # Show colored output when running molecule
 export PY_COLORS="1"
