@@ -44,7 +44,7 @@ end
 
 function stab --description "stabalize a video"
   set -l vid $argv[1]
-  ffmpeg -i "$vid" -vf vidstabdetect=stepsize=32:result="$vid.trf" -f null -; 
+  ffmpeg -i "$vid" -vf vidstabdetect=stepsize=32:result="$vid.trf" -f null -;
   ffmpeg -i "$vid" -b:v 5700K -vf vidstabtransform=interpol=bicubic:input="$vid.trf" "$vid.mkv";  # :optzoom=2 seems nice in theory but i dont love it. kinda want a combo of 1 and 2. (dont zoom in past the static zoom level, but adaptively zoom out to full when possible)
   ffmpeg -i "$vid" -i "$vid.mkv" -b:v 3000K -filter_complex hstack "$vid.stack.mkv"
   # vid=Dalton1990/Paultakingusaroundthehouseagai ffmpeg -i "$vid.mp4" -i "$vid.mkv" -b:v 3000K -filter_complex hstack $HOME/Movies/"Paultakingusaroundthehouseagai.stack.mkv"
@@ -64,20 +64,55 @@ function md --wraps mkdir -d "Create a directory and cd into it"
   end
 end
 
+# yes I love this gross combo of shell script, escapes, and node.
 function gz --d "Get the gzipped size"
   printf "%-20s %12s\n"  "compression method"  "bytes"
-  printf "%-20s %'12.0f\n"  "original"         (cat "$argv[1]" | wc -c)
-  
+  set origstr (printf "%-20s %'12.0f"  "original"         (cat "$argv[1]" | wc -c))
+  echo $origstr
+  set -l array "$origstr"
+
   # -5 is what GH pages uses, dunno about others
   # fwiw --no-name is equivalent to catting into gzip
-  printf "%-20s %'12.0f\n"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c)
-  printf "%-20s %'12.0f\n"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c)
-  
+  set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c))
+  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c))
+  echo $array[-1]
+
+
   # brew install brotli to get these as well
   if hash brotli
-  # googlenews uses about -5, walmart serves --best 
-  printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c)
-  printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c)
+  # googlenews uses about -5, walmart serves --best
+  set -a array (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c))
+  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c))
+  echo $array[-1]
+  end
+
+  # brew install zstd to get these as well
+  if hash zstd
+  set -a array (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c))
+  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c))
+  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f\n"  "zstd (--22 --ultra)"    (cat "$argv[1]" | zstd -c -22 --ultra - | wc -c))
+  echo $array[-1]
+  end
+
+  sleep 0.05
+  # TODO: fix the off by one.
+  # set -a array (printf "nothing really                000")
+  # echo $array[-1]
+
+  for item in $array
+    # ANSI escape cursor movement https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
+    printf "\033[1A"  # up 1 row
+  end
+
+  set orig (string replace --all "," "" (string match --regex "  [\d,]+" $origstr))
+  for item in $array
+    printf "$item   "
+    set bytesnum (string replace --all "," "" (string match --regex "  [\d,]+" $item))
+    echo "wid = $COLUMNS - 40; console.log('█'.repeat($bytesnum * wid / $orig) + '░'.repeat(wid - ($bytesnum * wid / $orig)))" | node
   end
 end
 
@@ -108,7 +143,7 @@ function fuck -d 'Correct your previous console command'
 end
 
 # requires my excellent `npm install -g statikk`
-function server -d 'Start a HTTP server in the current dir, optionally specifying the port'    
+function server -d 'Start a HTTP server in the current dir, optionally specifying the port'
     # arg can either be port number or extra args to statikk
     if test $argv[1]
       if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$argv[1]"
@@ -119,7 +154,7 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
         echo "not a number"
         statikk --open $argv[1]
       end
-        
+
     else
         statikk --open
     end
