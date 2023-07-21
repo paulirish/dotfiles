@@ -37,7 +37,7 @@ end
 # needs `brew install watchexec`. https://watchexec.github.io/
 function dtb --description "build devtools with a watch loop"    
     set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-    set -l cmd "watchexec \"autoninja -C $dir_default\""  
+    set -l cmd "watchexec --ignore out \"autoninja -C $dir_default\""  
     echo "  > $cmd"
     eval $cmd
 end
@@ -67,7 +67,7 @@ function dtcr --description "run chrome with dev devtools"
     end
 
     # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
-    set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
+    set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:10830/tailwind-allev.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
     set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv '$landing_url'"
     echo "  > $cmd"
     eval $cmd
