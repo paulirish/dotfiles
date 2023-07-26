@@ -27,6 +27,7 @@ set colored-stats on
 
 # Use the text that has already been typed as the prefix for searching through
 # commands (basically more intelligent Up/Down behavior)
+# These two lines are DUPLICATED in bash_profile also......
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
