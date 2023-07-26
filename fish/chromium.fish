@@ -1,8 +1,7 @@
-
 function deps --description "run gclient sync"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
     # also reset seems to reset branch position in the devtools-internal repo??? weird.
-    gclient sync --delete_unversioned_trees --jobs=70
+    gclient sync --delete_unversioned_trees --jobs=70 --verbose
 end
 
 function hooks --description "run gclient runhooks"
@@ -10,7 +9,7 @@ function hooks --description "run gclient runhooks"
 end
 
 function b --description "build chromium"
-	set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
+    set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
     # autoninja is better than trying to set -j and -l manually.
     # and yay, nice cmd built-in, so no more need to do this:  `renice +19 -n (pgrep ninja); renice +19 -n (pgrep compiler_proxy)`
     set -l cmd "nice -n 19 autoninja -C "$dir_default" chrome"  # blink_tests  
@@ -56,7 +55,15 @@ function cr --description "open built chromium (accepts runtime flags)"
 end
 
 function dtcr --description "run chrome with dev devtools"
-    set -l crpath "./$(git rev-parse --show-cdup)/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
+    
+    # function handle_int --on-signal SIGINT
+    #     echo Got SIGINT
+    # end
+
+    set -l cdup (git rev-parse --show-cdup)
+    # node ./$cdup/scripts/component_server/server.js --traces &  # start in background. trap will kill on exit.
+
+    set -l crpath "./$cdup/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
     set -l dtpath (realpath out/Default/gen/front_end)
     if test ! -e "$dtpath/devtools_app.html"
         echo "Not found at: $dtpath/devtools_app.html"
@@ -67,8 +74,8 @@ function dtcr --description "run chrome with dev devtools"
     end
 
     # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
-    set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv '$landing_url'"
+    # set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv http://localhost:11010/"
     echo "  > $cmd"
     eval $cmd
 end

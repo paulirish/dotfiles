@@ -222,6 +222,12 @@ sudo sysctl kern.maxvnodes=… blah blah something…
 git config status.showuntrackedfiles no
 git config core.untrackedCache true
 git update-index --untracked-cache
+# use fsmonitor
+git config core.fsmonitor true
+# dumb gitsecrets checks
+git config --type=bool --add google.gitSecretsHook false
+
+
 # also this unrelated thing
 git config user.email "xxxx@chromium.org"
 

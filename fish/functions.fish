@@ -67,6 +67,7 @@ end
 # yes I love this gross combo of shell script, escapes, and node.
 function gz --d "Get the gzipped size"
   printf "%-20s %12s\n"  "compression method"  "bytes"
+  # TODO.. omg theres no need to go backwards. i can do this in 1 pass.
   set origstr (printf "%-20s %'12.0f"  "original"         (cat "$argv[1]" | wc -c))
   echo $origstr
   set -l array "$origstr"
@@ -99,10 +100,7 @@ function gz --d "Get the gzipped size"
   end
 
   sleep 0.05
-  # TODO: fix the off by one.
-  # set -a array (printf "nothing really                000")
-  # echo $array[-1]
-
+  
   for item in $array
     # ANSI escape cursor movement https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
     printf "\033[1A"  # up 1 row
