@@ -63,7 +63,7 @@ function dtcr --description "run chrome with dev devtools"
     set -l cdup (git rev-parse --show-cdup)
     # node ./$cdup/scripts/component_server/server.js --traces &  # start in background. trap will kill on exit.
 
-    set -l crpath "./$cdup/third_party/chrome/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
+    set -l crpath "./$cdup/third_party/chrome/chrome*/Google\ Chrome\ for\ Testing.app/Contents/MacOS/Google\ Chrome\ for\ Testing"
     set -l dtpath (realpath out/Default/gen/front_end)
     if test ! -e "$dtpath/devtools_app.html"
         echo "Not found at: $dtpath/devtools_app.html"
