@@ -36,7 +36,7 @@ end
 # needs `brew install watchexec`. https://watchexec.github.io/
 function dtb --description "build devtools with a watch loop"    
     set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-    set -l cmd "watchexec \"autoninja -C $dir_default\""  
+    set -l cmd "watchexec --ignore out \"autoninja -C $dir_default\""  
     echo "  > $cmd"
     eval $cmd
 end
@@ -44,7 +44,7 @@ end
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
 #                                                  # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
-set clutch_chrome_flags "--use-mock-keychain --disable-features=DialMediaRouteProvider"
+set clutch_chrome_flags "--use-mock-keychain --disable-features=DialMediaRouteProvider --disable-features=ProcessPerSiteUpToMainFrameThreshold"
 
 
 function cr --description "open built chromium (accepts runtime flags)"
