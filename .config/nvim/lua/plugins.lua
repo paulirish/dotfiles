@@ -76,17 +76,15 @@ return function(use)
   use 'fatih/vim-go'                    -- Better support for Go
   use 'jose-elias-alvarez/null-ls.nvim' -- Using various additional tools without direct lsp support
 
+  -- https://dev.neovim.pro/lspsaga/
   use({
-    "glepnir/lspsaga.nvim",
-    opt = true,
-    branch = "main",
-    event = "LspAttach",
+    "nvimdev/lspsaga.nvim",
+    after = "nvim-lspconfig",
     config = function()
       require("lspsaga").setup({})
     end,
     requires = {
       {"nvim-tree/nvim-web-devicons"},
-      --Please make sure you install markdown and markdown_inline parser
       {"nvim-treesitter/nvim-treesitter"}
     }
   })
