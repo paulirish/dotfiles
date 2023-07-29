@@ -1,7 +1,0 @@
-set $font_height 12
-set $menu_font_height 18
-set $gnome_zoom 1.5
-
-include $HOME/.config/i3/config_main.conf
-
-include $HOME/.config/i3/config_`hostname`.conf
