@@ -226,7 +226,8 @@ git update-index --untracked-cache
 git config core.fsmonitor true
 # dumb gitsecrets checks
 git config --type=bool --add google.gitSecretsHook false
-
+# any 'side' pushes shouldnt confuse depot_tools
+git config push.autoSetupRemote false  
 
 # also this unrelated thing
 git config user.email "xxxx@chromium.org"
