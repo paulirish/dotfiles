@@ -36,6 +36,10 @@ function notif --description "make a macos notification that the prev command is
     -- "$history[1]"
 end
 
+function beep --description "make two beeps"
+  echo -e '\a'; sleep 0.1; echo -e '\a';
+end
+
 function all_binaries_in_path --description "list all binaries available in \$PATH, even if theres conflicts"
   # based on https://unix.stackexchange.com/a/120790/110766 but tweaked to work on mac. and then made it faster.
   find -L $PATH -maxdepth 1 -perm +111 -type f

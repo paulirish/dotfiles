@@ -46,6 +46,10 @@ log() {
                 xargs -I % sh -c 'git show --color=always % | less -R'"
 }
 
+#make two beeps
+beep() { 
+  echo -e '\a'; sleep 0.1; echo -e '\a';
+}
 
 
 # Start an HTTP server from a directory, optionally specifying the port
