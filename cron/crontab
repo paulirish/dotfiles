@@ -28,6 +28,8 @@
    20      17,18    *        *         6        $HOME/code/dotfiles/cron/weekly.sh
 #=====================================================================#
 
+   5       17       *        *        MON-FRI   $HOME/code/dotfiles/cron/workday-end.sh
+   
 
 # disabled for now
 #   20      17,18    *        *         1-5      $HOME/code/dotfiles/cron/twice-during-weekdays.sh
