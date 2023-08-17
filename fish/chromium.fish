@@ -43,8 +43,9 @@ end
 
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
-#                                                  # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
-set clutch_chrome_flags "--use-mock-keychain --disable-features=DialMediaRouteProvider,ProcessPerSiteUpToMainFrameThreshold"
+#                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
+#                                                                           # Avoid weird interaction between this experiment and CDP targets
+set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold"
 
 
 function cr --description "open built chromium (accepts runtime flags)"
@@ -119,28 +120,9 @@ end
 
 function gom --description "run goma setup"
     set -x GOMAMAILTO /dev/null
-    # set -x GOMA_OAUTH2_CONFIG_FILE /Users/paulirish/.goma_oauth2_config
     set -x GOMA_ENABLE_REMOTE_LINK yes
 
     goma_ctl ensure_start
-    # maybe i dont need all this shit
-    
-    # if not test (curl -X POST --silent http://127.0.0.1:8088/api/accountz)
-    #     echo "Goma isn't running. Starting it."
-    #     ~/goma/goma_ctl.py ensure_start
-    #     return 0
-    # end
-
-    # set -l local_goma_version (curl -X POST --silent http://127.0.0.1:8088/api/taskz | jq '.goma_version[0]')
-    # set -l remote_goma_version (~/goma/goma_ctl.py latest_version | ack 'VERSION=(\d+)' | ack -o '\d+')
-
-    # if test local_goma_version = remote_goma_version
-    #     echo 'Goma is running and up to date, continuing.'
-    # else
-    #     echo 'Goma needs an update. Stopping and restarting.'
-    #     ~/goma/goma_ctl.py stop
-    #     ~/goma/goma_ctl.py ensure_start
-    # end
 end
 
 function glurpgrab0
@@ -166,4 +148,19 @@ function maccr
     set -l cmd "$HOME/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium --user-data-dir=/tmp/glurp-mac-cross $clutch_chrome_flags --custom-devtools-frontend=file://$dtpath"
     echo "  > $cmd"
     eval $cmd
+end
+
+function maccr-flagged
+    # some dev flags plus chrome-launcher flags.
+    set -l bigcmd /Users/paulirish/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium \
+        --user-data-dir=/tmp/glurp-mac-cross --password-store=basic --use-mock-keychain --disable-features=Translate,OptimizationHints,MediaRouter,ProcessPerSiteUpToMainFrameThreshold \
+        --custom-devtools-frontend=file:///Users/paulirish/chromium-devtools/devtools-frontend/out/Default/gen/front_end \
+        --disable-extensions --disable-component-extensions-with-background-pages --disable-background-networking --disable-component-update \
+        --disable-client-side-phishing-detection --disable-sync --metrics-recording-only --disable-default-apps --mute-audio --no-default-browser-check \
+        --no-first-run --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --disable-background-timer-throttling --disable-ipc-flooding-protection \
+        --disable-hang-monitor  --enable-blink-features=BackForwardCacheNotRestoredReasons --enable-logging=stderr
+    # these two are also good, but tricky to escape for inclusion here: --vmodule='device_event_log*=1' --force-fieldtrials='*BackgroundTracing/default/' 
+     echo " > $bigcmd"
+     eval $bigcmd
+    # --v=1 
 end

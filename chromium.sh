@@ -40,9 +40,10 @@ function dtb () {
 
 
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
-#                          # Avoid the blocking startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
-#                                                  # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
-clutch_chrome_flags="--use-mock-keychain --disable-features=DialMediaRouteProvider"
+#                    # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
+#                                                          # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
+#                                                                      # Avoid weird interaction between this experiment and CDP targets
+clutch_chrome_flags="--use-mock-keychain -disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold"
 
 
 # you can also add any extra args: `cr --user-data-dir=/tmp/lol123"
