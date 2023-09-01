@@ -195,12 +195,12 @@ g_rand() {
 alias explorer='explorer.exe `wslpath -w "$PWD"`'
 
 # GPG ubuntu export
-# export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
 
 # aws-vault
-# export AWS_VAULT_BACKEND=pass
-# export AWS_VAULT_PROMPT=terminal
-# export AWS_VAULT_KEYCHAIN_NAME=login
+export AWS_VAULT_BACKEND=pass
+export AWS_VAULT_PROMPT=terminal
+export AWS_VAULT_KEYCHAIN_NAME=login
 
 # asdf
 . $HOME/.asdf/asdf.sh
