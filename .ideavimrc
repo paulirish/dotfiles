@@ -410,3 +410,4 @@ map <leader>ts :!clear; ./node_modules/.bin/tsc %<CR>
 map <leader>cop :RuboCop<CR>
 map <leader>rt :!bundle exec rails test<CR>
 
+set clipboard^=ideaput
