@@ -14,7 +14,7 @@ return function(use)
   use 'tpope/vim-surround'           -- surround.vim: quoting/parenthesizing made simple
   use 'hashivim/vim-terraform'       -- Highlighting for Terraform
   use 'voldikss/vim-floaterm'        -- Showing a floating terminal for example TIG
-  -- use 'tpope/vim-unimpaired'  -- Pairs of handy bracket mappings
+  use 'terryma/vim-expand-region'    -- Expand or reduce current selection
 
   -- Some nice colorschemes
   use 'NLKNguyen/papercolor-theme'
