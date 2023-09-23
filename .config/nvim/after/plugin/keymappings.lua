@@ -118,7 +118,7 @@ nmap('<leader>xx', cmd('TroubleToggle workspace_diagnostics'), 'Toggle diagnosti
 nmap('<leader>xr', cmd('TroubleRefresh'), 'Refresh diagnostics list')
 nmap('<leader>xq', cmd('TroubleToggle quickfix'), 'Refresh diagnostics list')
 
--- Keys for hop - see https://github.com/phaazon/hop.nvim#features
+-- Keys for hop - see https://github.com/smoka7/hop.nvim
 nmap('<leader>,w', cmd('HopWord'), 'Hop word')
 nmap('<leader>,b', cmd('HopWordBC'), 'Hop word')
 nmap('<leader>,p', cmd('HopPattern'), 'Hop pattern')
