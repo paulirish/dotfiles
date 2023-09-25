@@ -42,17 +42,38 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 
 alias push="git push"
 
-# `g co` subcommand expansion from my thread: https://www.reddit.com/r/fishshell/comments/16s0bsi/leveraging_abbr_for_git_aliases/
-# function git_co_abbr; set --local tokens (commandline --tokenize); if test $tokens[1] = git; echo checkout; else; echo co; end; end
-# abbr --add co --position anywhere --function git_co_abbr
+# `g co`, etc. subcommand expansion with `abbr`.
+# thx reddit thread: https://www.reddit.com/r/fishshell/comments/16s0bsi/leveraging_abbr_for_git_aliases/
+# thx lgarron for inspiration: https://github.com/lgarron/dotfiles/blob/115d8c1bf2a/dotfiles/fish/.config/fish/config.fish#L221
+function set_git_abbr
+  set -l short $argv[1] 
+  set -l long $argv[2]
 
-set git_abbr_thing 'function git_co_abbr
-  set --local tokens (commandline --tokenize)
-  if test $tokens[1] = git; echo checkout; else; echo co; end; 
-end; 
-abbr --add co --position anywhere --function git_co_abbr'
-eval "$git_abbr_thing"
+  set -l git_abbr_temp "function git_abbr_$short
+    set --local tokens (commandline --tokenize)
+    if test \$tokens[1] = git; echo $long; else; echo $short; end; 
+  end; 
+  abbr --add $short --position anywhere --function git_abbr_$short"
+  eval "$git_abbr_temp"
+end
 
+set_git_abbr "c" "commit -am"
+set_git_abbr "co" "checkout"
+set_git_abbr "c" "commit -am"
+set_git_abbr "s" "status"
+set_git_abbr "ts" "status"
+set_git_abbr "amend" "commit --amend --all --no-edit"
+set_git_abbr "hreset" "reset --hard"
+set_git_abbr "cp" "cherry-pick"
+set_git_abbr "cherrypick" "cherry-pick"
+set_git_abbr "dif" "diff"
+
+
+
+# is it a `main` or a `master` repo?
+alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
+alias main="git checkout (gitmainormaster)"
+alias master="main"
 
 
 
@@ -75,10 +96,6 @@ alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
 
-# is it a `main` or a `master` repo?
-alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
-alias main="git checkout (gitmainormaster)"
-alias master="main"
 
 alias resetmouse='printf '"'"'\e[?1000l'"'"
 
