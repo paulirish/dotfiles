@@ -42,9 +42,29 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 
 alias push="git push"
 
+# `g co` subcommand expansion from my thread: https://www.reddit.com/r/fishshell/comments/16s0bsi/leveraging_abbr_for_git_aliases/
+# function git_co_abbr; set --local tokens (commandline --tokenize); if test $tokens[1] = git; echo checkout; else; echo co; end; end
+# abbr --add co --position anywhere --function git_co_abbr
+
+set git_abbr_thing 'function git_co_abbr
+  set --local tokens (commandline --tokenize)
+  if test $tokens[1] = git; echo checkout; else; echo co; end; 
+end; 
+abbr --add co --position anywhere --function git_co_abbr'
+eval "$git_abbr_thing"
+
+
+
+
 # ag defaults. go as wide as terminal (minus some space for line numbers)
 # i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
 alias ag='command ag -W (math $COLUMNS - 14)'  
+
+# fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
+alias fd='command fd -j1 --exclude node_modules'
+# By default watchexec thinks the project origin is higher up.  So dumb. 
+alias watchexec='command watchexec --project-origin . --ignore node_modules'
+
 
 # for counting instances.. `ag -o 'metadata","name":".*?"' trace.json | sorteduniq`
 alias sorteduniq="sort | uniq -c | sort -r"
