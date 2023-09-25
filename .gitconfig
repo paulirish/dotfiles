@@ -80,6 +80,10 @@
 	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
 	# https://blog.github.com/2018-04-05-git-217-released/
 	colorMoved = default
+	# Detect copies in addition to renames
+	renames = copies
+	# A la `git submodule summary`
+	submodule = log
 
 # special hunk parsing for .pdl. https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitattributes.html#_defining_a_custom_hunk_header
 [diff "pdl"]
@@ -170,3 +174,5 @@
 # like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
 [protocol]
 	version = 2
+
+
