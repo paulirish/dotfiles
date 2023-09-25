@@ -80,7 +80,7 @@ function gz --d "Get the gzipped size"
   # fwiw --no-name is equivalent to catting into gzip
   set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c))
   echo $array[-1]
-  set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c))
+  # set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c))
   echo $array[-1]
 
 
@@ -89,7 +89,7 @@ function gz --d "Get the gzipped size"
   # googlenews uses about -5, walmart serves --best
   set -a array (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c))
   echo $array[-1]
-  set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c))
+  # set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c))
   echo $array[-1]
   end
 

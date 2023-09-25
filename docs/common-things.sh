@@ -54,7 +54,11 @@ rm $chromefilename
 
 
 
+# measuring time in fish shell:
 
+set -l then (gdate +%s%N); 
+sleep 0.5; 
+set -l andnow (gdate +%s%N);  echo cool (math ( math $andnow - $then) / 1000 / 1000  )
 
 
 
