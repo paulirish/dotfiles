@@ -67,7 +67,8 @@ fi
 # Skip installs if devtools because weird node_modules situation
 repoUrl=$(git config --get remote.origin.url)
 if grep -q chromium.googlesource.com <<<$repoUrl; then
-    exit 0
+  gclient sync --delete_unversioned_trees  # chromium deps instead
+  exit 0
 fi
 
 # Install Node.js packages 

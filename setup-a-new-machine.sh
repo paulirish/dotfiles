@@ -208,33 +208,11 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 ##############################################################################################################
 
 
+
+##############################################################################################################
 ## Chromium hacking
 
-# improve perf of git inside of chromium checkout
-
-# Read https://chromium.googlesource.com/chromium/src/+/HEAD/docs/mac_build_instructions.md#improving-performance-of
-# => Do the maxvnodes stuff.
-sudo sysctl kern.maxvnodes=… blah blah something…
-# Also, I used to have some kern.maxfiles(perproc) tweaks here too, but I'm not convinced they're a win for git performance
-#   (FB's watchman doesn't recommend them now that it uses some fsevents API.)
-
-# speed up git status (to run only in chromium repo)
-git config status.showuntrackedfiles no
-git config core.untrackedCache true
-git update-index --untracked-cache
-# use fsmonitor
-git config core.fsmonitor true
-# dumb gitsecrets checks
-git config --type=bool --add google.gitSecretsHook false
-# any 'side' pushes shouldnt confuse depot_tools
-git config push.autoSetupRemote false  
-
-# also this unrelated thing
-git config user.email "xxxx@chromium.org"
-
-# see also "A Chromium Compiling Setup for DevTools Hackers"
-# https://gist.github.com/paulirish/2d84a6db1b41b4020685
-
+# see setup-chromium.sh
 
 
 

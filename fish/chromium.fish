@@ -9,6 +9,9 @@ function hooks --description "run gclient runhooks"
 end
 
 function b --description "build chromium"
+    
+    ulimit -n 200000 # b/294987716
+
     set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
     # autoninja is better than trying to set -j and -l manually.
     # and yay, nice cmd built-in, so no more need to do this:  `renice +19 -n (pgrep ninja); renice +19 -n (pgrep compiler_proxy)`
