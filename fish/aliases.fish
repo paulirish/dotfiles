@@ -37,24 +37,32 @@ abbr v vim
 abbr bwre brew
 abbr brwe brew
 
-
-alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
-
 alias push="git push"
 
 # `g co`, etc. subcommand expansion with `abbr`.
-# thx reddit thread: https://www.reddit.com/r/fishshell/comments/16s0bsi/leveraging_abbr_for_git_aliases/
-# thx lgarron for inspiration: https://github.com/lgarron/dotfiles/blob/115d8c1bf2a/dotfiles/fish/.config/fish/config.fish#L221
 function set_git_abbr
-  set -l short $argv[1] 
-  set -l long $argv[2]
+  set -l short "$argv[1]"
+  set -l long "$argv[2]"
 
-  set -l git_abbr_temp "function git_abbr_$short
+  # Check that these strings are safe, since we're going to eval. 👺
+  if not string match --regex --quiet '^[a-z]*$' "$short"
+    or not string match --regex --quiet '^[a-z- ]*$' "$long"
+    echo "Scary unsupported alias or expansion $short $long"; exit 1; 
+  end
+
+  # Subcommand arg expanesion via commandline -tokenize + abbr --position anywhere
+  # thx lgarron for inspiration: https://github.com/lgarron/dotfiles/blob/115d8c1bf2a/dotfiles/fish/.config/fish/config.fish#L221
+  # https://www.reddit.com/r/fishshell/comments/16s0bsi/leveraging_abbr_for_git_aliases/
+  set -l git_abbr_temp_fn "function git_abbr_$short
     set --local tokens (commandline --tokenize)
-    if test \$tokens[1] = git; echo $long; else; echo $short; end; 
+    if test \$tokens[1] = git
+      echo $long
+    else
+      echo $short
+    end; 
   end; 
   abbr --add $short --position anywhere --function git_abbr_$short"
-  eval "$git_abbr_temp"
+  eval "$git_abbr_temp_fn"
 end
 
 set_git_abbr "c" "commit -am"
@@ -96,6 +104,7 @@ alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
 
+alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 alias resetmouse='printf '"'"'\e[?1000l'"'"
 
