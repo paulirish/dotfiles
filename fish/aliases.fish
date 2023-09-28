@@ -40,9 +40,10 @@ abbr brwe brew
 alias push="git push"
 
 # `g co`, etc. subcommand expansion with `abbr`.
-function set_git_abbr
-  set -l short "$argv[1]"
-  set -l long "$argv[2]"
+function subcommand_abbr
+  set -l cmd "$argv[1]"
+  set -l short "$argv[2]"
+  set -l long "$argv[3]"
 
   # Check that these strings are safe, since we're going to eval. 👺
   if not string match --regex --quiet '^[a-z]*$' "$short"
@@ -50,31 +51,38 @@ function set_git_abbr
     echo "Scary unsupported alias or expansion $short $long"; exit 1; 
   end
 
+  set -l abbr_temp_fn_name (string join "_" "abbr" "$cmd" "$short")
   # Subcommand arg expanesion via commandline -tokenize + abbr --position anywhere
-  # thx lgarron for inspiration: https://github.com/lgarron/dotfiles/blob/115d8c1bf2a/dotfiles/fish/.config/fish/config.fish#L221
+  # thx lgarron for inspiration: https://github.com/lgarron/dotfiles/blob/2bc3e0282b/dotfiles/fish/.config/fish/abbr.fish & https://github.com/lgarron/dotfiles/blob/main/dotfiles/fish/.config/fish/dev.fish
   # https://www.reddit.com/r/fishshell/comments/16s0bsi/leveraging_abbr_for_git_aliases/
-  set -l git_abbr_temp_fn "function git_abbr_$short
+  set -l abbr_temp_fn "function $abbr_temp_fn_name
     set --local tokens (commandline --tokenize)
-    if test \$tokens[1] = git
+    if test \$tokens[1] = \"$cmd\"
       echo $long
     else
       echo $short
     end; 
   end; 
-  abbr --add $short --position anywhere --function git_abbr_$short"
-  eval "$git_abbr_temp_fn"
+  abbr --add $short --position anywhere --function $abbr_temp_fn_name"
+  eval "$abbr_temp_fn"
 end
 
-set_git_abbr "c" "commit -am"
-set_git_abbr "co" "checkout"
-set_git_abbr "c" "commit -am"
-set_git_abbr "s" "status"
-set_git_abbr "ts" "status"
-set_git_abbr "amend" "commit --amend --all --no-edit"
-set_git_abbr "hreset" "reset --hard"
-set_git_abbr "cp" "cherry-pick"
-set_git_abbr "cherrypick" "cherry-pick"
-set_git_abbr "dif" "diff"
+subcommand_abbr git c "commit -am"
+subcommand_abbr git tc "commit -am"
+subcommand_abbr git cm "commit --no-all -m"
+subcommand_abbr git co "checkout"
+subcommand_abbr git c "commit -am"
+subcommand_abbr git s "status"
+subcommand_abbr git ts "status"
+subcommand_abbr git amend "commit --amend --all --no-edit"
+subcommand_abbr git hreset "reset --hard"
+subcommand_abbr git cp "cherry-pick"
+subcommand_abbr git cherrypick "cherry-pick"
+subcommand_abbr git dif "diff"
+
+# can only do one of these unless I adopt lucas's setup.
+subcommand_abbr npm i "install"
+#subcommand_abbr pnpm i "install"
 
 
 
