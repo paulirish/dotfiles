@@ -69,6 +69,6 @@ case "$chosen" in
   *) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
 esac
 
-# setbg   # Fix background if screen size/arangement has changed.
+# setbg   # Fix background if screen size/arrangement has changed.
 # remaps    # Re-remap keys if keyboard added (for laptop bases)
 pgrep -x dunst >/dev/null && killall dunst && setsid dunst & # Restart dunst to ensure proper location on screen
