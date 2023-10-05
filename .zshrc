@@ -135,7 +135,7 @@ setxkbmap -option compose:ralt  # Configure the compose key
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
 start-ssh-agent
-eval `keychain --agents ssh --eval id_rsa --eval id_ed25519`
+eval `keychain --agents ssh --eval id_ed25519`
 eval `keychain --agents gpg --eval $GPGKEY`
 
 xrdb -load ~/.Xresources
