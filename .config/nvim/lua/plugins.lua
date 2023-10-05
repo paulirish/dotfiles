@@ -45,7 +45,7 @@ return function(use)
   use {
     'AckslD/nvim-neoclip.lua',
     requires = {
-      { 'kkharji/sqlite.lua',           module = 'sqlite' },
+      { 'kkharji/sqlite.lua', module = 'sqlite' },
       { 'nvim-telescope/telescope.nvim' },
     }
   }
