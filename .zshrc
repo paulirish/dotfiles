@@ -57,12 +57,11 @@ plugins=(
   git-extras
   golang
   httpie
-  nvm
-  npm
-  python
   kubectl
+  node
+  npm
+  nvm
   pass
-  pod
   ripgrep
   rsync
   systemd
@@ -71,6 +70,7 @@ plugins=(
   vi-mode
   web-search
   yarn
+  ufw
 )
 
 ZSH_WEB_SEARCH_ENGINES=(
