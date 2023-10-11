@@ -2,6 +2,11 @@
 # todo, investigate later.
 # status stack-trace
 
+# set fish_trace 1
+function fish_greeting
+end
+
+
 # TODO: path and aliases are kinda slow to source. optimize later.
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
@@ -10,14 +15,14 @@ source ~/.config/fish/chromium.fish
 
 # for things not checked into git..
 if test -e "$HOME/.extra.fish";
-	source ~/.extra.fish
+    source ~/.extra.fish
 end
 
 # THEME PURE #
-set -g async_prompt_functions _pure_prompt_git  # run this async! dope.
-set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_function_path
-set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
-source $HOME/.config/fish/functions/pure/conf.d/pure.fish
+# set -g async_prompt_functions _pure_prompt_git  # run this async! dope.
+# set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_function_path
+# set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
+# source $HOME/.config/fish/functions/pure/conf.d/pure.fish
 
 # I don't need a prompt symbol for you-got-things-in-yr-stash
 set --erase pure_symbol_git_stash
@@ -61,6 +66,10 @@ set -U pure_color_git_dirty (set_color cyan)
 set -U pure_color_git_unpushed_commits (set_color yellow)
 set -U pure_color_git_unpulled_commits (set_color brgreen)
 
+# prompt (lucid)
+
+set -g lucid_prompt_symbol_error_color red
+
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
 set __fish_git_prompt_char_upstream_equal ''
@@ -83,8 +92,8 @@ set -g fish_pager_color_progress cyan
 
 
 # pull in all shared `export …` aka `set -gx …`
-. ~/.exports
+source ~/.exports
 
 # TODO debug this
 # this currently messes with newlines in my prompt. lets debug it later.
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+# test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish

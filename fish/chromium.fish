@@ -48,7 +48,8 @@ end
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
 #                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
 #                                                                           # Avoid weird interaction between this experiment and CDP targets
-set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold"
+#                                                                                                                # Hides blue bubble "user education" nudges
+set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold --ash-no-nudges"
 
 
 function cr --description "open built chromium (accepts runtime flags)"
