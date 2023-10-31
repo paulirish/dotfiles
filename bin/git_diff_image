@@ -1,0 +1,81 @@
+#!/bin/bash
+
+set -euo pipefail
+
+name="$1"
+f1="${2-/dev/null}"
+f2="${5-/dev/null}"
+
+name1="a/$name"
+name2="b/$name"
+
+if [ "$f1" = /dev/null ]
+then
+    name1=/dev/null
+fi
+if [ "$f2" = /dev/null ]
+then
+    name2=/dev/null
+fi
+
+
+if diff "$f1" "$f2" >/dev/null
+then
+  exit 0
+fi
+
+
+readlink_f()
+{
+    if [ $(uname) = 'Darwin' ]
+    then
+        local f=$(readlink "$1")
+        if [ -z "$f" ]
+        then
+            f="$1"
+        fi
+        local d=$(dirname "$f")
+        local b=$(basename "$f")
+        if [ -d "$d" ]
+        then
+            (cd "$d" && echo "$(pwd -P)/$b")
+        elif [[ "$d" = /* ]]
+        then
+            echo "$f"
+        elif [[ "$d" = ./* ]]
+        then
+            echo "$(pwd -P)/${f/.\//}"
+        else
+            echo "$(pwd -P)/$f"
+        fi
+    else
+        readlink -f "$1"
+    fi
+}
+
+thisdir="$(dirname $(readlink_f "$0"))"
+
+e_flag=''
+if [ -z "${GIT_DIFF_IMAGE_ENABLED-}" ] || \
+   ! which compare > /dev/null || \
+   ! which montage > /dev/null
+then
+  e_flag='-e'
+fi
+
+o_flag=''
+if [ -n "${GIT_DIFF_IMAGE_OUTPUT_DIR-}" ]
+then
+    mkdir -p "$GIT_DIFF_IMAGE_OUTPUT_DIR"
+    destfile=''
+    if [ "$name1" = '/dev/null' ]
+    then
+        destfile=$(basename "$name1")
+    else
+        destfile=$(basename "$name2")
+    fi
+    o_flag="-o $GIT_DIFF_IMAGE_OUTPUT_DIR/$destfile"
+fi
+
+
+exec "$thisdir/diff-image" $e_flag $o_flag -n "$name1" -N "$name2" "$f1" "$f2"
