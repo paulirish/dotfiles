@@ -42,7 +42,7 @@ do
         color="$OPTARG"
         ;;
     e)
-        exif_only=true
+        exif_only=false
         ;;
     f)
         fuzz="$OPTARG"
@@ -134,7 +134,7 @@ exif()
 
 diff_clean_names()
 {
-    diff -u "$1" --label "$name1" "$2" --label "$name2" || true
+    git --no-pager diff --no-index --color-words "$1" "$2"  || true
 }
 
 
@@ -278,7 +278,9 @@ else
           echo "Copy diff image to $outputPath"
           cp "$destfile" "$outputPath"
         else
+          echo "Showing " "$destfile"
           exec open "$destfile"
+          # imgcat < "$destfile"  # i wish this worked but nah. some weird thing where iterm doesnt show it forreal and instaed prints the base64.  cant find a bug
         fi
     fi
 fi
