@@ -33,7 +33,8 @@
 
 
 	# Two utils: 
-	#   What's the ancestor commit this branch shares with main?
+	#   What's the ancestor commit this branch shares with (the parent branch, or, more likely...) main?
+	#   diffbase = !"git config --get branch.$(command git symbolic-ref --short HEAD).base || git merge-base origin/$(git mainormaster) HEAD"
 	diffbase = !"git merge-base origin/$(git mainormaster) HEAD"
 	#   Is it a `main` or a `master` repo?
 	mainormaster = !"git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"

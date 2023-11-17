@@ -9,16 +9,6 @@ function ..... ; cd ../../../.. ; end
 # Utilities
 function grep     ; command grep --color=auto $argv ; end
 
-# uses npm if its an npm repo. https://www.npmjs.com/package/narn
-alias yarn=narn
-
-alias li=lighthouse
-alias lperf 'lighthouse --only-categories=performance'
-alias comp 'node build/build-report-components.js && yarn eslint --fix report/renderer/components.js'
-alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
-# pretty sure watchexec has just won my heart after years of using `entr`
-alias reportwatch 'watchexec "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
-
 # mv, rm, cp
 alias mv 'command gmv --interactive --verbose'
 alias rm 'command grm --interactive --verbose'
@@ -80,6 +70,12 @@ subcommand_abbr git cp "cherry-pick"
 subcommand_abbr git cherrypick "cherry-pick"
 subcommand_abbr git dif "diff"
 
+# some of my git aliases
+subcommand_abbr git db "diffbranch"
+subcommand_abbr git dbt "diffbranch-that"
+
+
+
 # can only do one of these unless I adopt lucas's setup.
 subcommand_abbr npm i "install"
 #subcommand_abbr pnpm i "install"
@@ -139,3 +135,19 @@ alias fs="stat -f \"%z bytes\""
 alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u"
 alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-document'
 
+
+
+
+# project-specific shorthands
+
+alias li=lighthouse
+alias lperf 'lighthouse --only-categories=performance'
+alias comp 'node build/build-report-components.js && yarn eslint --fix report/renderer/components.js'
+alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
+# pretty sure watchexec has just won my heart after years of using `entr`
+alias reportwatch 'watchexec "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
+
+
+alias rppunit 'npm run auto-unittest -- --expanded-reporting --mocha-fgrep=Processor\|Timeline\|trace\|Appender\|Handler\|Performance'
+alias rppinter 'HTML_OUTPUT_FILE=rppscreenshots.html npm run interactionstest -- --test-file-pattern="*/performance/**"'
+alias rppscreen 'HTML_OUTPUT_FILE=rppscreenshots.html third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'

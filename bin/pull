@@ -71,17 +71,6 @@ if grep -q chromium.googlesource.com <<<$repoUrl; then
   exit 0
 fi
 
-# Install Node.js packages 
-narn install
-
-# Install Bower components
-if [ "$GIT_FRIENDLY_NO_BOWER" != "true" ]; then
-  if which npm >/dev/null 2>&1 && [ -f bower.json ]; then
-    echo
-    echo "⚔  Installing Bower components..."
-    bower install
-  fi
-fi
 
 echo
 echo "🦄  Done"

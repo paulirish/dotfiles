@@ -4,6 +4,11 @@ function deps --description "run gclient sync"
     gclient sync --delete_unversioned_trees --jobs=70 --verbose
 end
 
+function depsbg --description "run gclient sync in the background"
+    gclient sync --delete_unversioned_trees --jobs=70 &
+end
+
+
 function hooks --description "run gclient runhooks"
     gclient runhooks
 end
@@ -11,6 +16,15 @@ end
 function b --description "build chromium"
     
     ulimit -n 200000 # b/294987716
+
+    # reclient env vars from alexnj:
+    #    RBE_racing_bias=1 RBE_cas_concurrency=3000 autoninja -C out/Default chrome
+    #  - racing bias is a value between 0 and 1 that determines where you prefer compilation to be. 
+    #    default is set at 0.5, i.e., equal probability of something pushed to remote, vs. local. 
+    #     1 pushes everything to remote, but I think it's overkill as well ... I'm now at 0.7
+    #  - cas_concurrency is how many compilations in parallel. 
+    #    I'm running 2000 now resulting in 22 second incremental compilation with these values
+    #    i think it makes sense to tune these to your network and cpu cores
 
     set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
     # autoninja is better than trying to set -j and -l manually.
@@ -130,7 +144,7 @@ function gom --description "run goma setup"
 end
 
 function glurpgrab0
-    rsync --archive --verbose --itemize-changes --compress --human-readable --delete paulirish@glurp:chromium/src/out/Mac-cross/Chromium.app $HOME/chromium/src/out/Mac-cross-from-glurp/ 
+    rsync --archive --verbose --itemize-changes --compress --human-readable --delete paulirish@glurp:chromium/src/out/Mac-cross-siso/Chromium.app $HOME/chromium/src/out/Mac-cross-from-glurp/ 
 end
 
 function glurpgrab --description "dl mac-cross build from glurp"
@@ -154,17 +168,25 @@ function maccr
     eval $cmd
 end
 
-function maccr-flagged
-    # some dev flags plus chrome-launcher flags.
-    set -l bigcmd /Users/paulirish/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium \
-        --user-data-dir=/tmp/glurp-mac-cross --password-store=basic --use-mock-keychain --disable-features=Translate,OptimizationHints,MediaRouter,ProcessPerSiteUpToMainFrameThreshold \
+function crflags
+    echo --password-store=basic --use-mock-keychain --disable-features=Translate,OptimizationHints,MediaRouter,ProcessPerSiteUpToMainFrameThreshold \
         --custom-devtools-frontend=file:///Users/paulirish/chromium-devtools/devtools-frontend/out/Default/gen/front_end \
         --disable-extensions --disable-component-extensions-with-background-pages --disable-background-networking --disable-component-update \
         --disable-client-side-phishing-detection --disable-sync --metrics-recording-only --disable-default-apps --mute-audio --no-default-browser-check \
         --no-first-run --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --disable-background-timer-throttling --disable-ipc-flooding-protection \
-        --disable-hang-monitor  --enable-blink-features=BackForwardCacheNotRestoredReasons --enable-logging=stderr
+        --disable-hang-monitor  --enable-logging=stderr $clutch_chrome_flags --user-data-dir=\(mktemp -d "$TMPDIR/chrome-profile-XXXXX"\)
     # these two are also good, but tricky to escape for inclusion here: --vmodule='device_event_log*=1' --force-fieldtrials='*BackgroundTracing/default/' 
+end
+
+function maccr-flagged
+    # some dev flags plus chrome-launcher flags.
+    set -l bigcmd /Users/paulirish/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium (crflags)
+
      echo " > $bigcmd"
      eval $bigcmd
     # --v=1 
+end
+
+function git-clfastupload
+    git cl upload --bypass-hooks -o "banned-words~skip"
 end

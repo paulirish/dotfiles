@@ -3,6 +3,8 @@
 # status stack-trace
 
 # set fish_trace 1
+# fish --debug "*" # super noisy
+# fish --debug "(fish --print-debug-categories)"  and could start removing stuff.
 function fish_greeting
 end
 
