@@ -113,6 +113,7 @@ nmap('<leader>cst', cmd('lua require("material.functions").find_style()'))
 
 -- My Telescope key mappings
 nmap('<c-p>', cmd('Telescope find_files'), 'Telescope find files')
+nmap('<leader>tt', cmd('Telescope'), 'Show Telescope')
 nmap('<leader>tp', cmd('Telescope neoclip'), 'Telescope neoclip')
 nmap('<leader>tr', cmd('Telescope repo'), 'Telescope repos')
 
