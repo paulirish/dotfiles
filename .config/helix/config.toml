@@ -1,9 +1,0 @@
-theme = "solarized_dark"
-
-[editor]
-line-number = "relative"
-
-[editor.statusline]
-left = ["mode", "diagnostics"]
-center = ["file-name"]
-right = ["selections", "file-type", "file-encoding", "position-percentage", "position"]
