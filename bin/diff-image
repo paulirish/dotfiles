@@ -19,6 +19,9 @@ usage()
     echo
 }
 
+# https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda
+hyperlink(){ printf '\e]8;;%s\e\\%s\e]8;;\e\\' "$1" "${2:-$1}";}
+
 
 backgroundcolor=
 color=
@@ -138,19 +141,21 @@ diff_clean_names()
 }
 
 
-exifdiff=
-if which exiftool > /dev/null
-then
-  d1="$(exif "$f1")"
-  d2="$(exif "$f2")"
-  diff_clean_names "$d1" "$d2"
-  set +e
-  diff -q "$d1" "$d2" >/dev/null
-  exifdiff=$?
-  set -e
-else
-  diff_clean_names "$f1" "$f2"
-fi
+# EHHHHHHHHHhhh.. it's probably interesting somtimes but generally just noise to get this metadata diff
+# exifdiff=
+# if which exiftool > /dev/null
+# then
+#   d1="$(exif "$f1")"
+#   d2="$(exif "$f2")"
+#   diff_clean_names "$d1" "$d2"
+#   set +e
+#   diff -q "$d1" "$d2" >/dev/null
+#   exifdiff=$?
+#   echo ""
+#   set -e
+# else
+#   diff_clean_names "$f1" "$f2"
+# fi
 
 if $exif_only
 then
@@ -174,10 +179,10 @@ then
     exit 1
 fi
 
-if [[ $exifdiff = 0 ]] && compare "$f1" "$f2" /dev/null
-then
-    exit 0
-fi
+# if [[ $exifdiff = 0 ]] && compare "$f1" "$f2" /dev/null
+# then
+#     exit 0
+# fi
 
 bn="$(basename "$f1")"
 destfile="$(mktemp -t "$bn.XXXXXX").png"
@@ -185,12 +190,6 @@ destfile="$(mktemp -t "$bn.XXXXXX").png"
 if [ -z "$fuzz" ] && ( [ "$ext" = "jpeg" ] || [ "$ext" = "jpg" ] )
 then
     fuzz='5'
-fi
-
-backgroundcolor_flag=
-if [ -n "$backgroundcolor" ]
-then
-    backgroundcolor_flag="-background $backgroundcolor"
 fi
 
 color_flag=
@@ -208,15 +207,20 @@ fi
 density_flag=
 do_compare()
 {
-  if which gm > /dev/null
-  then
-    echo "NOTICE: GraphicsMagick does not support 'compare -fuzz', so omitting it"
-    compare $density_flag $color_flag $backgroundcolor_flag -file png:- "$f1" "$f2" | \
-        montage $density_flag -geometry +4+4 $backgroundcolor_flag "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
+
+  printf "Computing image diff for: $(basename $f1) …"
+    
+  # choose horiz or vertical stacking based on whats closer to ideal 16:9 of output image.
+  read -r image1_width image1_height <<< $(identify -format "%w %h" "$f1")
+  # …At this point i'm not sure this is the math i wanted, but the results seem ok so far.
+  if ((($image1_width / ($image1_height * 3)) < 16/9)); then
+      tilearg=3x1
   else
-    compare $density_flag $color_flag $fuzz_flag $backgroundcolor_flag "$f1" "$f2" png:- | \
-        montage $density_flag -geometry +4+4 $backgroundcolor_flag "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
+      tilearg=1x3
   fi
+
+  compare $color_flag $fuzz_flag "$f1" "$f2" png:- | \
+      montage -gravity North -geometry +5+5 -background transparent -tile $tilearg "$f1" - "$f2" png:- >"$destfile" 2>/dev/null || true
 }
 
 if which xdg-open > /dev/null
@@ -257,6 +261,7 @@ then
         density_flag="-density $density"
     fi
 
+
     do_compare
     if [ -n "$outputPath" ]
     then
@@ -278,7 +283,9 @@ else
           echo "Copy diff image to $outputPath"
           cp "$destfile" "$outputPath"
         else
-          echo "Showing " "$destfile"
+          #cho "Computing image diff for: $(basename $f1) …"
+
+          echo  "   …" $(hyperlink "file://$destfile" "diff image")
           exec open "$destfile"
           # imgcat < "$destfile"  # i wish this worked but nah. some weird thing where iterm doesnt show it forreal and instaed prints the base64.  cant find a bug
         fi

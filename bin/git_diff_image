@@ -78,4 +78,5 @@ then
 fi
 
 
-exec "$thisdir/diff-image" $e_flag $o_flag -n "$name1" -N "$name2" "$f1" "$f2"
+# echo "$thisdir/diff-image" $e_flag $o_flag -n "$name1" -N "$name2" "$f1" "$f2"
+"$thisdir/diff-image" $e_flag $o_flag -n "$name1" -N "$name2" "$f1" "$f2"
