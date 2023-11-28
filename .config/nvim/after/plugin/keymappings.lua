@@ -126,6 +126,7 @@ nmap('<leader>xq', cmd('TroubleToggle quickfix'), 'Refresh diagnostics list')
 nmap('<leader>,w', cmd('HopWord'), 'Hop word')
 nmap('<leader>,b', cmd('HopWordBC'), 'Hop word')
 nmap('<leader>,p', cmd('HopPattern'), 'Hop pattern')
+nmap('<leader>,e', cmd('HopChar1'), 'Hop to specific char')
 
 -- Mappings for lspsaga -- see https://github.com/glepnir/lspsaga.nvim
 nmap("<leader>sf", cmd('Lspsaga lsp_finder'), 'Lspsaga finder')
