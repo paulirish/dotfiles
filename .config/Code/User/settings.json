@@ -1,11 +1,14 @@
 {
     "go.useLanguageServer": true,
-    "workbench.colorTheme": "Tomorrow Night Blue",
+    "workbench.colorTheme": "Office Theme (Publisher)",
     "workbench.statusBar.visible": true,
     "workbench.settings.editor": "ui",
-    "window.zoomLevel": 2,
+    "workbench.iconTheme": "vscode-simpler-icons",
+    "window.zoomLevel": 1,
     "diffEditor.ignoreTrimWhitespace": false,
     "jest.autoRun": "watch",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active",
     "launch": {
       "configurations": [
         {
