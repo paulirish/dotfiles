@@ -94,9 +94,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-#
 export LESSOPEN="| /usr/local/bin/pygmentize %s"
 export LESS=" -R "
 alias less='less -m -N -g -i -J --underline-special --SILENT'
@@ -126,19 +123,10 @@ fi
 # Add support for fzf the fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+start-ssh-agent
+
 # Source local zshrc with local only settings
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-xmodmap ~/.Xmodmap
-setxkbmap -option compose:ralt  # Configure the compose key
-# Deactivate Caps_Lock and use Escape instead of that. It's especially in VIM very helpful
-xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-
-start-ssh-agent
-eval `keychain --agents ssh --eval id_ed25519`
-eval `keychain --agents gpg --eval $GPGKEY`
-
-xrdb -load ~/.Xresources
 
 source ~/.config/zsh/cursor-shape.conf
 
