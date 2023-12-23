@@ -1,3 +1,7 @@
-SUDO_PWD=$(gopass show /home/sudo)
+MOUNT_NAME="MyNotes"
+PWD="$(gopass show /home/veracrypt/${MOUNT_NAME})"
+NUMBER=2
 
-echo ${SUDO_PWD} | sudo -S veracrypt -p $(gopass show /home/veracrypt/MyNotes) ~/Secure/MyNotes.tc /media/MyNotes
+veracrypt --password "${PWD}" --protect-hidden no  \
+  --pim 0 --slot "${NUMBER}" --keyfiles ""         \
+  --mount ~/Secure/${MOUNT_NAME}.tc /media/${MOUNT_NAME}
