@@ -34,3 +34,4 @@ Fastdir3 = /home/jan/Music/GoodSongs
 
 Theme = /usr/share/moc/themes/transparent-background
 XtermTheme = /usr/share/moc/themes/transparent-background
+OnSongChange = "/usr/bin/notify-send %a %t"

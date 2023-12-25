@@ -162,10 +162,10 @@ alias ydl="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ydla="yt-dlp --audio-format mp3 -x"
 
 # Show my wallpapers in sxiv
-alias ww="cd ~/Pictures/Wallpapers && sxiv -tf *.* && cd -"
+alias ww="cd ~/wallpaper && nsxiv -tf *.jpg && cd -"
 
 # Show all images of the current directory in a slideshow
-alias slideshow="sxiv -f -S 2 *.*"
+alias slideshow="nsxiv -f -S 2 *.*"
 
 # Run Portainer on localhost:9000 without any password to manage my local Docker env
 alias portainer="docker run --rm -d -p 9000:9000 --name=portainer -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer:1.25.0 --no-auth"
@@ -180,12 +180,12 @@ alias slowtype="slowtype.sh -n"
 # Shows a fzf based list with all man-pages and gives the user the ability to search for it an select one
 alias man-fzf="man -k . | sort -r | fzf | awk '{print $1}' | xargs -r man "
 
-# Clearing the greenclip history
-alias clear-clip-history="rm ~/.cache/greenclip.history"
+# Clearing the cliphist database
+alias clear-clip-history="rm $HOME/.cache/cliphist/db"
 
 # You need to install xsel with apt-get before using it
-alias copy='xsel --clipboard --input'
-alias paste='xsel --clipboard --output'
+alias copy='wl-copy'
+alias paste='wl-paste'
 
 # Sometimes we need to start the ssh-agent manually
 alias start-ssh-agent="eval \"$(ssh-agent)\""

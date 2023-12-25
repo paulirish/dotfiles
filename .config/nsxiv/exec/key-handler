@@ -1,18 +1,32 @@
 #!/bin/sh
+#
+wallpaper=~/.wallpaper.jpg
+
 while read file
 do
   fullpath="$(pwd)/$file"
-        case "$1" in
-        "w")
-                cp "$file" ~/.wallpaper.jpg &&
-    feh --bg-scale "$HOME/.wallpaper.jpg"
-    notify-send -t 2000 -i "$HOME/.wallpaper.jpg" "Wallpaper changed." ;;
-        "c")
+  case "$1" in
+  "w")
+    cp "$file" $wallpaper &&
+    feh --bg-scale "$wallpaper"
+
+    monitor=$(hyprctl monitors -j | jq -r ".[0].name")
+
+    if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+      hyprctl hyprpaper unload $wallpaper
+      hyprctl hyprpaper preload $wallpaper
+      hyprctl hyprpaper wallpaper "$monitor,$wallpaper"
+    else
+      feh --bg-scale "$HOME/.wallpaper.jpg"
+    fi
+    notify-send -t 2000 -i "$wallpaper" "Wallpaper changed."
+    ;;
+  "c")
     [ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ~/.bmdirs | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
     [ -z "$destdir" ] && exit
     cp "$file" "$destdir" && notify-send -i "$fullpath" "$file copied to $destdir." &
     ;;
-        "m")
+  "m")
     [ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ~/.bmdirs | awk '{print $2}' | dmenu -l 20 -i -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
     [ -z "$destdir" ] && exit
     cp "$file" "$destdir" && notify-send -i "$fullpath" "$file moved to $destdir." &
@@ -33,5 +47,5 @@ do
     rm "$file" && notify-send "$file deleted." ;;
   "G")
     gimp "$file" & ;;
-        esac
+  esac
 done
