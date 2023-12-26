@@ -214,11 +214,11 @@ alias md=glow
 # Alias for using molecule
 alias mo="molecule"
 
-# Aliases for Helix
-alias hx="helix"
-
 # Change theme for my terminal interactively
 alias kt="kitty +kitten themes"
+
+# Alias for lf
+alias l="lf"
 
 # Some Rust specific aliases
 alias cg="cargo"
