@@ -1,3 +1,4 @@
+// Debug with `env GTK_DEBUG=interactive waybar`
 {
   "layer": "top", // Waybar at top layer
   // "position": "bottom", // Waybar position (top|bottom|left|right)
@@ -16,7 +17,7 @@
   ],
   "modules-right": [
     // "idle_inhibitor",
-    "custom/updates",
+    "custom/pacman",
     "pulseaudio",
     "cpu",
     "disk",
@@ -196,8 +197,16 @@
     "on-click": "$HOME/.config/waybar/scripts/wallpaper.sh",
     "tooltip": false
   },
+  "custom/pacman": {
+    "format": "{} 󰀼",
+    "interval": 3600,
+    "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
+    "exec": "pamac checkupdates -q | wc -l",
+    "on-click": "pamac-manager --updates; pkill -RTMIN+4 waybar",
+    "signal": 4
+  },
   "custom/updates": {
-    "format": "  {}",
+    "format": "{} ",
     "tooltip-format": "{}",
     "escape": true,
     "return-type": "json",
@@ -207,5 +216,4 @@
     "on-click-right": "pamac-manager",
     "tooltip": false
   }
-
 }

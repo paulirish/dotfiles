@@ -119,12 +119,12 @@ window#waybar {
   font-style: normal;
 }
 
-#pulseaudio, #network, #temperature, #memory, #cpu, #disk, #battery, #custom-wallpaper, #custom-cliphist, #custom-updates {
+#pulseaudio, #network, #temperature, #memory, #cpu, #disk, #battery, #custom-wallpaper, #custom-cliphist, #custom-updates, #custom-pacman {
   background-color: #282828;
   /*color: #8EC07C;*/
   border-radius: 16px;
   margin: 3px;
-  padding: 0px 8px 3px 8px;
+  padding: 3px 8px 3px 8px;
   font-weight: bold;
 }
 
@@ -147,5 +147,8 @@ window#waybar {
   background-color: #f7768e;
   color: #24283b;
   border-radius: 5px 5px 5px 5px;
+}
+#custom-pacman {
+  color: @warning_color;
 }
 
