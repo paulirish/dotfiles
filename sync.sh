@@ -6,7 +6,7 @@ git pull
 nvim -e -s -c "mkspell! ~/Projects/dotfiles/.config/nvim/spell/de.utf-8.add" -c qa
 
 copyFiles() {
-  rsync --exclude ".git/" --exclude "sync.sh" --exclude "README.md" --exclude "terminal" --exclude "readme.md" -av . ~
+  rsync --exclude ".git/" --exclude "sync.sh" --exclude "README.md" --exclude "terminal" --exclude "readme.md" --exclude "nvim" -av . ~
 }
 
 copyFiles
@@ -21,4 +21,9 @@ fi
 IS_I3_RUNNING=$(ps aux | grep i3 | grep -v grep)
 if [ -n "${IS_I3_RUNNING}" ]; then
   i3-msg reload
+fi
+
+if [ ! -d ~/.config/nvim ]; then
+  echo "Create softlink for nvim"
+  ln -s ~/Projects/dotfiles/.config/nvim ~/.config/nvim
 fi
