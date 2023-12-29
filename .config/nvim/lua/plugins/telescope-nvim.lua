@@ -57,10 +57,14 @@ return {
             ['<c-u>'] = false,
             ['<c-d>'] = false,
             ['<c-h>'] = actions.which_key,
+            ["<c-k>"] = actions.move_selection_previous, -- move to prev result
+            ["<c-j>"] = actions.move_selection_next, -- move to next result
             ['<c-w>'] = actions.send_selected_to_qflist + actions.open_qflist, -- Send current selected list to quick-fix-list
           },
           n = {
             ['<c-h>'] = actions.which_key, -- Show predefined keys with using which_key
+            ["<c-k>"] = actions.move_selection_previous, -- move to prev result
+            ["<c-j>"] = actions.move_selection_next, -- move to next result
             ["<c-q>"] = actions.send_to_qflist + actions.open_qflist, -- Send current list to quick-fix-list
             ["<c-w>"] = actions.send_selected_to_qflist + actions.open_qflist, -- Send current selected list to quick-fix-list
           },

@@ -15,16 +15,12 @@ return {
     { "j-hui/fidget.nvim", opts = {} },
     -- Additional lua configuration, makes nvim stuff amazing!
     -- https://github.com/folke/neodev.nvim
-    { "folke/neodev.nvim" },
+    { "folke/neodev.nvim", opts = {} },
   },
   config = function()
     require("mason").setup()
     require("mason-lspconfig").setup()
-    -- Setup neovim lua configuration
-    require("neodev").setup()
 
-    local lspconfig = require("lspconfig")
-    -- local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
