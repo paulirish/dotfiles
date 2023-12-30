@@ -37,7 +37,7 @@ return {
       desc = '[/] Fuzzily search in current buffer]'
     },
     { '<leader>tf', require('telescope.builtin').find_files, desc = 'Search [F]iles' },
-    { '<leader>th', require('telescope.builtin').help_tags, desc = 'Search [H]elp' },
+    -- { '<leader>th', require('telescope.builtin').help_tags, desc = 'Search [H]elp' },
     { '<leader>tg', require('telescope.builtin').live_grep, desc = 'Search by [G]rep' },
     { '<leader>td', require('telescope.builtin').diagnostics, desc = 'Search [D]iagnostics' },
     { '<leader>tr', require('telescope.builtin').resume, desc = '[R]esume last search' },
