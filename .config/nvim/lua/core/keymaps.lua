@@ -178,10 +178,6 @@ nmap('<leader>lf', cmd('lua vim.lsp.buf.format{ async = true }'), 'Formatting wi
 
 -- ** Customized keys for plugins **
 
--- NERDTree
-nmap('<c-t>', cmd('NERDTreeToggle'), 'Toggle NERDTree')
-nmap('<leader>tl', '<cmd>NERDTreeFind<CR><C-w_w>', 'Show current file in NERDTree')
-
 -- Vim-Schlepp settings
 vmap('<C-K>', '<Plug>SchleppUp')
 vmap('<C-J>', '<Plug>SchleppDown')
