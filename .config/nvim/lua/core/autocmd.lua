@@ -1,6 +1,6 @@
 vim.cmd([[
   " set verbosefile=~/tmp/nvim-messages.log
-  " set verbose=9 " see https://neovim.io/doc/user/options.html#'verbose' 
+  " set verbose=9 " see https://neovim.io/doc/user/options.html#'verbose'
 
   au FileType gitcommit set tw=100 " The default is 72 and for me it's mostly not enough
   " au BufRead * normal zR
@@ -64,11 +64,11 @@ vim.cmd([[
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
   group = highlight_group,
-  pattern = '*',
+  pattern = "*",
 })

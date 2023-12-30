@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   function! LoadLocalVimrc()
     let b:currentDir = getcwd()
 
@@ -18,17 +18,17 @@ vim.cmd [[
   endfunction
 
   call LoadLocalVimrc()
-]]
+]])
 
-function SetPaperColor ()
-  vim.cmd.colorscheme('PaperColor')
-  vim.opt.background = 'light'
+function SetPaperColor()
+  vim.cmd.colorscheme("PaperColor")
+  vim.opt.background = "light"
 end
 
 function ToggleBackground()
-  if vim.opt.background:get() == 'dark' then
-    vim.opt.background = 'light'
+  if vim.opt.background:get() == "dark" then
+    vim.opt.background = "light"
   else
-    vim.opt.background = 'dark'
+    vim.opt.background = "dark"
   end
 end

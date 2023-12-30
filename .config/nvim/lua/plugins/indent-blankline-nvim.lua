@@ -2,7 +2,6 @@
 -- https://github.com/lukas-reineke/indent-blankline.nvim
 -- See `:help indent_blankline.txt`
 
-
 local highlight = {
   "RainbowRed",
   "RainbowYellow",
@@ -15,10 +14,10 @@ local highlight = {
 
 return {
   "lukas-reineke/indent-blankline.nvim",
-  event = 'VeryLazy',
+  event = "VeryLazy",
   main = "ibl",
   config = function()
-    local hooks = require "ibl.hooks"
+    local hooks = require("ibl.hooks")
     -- create the highlight groups in the highlight setup hook, so they are reset
     -- every time the colorscheme changes
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -34,9 +33,9 @@ return {
     require("ibl").setup({
       enabled = true,
       indent = {
-        char = '|',
+        char = "|",
         highlight = highlight,
       },
     })
-  end
+  end,
 }

@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- Session Management
-opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Line Numbers
 opt.relativenumber = true
@@ -61,7 +61,7 @@ vim.o.hlsearch = false
 vim.wo.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -75,10 +75,10 @@ vim.o.smartcase = true
 
 -- Decrease update time
 vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menuone,noselect"
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -94,35 +94,35 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 
-vim.o.listchars = 'space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸▸'
+vim.o.listchars = "space:·,trail:·,precedes:«,extends:»,eol:↲,tab:▸▸"
 vim.opt.list = true
 
-vim.opt.wildignore = {'.git', '.vscode', 'node_modules', 'target' }
+vim.opt.wildignore = { ".git", ".vscode", "node_modules", "target" }
 
 vim.opt.relativenumber = false
 
-vim.opt.foldmethod = 'manual'
+vim.opt.foldmethod = "manual"
 
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeRespectWildIgnore = 1
 
 -- Settings for ACK plugin
-vim.g.ackprg = 'rg -S --no-heading --hidden --vimgrep'
-vim.cmd('cnoreabbrev ag Ack!')
-vim.cmd('cnoreabbrev rg Ack!')
-vim.cmd('cnoreabbrev ack Ack!')
+vim.g.ackprg = "rg -S --no-heading --hidden --vimgrep"
+vim.cmd("cnoreabbrev ag Ack!")
+vim.cmd("cnoreabbrev rg Ack!")
+vim.cmd("cnoreabbrev ack Ack!")
 
 -- Vim-schlepp settings
-vim.cmd('let g:Schlepp#allowSquishingLines = 1')
-vim.cmd('let g:Schlepp#allowSquishingBlock = 1')
+vim.cmd("let g:Schlepp#allowSquishingLines = 1")
+vim.cmd("let g:Schlepp#allowSquishingBlock = 1")
 
 -- vim-router
-vim.g.rooter_cd_cmd = 'lcd'
+vim.g.rooter_cd_cmd = "lcd"
 
 -- Set my preferred colorscheme
 -- require('material.functions').change_style('palenight')
 vim.o.termguicolors = true
-vim.cmd('colorscheme onedark')
+vim.cmd("colorscheme onedark")
 
 -- Disable netrw because of usage nvim-tree
 vim.g.loaded_netrw = 1
