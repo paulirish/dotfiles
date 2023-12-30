@@ -202,10 +202,6 @@ nmap('xx', 'dd')
 -- Mappings for expand-selection plugin
 vmap('v', '<Plug>(expand_region_expand)')
 
--- Show Git diff and commits with using Delta as diff viewer
-nmap('<leader>tgc', cmd('lua require ("user.telescope-git").git_commits()'), 'Show Git commits in Telescope')
-nmap('<leader>tgs', cmd('lua require ("user.telescope-git").git_status()'), 'Show Git status in Telescope')
-
 -- Use ToggleBackground from dark to light and back
 nmap('<leader>pp', cmd('lua ToggleBackground()'), 'Toggle dark or light background')
 nmap('<leader>cs', cmd('Telescope colorscheme'), 'Show colorschemes in Telescope')
