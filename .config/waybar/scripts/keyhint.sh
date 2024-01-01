@@ -20,7 +20,6 @@ yad --width=530 --height=550 \
 "+b" "Brave" "Open Browser" \
 "+f" "Fullscreen" "Toggles to full screen" \
 "+j" "Toggle split" "dwindle" \
-"+q" "close focused app" "(kill)" \
 "+p" "Dwindle effect" "pseudo" \
 "+s" "Suspend" "Lock screen and sleep" \
 "+Space" "run app" "Run app by name" \
@@ -29,7 +28,8 @@ yad --width=530 --height=550 \
 "+Shift+c" "Change wallpaper" "(wpaperd)" \
 "+Shift+p" "Clipboard" "Paste from clipboard" \
 "+Shift+f" "Fullscreen" "Toggles to full screen" \
-"+Shift+q" "Quit" "Exit program" \
+"+Shift+q" "Close focused app" "(kill)" \
+"+Shift+h" "Show keyhints" "This window" \
 "+Shift+l" "Lock screen" "Locks the screen with swaylock" \
 "+Shift+s/+Shift+-" "Move to scratchpach" "Special workspace" \
 "+Shift+p" "Screenshot region" "Select a region of the screen for creating a screenshot" \
