@@ -119,7 +119,7 @@ window#waybar {
   font-style: normal;
 }
 
-#pulseaudio, #network, #temperature, #memory, #cpu, #disk, #battery, #custom-wallpaper, #custom-cliphist, #custom-updates, #custom-pacman {
+#pulseaudio, #network, #temperature, #memory, #cpu, #disk, #battery, #custom-wallpaper, #custom-cliphist, #custom-updates, #custom-pacman, #custom-launcher, #custom-keyhints {
   background-color: #282828;
   /*color: #8EC07C;*/
   border-radius: 16px;
@@ -148,7 +148,7 @@ window#waybar {
   color: #24283b;
   border-radius: 5px 5px 5px 5px;
 }
+
 #custom-pacman {
   color: @warning_color;
 }
-

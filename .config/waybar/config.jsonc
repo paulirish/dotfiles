@@ -8,9 +8,11 @@
                 // Choose the order of the modules
   "modules-left": [
     // "user",
+    "custom/launcher",
     "hyprland/workspaces",
     "custom/cliphist",
-    "custom/wallpaper"
+    "custom/wallpaper",
+    "custom/keyhints"
   ],
   "modules-center": [
     "hyprland/window"
@@ -52,8 +54,8 @@
   },
   "hyprland/window": {
     "rewrite": {
-        "(.*) - Brave": "$1",
-        "(.*) - Chromium": "$1"
+        "(.*) - Brave": "Brave - $1",
+        "(.*) - Chromium": "Chromium - $1"
     },
     "separate-outputs": true
   },
@@ -203,6 +205,7 @@
     "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
     "exec": "pamac checkupdates -q | wc -l",
     "on-click": "pamac-manager --updates; pkill -RTMIN+4 waybar",
+    "tooltip": false,
     "signal": 4
   },
   "custom/updates": {
@@ -215,5 +218,17 @@
     "on-click": "pamac-manager --updates",
     "on-click-right": "pamac-manager",
     "tooltip": false
+  },
+  "custom/launcher": {
+    "format": "",
+    "on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
+    "tooltip": false
+  },
+  "custom/keyhints": {
+    "format": "", // Icon: keyboard
+    "on-click": "~/.config/waybar/scripts/keyhint.sh",
+    "tooltip": false
   }
+
+
 }
