@@ -185,7 +185,7 @@ alias clear-clip-history="rm $HOME/.cache/cliphist/db"
 
 # You need to install xsel with apt-get before using it
 alias copy='wl-copy'
-alias paste='wl-paste'
+alias paste='wl-paste --type=text/plain'
 
 # Sometimes we need to start the ssh-agent manually
 alias start-ssh-agent="eval \"$(ssh-agent)\""
