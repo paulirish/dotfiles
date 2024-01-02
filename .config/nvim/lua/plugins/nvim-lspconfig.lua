@@ -25,7 +25,6 @@ return {
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     local lsp_attach = function(client, bufnr)
-      print("lsp_attach")
       local nmap = function(keys, func, desc)
         if desc then
           desc = "LSP: " .. desc
