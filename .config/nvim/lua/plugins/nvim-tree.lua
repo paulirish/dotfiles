@@ -1,5 +1,22 @@
 -- A File Explorer For Neovim Written In Lua
 -- https://github.com/nvim-tree/nvim-tree.lua
+
+local function custom_on_attach(bufnr)
+  local api = require("nvim-tree.api")
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+  vim.keymap.set("n", "v", api.node.open.vertical, opts("Open: Vertical Split"))
+  vim.keymap.set("n", "s", api.node.open.vertical, opts("Open: Vertical Split")) -- This is how it was with NerdTree
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -16,22 +33,15 @@ return {
 
     -- configure nvim-tree
     nvimtree.setup({
+      -- set local keymaps
+      on_attach = custom_on_attach,
       view = {
         width = 35,
         relativenumber = true,
       },
-      -- change folder arrow icons
       renderer = {
         indent_markers = {
           enable = true,
-        },
-        icons = {
-          glyphs = {
-            folder = {
-              arrow_closed = "", -- arrow when folder is closed
-              arrow_open = "", -- arrow when folder is open
-            },
-          },
         },
       },
       -- disable window_picker for
@@ -52,12 +62,12 @@ return {
       },
     })
 
-    -- set keymaps
-    local keymap = vim.keymap                                                                                           -- for conciseness
+    -- set global keymaps
+    local keymap = vim.keymap
 
-    keymap.set("n", "<c-t>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })                              -- toggle file explorer
-    keymap.set("n", "<leader>tl", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
-    keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })                     -- collapse file explorer
-    keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })                       -- refresh file explorer
+    keymap.set("n", "<c-t>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+    keymap.set("n", "<leader>tl", "<cmd>NvimTreeFindFile<CR>", { desc = "Find current file in file explorer" })
+    keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
+    keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
   end,
 }

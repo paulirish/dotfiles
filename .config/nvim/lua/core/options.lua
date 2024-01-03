@@ -123,7 +123,3 @@ vim.g.rooter_cd_cmd = "lcd"
 -- require('material.functions').change_style('palenight')
 vim.o.termguicolors = true
 vim.cmd("colorscheme onedark")
-
--- Disable netrw because of usage nvim-tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
