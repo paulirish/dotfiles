@@ -1,6 +1,6 @@
 #!/bin/bash
 COMMAND=${1:-on}
-RESOLUTION=${2:-1920x1080}
+SCALE=${2:-2}
 
 STANDARD_OUTPUT="eDP-1"
 BEAMER_OUTPUT="DP-1"
@@ -14,8 +14,10 @@ echo "Use command ${COMMAND}"
 
 if [ "${COMMAND}" == "on" ]; then
   echo "Turn output to beamer on..."
-  xrandr --output $BEAMER_OUTPUT --mode ${RESOLUTION} --right-of $STANDARD_OUTPUT
+  hyprctl keyword monitor $BEAMER_OUTPUT},preferred,auto,${SCALE},mirror,${STANDARD_OUTPUT}
+  # xrandr --output $BEAMER_OUTPUT --mode ${RESOLUTION} --right-of $STANDARD_OUTPUT
 else
   echo "Turn output to beamer off..."
-  xrandr --output $BEAMER_OUTPUT --off
+  hyprctl keyword monitor $BEAMER_OUTPUT},disable
+  # xrandr --output $BEAMER_OUTPUT --off
 fi
