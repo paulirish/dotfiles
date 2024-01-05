@@ -141,3 +141,5 @@ eval "$(starship init zsh)"
 # Source local zshrc with local bu specific settings, if file exists
 [ -f ~/.zshrc.bu ] && source ~/.zshrc.bu
 
+export KEYCHAIN_KEYS="$KEYCHAIN_KEYS_LOCAL $KEYCHAIN_KEYS_BU"
+[ -f ~/tmp/keychain_init_done ] && source ~/bin/init-keychain.sh
