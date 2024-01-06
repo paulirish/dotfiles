@@ -14,6 +14,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.opt.termguicolors = true -- Required from vim-notify
+
 -- This has to be set before initializing lazy
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","

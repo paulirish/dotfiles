@@ -6,9 +6,7 @@ return {
   event = "VeryLazy",
   dependencies = {
     -- LSP Management
-    -- https://github.com/williamboman/mason.nvim
     { "williamboman/mason.nvim" },
-    -- https://github.com/williamboman/mason-lspconfig.nvim
     { "williamboman/mason-lspconfig.nvim" },
     -- Useful status updates for LSP
     -- https://github.com/j-hui/fidget.nvim
@@ -18,9 +16,6 @@ return {
     { "folke/neodev.nvim",                opts = {} },
   },
   config = function()
-    require("mason").setup()
-    require("mason-lspconfig").setup()
-
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
@@ -63,10 +58,6 @@ return {
       end, { desc = "Format current buffer with LSP" })
     end
 
-    -- Ensure the servers above are installed
-    local mason_lspconfig = require("mason-lspconfig")
-
-    -- Update this list to the language servers you need installed
     local servers = {
       ansiblels = {},
       bashls = {},
@@ -94,6 +85,9 @@ return {
       },
     }
 
+    local mason_lspconfig = require("mason-lspconfig")
+
+    -- Ensure the servers above are installed
     mason_lspconfig.setup({
       ensure_installed = vim.tbl_keys(servers),
     })

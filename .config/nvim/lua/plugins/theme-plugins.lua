@@ -1,6 +1,7 @@
 return {
-  "navarasu/onedark.nvim",
-  "folke/tokyonight.nvim",
-  "NLKNguyen/papercolor-theme",
-  "marko-cerovac/material.nvim",
+  { "navarasu/onedark.nvim", lazy = false },
+  { "folke/tokyonight.nvim", event = "VeryLazy"},
+  { "NLKNguyen/papercolor-theme", event = "VeryLazy" },
+  { "marko-cerovac/material.nvim", event = "VeryLazy"},
+  { "glepnir/zephyr-nvim", event = "VeryLazy" },
 }
