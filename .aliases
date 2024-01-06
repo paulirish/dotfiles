@@ -1,3 +1,6 @@
+# source script for keychain initialization
+alias kc="source ~/bin/init-keychain.sh"
+
 # Easier navigation: .., ..., ~ and -
 alias cd..='cd ..'
 alias ..="cd .."
