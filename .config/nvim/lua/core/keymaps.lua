@@ -101,7 +101,7 @@ nmap("<leader>gb", cmd("Git blame"), "Show git blame")
 -- Diagnostic keymaps
 nmap("[d", vim.diagnostic.goto_prev)
 nmap("]d", vim.diagnostic.goto_next)
-nmap('<leader>gg', cmd('lua vim.lsp.buf.hover()', "hover lsp"))
+nmap('<leader>gg', cmd('lua vim.lsp.buf.hover()'), "hover lsp")
 nmap('<leader>gl', cmd('lua vim.diagnostic.open_float()'), 'Open diagnostic float')
 
 nmap("<leader>rl", cmd("source $MYVIMRC")) -- Reload neovim config
