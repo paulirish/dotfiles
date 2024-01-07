@@ -74,23 +74,6 @@ end
 -- nmap('<leader>fi', require('telescope.builtin').lsp_incoming_calls, {})
 -- nmap('<leader>fm', function() require('telescope.builtin').treesitter({default_text=":method:"}) end)
 --
--- -- Git-blame
--- nmap("<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
-
--- Harpoon
--- nmap("<leader>ha", require("harpoon.mark").add_file)
--- nmap("<leader>hh", require("harpoon.ui").toggle_quick_menu)
--- nmap("<leader>h1", function() require("harpoon.ui").nav_file(1) end)
--- nmap("<leader>h2", function() require("harpoon.ui").nav_file(2) end)
--- nmap("<leader>h3", function() require("harpoon.ui").nav_file(3) end)
--- nmap("<leader>h4", function() require("harpoon.ui").nav_file(4) end)
--- nmap("<leader>h5", function() require("harpoon.ui").nav_file(5) end)
--- nmap("<leader>h6", function() require("harpoon.ui").nav_file(6) end)
--- nmap("<leader>h7", function() require("harpoon.ui").nav_file(7) end)
--- nmap("<leader>h8", function() require("harpoon.ui").nav_file(8) end)
--- nmap("<leader>h9", function() require("harpoon.ui").nav_file(9) end)
-
--- nmap('<leader>gg', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- nmap('<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 -- nmap('<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 -- nmap('<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -101,7 +84,6 @@ end
 -- nmap('<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
 -- vmap('<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
 -- nmap('<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- nmap('<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
 -- nmap('<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 -- nmap('<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 -- nmap('<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
@@ -112,12 +94,15 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
---
+
+-- Git-blame
+nmap("<leader>gb", cmd("Git blame"), "Show git blame")
+
 -- Diagnostic keymaps
 nmap("[d", vim.diagnostic.goto_prev)
 nmap("]d", vim.diagnostic.goto_next)
--- nmap('<leader>e', vim.diagnostic.open_float)
--- nmap('<leader>q', vim.diagnostic.setloclist)
+nmap('<leader>gg', cmd('lua vim.lsp.buf.hover()', "hover lsp"))
+nmap('<leader>gl', cmd('lua vim.diagnostic.open_float()'), 'Open diagnostic float')
 
 nmap("<leader>rl", cmd("source $MYVIMRC")) -- Reload neovim config
 
