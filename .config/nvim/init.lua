@@ -15,6 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.opt.termguicolors = true -- Required from vim-notify
+vim.opt.showmode = false -- Hiding mode change notifications shown from noice
 
 -- This has to be set before initializing lazy
 vim.g.mapleader = ","
