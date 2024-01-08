@@ -156,7 +156,8 @@ nmap("]<space>", "o<esc>")
 
 nmap("<leader>h", cmd("set hlsearch!"), "Toggle highlight search")
 
-nmap("<leader>rs", cmd("!./sync.sh"), "[R]un [s]ync.sh") -- Run the sync.sh script
+-- Run the sync.sh script -> Does not work with Layzy.nvim
+-- nmap("<leader>rs", cmd("!./sync.sh"), "[R]un [s]ync.sh")
 
 -- Custom keys for LSP
 nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -176,7 +177,7 @@ vmap("<C-L>", "<Plug>SchleppRight")
 nmap("<silent>F3", cmd("MaximizerToggle"))
 
 -- Search for current word with ACK plugin
-nmap("<leader>vv", cmd("Ack! <cword>"))
+nmap("<leader>vv", cmd("Ack! <cword>"), "Search current word") -- codespell: ignore
 
 -- Mapping for Cutlass to use x for cut operations
 nmap("x", "d")
@@ -204,10 +205,10 @@ nmap("<leader>,e", cmd("HopChar1"), "Hop to specific char")
 
 -- Mappings for lspsaga -- see https://github.com/glepnir/lspsaga.nvim
 -- nmap("<leader>sf", cmd('Lspsaga lsp_finder'), 'Lspsaga finder')
-nmap("<leader>sca", cmd("Lspsaga code_action"), "Lspsaga code action")
+nmap("<leader>sa", cmd("Lspsaga code_action"), "Lspsaga code action")
 nmap("<leader>sr", cmd("Lspsaga rename ++project"), "Lspsaga rename")
-nmap("<leader>sgd", cmd("Lspsaga goto_definition"), "Lspsaga goto definition")
-nmap("<leader>sgt", cmd("Lspsaga goto_type_definition"), "Lspsaga goto type definition")
+-- nmap("<leader>sgd", cmd("Lspsaga goto_definition"), "Lspsaga goto definition")
+-- nmap("<leader>sgt", cmd("Lspsaga goto_type_definition"), "Lspsaga goto type definition")
 nmap("<leader>spd", cmd("Lspsaga peek_definition"), "Lspsaga peek definition")
 nmap("<leader>spt", cmd("Lspsaga peek_type_definition"), "Lspsaga peek type definition")
 nmap("<leader>sdl", cmd("Lspsaga show_line_diagnostics"), "Lspsaga show line diagnostics")
