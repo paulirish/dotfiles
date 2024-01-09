@@ -22,12 +22,6 @@ local function cmd(command)
   return table.concat({ "<Cmd>", command, "<CR>" })
 end
 
--- imap("jk", "<ESC>") -- exit insert mode with jk
--- imap("ii", "<ESC>") -- exit insert mode with ii
--- nmap("<leader>wq", ":wq<CR>") -- save and quit
--- nmap("<leader>qq", ":q!<CR>") -- quit without saving
--- nmap("<leader>ww", ":w<CR>") -- save
--- nmap("gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
 --
 -- -- Split window management
 -- nmap("<leader>sv", "<C-w>v") -- split window vertically
@@ -55,14 +49,6 @@ end
 -- -- Quickfix keymaps
 -- nmap("<leader>qn", ":cnext<CR>") -- jump to next quickfix list item
 -- nmap("<leader>qp", ":cprev<CR>") -- jump to prev quickfix list item
---
--- -- Vim-maximizer
--- nmap("<leader>sm", ":MaximizerToggle<CR>") -- toggle maximize tab
---
--- -- Nvim-tree
--- nmap("<leader>ee", ":NvimTreeToggle<CR>") -- toggle file explorer
--- nmap("<leader>er", ":NvimTreeFocus<CR>") -- toggle focus to file explorer
--- nmap("<leader>ef", ":NvimTreeFindFile<CR>") -- find file in file explorer
 --
 -- -- Telescope
 -- nmap('<leader>ff', require('telescope.builtin').find_files, {})
@@ -220,3 +206,6 @@ nmap("<leader>sk", cmd("Lspsaga hover_doc"), "Lspsaga hover doc")
 nmap("<leader>st", cmd("Lspsaga term_toggle"), "Lspsaga term toggle")
 -- nmap('<leader>sci', cmd('Lspsaga incoming_calls'), 'Lspsaga incoming calls')
 -- nmap('<leader>sco', cmd('Lspsaga outgoing_calls'), 'Lspsaga outgoing calls')
+
+-- Other helpful mappings
+nmap("gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
