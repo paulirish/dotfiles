@@ -208,4 +208,4 @@ nmap("<leader>st", cmd("Lspsaga term_toggle"), "Lspsaga term toggle")
 -- nmap('<leader>sco', cmd('Lspsaga outgoing_calls'), 'Lspsaga outgoing calls')
 
 -- Other helpful mappings
-nmap("gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
+nmap("gx", cmd("lua require('user.handle-url').open_url()")) -- open URL under cursor
