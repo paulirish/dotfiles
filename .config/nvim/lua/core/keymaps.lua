@@ -90,7 +90,7 @@ nmap("]d", vim.diagnostic.goto_next)
 nmap('<leader>gg', cmd('lua vim.lsp.buf.hover()'), "hover lsp")
 nmap('<leader>gl', cmd('lua vim.diagnostic.open_float()'), 'Open diagnostic float')
 
-nmap("<leader>rl", cmd("source $MYVIMRC")) -- Reload neovim config
+-- nmap("<leader>rl", cmd("source $MYVIMRC")) -- Reload neovim config (Does not work with LazyVim)
 
 -- quick pairs
 imap("<leader>'", "''<ESC>i")
@@ -142,8 +142,8 @@ nmap("]<space>", "o<esc>")
 
 nmap("<leader>h", cmd("set hlsearch!"), "Toggle highlight search")
 
--- Run the sync.sh script -> Does not work with Layzy.nvim
--- nmap("<leader>rs", cmd("!./sync.sh"), "[R]un [s]ync.sh")
+-- Run the sync.sh script
+nmap("<leader>rs", cmd("!./sync.sh"), "[R]un [s]ync.sh")
 
 -- Custom keys for LSP
 nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
