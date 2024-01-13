@@ -1,5 +1,9 @@
 local opt = vim.opt
 
+-- Setting verbosefile and verbose
+-- vim.o.verbosefile = '~/tmp/nvim-messages.log'
+-- vim.o.verbose = 9
+
 -- Session Management
 opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
