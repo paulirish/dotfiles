@@ -105,7 +105,7 @@ imap("<leader>{{", "{{}}<ESC><left>i")
 nmap("<leader>q", cmd("q"), "Exit current window")
 nmap("<leader>e", cmd("quit"), "Exit current window")
 -- nmap('<leader>x', cmd('x'), 'Save and exit current window')
-nmap("<leader>w", cmd("update"), "Save current changes")
+nmap("<leader>w", cmd("w!"), "Save current changes")
 
 -- Show Git status in a floating window to commit current changes with using TIG
 nmap(
