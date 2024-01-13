@@ -16,7 +16,6 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
-vim.bo.softtabstop = 2
 
 -- Line Wrapping
 opt.wrap = false
@@ -104,8 +103,6 @@ vim.opt.list = true
 vim.opt.wildignore = { ".git", ".vscode", "node_modules", "target" }
 
 vim.opt.relativenumber = false
-
-vim.opt.foldmethod = "manual"
 
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeRespectWildIgnore = 1

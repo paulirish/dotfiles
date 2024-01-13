@@ -4,6 +4,8 @@ local create_augroup = vim.api.nvim_create_augroup
 local create_autocmd = vim.api.nvim_create_autocmd
 
 -- Function to handle view operations
+-- This brings the feature that Neovim remembers where exactly left the current file
+-- Neovim will jump back to this position when the file will be loaded again
 local function handle_view_operations(event)
   if vim.fn.expand('%') ~= '' then
     if event == "BufWinLeave" then
@@ -58,7 +60,6 @@ create_autocmd("FileType", {
     vim.bo.tabstop = 2
     vim.bo.softtabstop = 2
     vim.bo.nowrap = true
-    vim.bo.foldmethod = "indent"
   end
 })
 create_autocmd({ "BufWinLeave", "BufWinEnter" }, {
@@ -79,7 +80,6 @@ create_autocmd("FileType", {
     vim.bo.tabstop = 2
     vim.bo.softtabstop = 2
     vim.bo.nowrap = true
-    vim.bo.foldmethod = "indent"
     vim.api.nvim_command('compiler cargo')
     vim.keymap.set('n', '<leader>rr', '<cmd>RustRunnables<cr>', { buffer = true })
   end
@@ -157,7 +157,6 @@ create_autocmd("FileType", {
     vim.bo.shiftwidth = 2
     vim.bo.softtabstop = 2
     vim.bo.nowrap = true
-    vim.bo.foldmethod = "indent"
     vim.keymap.set('n', '<leader>gr', '<cmd>GoRun<cr>', { buffer = true })
     vim.keymap.set('n', '<leader>gt', '<cmd>GoTest<cr>', { buffer = true })
   end
