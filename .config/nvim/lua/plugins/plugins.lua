@@ -6,7 +6,7 @@ return {
   { "mileszs/ack.vim",              event = "VeryLazy" }, -- Provides support for ack and the SilverlightSearcher in vim
   { "szw/vim-maximizer",            event = "VeryLazy" }, -- Maximizes and restores the current window in Vim.
   { "svermeulen/vim-cutlass",       event = "VeryLazy" }, -- Plugin that adds a 'cut' operation separate from 'delete'
-  { "terryma/vim-multiple-cursors", event = "VeryLazy" }, -- This True Sublime Text style multiple selections for Vim
+  { "mg979/vim-visual-multi",				event = "VeryLazy" }, -- This True Sublime Text style multiple selections for Vim - https://github.com/mg979/vim-visual-multi
   { "tpope/vim-repeat",             event = "VeryLazy" }, -- Enable repeating supported plugin maps with \".\"
   { "tpope/vim-surround",           event = "VeryLazy" }, -- surround.vim: quoting/parenthesizing made simple
   { "hashivim/vim-terraform",       ft = "terraform" },   -- Highlighting for Terraform
