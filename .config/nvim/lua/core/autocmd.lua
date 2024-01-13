@@ -59,7 +59,6 @@ create_autocmd("FileType", {
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
     vim.bo.softtabstop = 2
-    vim.bo.nowrap = true
   end
 })
 create_autocmd({ "BufWinLeave", "BufWinEnter" }, {
@@ -79,7 +78,6 @@ create_autocmd("FileType", {
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
     vim.bo.softtabstop = 2
-    vim.bo.nowrap = true
     vim.api.nvim_command('compiler cargo')
     vim.keymap.set('n', '<leader>rr', '<cmd>RustRunnables<cr>', { buffer = true })
   end
@@ -108,8 +106,8 @@ create_autocmd("FileType", {
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
     vim.bo.softtabstop = 2
-    vim.bo.wrap = true
-    vim.bo.foldmethod = "manual"
+    vim.wo.wrap = true
+    vim.wo.foldmethod = "manual"
     vim.wo.spell = true
     vim.bo.spelllang = { "de", "en" }
     vim.bo.spellfile = '~/Projects/dotfiles/.config/nvim/spell/de.utf-8.add'
@@ -151,12 +149,11 @@ create_autocmd("FileType", {
   group = go_group,
   pattern = "go",
   callback = function()
-    vim.bo.noexpandtab = true
+    vim.bo.noexpandtab = true -- In Go we need real tabs instead of spaces
     vim.bo.preserveindent = true
     vim.bo.tabstop = 2
     vim.bo.shiftwidth = 2
     vim.bo.softtabstop = 2
-    vim.bo.nowrap = true
     vim.keymap.set('n', '<leader>gr', '<cmd>GoRun<cr>', { buffer = true })
     vim.keymap.set('n', '<leader>gt', '<cmd>GoTest<cr>', { buffer = true })
   end
@@ -178,4 +175,3 @@ create_autocmd("TextChangedI", {
     require("user.debounce-cmp").debounce(1500)
   end
 })
-
