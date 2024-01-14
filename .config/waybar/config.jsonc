@@ -39,7 +39,7 @@
     "warp-on-scroll": false,
     "format": "{name}: {icon}",
     "format-icons": {
-      "1": "DEV",
+      "1": "",
       "2": "",
       "3": "",
       "4": "",
@@ -48,9 +48,6 @@
       "urgent": "",
       "focused": "",
       "default": ""
-    },
-    "persistent-workspaces": {
-      "*": 4
     }
   },
   "hyprland/window": {
