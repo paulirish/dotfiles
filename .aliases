@@ -232,3 +232,5 @@ alias cgr="cargo run"
 alias cgt="cargo test"
 alias cgw="cargo watch"
 alias cgwt="cargo watch -x test"
+
+alias open="xdg-open"
