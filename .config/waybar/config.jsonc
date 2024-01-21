@@ -18,7 +18,6 @@
     "hyprland/window"
   ],
   "modules-right": [
-    // "idle_inhibitor",
     "custom/pacman",
     "pulseaudio",
     "cpu",
@@ -29,6 +28,7 @@
     "network",
     "battery",
     "custom/notification",
+    "idle_inhibitor",
     "tray",
     "clock"
   ],
