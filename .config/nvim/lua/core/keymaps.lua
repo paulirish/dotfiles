@@ -3,7 +3,6 @@ vim.g.mapleader = ","
 
 local function map(mode, shortcut, command, desc)
   vim.keymap.set(mode, shortcut, command, { noremap = true, silent = true, desc = desc })
-  -- vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
 
 local function nmap(shortcut, command, desc)
@@ -185,10 +184,10 @@ nmap("<leader>xr", cmd("TroubleRefresh"), "Refresh diagnostics list")
 nmap("<leader>xq", cmd("TroubleToggle quickfix"), "Refresh diagnostics list")
 
 -- Keys for hop - see https://github.com/smoka7/hop.nvim
-nmap("<leader>,w", cmd("HopWord"), "Hop word")
-nmap("<leader>,b", cmd("HopWordBC"), "Hop word")
-nmap("<leader>,p", cmd("HopPattern"), "Hop pattern")
-nmap("<leader>,e", cmd("HopChar1"), "Hop to specific char")
+map({ "n", "v" }, "<leader>,w", cmd("HopWord"), "Hop word")
+map({ "n", "v" }, "<leader>,b", cmd("HopWordBC"), "Hop word")
+map({ "n", "v" }, "<leader>,p", cmd("HopPattern"), "Hop pattern")
+map({ "n", "v" }, "<leader>,e", cmd("HopChar1"), "Hop to specific char")
 
 -- Mappings for lspsaga -- see https://github.com/glepnir/lspsaga.nvim
 -- nmap("<leader>sf", cmd('Lspsaga lsp_finder'), 'Lspsaga finder')
