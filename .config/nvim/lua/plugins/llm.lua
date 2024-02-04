@@ -1,6 +1,6 @@
 return {
   'huggingface/llm.nvim',
-  enabled = true,
+  enabled = false,
   event = 'VeryLazy',
   opts = {
     -- api_token = nil, Will be read from LLM_NVIM_API_TOKEN
