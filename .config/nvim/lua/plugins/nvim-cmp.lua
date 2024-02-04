@@ -107,6 +107,7 @@ return {
           vim_item.kind = string.format("%s", kind_icons[vim_item.kind] or vim_item.kind)
           vim_item.menu = ({
             codeium = "[Codeium]",
+            cmp_ai = "[AI]",
             cmp_tabnine = "[TabNine]",
             nvim_lsp = "[LSP]",
             luasnip = "[Snippet]",
@@ -120,7 +121,8 @@ return {
       sources = cmp.config.sources({
         { name = "buffer" },
         { name = "codeium" },
-        { name = "cmp_tabnine" },
+        { name = "cmp_ai" },
+        -- { name = "cmp_tabnine" },
         { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp" },
