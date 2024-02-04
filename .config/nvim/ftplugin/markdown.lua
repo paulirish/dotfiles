@@ -13,4 +13,4 @@ vim.wo.foldmethod = "manual"
 -- Spell check
 vim.wo.spell = true
 vim.bo.spelllang = "de,en"
-vim.bo.spellfile = '~/Projects/dotfiles/.config/nvim/spell/de.utf-8.add'
+vim.bo.spellfile = os.getenv("HOME") .. "/Projects/dotfiles/.config/nvim/spell/de.utf-8.add"
