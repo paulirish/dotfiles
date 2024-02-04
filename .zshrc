@@ -143,3 +143,6 @@ eval "$(starship init zsh)"
 
 export KEYCHAIN_KEYS="$KEYCHAIN_KEYS_LOCAL $KEYCHAIN_KEYS_BU"
 [ -f ~/tmp/keychain_init_done ] && source ~/bin/init-keychain.sh
+
+# Config keys for Atuin together with Fzf and run init for Zsh
+[ -f ~/.config/atuin/atuin-setup.sh ] && source ~/.config/atuin/atuin-setup.sh
