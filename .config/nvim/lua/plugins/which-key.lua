@@ -11,6 +11,7 @@ return {
 
     wk.register({
       [","] = { name = "+Hop" },
+      c = { name = "+ChatGPT" },
       d = { name = "+Debug" },
       l = { name = "+Format/Linting" },
       n = { name = "+Neotest" },
