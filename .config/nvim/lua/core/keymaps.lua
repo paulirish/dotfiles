@@ -147,6 +147,7 @@ nmap("<leader>rs", cmd("!./sync.sh"), "[R]un [s]ync.sh")
 -- Custom keys for LSP
 nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+vmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 -- nmap("<leader>lf", cmd("lua vim.lsp.buf.format{ async = true }"), "Formatting with LSP")
 -- vmap("<leader>lf", cmd("lua vim.lsp.buf.format{ async = true }"), "Formatting with LSP")
 
