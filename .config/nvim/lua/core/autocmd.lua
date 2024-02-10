@@ -107,11 +107,6 @@ create_autocmd({ "BufNewFile", "BufRead" }, {
     vim.bo.filetype = "yaml"
   end
 })
-create_autocmd("FileType", {
-  group = yaml_group,
-  pattern = "yaml",
-  command = "set cursorcolumn"
-})
 create_autocmd({ "BufWinLeave", "BufWinEnter" }, {
   group = yaml_group,
   pattern = "*.y*ml",

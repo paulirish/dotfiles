@@ -11,10 +11,11 @@ return {
     local conform = require("conform")
 
     conform.setup({
+      log_level = vim.log.levels.TRACE,
       formatters = {
         prettier = {
-          args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-        }
+          -- args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+        },
       },
       formatters_by_ft = {
         javascript = { "prettier" },
@@ -37,13 +38,18 @@ return {
       -- },
     })
 
+    local format_options = {
+      async = false,
+      lsp_fallback = true,
+      timeout_ms = 500,
+    }
+
     vim.keymap.set({ "n", "v" }, "<leader>lf", function()
-      conform.format({
-        async = false,
-        lsp_fallback = true,
-        formatters = {},
-        timeout_ms = 500,
-      })
+      conform.format(format_options)
     end, { desc = "Format file or range (in visual mode)" })
+
+    vim.api.nvim_create_user_command("Format", function()
+      conform.format(format_options)
+    end, { desc = "Format current buffer with LSP" })
   end,
 }

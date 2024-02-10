@@ -14,7 +14,7 @@ return {
     local lint = require("lint")
 
     lint.linters_by_ft = {
-      ansible = { "ansible-lint", "yamllint" },
+      ansible = { "ansible_lint", "yamllint" },
       javascript = { "eslint_d" },
       javascriptreact = { "eslint_d" },
       lua = { "luacheck" },
@@ -24,6 +24,7 @@ return {
       json = { "jsonlint" },
       -- python = { "pylint" },
       sh = { "shellcheck" },
+      yaml = { "yamllint" },
       zsh = { "zsh" },
     }
 
