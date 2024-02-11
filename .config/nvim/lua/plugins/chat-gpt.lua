@@ -1,9 +1,12 @@
+-- https://github.com/jackMort/ChatGPT.nvim
+-- https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo
 return {
   "jackMort/ChatGPT.nvim",
   event = "VeryLazy",
   enabled = true,
   opts = {
-    api_key_cmd = nil,
+    -- api_key_cmd = nil,
+    api_key_cmd = "echo $OPENAI_API_KEY",
     yank_register = "+",
     edit_with_instructions = {
       diff = false,
@@ -19,26 +22,7 @@ return {
     },
     chat = {
       welcome_message = WELCOME_MESSAGE,
-      loading_text = "Loading, please wait ...",
-      question_sign = "", -- 🙂
-      answer_sign = "ﮧ", -- 🤖
-      border_left_sign = "",
-      border_right_sign = "",
       max_line_length = 120,
-      sessions_window = {
-        active_sign = "  ",
-        inactive_sign = "  ",
-        current_line_sign = "",
-        border = {
-          style = "rounded",
-          text = {
-            top = " Sessions ",
-          },
-        },
-        win_options = {
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-        },
-      },
       keymaps = {
         close = "<C-c>",
         yank_last = "<C-y>",
@@ -64,93 +48,9 @@ return {
         stop_generating = "<C-x>",
       },
     },
-    popup_layout = {
-      default = "center",
-      center = {
-        width = "80%",
-        height = "80%",
-      },
-      right = {
-        width = "30%",
-        width_settings_open = "50%",
-      },
-    },
-    popup_window = {
-      border = {
-        highlight = "FloatBorder",
-        style = "rounded",
-        text = {
-          top = " ChatGPT ",
-        },
-      },
-      win_options = {
-        wrap = true,
-        linebreak = true,
-        foldcolumn = "1",
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-      },
-      buf_options = {
-        filetype = "markdown",
-      },
-    },
-    system_window = {
-      border = {
-        highlight = "FloatBorder",
-        style = "rounded",
-        text = {
-          top = " SYSTEM ",
-        },
-      },
-      win_options = {
-        wrap = true,
-        linebreak = true,
-        foldcolumn = "2",
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-      },
-    },
-    popup_input = {
-      prompt = "  ",
-      border = {
-        highlight = "FloatBorder",
-        style = "rounded",
-        text = {
-          top_align = "center",
-          top = " Prompt ",
-        },
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-      },
-      submit = "<C-Enter>",
-      submit_n = "<Enter>",
-      max_visible_lines = 20,
-    },
-    settings_window = {
-      setting_sign = "  ",
-      border = {
-        style = "rounded",
-        text = {
-          top = " Settings ",
-        },
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-      },
-    },
-    help_window = {
-      setting_sign = "  ",
-      border = {
-        style = "rounded",
-        text = {
-          top = " Help ",
-        },
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-      },
-    },
     openai_params = {
-      model = "gpt-3.5-turbo",
+      -- model = "gpt-3.5-turbo-0125",
+      model = "gpt-4-0125-preview",
       frequency_penalty = 0,
       presence_penalty = 0,
       max_tokens = 300,
@@ -159,7 +59,8 @@ return {
       n = 1,
     },
     openai_edit_params = {
-      model = "gpt-3.5-turbo",
+      -- model = "gpt-3.5-turbo-0125",
+      model = "gpt-4-0125-preview",
       frequency_penalty = 0,
       presence_penalty = 0,
       temperature = 0,
@@ -184,6 +85,7 @@ return {
   },
   config = function(_, opts)
     require("chatgpt").setup(opts)
+
     vim.cmd("cnoreabbrev gpt ChatGPT")
     vim.cmd("cnoreabbrev gptr ChatGPTRun")
     vim.cmd("cnoreabbrev gr ChatGPTRun")
@@ -191,7 +93,11 @@ return {
     vim.cmd("cnoreabbrev gaa ChatGPTActAs")
 
     vim.keymap.set({ "n", "v" }, "<leader>ct", "<cmd>ChatGPT<CR>", { desc = "Show ChatGPT window" })
-    vim.keymap.set({ "n", "v" }, "<leader>ce", "<cmd>ChatGPTEditWithInstruction<CR>",
-      { desc = "ChatGPTEditWithInstruction" })
+    vim.keymap.set(
+      { "n", "v" },
+      "<leader>ce",
+      "<cmd>ChatGPTEditWithInstruction<CR>",
+      { desc = "ChatGPTEditWithInstruction" }
+    )
   end
 }
