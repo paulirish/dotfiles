@@ -1,5 +1,5 @@
 -- Go specific settings
-vim.bo.noexpandtab = true     -- In Go we need real tabs instead of spaces
+vim.bo.expandtab = false -- In Go we need real tabs instead of spaces
 vim.bo.preserveindent = true
 vim.bo.tabstop = 2
 vim.bo.shiftwidth = 2
