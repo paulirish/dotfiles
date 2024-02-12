@@ -7,36 +7,35 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
   },
-  config = function()
+  opts = {
+    formatters = {
+      prettier = {
+        -- args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+      },
+    },
+    formatters_by_ft = {
+      javascript = { "prettier" },
+      typescript = { "prettier" },
+      javascriptreact = { "prettier" },
+      typescriptreact = { "prettier" },
+      svelte = { "prettier" },
+      css = { "prettier" },
+      html = { "prettier" },
+      json = { "prettier" },
+      yaml = { "prettier" },
+      markdown = { "prettier" },
+      graphql = { "prettier" },
+      lua = { "stylua" },
+    },
+    -- format_on_save = {
+    --   lsp_fallback = true,
+    --   async = false,
+    --   timeout_ms = 500,
+    -- },
+  },
+  config = function(_, opts)
     local conform = require("conform")
-
-    conform.setup({
-      log_level = vim.log.levels.TRACE,
-      formatters = {
-        prettier = {
-          -- args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-        },
-      },
-      formatters_by_ft = {
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
-        svelte = { "prettier" },
-        css = { "prettier" },
-        html = { "prettier" },
-        json = { "prettier" },
-        yaml = { "prettier" },
-        markdown = { "prettier" },
-        graphql = { "prettier" },
-        lua = { "stylua" },
-      },
-      -- format_on_save = {
-      --   lsp_fallback = true,
-      --   async = false,
-      --   timeout_ms = 500,
-      -- },
-    })
+    conform.setup(opts)
 
     local format_options = {
       async = false,
