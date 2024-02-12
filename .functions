@@ -373,11 +373,3 @@ function jupyter() {
   cd ~/Projects/jupyter-notebooks
   docker run --name jupyter --rm -p 8888:8888 -v "$(pwd):/home/jovyan" jupyter/scipy-notebook:ubuntu-22.04
 }
-
-function n() {
-  if [ "$#" -eq 0 ]; then
-    nvim -c 'Telescope find_files'
-  else
-    nvim $@
-  fi
-}

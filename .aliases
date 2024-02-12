@@ -81,6 +81,7 @@ alias trimcopy="tr -d '\n' | copy"
 alias cleanup_ds_store="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Some other Shortcuts
+alias n="nvim"
 alias vim="nvim"
 alias v="nvim"
 alias e="nvim -c 'startinsert'"
