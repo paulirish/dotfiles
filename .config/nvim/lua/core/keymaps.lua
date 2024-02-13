@@ -170,6 +170,7 @@ nmap("<leader>vv", cmd("Ack! <cword>"), "Search current word") -- codespell: ign
 nmap("x", "d")
 vmap("x", "d")
 nmap("xx", "dd")
+nmap("<DEL>", "d") -- Deleting something with the Del key should not add do a yank operation
 
 -- Mappings for expand-selection plugin
 vmap("v", "<Plug>(expand_region_expand)")
