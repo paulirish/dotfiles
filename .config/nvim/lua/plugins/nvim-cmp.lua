@@ -141,14 +141,11 @@ return {
         documentation = cmp.config.window.bordered(),
       },
       enabled = function()
-        if
-            require("cmp.config.context").in_treesitter_capture("comment") == true
-            or require("cmp.config.context").in_syntax_group("Comment")
-        then
+        if require("cmp.config.context").in_treesitter_capture("comment") == true
+            or require("cmp.config.context").in_syntax_group("Comment") then
           return false
-        else
-          return true
         end
+        return true
       end,
     })
 
@@ -172,6 +169,14 @@ return {
           },
         },
       }),
+    })
+
+    -- This should deactivate the completion for Telescope prompt fields
+    -- But it's not working as
+    cmp.setup.filetype('TelescopePrompt', {
+      enabled = function()
+        return false
+      end
     })
   end,
 }
