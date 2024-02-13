@@ -123,4 +123,4 @@ vim.g.rooter_cd_cmd = "lcd"
 -- Set my preferred colorscheme
 -- require('material.functions').change_style('palenight')
 vim.o.termguicolors = true
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme catppuccin")
