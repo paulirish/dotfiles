@@ -32,8 +32,8 @@ return {
       },
       tabline = {
         lualine_a = {},
-        lualine_b = {},
-        lualine_c = { "filename" },
+        lualine_b = { "tabs" },
+        lualine_c = { "windows" },
         lualine_x = {},
         lualine_y = {},
         lualine_z = { { get_navic } },
