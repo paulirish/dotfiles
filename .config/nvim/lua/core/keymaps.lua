@@ -148,8 +148,9 @@ nmap("<leader>rs", cmd("!./sync.sh"), "[R]un [s]ync.sh")
 nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 vmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
--- nmap("<leader>lf", cmd("lua vim.lsp.buf.format{ async = true }"), "Formatting with LSP")
--- vmap("<leader>lf", cmd("lua vim.lsp.buf.format{ async = true }"), "Formatting with LSP")
+
+-- Close the quixfix windox
+nmap("<leader>xc", cmd("cclose"), "[Q]uickfix [C]lose")
 
 -- ** Customized keys for plugins **
 
