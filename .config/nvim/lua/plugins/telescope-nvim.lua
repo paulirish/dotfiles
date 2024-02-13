@@ -95,6 +95,10 @@ return {
         find_files = {
           hidden = true,
         },
+        buffers = {
+          sort_lastused = true,
+          theme = "dropdown",
+        }
       },
       extensions = {
         repo = {
