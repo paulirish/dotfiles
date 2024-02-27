@@ -1,7 +1,7 @@
 -- https://github.com/tzachar/cmp-ai
 return {
   'tzachar/cmp-ai',
-  enabled = true,
+  enabled = false,
   event = "VeryLazy",
   dependencies = 'nvim-lua/plenary.nvim',
   config = function()
