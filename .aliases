@@ -25,7 +25,7 @@ fi
 alias l="ls -l ${colorflag}"
 
 # List all files colorized in long format, including dot files
-alias lsa="exa --long --header --git --all"
+alias lsa="eza --long --header --git --all"
 # List only directories
 alias lsd="lsa --only-dirs"
 
