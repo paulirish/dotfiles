@@ -122,7 +122,7 @@ return {
         { name = "buffer" },
         { name = "codeium" },
         { name = "cmp_ai" },
-        -- { name = "cmp_tabnine" },
+        { name = "cmp_tabnine" },
         { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp" },
