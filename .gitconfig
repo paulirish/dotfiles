@@ -19,7 +19,7 @@
 	mergeorigin = !"git merge origin/$(git mainormaster)"
 
 	# Essentially GitHub's compare view: show all 'ahead' changes (incl working tree) vs the merge-base
-	diffbranch = !"git diff $(git diffbase)"
+	diffbranch = !"git diff -w $(git diffbase)"
 	# Diff of branch that's not checked out. Doesn't include working tree (but obv doesnt need to)
 	diffbranch-that = !"git diff origin/$(git mainormaster)...\"$1\" #"
 	# Show commit log of unique commits of this branch (not on main)

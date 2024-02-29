@@ -49,14 +49,7 @@ brew install shellcheck # linting for .sh files
 
 # mtr - ping & traceroute. best.
 brew install mtr
-
-    # allow mtr to run without sudo
-    # https://github.com/traviscross/mtr/issues/204#issuecomment-487325796
-    sudo chmod 4755 $location_of_mtr-packet
-    # on my machine i have a `/usr/local/sbin/mtr-packet` and root owns local/sbin. (thx google!?)
-    # thus, i dont use the homebrew mtr.
-
-
+   # `abbr mtr "sudo mtr"` to avoid forgetting.
 
 # Install other useful binaries
 brew install the_silver_searcher # ack is an alternative, tbh i forget which i like more.

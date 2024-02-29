@@ -149,12 +149,11 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
     # arg can either be port number or extra args to statikk
     if test $argv[1]
       if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$argv[1]"
-        echo $argv[1] is a number
         set port $argv[1]
-        statikk --open --port "$port"
+        # fancy argv thing to pass all remaining args. eg `server --cors --jsprof`
+        statikk --open --port $argv[1..-1]
       else
-        echo "not a number"
-        statikk --open $argv[1]
+        statikk --open $argv[1..-1]
       end
 
     else
