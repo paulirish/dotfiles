@@ -194,7 +194,7 @@ todatauri () {
 # * https://asdf-vm.com/ has lots of fans. i want to try it.
 function nvm {
 	unset -f nvm
-	export NVM_DIR="/Users/paulirish/.nvm"
+	export NVM_DIR="$HOME/.nvm"
 	. "$NVM_DIR/nvm.sh" --no-use
 	nvm "${@}"
 }
