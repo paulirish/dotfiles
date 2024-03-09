@@ -115,7 +115,7 @@ nmap(
   "Show Tig status in floating window"
 )
 
-nmap("<leader>aa", "ggVG", "Selec the whole text")
+nmap("<leader>aa", "ggVG", "Select the whole text")
 
 nmap("<leader>h", cmd("set hlsearch!"), "toggle highlight search")
 
