@@ -46,7 +46,7 @@ return {
     { "<c-p>",      cmd("Telescope find_files"),              desc = "Telescope find files" },
     { "<leader>tt", cmd("Telescope"),                         desc = "Show Telescope" },
     { "<leader>tp", cmd("Telescope neoclip"),                 "Telescope neoclip" },
-    { "<leader>tr", cmd("Telescope repo"),                    "Telescope repos" },
+    { "<leader>tr", cmd("Telescope repo list"),               "Telescope repos" },
   },
   config = function()
     local telescope = require("telescope")
