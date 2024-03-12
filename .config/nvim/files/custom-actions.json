@@ -1,0 +1,20 @@
+{
+  "grammar_correction_ext": {
+    "type": "chat",
+    "opts": {
+      "template": "Fix all my grammar mistakes in {{lang}}:\n\n{{input}}",
+      "strategy": "replace",
+      "params": {
+        "model": "gpt-4-turbo-preview",
+        "max_tokens": 4096
+      }
+    },
+    "args": {
+      "lang": {
+        "type": "string",
+        "optional": "true",
+        "default": "english"
+      }
+    }
+  }
+}
