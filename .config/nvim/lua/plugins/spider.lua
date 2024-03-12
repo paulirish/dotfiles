@@ -3,8 +3,12 @@
 return {
   "chrisgrieser/nvim-spider",
   lazy = false,
-  config = function()
-    require("spider").setup()
+  enabled = true,
+  opts = {
+    skipInsignificantPunctuation = false,
+  },
+  config = function(_, opts)
+    require("spider").setup(opts)
     vim.keymap.set(
       { "n", "o", "x" },
       "w",
