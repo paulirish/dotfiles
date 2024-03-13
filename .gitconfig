@@ -44,7 +44,7 @@
 
 	# commit (past) WIP changes with a message stating when they happened. (Cuz I sometimes leave changes uncommitted for a while, but want the dates for reference)
 	# todo: maybe use `git commit --date=X` to set a past date. would need to pick one, tho.
-	commitwip = !"git commit -am \"WIP changes from a while ago. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
+	commitwip = !"git commit -am \"Assorted changes. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
 
 
 	# I'm curious about some of these git + fzf aliases... 
