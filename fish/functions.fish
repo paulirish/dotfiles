@@ -149,12 +149,11 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
     # arg can either be port number or extra args to statikk
     if test $argv[1]
       if string match -qr '^-?[0-9]+(\.?[0-9]*)?$' -- "$argv[1]"
-        echo $argv[1] is a number
         set port $argv[1]
-        statikk --open --port "$port"
+        # fancy argv thing to pass all remaining args. eg `server --cors --jsprof`
+        statikk --open --port $argv[1..-1]
       else
-        echo "not a number"
-        statikk --open $argv[1]
+        statikk --open $argv[1..-1]
       end
 
     else
@@ -163,15 +162,6 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
 end
 
 
-function emptytrash -d 'Empty the Trash on all mounted volumes and the main HDD. then clear the useless sleepimage'
-    sudo rm -rfv "/Volumes/*/.Trashes"
-    grm -rf "~/.Trash/*"
-    rm -rfv "/Users/paulirish/Library/Application Support/stremio/Cache"
-    rm -rfv "/Users/paulirish/Library/Application Support/stremio/stremio-cache"
-    rm -rfv "~/Library/Application Support/Spotify/PersistentCache/Update/*.tbz"
-    rm -rfv ~/Library/Caches/com.spotify.client/Data
-    rm -rfv ~/Library/Caches/Firefox/Profiles/98ne80k7.dev-edition-default/cache2
-end
 
 function conda -d 'lazy initialize conda'
   functions --erase conda

@@ -58,6 +58,13 @@ function dtb --description "build devtools with a watch loop"
     eval $cmd
 end
 
+function dtbw --description "use watch_build.js"
+    cd ./(git rev-parse --show-cdup)
+
+    # dont let vpython use a 2.7.. seems to only affect this dude
+    VPYTHON_BYPASS="manually managed python not supported by chrome operations" node scripts/watch_build.js
+end
+
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
 #                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
@@ -150,7 +157,7 @@ end
 function glurpgrab --description "dl mac-cross build from glurp"
     glurpgrab0
 
-    maccr
+    maccr-flagged
 end
 
 function maccr
@@ -174,7 +181,7 @@ function crflags
         --disable-extensions --disable-component-extensions-with-background-pages --disable-background-networking --disable-component-update \
         --disable-client-side-phishing-detection --disable-sync --metrics-recording-only --disable-default-apps --mute-audio --no-default-browser-check \
         --no-first-run --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --disable-background-timer-throttling --disable-ipc-flooding-protection \
-        --disable-hang-monitor  --enable-logging=stderr $clutch_chrome_flags --user-data-dir=\(mktemp -d "$TMPDIR/chrome-profile-XXXXX"\)
+        --disable-hang-monitor  $clutch_chrome_flags --user-data-dir=/tmp/glurp-mac-cross   --enable-logging=stderr
     # these two are also good, but tricky to escape for inclusion here: --vmodule='device_event_log*=1' --force-fieldtrials='*BackgroundTracing/default/' 
 end
 

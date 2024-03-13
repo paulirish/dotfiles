@@ -16,7 +16,7 @@ cask cleanup
 
 ~/Library/Caches/Google/Chrome Canary/Default
 ~/Library/Caches/Google/Chrome/Default
-~/Library/Application Support/stremio/stremio-cache
+
 
 # diskexplorer X is good for big files
 # daisy disk is good for big folders

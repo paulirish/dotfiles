@@ -30,3 +30,4 @@ export LESS_TERMCAP_us=$(printf '\e[04;36m')													# enter underline mode 
 export FZF_DEFAULT_COMMAND='fd'
 export FZF_CTRL_T_COMMAND='fd'
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {} 2>/dev/null || tree -C {}'"
+

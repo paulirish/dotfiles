@@ -80,6 +80,7 @@ subcommand_abbr git dbt "diffbranch-that"
 subcommand_abbr npm i "install"
 #subcommand_abbr pnpm i "install"
 
+abbr mtr "sudo mtr"
 
 
 # is it a `main` or a `master` repo?
@@ -147,7 +148,10 @@ alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
 # pretty sure watchexec has just won my heart after years of using `entr`
 alias reportwatch 'watchexec "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
 
+# dt. rpp
+alias rppunit 'npm run unittest -- --expanded-reporting --mocha-fgrep=Processor\|Timeline\|trace\|Trace\|Appender\|Handler\|Performance'
+alias rppinter 'npm run interactionstest -- --test-file-pattern="*/performance/**"'
+alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
 
-alias rppunit 'npm run auto-unittest -- --expanded-reporting --mocha-fgrep=Processor\|Timeline\|trace\|Appender\|Handler\|Performance'
-alias rppinter 'HTML_OUTPUT_FILE=rppscreenshots.html npm run interactionstest -- --test-file-pattern="*/performance/**"'
-alias rppscreen 'HTML_OUTPUT_FILE=rppscreenshots.html third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
+
+abbr xpraclient "xpra attach --video-scaling=off --desktop-scaling=off --dpi=96  --ssh=/usr/bin/ssh 'ssh://glurp/:110'"
