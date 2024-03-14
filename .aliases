@@ -235,3 +235,5 @@ alias cgw="cargo watch"
 alias cgwt="cargo watch -x test"
 
 alias open="xdg-open"
+
+alias ld="lazydocker"
