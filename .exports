@@ -33,7 +33,7 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
 # Define where the Go main path is
 export GOPATH=~/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin:/usr/local/bin/yubico-authenticator
 
 export CDPATH=~/:~/Projects/:~/Projects/check24/:~/Projects/check24/bu-ansible/:/media/jan/mailbox-drive/Jan\ Baer/:/media/jan/mailbox-drive/Jan\ Baer/CHECK24/
 
