@@ -1,6 +1,8 @@
+-- https://github.com/nvim-neotest/neotest
 return {
   "nvim-neotest/neotest",
   dependencies = {
+    "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "antoinemadec/FixCursorHold.nvim",
@@ -22,7 +24,7 @@ return {
     { "<leader>nS", function() require("neotest").run.stop() end,                                       desc = "Stop" },
     { "<leader>nl", function() require("neotest").run.run_last() end,                                   desc = "Run last test" },
     -- { "<leader>nL", function() require("neotest").run.run_last({ strategy = "dap" }) end,               desc = "Debug last test" },
-    { "<leader>nw", function() require('neotest').run.run({ jestCommand = 'yarn test:watch' }) end,       desc = "Run watch" },
+    { "<leader>nw", function() require('neotest').run.run({ jestCommand = 'yarn test:watch' }) end,     desc = "Run watch" },
   },
   ft = { "go", "typescript", "javascript", "rust" },
   config = function()
