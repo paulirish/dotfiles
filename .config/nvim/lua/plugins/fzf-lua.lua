@@ -1,9 +1,9 @@
 -- Improved fzf.vim written in lua
--- https://github.com/cleong14/fzf-lua
+-- https://github.com/ibhagwan/fzf-lua
 return {
-  "cleong14/fzf-lua",
-  -- optional for icon support
+  "ibhagwan/fzf-lua",
   enabled = true,
+  -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     fzf_opts = {
