@@ -13,6 +13,7 @@ return {
       [","] = { name = "+Hop" },
       c = { name = "+ChatGPT" },
       d = { name = "+Debug" },
+      f = { name = "+FzfLua" },
       l = { name = "+Format/Linting" },
       n = { name = "+Neotest" },
       s = { name = "+Lsp[s]aga" },

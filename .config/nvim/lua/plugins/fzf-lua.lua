@@ -20,6 +20,9 @@ return {
     -- calling `setup` is optional for customization
     require("fzf-lua").setup(opts)
     vim.keymap.set("n", "<C-S-P>", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true, desc = "Fzf files" })
+    vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua<CR>", { silent = true, desc = "Fzf commands" })
+    vim.keymap.set("n", "<leader>fb", "<cmd>lua require('fzf-lua').buffers()<CR>",
+      { silent = true, desc = "Fzf buffers" })
 
     vim.cmd("cnoreabbrev fzf FzfLua")
   end
