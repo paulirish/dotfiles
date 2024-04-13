@@ -46,13 +46,20 @@
           "outputCapture": "std",
           "sourceMaps": false
         },
-
         {
           "name": "Attach to Process",
           "type": "node",
           "request": "attach",
           "processId": "${command:PickProcess}",
           "port": 5858,
+          "sourceMaps": false
+        },
+        {
+          "name": "RemoteDebug",
+          "type": "node",
+          "request": "attach",
+          "port": 9229,
+          "remoteRoot": "/app",
           "sourceMaps": false
         },
         {
