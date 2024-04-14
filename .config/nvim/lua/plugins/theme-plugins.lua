@@ -5,4 +5,5 @@ return {
   { "NLKNguyen/papercolor-theme",  event = "VeryLazy" },
   { "marko-cerovac/material.nvim", event = "VeryLazy" },
   { "glepnir/zephyr-nvim",         event = "VeryLazy" },
+  { "dracula/vim",                 event = "VeryLazy" },
 }
