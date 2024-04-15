@@ -1,6 +1,6 @@
 {
     "go.useLanguageServer": true,
-    "workbench.colorTheme": "Office Theme (Publisher)",
+    "workbench.colorTheme": "Dracula",
     "workbench.statusBar.visible": true,
     "workbench.settings.editor": "ui",
     "workbench.iconTheme": "vscode-simpler-icons",
