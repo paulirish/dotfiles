@@ -40,7 +40,7 @@ return {
     local format_options = {
       async = false,
       lsp_fallback = true,
-      timeout_ms = 500,
+      timeout_ms = 1500,
     }
 
     vim.keymap.set({ "n", "v" }, "<leader>lf", function()
