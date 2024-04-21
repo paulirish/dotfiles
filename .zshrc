@@ -97,7 +97,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export LESSOPEN="| /usr/local/bin/pygmentize %s"
 export LESS=" -R "
 alias less='less -m -N -g -i -J --underline-special --SILENT'
-
 alias more='less'
 
 stty -ixon # Disable ctrl-s and ctrl-q.
@@ -120,10 +119,9 @@ if [ $? -eq 0 ]; then
   nvm use default
 fi
 
-# Add support for fzf the fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 start-ssh-agent
+
+[ -f ~/.fzf-init.zsh ] && source ~/.fzf-init.zsh
 
 # Source local zshrc with local only settings
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
