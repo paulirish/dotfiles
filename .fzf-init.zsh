@@ -3,7 +3,6 @@
 # eval "$(fzf --zsh)" -> requires version 0.48
 export FZF_PATH=$HOME/.fzf
 [ -f $FZF_PATH/fzf.zsh ] && source $FZF_PATH/fzf.zsh
-# source ~/.fzf.zsh
 
 # --- setup fzf theme ---
 fg="#CBE0F0"
@@ -41,4 +40,3 @@ _fzf_comprun() {
     *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
   esac
 }
-

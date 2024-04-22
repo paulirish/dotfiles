@@ -1,12 +1,11 @@
+# zmodload zsh/zprof # Enable profiling
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 export DEFAULT_USER=`whoami`
-# ZSH_THEME="cobalt2"
+
+ZSH_THEME="cobalt2"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,32 +48,27 @@ DISABLE_AUTO_TITLE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   alias-finder
-  ansible
+  # ansible
   common-aliases
-  dirhistory
+  # dirhistory
   extract
-  fzf-zsh-plugin
-  git-extras
-  golang
-  httpie
-  kubectl
-  node
-  npm
-  nvm
-  pass
+  # fzf-zsh-plugin
+  # git-extras
+  # golang
+  # httpie
+  # kubectl
+  # node
+  # npm
+  # nvm
+  # pass
   ripgrep
-  rsync
-  systemd
-  terraform
-  tmux
+  # rsync
+  # systemd
+  # terraform
+  # tmux
   vi-mode
-  web-search
-  yarn
-  ufw
-)
-
-ZSH_WEB_SEARCH_ENGINES=(
-  devdocs "https://devdocs.io/"
+  # yarn
+  # ufw
 )
 
 # User configuration
@@ -103,15 +97,13 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 
 source ~/.exports
 source ~/.functions
-
-# aliases
 source ~/.aliases
 
 # I want to have the history for each tab separately
-setopt no_share_history
+# setopt no_share_history
 
 # Activate this key binding explicitly since VI mode is deactivating it
-bindkey '^R' history-incremental-search-backward
+# bindkey '^R' history-incremental-search-backward
 
 # use the default version of node.js
 type nvm > /dev/null
@@ -134,7 +126,7 @@ source ~/.config/zsh/cursor-shape.conf
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
 # Adding starship for a more informative prompt https://starship.rs/de-DE/config/ 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 #
 # Source local zshrc with local bu specific settings, if file exists
 [ -f ~/.zshrc.bu ] && source ~/.zshrc.bu
@@ -144,3 +136,5 @@ export KEYCHAIN_KEYS="$KEYCHAIN_KEYS_LOCAL $KEYCHAIN_KEYS_BU"
 
 # Config keys for Atuin together with Fzf and run init for Zsh
 [ -f ~/.config/atuin/atuin-setup.sh ] && source ~/.config/atuin/atuin-setup.sh
+
+# zprof # Show profiling result
