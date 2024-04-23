@@ -126,7 +126,7 @@ source ~/.config/zsh/cursor-shape.conf
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
 # Adding starship for a more informative prompt https://starship.rs/de-DE/config/ 
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 #
 # Source local zshrc with local bu specific settings, if file exists
 [ -f ~/.zshrc.bu ] && source ~/.zshrc.bu
