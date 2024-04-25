@@ -101,7 +101,8 @@ function dtcr --description "run chrome with dev devtools"
 
     # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
     # set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv http://localhost:11010/"
+    # used to use component-server --traces but nah.. http://localhost:11010/
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv "
     echo "  > $cmd"
     eval $cmd
 end
@@ -178,7 +179,7 @@ end
 function crflags
     echo --password-store=basic --use-mock-keychain --disable-features=Translate,OptimizationHints,MediaRouter,ProcessPerSiteUpToMainFrameThreshold \
         --custom-devtools-frontend=file:///Users/paulirish/chromium-devtools/devtools-frontend/out/Default/gen/front_end \
-        --disable-extensions --disable-component-extensions-with-background-pages --disable-background-networking --disable-component-update \
+        --disable-component-extensions-with-background-pages --disable-background-networking --disable-component-update \
         --disable-client-side-phishing-detection --disable-sync --metrics-recording-only --disable-default-apps --mute-audio --no-default-browser-check \
         --no-first-run --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --disable-background-timer-throttling --disable-ipc-flooding-protection \
         --disable-hang-monitor  $clutch_chrome_flags --user-data-dir=/tmp/glurp-mac-cross   --enable-logging=stderr

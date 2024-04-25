@@ -19,7 +19,7 @@
 	mergeorigin = !"git merge origin/$(git mainormaster)"
 
 	# Essentially GitHub's compare view: show all 'ahead' changes (incl working tree) vs the merge-base
-	diffbranch = !"git diff -w $(git diffbase)"
+	diffbranch = !"git diff  $(git diffbase)"
 	# Diff of branch that's not checked out. Doesn't include working tree (but obv doesnt need to)
 	diffbranch-that = !"git diff origin/$(git mainormaster)...\"$1\" #"
 	# Show commit log of unique commits of this branch (not on main)
@@ -44,7 +44,7 @@
 
 	# commit (past) WIP changes with a message stating when they happened. (Cuz I sometimes leave changes uncommitted for a while, but want the dates for reference)
 	# todo: maybe use `git commit --date=X` to set a past date. would need to pick one, tho.
-	commitwip = !"git commit -am \"WIP changes from a while ago. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
+	commitwip = !"git commit -am \"WIP changes. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
 
 
 	# I'm curious about some of these git + fzf aliases... 

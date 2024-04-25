@@ -10,9 +10,9 @@ function ..... ; cd ../../../.. ; end
 function grep     ; command grep --color=auto $argv ; end
 
 # mv, rm, cp
-alias mv 'command gmv --interactive --verbose'
-alias rm 'command grm --interactive --verbose'
-alias cp 'command gcp --interactive --verbose'
+alias mv 'command mv --interactive --verbose'
+alias rm 'command rm --interactive --verbose'
+alias cp 'command cp --interactive --verbose'
 
 alias chmox='chmod +x'
 
@@ -92,6 +92,8 @@ alias master="main"
 
 # ag defaults. go as wide as terminal (minus some space for line numbers)
 # i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
+# OKAY RIPGREP is way faster than AG. i gotta drop ag like its hot.
+#        also ripgrep doesnt buffer output so you can pipe it somewhere and it'll go as it happens.  wow yah SO much better.
 alias ag='command ag -W (math $COLUMNS - 14)'  
 
 # fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
@@ -101,8 +103,8 @@ alias watchexec='command watchexec --project-origin . --ignore node_modules'
 
 
 # for counting instances.. `ag -o 'metadata","name":".*?"' trace.json | sorteduniq`
-alias sorteduniq="sort | uniq -c | sort -r"
-alias sorteduniq-asc="sort | uniq -c | sort"
+alias sorteduniq="sort | uniq -c | sort --reverse --ignore-leading-blanks --numeric-sort" # -rbn
+alias sorteduniq-asc="sort | uniq -c | sort --ignore-leading-blanks --numeric-sort"  # -bn
 
 
 alias diskspace_report="df -P -kHl"

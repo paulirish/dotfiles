@@ -408,6 +408,7 @@ function fish_prompt
         echo ''
     end
 
+    # echo -sn $user "@" $hostname
     set_color $lucid_cwd_color
     echo -sn $cwd
     set_color normal
