@@ -20,12 +20,6 @@ if test -e "$HOME/.extra.fish";
     source ~/.extra.fish
 end
 
-# THEME PURE #
-# set -g async_prompt_functions _pure_prompt_git  # run this async! dope.
-# set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_function_path
-# set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
-# source $HOME/.config/fish/functions/pure/conf.d/pure.fish
-
 # I don't need a prompt symbol for you-got-things-in-yr-stash
 set --erase pure_symbol_git_stash
 

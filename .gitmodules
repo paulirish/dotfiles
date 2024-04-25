@@ -1,3 +1,0 @@
-[submodule "fish/functions/pure"]
-	path = fish/functions/pure
-	url = git@github.com:paulirish/pure.git
