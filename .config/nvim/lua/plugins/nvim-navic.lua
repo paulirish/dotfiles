@@ -1,3 +1,4 @@
+-- Simple winbar/statusline plugin that shows your current code context
 -- https://github.com/SmiteshP/nvim-navic
 return {
   "SmiteshP/nvim-navic",

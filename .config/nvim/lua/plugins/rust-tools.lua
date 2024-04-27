@@ -1,7 +1,9 @@
+-- Tools for better development in rust using neovim's builtin lsp
 -- See https://github.com/simrat39/rust-tools.nvim
 -- See also https://sharksforarms.dev/posts/neovim-rust/
 return {
   "simrat39/rust-tools.nvim",
+  enabled = true,
   ft = "rust",
   config = function()
     local rust_tools = require("rust-tools")

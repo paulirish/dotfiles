@@ -1,6 +1,6 @@
 -- Auto-completion / Snippets
+-- https://github.com/hrsh7th/nvim-cmp
 return {
-  -- https://github.com/hrsh7th/nvim-cmp
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {

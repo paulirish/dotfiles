@@ -1,7 +1,6 @@
--- LSP Support
+-- LSP Configuration
+-- https://github.com/neovim/nvim-lspconfig
 return {
-  -- LSP Configuration
-  -- https://github.com/neovim/nvim-lspconfig
   "neovim/nvim-lspconfig",
   event = "VeryLazy",
   dependencies = {

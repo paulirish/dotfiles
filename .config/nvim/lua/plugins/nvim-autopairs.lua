@@ -1,7 +1,6 @@
--- https://github.com/windwp/nvim-autopairs
 -- Auto-completion of bracket/paren/quote pairs
+-- https://github.com/windwp/nvim-autopairs
 return {
-  -- https://github.com/windwp/nvim-autopairs
   "windwp/nvim-autopairs",
   event = "InsertEnter",
   opts = {

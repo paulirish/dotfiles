@@ -1,3 +1,5 @@
+-- Clipboard manager neovim plugin with telescope integration
+-- https://github.com/AckslD/nvim-neoclip.lua
 return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {

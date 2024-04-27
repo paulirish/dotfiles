@@ -1,3 +1,4 @@
+-- List of themes, I really like
 return {
   { "catppuccin/nvim",             lazy = false,      name = "catppuccin" },
   { "navarasu/onedark.nvim",       event = "VeryLazy" },

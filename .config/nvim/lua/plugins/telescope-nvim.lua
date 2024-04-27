@@ -1,11 +1,12 @@
+-- Fuzzy finder
+-- https://github.com/nvim-telescope/telescope.nvim
+-- https://github.com/cljoly/telescope-repo.nvim
+
 local function cmd(command)
   return table.concat({ "<Cmd>", command, "<CR>" })
 end
 
--- Fuzzy finder
 return {
-  -- https://github.com/nvim-telescope/telescope.nvim
-  -- https://github.com/cljoly/telescope-repo.nvim
   "nvim-telescope/telescope.nvim",
   lazy = true,
   branch = "0.1.x",

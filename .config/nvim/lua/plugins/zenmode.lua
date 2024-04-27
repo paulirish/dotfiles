@@ -1,6 +1,8 @@
+-- Distraction-free coding for Neovim
+-- https://github.com/folke/zen-mode.nvim
 return {
   "folke/zen-mode.nvim",
-  enabled = true,
+  enabled = false,
   event = "VeryLazy",
   dependencies = {
     "folke/twilight.nvim",

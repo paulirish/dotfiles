@@ -1,9 +1,9 @@
+-- Portable package manager for Neovim that runs everywhere Neovim runs.
 -- https://github.com/williamboman/mason.nvim
 return {
   "williamboman/mason.nvim",
   dependencies = {
     { "rcarriga/nvim-notify" },
-    -- { "williamboman/mason-lspconfig.nvim" },
     { "WhoIsSethDaniel/mason-tool-installer.nvim" },
   },
   config = function()
@@ -31,6 +31,5 @@ return {
         "stylua",
       },
     })
-
   end,
 }

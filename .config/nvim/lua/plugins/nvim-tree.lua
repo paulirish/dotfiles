@@ -1,6 +1,5 @@
 -- A File Explorer For Neovim Written In Lua
 -- https://github.com/nvim-tree/nvim-tree.lua
-
 local function custom_on_attach(bufnr)
   local api = require("nvim-tree.api")
 

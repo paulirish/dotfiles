@@ -1,6 +1,6 @@
 -- Code Tree Support / Syntax Highlighting
+-- https://github.com/nvim-treesitter/nvim-treesitter
 return {
-  -- https://github.com/nvim-treesitter/nvim-treesitter
   "nvim-treesitter/nvim-treesitter",
   event = "VeryLazy",
   dependencies = {

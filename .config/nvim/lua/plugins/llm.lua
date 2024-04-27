@@ -1,3 +1,5 @@
+-- LLM powered development for Neovim
+-- https://github.com/huggingface/llm.nvim
 return {
   'huggingface/llm.nvim',
   enabled = false,

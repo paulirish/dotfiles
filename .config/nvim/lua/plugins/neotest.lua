@@ -12,6 +12,7 @@ return {
     "marilari88/neotest-vitest",
     "nvim-neotest/neotest-go",
   },
+  enabled = true,
   lazy = true,
   -- stylua: ignore
   keys = {
