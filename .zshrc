@@ -59,7 +59,7 @@ plugins=(
   # kubectl
   # node
   # npm
-  # nvm
+  nvm
   # pass
   ripgrep
   # rsync
