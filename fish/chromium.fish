@@ -1,7 +1,11 @@
-function deps --description "run gclient sync"
+function deps --description "run gclient sync without hooks"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
     # also reset seems to reset branch position in the devtools-internal repo??? weird.
-    gclient sync --delete_unversioned_trees --jobs=70 --verbose
+    gclient sync --delete_unversioned_trees --jobs=70 --verbose --nohooks
+end
+
+function depshooks --description "run gclient sync then hooks"
+    deps && gclient runhooks
 end
 
 function depsbg --description "run gclient sync in the background"
@@ -123,33 +127,22 @@ end
 
 function depsb --description "deps, then build chromium, then open it"
     if deps
-        # #     if [ "$argv[1]" = "--skipgoma" ] ...
-        gom
         b
     end
 end
 
 function depsbcr --description "deps, then build chromium, then open it"
     if deps
-        # #     if [ "$argv[1]" = "--skipgoma" ] ...
-        gom
         bcr
     end
 end
 
 function hooksbcr --description "run hooks, then build chromium, then open it"
     if hooks
-        gom
         bcr
     end
 end
 
-function gom --description "run goma setup"
-    set -x GOMAMAILTO /dev/null
-    set -x GOMA_ENABLE_REMOTE_LINK yes
-
-    goma_ctl ensure_start
-end
 
 function glurpgrab0
     rsync --archive --verbose --itemize-changes --compress --human-readable --delete paulirish@glurp:chromium/src/out/Mac-cross-siso/Chromium.app $HOME/chromium/src/out/Mac-cross-from-glurp/ 
