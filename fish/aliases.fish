@@ -10,9 +10,9 @@ function ..... ; cd ../../../.. ; end
 function grep     ; command grep --color=auto $argv ; end
 
 # mv, rm, cp
-alias mv 'command mv --interactive --verbose'
-alias rm 'command rm --interactive --verbose'
-alias cp 'command cp --interactive --verbose'
+abbr mv 'mv -v'
+abbr rm 'rm -v'
+abbr cp 'cp -v'
 
 alias chmox='chmod +x'
 
@@ -155,5 +155,8 @@ alias rppunit 'npm run unittest -- --expanded-reporting --mocha-fgrep=Processor\
 alias rppinter 'npm run interactionstest -- --test-file-pattern="*/performance/**"'
 alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
 
-
 abbr xpraclient "xpra attach --video-scaling=off --desktop-scaling=off --dpi=96  --ssh=/usr/bin/ssh 'ssh://glurp/:110'"
+
+function delbranch
+  git branch -D "$argv" && git push paul ":$argv"
+end
