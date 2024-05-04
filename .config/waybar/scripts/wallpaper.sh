@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd ~/wallpaper && nsxiv -tf *.jpg
+cd ~/Pictures/wallpapers && nsxiv -tf *.jpg
