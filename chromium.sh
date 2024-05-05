@@ -65,14 +65,6 @@ function dtcr () {
 
 
 
-function gom () {
-    # these probably dont make sense for everyone.
-    export GOMAMAILTO=/dev/null
-    export GOMA_ENABLE_REMOTE_LINK=yes
-
-    goma_ctl ensure_start
-}
-
 function dtbcr () {
     if dtb; then
         dtcr
@@ -89,21 +81,18 @@ function bcr () {
 
 function depsb () {
     if deps; then
-        gom
         b
     fi
 }
 
 function depsbcr () {
     if deps; then
-        gom
         bcr
     fi
 }
 
 function hooksbcr () {
     if hooks; then
-        gom
         bcr
     fi
 }
