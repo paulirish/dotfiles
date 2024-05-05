@@ -1,7 +1,7 @@
 function deps --description "run gclient sync"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
     # also reset seems to reset branch position in the devtools-internal repo??? weird.
-    gclient sync --delete_unversioned_trees --jobs=70 --verbose
+    gclient sync --delete_unversioned_trees --jobs=70 --verbose --nohooks
 end
 
 function depsbg --description "run gclient sync in the background"
@@ -11,6 +11,10 @@ end
 
 function hooks --description "run gclient runhooks"
     gclient runhooks
+end
+
+function depshooks
+    deps && hooks
 end
 
 function b --description "build chromium"

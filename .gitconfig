@@ -1,6 +1,7 @@
 [alias]
 	c = commit -am
 	fpush = push --force
+	tpush = push  # typo: leftover t from git
 	s = status
 	ts = status # I do the `gi ts` typo all the time
 	sclone = clone --depth=1
