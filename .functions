@@ -87,10 +87,6 @@ function findmp3andremove() {
   find -E . -regex '^.+\([0-9]+\).mp3$' -exec rm -rf {} \;
 }
 
-function get-nodejs-version() {
-  curl -s https://nodejs.org/en/ | grep "Current$" | awk '{ print substr($1,0,8) }'
-}
-
 function npmlsg() {
   npm ls -g --depth=0
 }
@@ -99,13 +95,13 @@ function install-global-npms() {
   npm install -g live-server typescript jsctags prettier npm-which google-translate-cli npm-check npkill neovim tree-sitter tree-sitter-cli
 }
 
-function combine_mp3() {
+function combine-mp3() {
   cat *.mp3 > ../all.mp3
   avconv -i ../all.mp3 -acodec copy $1.mp3
   rm -f ../all.mp3
 }
 
-function combine_recursive_mp3() {
+function combine-recursive-mp3() {
   find -ds . -name '*.mp3' -print0 | xargs -0 cat >> ../all.mp3
   avconv -i ../all.mp3 -acodec copy $1.mp3
   rm -f ../all.mp3
@@ -154,7 +150,7 @@ function removeOrigFiles() {
   find . -iname '*.orig' -exec rm '{}' ';'
 }
 
-# Some aliase to use fzf with git
+# Some aliases to use fzf with git
 function gco() {
   git checkout $(git branch --color=never | sort | fzf )
 }
@@ -166,10 +162,6 @@ function gcor() {
   else
     git checkout $(echo $REMOTE_BRANCHES | sort | fzf)
   fi
-}
-
-function vimf() {
-  vim -O $(fzf -m --preview 'head -150 {} | pygmentize -O style=monokai' | tr '\n' ' ')
 }
 
 function nf() {
@@ -187,33 +179,6 @@ function cdr() {
 function weather() {
   local location="${1:-Munich}"
   curl -4 http://wttr.in/$location
-}
-
-function docker-python() {
-  docker run -it --rm  -v "$(pwd)":/home/src janbaer/python3
-}
-
-function docker-nodejs() {
-  docker run -it --rm  -v "$(pwd)":/home/src janbaer/nodejs
-}
-
-function docker-go() {
-  local app="${1:-app}"
-  docker run -it --rm  -v "$(pwd)":/go/src/github.com/janbaer/$app janbaer/go
-}
-
-function docker-vim() {
-  docker run -it --rm                       \
-             -v "$(pwd)":/home/jan/projects \
-             janbaer/vim $1
-}
-
-alias dvim=docker-vim
-
-function vim-go() {
-  docker run -it --rm                       \
-             -v "$(pwd)":/home/jan/projects \
-             janbaer/vim-go $1
 }
 
 function vim-clear-undo() {
@@ -240,16 +205,6 @@ function docker-rm-all() {
 
 function docker-rm-all-stopped() {
   docker rm $(docker ps -a | grep Exited | grep -v busybox | awk "{print \$1}")
-}
-
-function mocha-run() {
-  searchPattern=${1:-./**/*.spec.js}
-  mocha '${searchPattern}' --recursive --reporter spec
-}
-
-function mocha-watch() {
-  searchPattern=${1:-./**/*.spec.js}
-  mocha '${searchPattern}' --recursive --reporter spec --watch
 }
 
 function latex() {
@@ -299,35 +254,6 @@ function free-port() {
   kill -9 $(lsof -t -i :$PORT)
 }
 
-function install-go() {
-  local VERSION=$1
-  if [ -z "$VERSION" ]; then
-    echo "You have to pass the version of Go you want to install!"
-    return
-  fi
-
-  local ARCHIVE_NAME=go${VERSION}.linux-amd64.tar.gz
-
-  if [ -d /usr/local/go ]; then
-    echo "Removing previously installed version of Go"
-    sudo rm -rf /usr/local/go
-  fi
-
-  cd ~/Downloads
-
-  echo "Begin downloading archive for Go ${VERSION}"
-  wget https://dl.google.com/go/${ARCHIVE_NAME}
-
-  echo "Extracting archive now and installing Go ${VERSION}"
-  sudo tar -C /usr/local -xzf go$VERSION.linux-amd64.tar.gz
-
-  rm -f ${ARCHIVE_NAME}
-
-  cd -
-
-  echo "$(go version) is now running on you machine"
-}
-
 function rename-files() {
   local prefix=$1
   if [ -z "$prefix" ]; then
@@ -340,12 +266,7 @@ function rename-files() {
   \ls -t -r | cat -n | while read n f; do mv "${f}" "${prefix}-$(printf "%02d" $n).${extension}"; done
 }
 
-# cht.sh - The only cheatsheet you need
-function cheat() {
-  curl cht.sh/$1
-}
-
-function mongo-docker() {
+function docker-mongo() {
   local port=${1:-27017}
   local version=${2:-latest}
 
