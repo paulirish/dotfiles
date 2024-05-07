@@ -166,7 +166,7 @@ alias ydl="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ydla="yt-dlp --audio-format mp3 -x"
 
 # Show my wallpapers in sxiv
-alias ww="cd ~/Pictures/wallpaper && nsxiv -tf *.jpg && cd -"
+alias ww="cd ~/Pictures/wallpapers && nsxiv -tf *.jpg && cd -"
 
 # Show all images of the current directory in a slideshow
 alias slideshow="nsxiv -f -S 2 *.*"
@@ -237,3 +237,5 @@ alias cgwt="cargo watch -x test"
 alias open="xdg-open"
 
 alias ld="lazydocker"
+
+alias tf="terraform"
