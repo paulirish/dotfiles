@@ -1,5 +1,5 @@
 #!/bin/sh
-#
+
 wallpaper=~/.wallpaper.jpg
 
 while read file
@@ -10,12 +10,14 @@ do
     cp "$file" $wallpaper &&
     feh --bg-scale "$wallpaper"
 
-    monitor=$(hyprctl monitors -j | jq -r ".[0].name")
+    # monitor=$(hyprctl monitors -j | jq -r ".[0].name")
 
     if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
-      hyprctl hyprpaper unload $wallpaper
-      hyprctl hyprpaper preload $wallpaper
-      hyprctl hyprpaper wallpaper "$monitor,$wallpaper"
+      # hyprctl hyprpaper unload $wallpaper
+      # hyprctl hyprpaper preload $wallpaper
+      # hyprctl hyprpaper wallpaper "$monitor,$wallpaper"
+      pkill hyprpaper
+      hyprctl dispatch exec hyprpaper
     else
       feh --bg-scale "$HOME/.wallpaper.jpg"
     fi
