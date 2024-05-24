@@ -208,6 +208,7 @@ alias -s {md,txt,js,css,html}="nvim"
 alias -s {png,jpg,jpeg}=eog
 
 # Helpful aliases for Kubernetes
+alias k="kubectl"
 alias kbb="kubectl run busybox --image=yauritux/busybox-curl --rm -it --restart=Never /bin/sh"
 alias kalpine="kubectl run alpine --image=alpine --rm -it --restart=Never /bin/sh"
 alias kerrorevents="kubectl get events --field-selector type!=Normal -A"
