@@ -1,133 +1,134 @@
 # zmodload zsh/zprof # Enable profiling
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+################################################################
+# This config is heavily inspired from this two repos
+# https://github.com/dreamsofautonomy/zensh/tree/main
+# https://github.com/dreamsofautonomy/dotfiles
+# Documentations of zinit and p10k are lsite below
+# https://github.com/zdharma-continuum/zinit
+# https://github.com/romkatv/powerlevel10k
+################################################################
 
-export DEFAULT_USER=`whoami`
-
-ZSH_THEME="cobalt2"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# Should also prevent that tmux is renaming the captions of the tabs after I changed them manually.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  alias-finder
-  # ansible
-  common-aliases
-  # dirhistory
-  extract
-  # fzf-zsh-plugin
-  # git-extras
-  # golang
-  # httpie
-  # kubectl
-  # node
-  # npm
-  nvm
-  # pass
-  ripgrep
-  # rsync
-  # systemd
-  # terraform
-  # tmux
-  vi-mode
-  # yarn
-  # ufw
-)
-
-# User configuration
-source $ZSH/oh-my-zsh.sh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-export LESSOPEN="| /usr/local/bin/pygmentize %s"
-export LESS=" -R "
-alias less='less -m -N -g -i -J --underline-special --SILENT'
-alias more='less'
-
-stty -ixon # Disable ctrl-s and ctrl-q.
-
-source ~/.exports
-source ~/.functions
-source ~/.aliases
-
-# I want to have the history for each tab separately
-# setopt no_share_history
-
-# Activate this key binding explicitly since VI mode is deactivating it
-# bindkey '^R' history-incremental-search-backward
-
-# use the default version of node.js
-type nvm > /dev/null
-if [ $? -eq 0 ]; then
-  nvm use default
+# Set the GPG_TTY to be the same as the TTY, either via the env var
+# or via the tty command.
+if [ -n "$TTY" ]; then
+  export GPG_TTY=$(tty)
+else
+  export GPG_TTY="$TTY"
 fi
 
-start-ssh-agent
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
 
-[ -f ~/.fzf-init.zsh ] && source ~/.fzf-init.zsh
+export PATH="/usr/local/bin:/usr/bin:$PATH"
+
+if [ Darwin = `uname` ]; then
+  [[ -f ~$HOME/.profile-macos ]] && source $HOME/.profile-macos
+fi
+
+# SSH_AUTH_SOCK set to GPG to enable using gpgagent as the ssh agent.
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
 
 # Source local zshrc with local only settings
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
-source ~/.config/zsh/cursor-shape.conf
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+autoload -Uz compinit && compinit
+
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Define list of plugins that should be used
+zinit light ohmyzsh/ohmyzsh
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+# zinit snippet OMZP::aws
+# zinit snippet OMZP::kubectl
+# zinit snippet OMZP::kubectx
+zinit snippet OMZP::nvm
+zinit snippet OMZP::rust
+zinit snippet OMZP::command-not-found
+
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+[[ -f $HOME/.profile ]] && source $HOME/.profile
+
+if [ Linux = `uname` ]; then
+  [[ -f ~/.profile-linux ]] && source $HOME/.profile-linux
+fi
+
+setopt auto_cd
+
+#export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="$PATH:$HOME/Library/flutter/bin"
+
+alias sudo='sudo '
+export LD_LIBRARY_PATH=/usr/local/lib
+
+# Completions
+
+# source <(doctl completion zsh)
+
+source <(kubectl completion zsh)
+
+# P10k customizations
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Fix for password store
+export PASSWORD_STORE_GPG_OPTS='--no-throw-keyids'
+
+export NVM_DIR="$HOME/.nvm"                            # You can change this if you want.
+export NVM_SOURCE="/usr/share/nvm"                     # The AUR package installs it to here.
+[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"  # Load N
+
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
+
+[ -s "$HOME/.svm/svm.sh" ] && source "$HOME/.svm/svm.sh"
+
+# Capslock command
+alias capslock="sudo killall -USR1 caps2esc"
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+  export MOZ_ENABLE_WAYLAND=1
+fi
+
+zle_highlight=('paste:none')
+
+source ~/.exports
+source ~/.aliases
+source ~/.functions
+
+[ -f ~/.fzf-init.zsh ] && source ~/.fzf-init.zsh
 
 # Some kubernetes things
 [ -f ~/.kube/kube-config.yaml ] && export KUBECONFIG=~/.kube/kube-config.yaml
 
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
-# Adding starship for a more informative prompt https://starship.rs/de-DE/config/ 
-eval "$(starship init zsh)"
-#
 # Source local zshrc with local bu specific settings, if file exists
 [ -f ~/.zshrc.bu ] && source ~/.zshrc.bu
 
