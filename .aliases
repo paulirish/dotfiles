@@ -139,9 +139,9 @@ alias godoc-local="godoc -http :9000"
 # some js aliases
 alias lint="eslint ./"
 
-# ranger
-alias r="ranger"
-alias rcd='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd "$LASTDIR"'
+# lf (alternative to ranger)
+alias r="lf"
+alias l="lf"
 
 # mount and unmount JABASOFT-DS
 alias mount-nas="~/bin/mount-nas.sh"
@@ -221,9 +221,6 @@ alias mo="molecule"
 
 # Change theme for my terminal interactively
 alias kt="kitty +kitten themes"
-
-# Alias for lf
-alias l="lf"
 
 # Some Rust specific aliases
 alias cg="cargo"

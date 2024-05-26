@@ -9,6 +9,10 @@ preview() {
   kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$1" < /dev/null > /dev/tty
 }
 
+bat_preview() {
+  bat --color=always --theme=base16 "$1"
+}
+
 TEMPDIR=/home/eric/.cache
 
 file="$1"; shift
@@ -40,6 +44,6 @@ case "$(basename "$file" | tr '[A-Z]' '[a-z]')" in
 	convert "$file" "$thumbnail"
 	preview "$thumbnail"
 	;;
-*) lf_bat_preview "$file" ;;
+*) bat_preview "$file" ;;
 esac
 return 127 # nonzero retcode required for lf previews to reload

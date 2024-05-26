@@ -92,13 +92,15 @@ map C clear
 map S $$SHELL
 
 # Movement
+map gH cd ~/
 map gD cd ~/Documents
 map gd cd ~/Downloads
+map gP cd ~/Projects
 map gp cd ~/Pictures
-map gw cd /media/MyNotes/Wochenberichte/2023/
-map gx cd /media/XXX5/
+map gV cd ~/Videos
+map gN cd "/media/jan/mailbox-drive/Jan Baer/Notes/"
+map gw cd /media/MyNotes/Wochenberichte/2024/
+map gX cd /media/XXX5/
 map gc cd ~/.config
-map gr cd ~/repos
-map gv cd ~/videos
 map gs cd ~/.local/bin
 map gt cd ~/.local/share/Trash/files
