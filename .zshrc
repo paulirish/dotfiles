@@ -57,7 +57,6 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Define list of plugins that should be used
 zinit light ohmyzsh/ohmyzsh
 zinit ice depth=1; zinit light romkatv/powerlevel10k
-zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 # zinit snippet OMZP::aws
 # zinit snippet OMZP::kubectl
@@ -88,10 +87,13 @@ alias sudo='sudo '
 export LD_LIBRARY_PATH=/usr/local/lib
 
 # Completions
-
-# source <(doctl completion zsh)
-
 source <(kubectl completion zsh)
+
+completions_dir="$HOME/.zsh-complete"
+mkdir -p $completions_dir
+if [ ! -f $completions_dir/_rg ]; then
+  rg --generate complete-zsh > $completions_dir/_rg
+fi
 
 # P10k customizations
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
