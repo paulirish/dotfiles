@@ -114,6 +114,13 @@ nmap(
   ),
   "Show Tig status in floating window"
 )
+nmap(
+  "<c-s-g>",
+  cmd(
+    "FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 lazygit"
+  ),
+  "Show lazygit in floating window"
+)
 
 nmap("<leader>aa", "ggVG", "Select the whole text")
 
