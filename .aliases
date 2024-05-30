@@ -213,9 +213,6 @@ alias kbb="kubectl run busybox --image=yauritux/busybox-curl --rm -it --restart=
 alias kalpine="kubectl run alpine --image=alpine --rm -it --restart=Never /bin/sh"
 alias kerrorevents="kubectl get events --field-selector type!=Normal -A"
 
-# Alias for viewing markdown files in the terminal
-alias md=glow
-
 # Alias for using molecule
 alias mo="molecule"
 
