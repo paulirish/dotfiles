@@ -54,7 +54,7 @@ cmd delete ${{
   while [ "$files" ]; do
     file=${files%%;*}
 
-    rm "$(basename "$file")"
+    rm -r "$(basename "$file")"
     if [ "$files" = "$file" ]; then
       files=''
     else
@@ -65,6 +65,14 @@ cmd delete ${{
 
 cmd restore_trash ${{
   trash-restore
+}}
+
+cmd on-select &{{
+  lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
+
+cmd ren-name ${{
+  rename $file
 }}
 
 # Remove default bindings
@@ -85,13 +93,14 @@ map p paste
 map x cut
 map y copy
 map <enter> open
+map r rename
 map R reload
 map mf mkfile
 map md mkdir
 map C clear
 map S $$SHELL
 
-# Movement
+# Shortcuts for directories
 map gH cd ~/
 map gD cd ~/Documents
 map gd cd ~/Downloads
@@ -100,7 +109,7 @@ map gp cd ~/Pictures
 map gV cd ~/Videos
 map gN cd "/media/jan/mailbox-drive/Jan Baer/Notes/"
 map gw cd /media/MyNotes/Wochenberichte/2024/
-map gX cd /media/XXX5/
+map gx cd /media/XXX5/
 map gc cd ~/.config
 map gs cd ~/.local/bin
 map gt cd ~/.local/share/Trash/files
