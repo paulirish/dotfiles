@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ "$ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX""$TERM" != screen ]; and [ "$TERM" != dumb ]; and [ "$TERM" != linux ]; end
+if begin; status --is-interactive; and not functions -q -- iterm2_status; and test "$ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX""$TERM" != screen; and test "$ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX""$TERM" != screen-256color; and test "$ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX""$TERM" != tmux-256color; and test "$TERM" != dumb; and test "$TERM" != linux; end
   function iterm2_status
     printf "\033]133;D;%s\007" $argv
   end
@@ -30,7 +30,11 @@ if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ 
   # Tell terminal to create a mark at this location
   function iterm2_preexec --on-event fish_preexec
     # For other shells we would output status here but we can't do that in fish.
-    printf "\033]133;C;\007"
+    if test "$TERM_PROGRAM" = "iTerm.app"
+      printf "\033]133;C;\r\007"
+    else
+      printf "\033]133;C;\007"
+    end
   end
 
   # Usage: iterm2_set_user_var key value
@@ -39,12 +43,12 @@ if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ 
   # Gives a variable accessible in a badge by \(user.currentDirectory)
   # Calls to this go in iterm2_print_user_vars.
   function iterm2_set_user_var
-    printf "\033]1337;SetUserVar=%s=%s\007" "$argv[1]" (printf "%s" "$argv[2]" | base64 | tr -d "\n")
+    printf "\033]1337;SetUserVar=%s=%s\007" $argv[1] (printf "%s" $argv[2] | base64 | tr -d "\n")
   end
 
   function iterm2_write_remotehost_currentdir_uservars
     if not set -q -g iterm2_hostname
-      printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=%s\007" $USER (hostname -f 2> /dev/null) $PWD
+      printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=%s\007" $USER (hostname -f 2>/dev/null) $PWD
     else
       printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=%s\007" $USER $iterm2_hostname $PWD
     end
@@ -54,51 +58,52 @@ if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ 
     if functions -q -- iterm2_print_user_vars
       iterm2_print_user_vars
     end
-
   end
 
   functions -c fish_prompt iterm2_fish_prompt
 
-  if functions -q -- fish_mode_prompt
+  function iterm2_common_prompt
+    set -l last_status $status
+
+    iterm2_status $last_status
+    iterm2_write_remotehost_currentdir_uservars
+    if not functions iterm2_fish_prompt | string match -q "*iterm2_prompt_mark*"
+      iterm2_prompt_mark
+    end
+    return $last_status
+  end
+
+  function iterm2_check_function -d "Check if function is defined and non-empty"
+    test (functions $argv[1] | grep -cvE '^ *(#|function |end$|$)') != 0
+  end
+
+  if iterm2_check_function fish_mode_prompt
+    # Only override fish_mode_prompt if it is non-empty. This works around a problem created by a
+    # workaround in starship: https://github.com/starship/starship/issues/1283
     functions -c fish_mode_prompt iterm2_fish_mode_prompt
     function fish_mode_prompt --description 'Write out the mode prompt; do not replace this. Instead, change fish_mode_prompt before sourcing .iterm2_shell_integration.fish, or modify iterm2_fish_mode_prompt instead.'
-       set -l last_status $status
-
-       iterm2_status $last_status
-       iterm2_write_remotehost_currentdir_uservars
-       if not functions iterm2_fish_prompt | grep iterm2_prompt_mark > /dev/null
-           iterm2_prompt_mark
-       end
-       sh -c "exit $last_status"
-
-       iterm2_fish_mode_prompt
+      iterm2_common_prompt
+      iterm2_fish_mode_prompt
     end
 
     function fish_prompt --description 'Write out the prompt; do not replace this. Instead, change fish_prompt before sourcing .iterm2_shell_integration.fish, or modify iterm2_fish_prompt instead.'
-       # Remove the trailing newline from the original prompt. This is done
-       # using the string builtin from fish, but to make sure any escape codes
-       # are correctly interpreted, use %b for printf.
-       printf "%b" (string join "\n" (iterm2_fish_prompt))
+      # Remove the trailing newline from the original prompt. This is done
+      # using the string builtin from fish, but to make sure any escape codes
+      # are correctly interpreted, use %b for printf.
+      printf "%b" (string join "\n" (iterm2_fish_prompt))
 
-       iterm2_prompt_end
+      iterm2_prompt_end
     end
   else
-    # Pre-2.2 path
-    function fish_prompt --description 'Write out the prompt; do not replace this. Instead, change fish_prompt before sourcing .iterm2_shell_integration.fish, or modify iterm2_fish_prompt instead.'
-      # Save our status
-      set -l last_status $status
+    # fish_mode_prompt is empty or unset.
+    function fish_prompt --description 'Write out the mode prompt; do not replace this. Instead, change fish_mode_prompt before sourcing .iterm2_shell_integration.fish, or modify iterm2_fish_mode_prompt instead.'
+      iterm2_common_prompt
 
-      iterm2_status $last_status
-      if not functions iterm2_fish_prompt | grep iterm2_prompt_mark > /dev/null
-        iterm2_prompt_mark
-      end
+      # Remove the trailing newline from the original prompt. This is done
+      # using the string builtin from fish, but to make sure any escape codes
+      # are correctly interpreted, use %b for printf.
+      printf "%b" (string join "\n" (iterm2_fish_prompt))
 
-      # Restore the status
-      sh -c "exit $last_status"
-       # Remove the trailing newline from the original prompt. This is done
-       # using the string builtin from fish, but to make sure any escape codes
-       # are correctly interpreted, use %b for printf.
-       printf "%b" (string join "\n" (iterm2_fish_prompt))
       iterm2_prompt_end
     end
   end
@@ -107,7 +112,7 @@ if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ 
   if not set -q -g iterm2_hostname
     # hostname -f is fast on macOS so don't cache it. This lets us get an updated version when
     # it changes, such as if you attach to a VPN.
-    if [ (uname) != Darwin ]
+    if test (uname) != Darwin
       set -g iterm2_hostname (hostname -f 2>/dev/null)
       # some flavors of BSD (i.e. NetBSD and OpenBSD) don't have the -f option
       if test $status -ne 0
@@ -117,5 +122,7 @@ if begin; status --is-interactive; and not functions -q -- iterm2_status; and [ 
   end
 
   iterm2_write_remotehost_currentdir_uservars
-  printf "\033]1337;ShellIntegrationVersion=11;shell=fish\007"
+  printf "\033]1337;ShellIntegrationVersion=19;shell=fish\007"
 end
+
+alias imgcat=$HOME/.iterm2/imgcat;alias imgls=$HOME/.iterm2/imgls;alias it2api=$HOME/.iterm2/it2api;alias it2attention=$HOME/.iterm2/it2attention;alias it2cat=$HOME/.iterm2/it2cat;alias it2check=$HOME/.iterm2/it2check;alias it2copy=$HOME/.iterm2/it2copy;alias it2dl=$HOME/.iterm2/it2dl;alias it2getvar=$HOME/.iterm2/it2getvar;alias it2git=$HOME/.iterm2/it2git;alias it2profile=$HOME/.iterm2/it2profile;alias it2setcolor=$HOME/.iterm2/it2setcolor;alias it2setkeylabel=$HOME/.iterm2/it2setkeylabel;alias it2ssh=$HOME/.iterm2/it2ssh;alias it2tip=$HOME/.iterm2/it2tip;alias it2ul=$HOME/.iterm2/it2ul;alias it2universion=$HOME/.iterm2/it2universion
