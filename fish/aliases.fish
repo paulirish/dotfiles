@@ -142,10 +142,11 @@ alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo 
 abbr gemini "llm -m gemini-1.5-pro-latest"
 
 function gemi
+  # using https://github.com/simonw/llm-gemini and llm
   if test -n "$argv[1]"
-    llm prompt -m gemini-1.5-pro-latest $argv[1]   | deno run --allow-env --allow-read --allow-run bin/render-streaming-markdown.ts
+    llm prompt -m gemini-1.5-pro-latest $argv[1] | deno run --allow-env --allow-read --allow-run bin/render-streaming-markdown.ts
   else
-    llm chat --continue -m gemini-1.5-pro-latest   | deno run --allow-env --allow-read --allow-run bin/render-streaming-markdown.ts
+    llm chat --continue -m gemini-1.5-pro-latest
   end
 end
 
