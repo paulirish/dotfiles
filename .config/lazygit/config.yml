@@ -1,0 +1,24 @@
+customCommands:
+  - key: '<c-k>'
+    context: 'status'
+    command: '~/bin/init-keychain.sh'
+  - key: '<c-t>'
+    context: 'localBranches'
+    command: 'git push --tags'
+  - key: 'a'
+    context: 'files'
+    command: "git {{if .SelectedFile.HasUnstagedChanges}} add {{else}} reset {{end}} {{.SelectedFile.Name | quote}}"
+    description: 'Toggle file staged'
+  - key: 'C'
+    context: 'global'
+    command: "git commit"
+    subprocess: true
+  - key: 'n'
+    context: 'localBranches'
+    prompts:
+      - type: 'input'
+        title: 'What is the new feature branch name?'
+        key: 'BranchName'
+        initialValue: ''
+    command: "git checkout -b feature/{{.Form.BranchName}}"
+    loadingText: 'Creating feature branch'
