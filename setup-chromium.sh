@@ -2,6 +2,7 @@
 ## Chromium hacking
 
 # improve perf of git inside of chromium checkout
+# shellcheck disable=2148
 
 # Read https://chromium.googlesource.com/chromium/src/+/HEAD/docs/mac_build_instructions.md#improving-performance-of-git-commands
 # ... and do it all.

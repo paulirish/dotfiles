@@ -1,7 +1,4 @@
-#!/bin/bash
-
-
-
+# shellcheck disable=2148
 
 
 # listing all useragent from your logs
@@ -56,9 +53,9 @@ rm $chromefilename
 
 # measuring time in fish shell:
 
-set -l then (gdate +%s%N); 
-sleep 0.5; 
-set -l andnow (gdate +%s%N);  echo cool (math ( math $andnow - $then) / 1000 / 1000  )
+# set -l earlier (gdate +%s%N); 
+# sleep 0.5; 
+# set -l andnow (gdate +%s%N);  echo cool (math ( math $andnow - $earlier) / 1000 / 1000  )
 
 
 
