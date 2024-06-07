@@ -83,29 +83,22 @@ function gz --d "Get the gzipped size"
 
   # -5 is what GH pages uses, dunno about others
   # fwiw --no-name is equivalent to catting into gzip
-  set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c))
-  echo $array[-1]
-  # set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c))
-  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c)); echo $array[-1]
+  set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c)); echo $array[-1]
 
 
   # brew install brotli to get these as well
   if hash brotli
   # googlenews uses about -5, walmart serves --best
-  set -a array (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c))
-  echo $array[-1]
-  # set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c))
-  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c)); echo $array[-1]
+  # set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c)); echo $array[-1]
   end
 
   # brew install zstd to get these as well
   if hash zstd
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c))
-  echo $array[-1]
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c))
-  echo $array[-1]
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (--22 --ultra)"    (cat "$argv[1]" | zstd -c -22 --ultra - | wc -c))
-  echo $array[-1]
+  set -a array (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c)); echo $array[-1]
+  set -a array (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c)); echo $array[-1]
+  # set -a array (printf "%-20s %'12.0f\n"  "zstd (--22 --ultra)"    (cat "$argv[1]" | zstd -c -22 --ultra - | wc -c)); echo $array[-1]
   end
 
   sleep 0.05
