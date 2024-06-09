@@ -72,6 +72,9 @@
   up = pull
   whereis = "!f() { git branch -r --contains $1; }; f"
 
+[init]
+  defaultBranch = main
+
 [core]
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
