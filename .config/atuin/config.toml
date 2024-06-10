@@ -91,6 +91,9 @@
 ## https://docs.rs/regex/latest/regex/#syntax
 history_filter = [
   "^export .*[PASSWORD|PWD|SECRET|TOKEN]",
+  ".*mount-xxx",
+  "^l$",
+  "^lg$",
   # "^secret-cmd",
   # "^innocuous-cmd .*--secret=.+"
 ]
