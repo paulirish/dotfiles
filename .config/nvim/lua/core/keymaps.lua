@@ -106,16 +106,9 @@ nmap("<leader>e", cmd("quit"), "Exit current window")
 -- nmap('<leader>x', cmd('x'), 'Save and exit current window')
 nmap("<leader>w", cmd("w!"), "Save current changes")
 
--- Show Git status in a floating window to commit current changes with using TIG
+-- Show Git status in a floating window to commit current changes with using Gitlazy
 nmap(
   "<c-g>",
-  cmd(
-    "FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 tig status"
-  ),
-  "Show Tig status in floating window"
-)
-nmap(
-  "<c-s-g>",
   cmd(
     "FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 lazygit"
   ),
