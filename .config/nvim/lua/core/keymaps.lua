@@ -161,12 +161,6 @@ nmap("<leader>xc", cmd("cclose"), "[Q]uickfix [C]lose")
 
 -- ** Customized keys for plugins **
 
--- Vim-Schlepp settings
-vmap("<C-K>", "<Plug>SchleppUp")
-vmap("<C-J>", "<Plug>SchleppDown")
-vmap("<C-H>", "<Plug>SchleppLeft")
-vmap("<C-L>", "<Plug>SchleppRight")
-
 -- Maximizer keys
 nmap("<silent>F3", cmd("MaximizerToggle"))
 
