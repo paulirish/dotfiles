@@ -1,6 +1,5 @@
 -- List of plugins without additional configurations
 return {
-  { "numToStr/Comment.nvim",        event = { "BufReadPre", "BufNewFile" }, config = true },
   { "evanleck/vim-svelte",       ft = "svelte" },      -- Support for Svelte 3 in vim
   { "Joorem/vim-haproxy",        ft = "haproxy" },     -- Syntaxsupport for HAProxy config files
   { "mileszs/ack.vim",           event = "VeryLazy" }, -- Provides support for ack and the SilverlightSearcher in vim
