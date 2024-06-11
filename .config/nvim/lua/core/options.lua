@@ -113,10 +113,6 @@ vim.cmd("cnoreabbrev ag Ack!")
 vim.cmd("cnoreabbrev rg Ack!")
 vim.cmd("cnoreabbrev ack Ack!")
 
--- Vim-schlepp settings
-vim.cmd("let g:Schlepp#allowSquishingLines = 1")
-vim.cmd("let g:Schlepp#allowSquishingBlock = 1")
-
 -- vim-router
 vim.g.rooter_cd_cmd = "lcd"
 
