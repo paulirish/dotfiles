@@ -110,7 +110,7 @@ nmap("<leader>w", cmd("w!"), "Save current changes")
 nmap(
   "<c-g>",
   cmd(
-    "FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=tig-status --autoclose=2 lazygit"
+    "FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=lazygit --autoclose=2 lazygit"
   ),
   "Show lazygit in floating window"
 )
@@ -206,3 +206,7 @@ nmap("<leader>st", cmd("Lspsaga term_toggle"), "Lspsaga term toggle")
 
 -- Other helpful mappings
 nmap("gx", cmd("lua require('user.handle-url').open_url()")) -- open URL under cursor
+
+-- Keymaps for floaterm
+vim.g.floaterm_keymap_new = "<F10>"
+vim.g.floaterm_keymap_toggle = "<F11>"
