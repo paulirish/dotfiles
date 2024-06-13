@@ -17,7 +17,7 @@ return {
       ensure_installed = {
         -- Required linter
         "ansible-lint",
-        "codespell",
+        -- "codespell",
         "eslint_d",
         "jsonlint",
         "luacheck",

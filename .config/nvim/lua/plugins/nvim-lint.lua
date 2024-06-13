@@ -28,32 +28,32 @@ return {
       zsh = { "zsh" },
     }
 
-    -- Activate codespell for all registered filetypes
-    for ft, _ in pairs(lint.linters_by_ft) do
-      table.insert(lint.linters_by_ft[ft], "codespell")
-    end
-
     -- https://luacheck.readthedocs.io/en/stable/cli.html
     lint.linters.luacheck.args = {
       "--globals=nvim",
     }
 
-    -- https://github.com/codespell-project/codespell
-    local codespell_ignore_filepath = os.getenv("HOME") .. "/.codespellignore"
-    lint.linters.codespell.args = {
-      "--ignore-words=" .. codespell_ignore_filepath,
-      "--check-hidden",
-    }
+    -- Activate codespell for all registered filetypes
+    -- for ft, _ in pairs(lint.linters_by_ft) do
+    --   table.insert(lint.linters_by_ft[ft], "codespell")
+    -- end
+    --
+    -- -- https://github.com/codespell-project/codespell
+    -- local codespell_ignore_filepath = os.getenv("HOME") .. "/.codespellignore"
+    -- lint.linters.codespell.args = {
+    --   "--ignore-words=" .. codespell_ignore_filepath,
+    --   "--check-hidden",
+    -- }
 
-    local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+    -- local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-      group = lint_augroup,
-      callback = function()
-        lint.try_lint()
-        lint.try_lint("codespell")
-      end,
-    })
+    -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+    --   group = lint_augroup,
+    --   callback = function()
+    --     lint.try_lint()
+    --     lint.try_lint("codespell")
+    --   end,
+    -- })
 
     vim.keymap.set("n", "<leader>ll", lint.try_lint, { desc = "Trigger linting for current file" })
   end,
