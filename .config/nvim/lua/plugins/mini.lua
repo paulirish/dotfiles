@@ -2,6 +2,7 @@
 -- https://github.com/echasnovski/mini.nvim/tree/main
 return {
   'echasnovski/mini.nvim',
+  enabled = true,
   config = function()
     require('mini.move').setup {
       mappings = {

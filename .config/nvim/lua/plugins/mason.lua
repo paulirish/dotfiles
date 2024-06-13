@@ -2,6 +2,7 @@
 -- https://github.com/williamboman/mason.nvim
 return {
   "williamboman/mason.nvim",
+  enabled = true,
   dependencies = {
     { "rcarriga/nvim-notify" },
     { "WhoIsSethDaniel/mason-tool-installer.nvim" },

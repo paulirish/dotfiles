@@ -2,6 +2,7 @@
 -- https://github.com/hrsh7th/nvim-cmp
 return {
   "hrsh7th/nvim-cmp",
+  enabled = true,
   event = "InsertEnter",
   dependencies = {
     -- Snippet engine & associated nvim-cmp source

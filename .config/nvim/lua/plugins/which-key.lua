@@ -2,6 +2,7 @@
 -- https://github.com/folke/which-key.nvim
 return {
   "folke/which-key.nvim",
+  enabled = true,
   event = "VeryLazy",
   init = function()
     vim.o.timeout = true

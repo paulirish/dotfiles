@@ -2,6 +2,7 @@
 -- https://github.com/neovim/nvim-lspconfig
 return {
   "neovim/nvim-lspconfig",
+  enabled = true,
   event = "VeryLazy",
   dependencies = {
     -- LSP Management

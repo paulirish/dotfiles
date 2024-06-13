@@ -2,6 +2,7 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
 return {
   "nvim-treesitter/nvim-treesitter",
+  enabled = true,
   event = "VeryLazy",
   dependencies = {
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects

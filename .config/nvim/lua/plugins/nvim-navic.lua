@@ -2,6 +2,7 @@
 -- https://github.com/SmiteshP/nvim-navic
 return {
   "SmiteshP/nvim-navic",
+  enabled = true,
   dependencies = {
     "neovim/nvim-lspconfig",
   },

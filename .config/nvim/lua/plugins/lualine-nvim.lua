@@ -5,6 +5,7 @@
 return {
   -- https://github.com/nvim-lualine/lualine.nvim
   "nvim-lualine/lualine.nvim",
+  enabled = true,
   dependencies = {
     -- https://github.com/SmiteshP/nvim-navic
     "SmiteshP/nvim-navic",

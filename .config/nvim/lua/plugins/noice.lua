@@ -3,8 +3,8 @@
 -- https://github.com/folke/noice.nvim
 return {
   "folke/noice.nvim",
-  event = "VeryLazy",
   enabled = true,
+  event = "VeryLazy",
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",

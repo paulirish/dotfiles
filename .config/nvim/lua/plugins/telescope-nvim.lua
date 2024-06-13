@@ -8,6 +8,7 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
+  enabled = true,
   lazy = true,
   branch = "0.1.x",
   dependencies = {

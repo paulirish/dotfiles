@@ -2,7 +2,7 @@
 -- https://github.com/nvimdev/lspsaga.nvim
 return {
   "nvimdev/lspsaga.nvim",
-  enabled = true,
+  enabled = false,
   event = "VeryLazy",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",

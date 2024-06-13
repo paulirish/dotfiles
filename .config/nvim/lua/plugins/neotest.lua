@@ -1,6 +1,8 @@
 -- https://github.com/nvim-neotest/neotest
 return {
   "nvim-neotest/neotest",
+  enabled = false,
+  lazy = true,
   dependencies = {
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
@@ -12,8 +14,6 @@ return {
     "marilari88/neotest-vitest",
     "nvim-neotest/neotest-go",
   },
-  enabled = true,
-  lazy = true,
   -- stylua: ignore
   keys = {
     { "<leader>nt", function() require("neotest").run.run(vim.fn.expand("%")) end,                      desc = "Run current file" },

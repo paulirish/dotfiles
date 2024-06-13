@@ -2,6 +2,7 @@
 -- https://github.com/hadronized/hop.nvim
 return {
   "smoka7/hop.nvim",
+  enabled = true,
   event = "VeryLazy",
   version = "*",
   opts = {},

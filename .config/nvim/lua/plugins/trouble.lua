@@ -3,6 +3,7 @@
 -- https://github.com/folke/trouble.nvim
 return {
   "folke/trouble.nvim",
+  enabled = true,
   event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {},
