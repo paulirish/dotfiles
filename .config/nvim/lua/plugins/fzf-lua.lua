@@ -27,6 +27,7 @@ return {
     vim.keymap.set("n", "<leader>fg", "<cmd>lua require('fzf-lua').grep_project()<CR>", { desc = "Fzf grep_project" })
     vim.keymap.set("n", "<leader>fr", "<cmd>lua require('fzf-lua').registers()<CR>", { desc = "Fzf registers" })
     vim.keymap.set("n", "<leader>fs", "<cmd>lua require('fzf-lua').colorschemes()<CR>", { desc = "Fzf color-schemes" })
+    vim.keymap.set("n", "<leader>cs", "<cmd>lua require('fzf-lua').colorschemes()<CR>", { desc = "Fzf color-schemes" })
     vim.cmd("cnoreabbrev fzf FzfLua")
   end
 }

@@ -171,7 +171,7 @@ vmap("v", "<Plug>(expand_region_expand)")
 
 -- Use ToggleBackground from dark to light and back
 nmap("<leader>pp", cmd("lua ToggleBackground()"), "Toggle dark or light background")
-nmap("<leader>cs", cmd("Telescope colorscheme"), "Show colorschemes in Telescope")
+-- nmap("<leader>cs", cmd("Telescope colorscheme"), "Show colorschemes in Telescope")
 nmap("<leader>cst", cmd('lua require("material.functions").find_style()'))
 
 -- Plugin Trouble
