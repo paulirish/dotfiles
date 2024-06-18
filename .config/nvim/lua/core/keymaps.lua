@@ -174,12 +174,6 @@ nmap("<leader>pp", cmd("lua ToggleBackground()"), "Toggle dark or light backgrou
 -- nmap("<leader>cs", cmd("Telescope colorscheme"), "Show colorschemes in Telescope")
 nmap("<leader>cst", cmd('lua require("material.functions").find_style()'))
 
--- Plugin Trouble
-nmap("<leader>xx", cmd("TroubleToggle workspace_diagnostics"), "Toggle workspace diagnostics list")
-nmap("<leader>xX", cmd("TroubleToggle document_diagnostics"), "Toggle document diagnostics list")
-nmap("<leader>xr", cmd("TroubleRefresh"), "Refresh diagnostics list")
-nmap("<leader>xq", cmd("TroubleToggle quickfix"), "Refresh diagnostics list")
-
 -- Keys for hop - see https://github.com/smoka7/hop.nvim
 map({ "n", "v" }, "<leader>,w", cmd("HopWord"), "Hop word")
 map({ "n", "v" }, "<leader>,b", cmd("HopWordBC"), "Hop word")
