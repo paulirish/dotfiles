@@ -22,3 +22,5 @@ customCommands:
         initialValue: ''
     command: "git checkout -b feature/{{.Form.BranchName}}"
     loadingText: 'Creating feature branch'
+os:
+  edit: 'nvim -- {{filename}}'
