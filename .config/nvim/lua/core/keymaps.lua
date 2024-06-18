@@ -106,15 +106,6 @@ nmap("<leader>e", cmd("quit"), "Exit current window")
 -- nmap('<leader>x', cmd('x'), 'Save and exit current window')
 nmap("<leader>w", cmd("w!"), "Save current changes")
 
--- Show Git status in a floating window to commit current changes with using Gitlazy
-nmap(
-  "<c-g>",
-  cmd(
-    "FloatermNew --height=0.9 --width=0.9 --wintype=float --position=center --name=lazygit --autoclose=2 lazygit"
-  ),
-  "Show lazygit in floating window"
-)
-
 nmap("<leader>aa", "ggVG", "Select the whole text")
 
 nmap("<leader>h", cmd("set hlsearch!"), "toggle highlight search")

@@ -1,3 +1,5 @@
+-- Plugin for calling lazygit from within neovim.
+-- https://github.com/kdheepak/lazygit.nvim
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
