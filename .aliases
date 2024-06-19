@@ -51,7 +51,6 @@ alias gfp="git fp"
 alias gf="git fetch -p"
 alias gfp="git fp"
 
-alias ts="tig status"
 alias lg="lazygit"
 
 # Prettify json
