@@ -1,3 +1,13 @@
+gui:
+  authorColors:
+    'Jan Baer': 'green'
+os:
+  edit: 'nvim -- {{filename}}'
+keybinding:
+  universal:
+    filteringMenu: <c-f>
+  files:
+    findBaseCommitForFixup: <c-f>
 customCommands:
   - key: '<c-k>'
     context: 'status'
@@ -22,5 +32,3 @@ customCommands:
         initialValue: ''
     command: "git checkout -b feature/{{.Form.BranchName}}"
     loadingText: 'Creating feature branch'
-os:
-  edit: 'nvim -- {{filename}}'
