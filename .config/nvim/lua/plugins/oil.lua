@@ -1,5 +1,5 @@
--- Plugin for calling lazygit from within neovim.
--- https://github.com/kdheepak/lazygit.nvim
+-- Neovim file explorer: edit your filesystem like a buffer
+-- https://github.com/stevearc/oil.nvim
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
