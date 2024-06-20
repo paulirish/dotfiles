@@ -193,5 +193,4 @@ nmap("<leader>st", cmd("Lspsaga term_toggle"), "Lspsaga term toggle")
 nmap("gx", cmd("lua require('user.handle-url').open_url()")) -- open URL under cursor
 
 -- Keymaps for floaterm
-vim.g.floaterm_keymap_new = "<F10>"
 vim.g.floaterm_keymap_toggle = "<F11>"
