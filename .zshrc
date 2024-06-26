@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ricardorivas/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -205,24 +205,14 @@ bash_colors() {
 ### stdin hacko for git add -a
 # stty icrnl
 
-# brew paths
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # aws
 export AWS_VAULT_PROMPT=osascript
 export AWS_VAULT_KEYCHAIN_NAME=login
 
-# erl
-export PATH="/usr/local/opt/erlang@22/bin:$PATH"
-test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
-export PATH="/usr/local/sbin:$PATH"
-
 # asdf
-. /usr/local/opt/asdf/libexec/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # Rancher
 export PATH="$HOME/.rd/bin:$PATH"
@@ -234,4 +224,5 @@ export DOCKER_BUILDKIT=1
 . $HOME/z/z.sh
 
 ## END
+
 

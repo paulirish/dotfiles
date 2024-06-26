@@ -1,13 +1,13 @@
+default: help
+
 help:
 	@echo 'available tasks:'
 	@echo 'all               - install all the crap'
 	@echo 'mac example:      PLATFORM=mac make all'
 	@echo 'linux example:    PLATFORM=linux make all'
 
-.PHONY: default
-default: help
+.PHONY: default all help
 
-.PHONY: all
 all:
 ifndef PLATFORM
 	@echo 'PLATFORM is not defined'
@@ -20,44 +20,34 @@ ifeq ($(PLATFORM), mac)
 	$(MAKE) mac
 endif
 
-.PHONY: mac
 mac: intellij zshrc vim git tmux
 
-.PHONY: linux
 linux: intellij bashrc vim git tmux
 
-.PHONY: vim
 vim:
 	cp -r .vim ~/
 	cp .vimrc ~/
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	wget -O ~/.vim/colors/molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
-.PHONY: intellij
 intellij:
 	cp -r .ideavimrc ~/
 
-.PHONY: zshrc
 zshrc:
 	cp -r .zshrc ~/
 
-.PHONY: bash
 bashrc:
 	cp -r .bashrc ~/
 
-.PHONY: tmux
 tmux:
 	cp -r .tmux.conf ~/
 
-.PHONY: git
 git:
 	cp -r .gitconfig ~/
 
-.PHONY: nvim
 nvim:
 	cp -r .config ~/
 
-.PHONY: z
 z:
 	git clone git@github.com:rupa/z.git ~/z
 
