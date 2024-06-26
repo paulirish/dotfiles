@@ -39,6 +39,6 @@ vim.opt.splitbelow = true
 
 vim.opt.iskeyword:append("-")
 
-vim.opt.pastetoggle = '<leader>p'
+--vim.opt.pastetoggle = '<leader>p'
 
 
