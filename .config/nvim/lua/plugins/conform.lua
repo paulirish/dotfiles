@@ -43,9 +43,10 @@ return {
       timeout_ms = 1500,
     }
 
-    vim.keymap.set({ "n", "v" }, "<leader>lf", function()
+    local map = require("user.key-map").map
+    map({ "n", "v" }, "<leader>lf", function()
       conform.format(format_options)
-    end, { desc = "Format file or range (in visual mode)" })
+    end, "Format file or range (in visual mode)")
 
     vim.api.nvim_create_user_command("Format", function()
       conform.format(format_options)

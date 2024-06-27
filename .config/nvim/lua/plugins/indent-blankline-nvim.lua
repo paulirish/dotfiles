@@ -17,7 +17,14 @@ return {
   enabled = true,
   event = "VeryLazy",
   main = "ibl",
-  config = function()
+  opts = {
+    enabled = true,
+    indent = {
+      char = "|",
+      highlight = highlight,
+    },
+  },
+  config = function(_, opts)
     local hooks = require("ibl.hooks")
     -- create the highlight groups in the highlight setup hook, so they are reset
     -- every time the colorscheme changes
@@ -31,12 +38,6 @@ return {
       vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
     end)
 
-    require("ibl").setup({
-      enabled = true,
-      indent = {
-        char = "|",
-        highlight = highlight,
-      },
-    })
+    require("ibl").setup(opts)
   end,
 }

@@ -1,27 +1,10 @@
--- Set leader key to space
-vim.g.mapleader = ","
+local keymap = require("user.key-map")
+local map = keymap.map
+local nmap = keymap.nmap
+local imap = keymap.imap
+local vmap = keymap.vmap
+local cmd = keymap.cmd
 
-local function map(mode, shortcut, command, desc)
-  vim.keymap.set(mode, shortcut, command, { noremap = true, silent = true, desc = desc })
-end
-
-local function nmap(shortcut, command, desc)
-  map("n", shortcut, command, desc)
-end
-
-local function imap(shortcut, command, desc)
-  map("i", shortcut, command, desc)
-end
-
-local function vmap(shortcut, command, desc)
-  map("v", shortcut, command, desc)
-end
-
-local function cmd(command)
-  return table.concat({ "<Cmd>", command, "<CR>" })
-end
-
---
 -- -- Split window management
 -- nmap("<leader>sv", "<C-w>v") -- split window vertically
 -- nmap("<leader>sh", "<C-w>s") -- split window horizontally
@@ -74,11 +57,11 @@ end
 -- nmap('<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 -- imap('<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
 
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+map({ "n", "v" }, "<Space>", "<Nop>")
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+nmap("n", "k", "v:count == 0 ? 'gk' : 'k'")
+nmap("n", "j", "v:count == 0 ? 'gj' : 'j'")
 
 -- Git-blame
 nmap("<leader>gb", cmd("Git blame"), "Show git blame")
@@ -89,7 +72,7 @@ nmap("]d", vim.diagnostic.goto_next)
 nmap('<leader>gg', cmd('lua vim.lsp.buf.hover()'), "hover lsp")
 nmap('<leader>gl', cmd('lua vim.diagnostic.open_float()'), 'Open diagnostic float')
 
--- nmap("<leader>rl", cmd("source $MYVIMRC")) -- Reload neovim config (Does not work with LazyVim)
+nmap("<leader>rl", cmd("source %")) -- Reload current buffer
 
 -- quick pairs
 imap("<leader>'", "''<ESC>i")
@@ -170,24 +153,6 @@ map({ "n", "v" }, "<leader>,w", cmd("HopWord"), "Hop word")
 map({ "n", "v" }, "<leader>,b", cmd("HopWordBC"), "Hop word")
 map({ "n", "v" }, "<leader>,p", cmd("HopPattern"), "Hop pattern")
 map({ "n", "v" }, "<leader>,e", cmd("HopChar1"), "Hop to specific char")
-
--- Mappings for lspsaga -- see https://github.com/glepnir/lspsaga.nvim
--- nmap("<leader>sf", cmd('Lspsaga lsp_finder'), 'Lspsaga finder')
-nmap("<leader>sa", cmd("Lspsaga code_action"), "Lspsaga code action")
-nmap("<leader>sr", cmd("Lspsaga rename ++project"), "Lspsaga rename")
--- nmap("<leader>sgd", cmd("Lspsaga goto_definition"), "Lspsaga goto definition")
--- nmap("<leader>sgt", cmd("Lspsaga goto_type_definition"), "Lspsaga goto type definition")
-nmap("<leader>spd", cmd("Lspsaga peek_definition"), "Lspsaga peek definition")
-nmap("<leader>spt", cmd("Lspsaga peek_type_definition"), "Lspsaga peek type definition")
-nmap("<leader>sdl", cmd("Lspsaga show_line_diagnostics"), "Lspsaga show line diagnostics")
-nmap("<leader>sdb", cmd("Lspsaga show_buf_diagnostics"), "Lspsaga show buffer diagnostics")
-nmap("<leader>sdw", cmd("Lspsaga show_workspace_diagnostics"), "Lspsaga show workspace diagnostics")
-nmap("<leader>sdc", cmd("Lspsaga show_cursor_diagnostics"), "Lspsaga show cursor diagnostics")
-nmap("<leader>so", cmd("Lspsaga outline"), "Lspsaga toggle outline") -- Press o to jump to the selected symbol
-nmap("<leader>sk", cmd("Lspsaga hover_doc"), "Lspsaga hover doc")
-nmap("<leader>st", cmd("Lspsaga term_toggle"), "Lspsaga term toggle")
--- nmap('<leader>sci', cmd('Lspsaga incoming_calls'), 'Lspsaga incoming calls')
--- nmap('<leader>sco', cmd('Lspsaga outgoing_calls'), 'Lspsaga outgoing calls')
 
 -- Other helpful mappings
 nmap("gx", cmd("lua require('user.handle-url').open_url()")) -- open URL under cursor

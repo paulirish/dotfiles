@@ -54,7 +54,7 @@ return {
     --     lint.try_lint("codespell")
     --   end,
     -- })
-
-    vim.keymap.set("n", "<leader>ll", lint.try_lint, { desc = "Trigger linting for current file" })
+    local nmap = require("user.key-map").nmap
+    nmap("<leader>ll", lint.try_lint, "Trigger linting for current file")
   end,
 }

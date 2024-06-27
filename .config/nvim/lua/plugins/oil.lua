@@ -17,9 +17,10 @@ return {
     require("oil").setup(opts)
 
     -- Open parent directory in current window
-    vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+    local nmap = require("user.key-map").nmap
+    nmap("-", "<CMD>Oil<CR>", "Open parent directory")
 
     -- Open parent directory in floating window
-    vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
+    nmap("<leader>-", require("oil").toggle_float, "Show parent directory in a floating window")
   end,
 }

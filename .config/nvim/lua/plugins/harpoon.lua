@@ -49,11 +49,11 @@ return {
       }):find()
     end
 
-    vim.keymap.set(
-      "n",
+    local nmap = require("user.key-map").nmap
+    nmap(
       "<leader>th",
       function() toggle_telescope(harpoon:list()) end,
-      { desc = "Open harpoon window" }
+      "Open harpoon window"
     )
   end
 }

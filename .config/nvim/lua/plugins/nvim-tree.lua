@@ -20,7 +20,36 @@ return {
   "nvim-tree/nvim-tree.lua",
   enabled = true,
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  config = function()
+  opts = {
+    -- set local keymaps
+    on_attach = custom_on_attach,
+    view = {
+      width = 35,
+      relativenumber = true,
+    },
+    renderer = {
+      indent_markers = {
+        enable = true,
+      },
+    },
+    -- disable window_picker for
+    -- explorer to work well with
+    -- window splits
+    actions = {
+      open_file = {
+        window_picker = {
+          enable = false,
+        },
+      },
+    },
+    filters = {
+      custom = { ".DS_Store", ".git", "node_modules", ".terraform" },
+    },
+    git = {
+      ignore = false,
+    },
+  },
+  config = function(_, opts)
     local nvimtree = require("nvim-tree")
 
     -- recommended settings from nvim-tree documentation
@@ -32,35 +61,7 @@ return {
     vim.cmd([[ highlight NvimTreeFolderArrowOpen guifg=#3FC5FF ]])
 
     -- configure nvim-tree
-    nvimtree.setup({
-      -- set local keymaps
-      on_attach = custom_on_attach,
-      view = {
-        width = 35,
-        relativenumber = true,
-      },
-      renderer = {
-        indent_markers = {
-          enable = true,
-        },
-      },
-      -- disable window_picker for
-      -- explorer to work well with
-      -- window splits
-      actions = {
-        open_file = {
-          window_picker = {
-            enable = false,
-          },
-        },
-      },
-      filters = {
-        custom = { ".DS_Store", ".git", "node_modules", ".terraform" },
-      },
-      git = {
-        ignore = false,
-      },
-    })
+    nvimtree.setup(opts)
 
     -- set global keymaps
     local keymap = vim.keymap

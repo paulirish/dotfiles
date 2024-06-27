@@ -92,12 +92,14 @@ return {
     vim.cmd("cnoreabbrev gptaa ChatGPTActAs")
     vim.cmd("cnoreabbrev gaa ChatGPTActAs")
 
-    vim.keymap.set({ "n", "v" }, "<leader>ct", "<cmd>ChatGPT<CR>", { desc = "Show ChatGPT window" })
-    vim.keymap.set(
+    local map = require("user.key-map").map
+
+    map({ "n", "v" }, "<leader>ct", "<cmd>ChatGPT<CR>", "Show ChatGPT window")
+    map(
       { "n", "v" },
       "<leader>ce",
       "<cmd>ChatGPTEditWithInstruction<CR>",
-      { desc = "ChatGPTEditWithInstruction" }
+      "ChatGPTEditWithInstruction"
     )
   end
 }

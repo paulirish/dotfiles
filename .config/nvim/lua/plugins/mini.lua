@@ -4,14 +4,14 @@ return {
   'echasnovski/mini.nvim',
   enabled = true,
   config = function()
-    require('mini.move').setup {
+    require('mini.move').setup({
       mappings = {
         up = '<C-K>',
         down = '<C-J>',
         line_up = '<C-K>',
         line_down = '<C-J>',
       },
-    }
+    })
 
     -- Press enter to start the jump mode
     -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-jump2d.md
