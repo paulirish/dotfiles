@@ -155,16 +155,10 @@ alias nocolors='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"'
 alias slackmojify="mogrify -resize 128x128 -unsharp 2x1.4+0.5+0 -quality 100 -verbose"
 export BUNDLER_EDITOR=nvim
 
-### FUNCTIONS
-# setup_docker() {
-    # eval $(minikube docker-env)
-# }
+# python
+alias py=". venv/bin/activate"
 
-# start_docker() {
-    # minikube start --mount --mount-string="/private:/private" # mount for docker tmp files
-    # minikube pause  #disable the k8s stuff
-    # eval $(minikube docker-env)
-# }
+### FUNCTIONS
 
 clean_branch() {
   if [ -z "$1" ]; then
@@ -184,10 +178,6 @@ push_to() {
   g ch $current_branch
 }
 
-g_rand() {
-  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
-}
-
 bash_colors() {
   for fg_color in {0..7}; do
     set_foreground=$(tput setaf $fg_color)
@@ -202,9 +192,7 @@ bash_colors() {
 
 ### FUNCTIONS
 
-### stdin hacko for git add -a
-# stty icrnl
-
+# brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # aws

@@ -20,9 +20,9 @@ ifeq ($(PLATFORM), mac)
 	$(MAKE) mac
 endif
 
-mac: intellij zshrc vim git tmux
+mac: intellij zshrc vim git tmux z
 
-linux: intellij bashrc vim git tmux
+linux: intellij bashrc vim git tmux z
 
 vim:
 	cp -r .vim ~/
@@ -49,5 +49,6 @@ nvim:
 	cp -r .config ~/
 
 z:
-	git clone git@github.com:rupa/z.git ~/z
+	git clone git@github.com:rupa/z.git
+	cp -r z ~/
 
