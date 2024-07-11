@@ -97,7 +97,7 @@ alias master="main"
 alias ag='command ag -W (math $COLUMNS - 14)'  
 
 # fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
-alias fd='command fd -j1 --exclude node_modules'
+# alias fd='command fd -j1 --exclude node_modules'
 # By default watchexec thinks the project origin is higher up.  So dumb. 
 alias watchexec='command watchexec --project-origin . --ignore node_modules'
 
