@@ -172,7 +172,8 @@ alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
 alias reportwatch 'watchexec "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
 
 # dt. rpp
-alias rppunit 'npm run unittest -- --expanded-reporting --mocha-fgrep=Processor\|Timeline\|trace\|Trace\|Appender\|Handler\|Performance'
+# in the future this will be:    yarn test front_end/panels/timeline/ front_end/models/trace front_end/services/annotations_manager front_end/ui/legacy/components/perf_ui
+alias rppunit 'npm run unittest -- --expanded-reporting --mocha-fgrep=Processor\|Timeline\|trace\|Trace\|Appender\|Handler\|Performance\|Annotation\|Flame'
 alias rppinter 'npm run interactionstest -- --test-file-pattern="*/performance/**"'
 alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
 

@@ -10,7 +10,7 @@ end
 
 
 function hooks --description "run gclient runhooks"
-    gclient runhooks
+    gclient runhooks --verbose
 end
 
 function depshooks
