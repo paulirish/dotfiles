@@ -20,20 +20,10 @@ alias brwe=brew  #typos
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 ###
-# time to upgrade `ls`
-
-# use coreutils `ls` if possible…
-hash gls >/dev/null 2>&1 || alias gls="ls"
-
-# always use color, even when piping (to awk,grep,etc)
-if gls --color > /dev/null 2>&1; then colorflag="--color"; else colorflag="-G"; fi;
-export CLICOLOR_FORCE=1
-
+# time to upgrade `ls`. use eza instead of dealing with coreutils, LS_COLORS blah blah
+alias ls='eza --classify=auto --color --group-directories-first --sort=extension -A'
+alias la='eza --classify=auto --color --group-directories-first --sort=extension -a --octal-permissions --no-permissions'
 # ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
-alias ls='gls -AFh ${colorflag} --group-directories-first'
-alias lsd='ls -l | grep "^d"' # only directories
-#    `la` defined in .functions
-###
 
 
 

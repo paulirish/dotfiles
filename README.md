@@ -88,8 +88,8 @@ One-off binaries that aren't via an npm global or homebrew. [git open](https://g
 Rust folks have made a few things that are changing things.
 
  - most folks know `bat`  as a `cat` replacement
- - https://github.com/dandavison/delta seems a lot better than the diff-so-fancy project that i started. :/
- - https://github.com/ogham/exa is better `ls` and gets all the trapd00r/LS_COLORS stuff etc.
+ - https://github.com/dandavison/delta is a bit nicer than the diff-so-fancy project that i started. :/
+ - https://github.com/eza-community/eza is better `ls` and gets all the trapd00r/LS_COLORS stuff etc.
  - https://github.com/bigH/git-fuzzy interactive git thing. deprecates my `git recent` script. and probably some other things.
 
 ### Dotfiles mgmt todo

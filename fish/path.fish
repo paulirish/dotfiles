@@ -52,9 +52,5 @@ for entry in (string split \n $manually_added_paths)
 end
 
 
-# Google Cloud SDK.
-if test -f "$HOME/google-cloud-sdk/path.fish.inc"
-    source "$HOME/google-cloud-sdk/path.fish.inc"
-end
 
 set --export PATH $PA

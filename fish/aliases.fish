@@ -18,6 +18,10 @@ alias chmox='chmod +x'
 
 alias where=which # sometimes i forget
 
+# time to upgrade `ls`. use eza instead of dealing with coreutils, LS_COLORS blah blah
+alias ls='eza --classify=auto --color --group-directories-first --sort=extension -A'
+alias la='eza --classify=auto --color --group-directories-first --sort=extension -a -l --octal-permissions --no-permissions'
+
 # typos and abbreviations
 abbr g git
 abbr gi git
@@ -107,7 +111,7 @@ alias sorteduniq="sort | uniq -c | sort --reverse --ignore-leading-blanks --nume
 alias sorteduniq-asc="sort | uniq -c | sort --ignore-leading-blanks --numeric-sort"  # -bn
 
 
-alias diskspace_report="df -P -kHl"
+alias diskspace_report="df -lh | egrep ' (Mounted on)|(/\$)' "
 alias free_diskspace_report="diskspace_report"
 
 

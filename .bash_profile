@@ -12,12 +12,6 @@ case $- in
    *i*) source ~/.extra
 esac
 
-# here's LS_COLORS
-# github.com/trapd00r/LS_COLORS
-command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
-if which gdircolors > /dev/null; then
-	eval "$(gdircolors -b ~/.dircolors)"
-fi
 
 # generic colouriser
 GRC=`which grc`
