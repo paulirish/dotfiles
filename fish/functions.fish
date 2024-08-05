@@ -126,21 +126,6 @@ function shellswitch
 	chsh -s (brew --prefix)/bin/$argv
 end
 
-function upgradeyarn
-  curl -o- -L https://yarnpkg.com/install.sh | bash
-end
-
-function fuck -d 'Correct your previous console command'
-    set -l exit_code $status
-    set -l eval_script (mktemp 2>/dev/null ; or mktemp -t 'thefuck')
-    set -l fucked_up_commandd $history[1]
-    thefuck $fucked_up_commandd > $eval_script
-    . $eval_script
-    rm $eval_script
-    if test $exit_code -ne 0
-        history --delete $fucked_up_commandd
-    end
-end
 
 # requires my excellent `npm install -g statikk`
 function server -d 'Start a HTTP server in the current dir, optionally specifying the port'
@@ -158,7 +143,6 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
         statikk --open
     end
 end
-
 
 
 function conda -d 'lazy initialize conda'

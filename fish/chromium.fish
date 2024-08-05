@@ -111,6 +111,33 @@ function dtcr --description "run chrome with dev devtools"
     eval $cmd
 end
 
+
+
+function dtcrcanary --description "run chrome canary with dev devtools"
+    
+    # function handle_int --on-signal SIGINT
+    #     echo Got SIGINT
+    # end
+
+    set -l cdup (git rev-parse --show-cdup)
+    set -l crpath "/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
+    set -l dtpath (realpath out/Default/gen/front_end)
+    if test ! -e "$dtpath/devtools_app.html"
+        echo "Not found at: $dtpath/devtools_app.html"
+        set dtpath (realpath out/Default/gen)
+    end
+    if test ! -e "$dtpath/devtools_app.html" # elsa?
+        echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
+    end
+
+    # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
+    # set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
+    # used to use component-server --traces but nah.. http://localhost:11010/
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv "
+    echo "  > $cmd"
+    eval $cmd
+end
+
 function dtbcr --description "build chromium, then open it"
     if dtb
         dtcr
