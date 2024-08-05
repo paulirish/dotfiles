@@ -31,7 +31,7 @@ Basically it makes typing into the prompt amazing.
 * case insensitivity.
 * tab all the livelong day.
 
-### [.gitconfig](./gitconfig)
+### [.gitconfig](./.gitconfig)
 * err'body gotta have their aliases. I'm no different.
 
 ### Moving around in folders (`z`, `...`, `cdf`)
