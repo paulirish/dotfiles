@@ -64,7 +64,8 @@ brew install ffmpeg
 # json stuff
 brew install jq gron
 
-brew install ncdu # find where your diskspace went
+# brew install ncdu # find where your diskspace went
+brew install gdu # available as gdu-go. faster than ncdu on SSD's.
 
 
 brew install scrcpy # control/view android phone from PC. amazing
