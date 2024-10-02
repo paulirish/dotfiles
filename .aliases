@@ -22,7 +22,7 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 ###
 # time to upgrade `ls`. use eza instead of dealing with coreutils, LS_COLORS blah blah
 alias ls='eza --classify=auto --color --group-directories-first --sort=extension -A'
-alias la='eza --classify=auto --color --group-directories-first --sort=extension -a --octal-permissions --no-permissions'
+alias la='eza --classify=auto --color --group-directories-first --sort=extension -a -l --octal-permissions --no-permissions'
 # ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
 
 

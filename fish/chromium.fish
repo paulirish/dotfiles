@@ -1,7 +1,7 @@
 function deps --description "run gclient sync without hooks"
     # --reset drops local changes. often great, but if making changes inside v8, you don't want to use --reset
     # also reset seems to reset branch position in the devtools-internal repo??? weird.
-    gclient sync --delete_unversioned_trees --jobs=70 --verbose --nohooks
+    gclient sync --delete_unversioned_trees --jobs=70 --nohooks
 end
 
 function depsbg --description "run gclient sync in the background"
@@ -10,7 +10,7 @@ end
 
 
 function hooks --description "run gclient runhooks"
-    gclient runhooks --verbose
+    gclient runhooks
 end
 
 function depshooks
@@ -74,7 +74,8 @@ end
 #                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
 #                                                                           # Avoid weird interaction between this experiment and CDP targets
 #                                                                                                                # Hides blue bubble "user education" nudges
-set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold --ash-no-nudges"
+#                                                                                                                                # Hides Chrome for Testing bar, among others.
+set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold --ash-no-nudges --disable-infobars"
 
 
 function cr --description "open built chromium (accepts runtime flags)"
@@ -216,5 +217,23 @@ function maccr-flagged
 end
 
 function git-clfastupload
-    git cl upload --bypass-hooks -o "banned-words~skip"
+    git cl upload --force --bypass-hooks -o "banned-words~skip"
 end
+
+
+# dt. rpp
+alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui'
+alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
+alias rppinter 'npm run test -- test/e2e/performance/'
+alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
+alias rpplint 'node scripts/test/run_lint_check.js front_end/panels/timeline front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/services/trace_bounds'
+alias fjs 'git cl format --js'
+alias gitclfastupload 'git-clfastupload'
+
+function rbu
+    set -l branchname (git status --porcelain=v2 --branch | grep '^# branch.head' | awk '{print $3}')
+    git checkout origin/main && git rebase-update && git checkout -b main origin/main && depshooks && git cl archive -f --verbose
+    git checkout "$branchname" && deps
+end
+
+alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'

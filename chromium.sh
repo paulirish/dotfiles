@@ -43,7 +43,9 @@ function dtb () {
 #                    # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
 #                                                          # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
 #                                                                      # Avoid weird interaction between this experiment and CDP targets
-clutch_chrome_flags="--use-mock-keychain -disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold"
+#                                                                                                                # Hides blue bubble "user education" nudges
+#                                                                                                                                # Hides Chrome for Testing bar, among others.
+clutch_chrome_flags="--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold --ash-no-nudges --disable-infobars"
 
 
 # you can also add any extra args: `cr --user-data-dir=/tmp/lol123"

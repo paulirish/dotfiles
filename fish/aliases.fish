@@ -88,7 +88,7 @@ abbr mtr "sudo mtr"
 
 
 # is it a `main` or a `master` repo?
-alias gitmainormaster="git branch --format '%(refname:short)' --sort=-committerdate --list master main | head -n1"
+alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"
 alias main="git checkout (gitmainormaster)"
 alias master="main"
 
@@ -175,12 +175,8 @@ alias reportunit 'yarn jest (find report -iname "*-test.js" | grep -v axe)'
 # pretty sure watchexec has just won my heart after years of using `entr`
 alias reportwatch 'watchexec "node build/build-report-components.js && node build/build-report.js --psi && node build/build-sample-reports.js && echo \$(date) && yarn eslint --fix report/renderer/components.js" && bash core/scripts/copy-util-commonjs.sh'
 
-# dt. rpp
-alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui'
-alias rppinter 'npm run test -- test/e2e/performance/'
-alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
-
 abbr xpraclient "xpra attach --video-scaling=off --desktop-scaling=off --dpi=96  --ssh=/usr/bin/ssh 'ssh://glurp/:110'"
+
 
 function delbranch
   git branch -D "$argv" && git push paul ":$argv"
