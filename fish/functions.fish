@@ -15,14 +15,17 @@ function subl --description 'Open Sublime Text'
 end
 
 
-function killf
-  if ps -ef | sed 1d | fzf -m | awk '{print $2}' > $TMPDIR/fzf.result
-    kill -9 (cat $TMPDIR/fzf.result)
+function kill_process --description 'Kill process that user selects in fzf (from ps aux output)'
+  set -l pid (ps aux | fzf -m --header-lines=1 | awk '{print $2}')
+
+  if test -n "$pid"
+    echo "Killing processes: $pid"
+    kill -9 $pid
   end
 end
 
-# Select a port to kill, by pid, port, or command line
-function kill_port
+
+function kill_port --description 'Select a port to kill, by pid, port, or command line'
 
   # Function to get the command line for a given PID
   function get_command -a pid
