@@ -52,6 +52,17 @@ function clone --description "clone something, cd into it. install it."
     yarn install
 end
 
+
+function renameurldecode
+    for file in *
+        set -l original $file
+        set -l decoded (python3 -c "import urllib.parse; print(urllib.parse.unquote_plus('$original'))")
+        if test "$original" != "$decoded"
+            mv "$original" "$decoded"
+        end
+    end
+end
+
 function notif --description "make a macos notification that the prev command is done running"
   #  osascript -e 'display notification "hello world!" with title "Greeting" sound name "Submarine"'
   osascript \

@@ -100,3 +100,18 @@ Rust folks have made a few things that are changing things.
  - https://www.chezmoi.io/
 
  also interested in https://github.com/dandavison/open-in-editor
+
+### SSH authenticate with security key
+
+(presumably you've already upgraded from passwords to using ssh public key authentication.. but this is an alternative if you want the security key challenge)
+
+Been doing this for a while.. forgot how i learned it and nobody has it documented that I can find...
+
+Run on client machine:
+
+    ssh-add -L | grep publickey
+
+This outputs a `ecdsa-sha2-nistp256` key for me. I know it's registered for my hardware security key. (I don't know how it got registered with the SSH agent but w/e.)
+
+Put that in whatever `authorized_keys` of your remote host. That's it.
+
