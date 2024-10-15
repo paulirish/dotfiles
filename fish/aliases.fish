@@ -31,6 +31,9 @@ abbr v vim
 abbr bwre brew
 abbr brwe brew
 
+abbr cat 'bat -P'
+set -x BAT_STYLE "header,header-filesize,header-filename,changes"
+
 alias push="git push"
 
 # `g co`, etc. subcommand expansion with `abbr`.

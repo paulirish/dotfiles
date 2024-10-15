@@ -10,15 +10,19 @@ end
 
 
 # TODO: path and aliases are kinda slow to source. optimize later.
-source ~/.config/fish/path.fish
-source ~/.config/fish/aliases.fish
-source ~/.config/fish/functions.fish
-source ~/.config/fish/chromium.fish
+function ssource --description "source most of my dotfiles, useful if making changes and iterating"
+    source ~/.config/fish/path.fish
+    source ~/.config/fish/aliases.fish
+    source ~/.config/fish/functions.fish
+    source ~/.config/fish/chromium.fish
 
-# for things not checked into git..
-if test -e "$HOME/.extra.fish";
-    source ~/.extra.fish
+    # for things not checked into git..
+    if test -e "$HOME/.extra.fish";
+        source ~/.extra.fish
+    end
 end
+
+ssource;
 
 # I don't need a prompt symbol for you-got-things-in-yr-stash
 set --erase pure_symbol_git_stash
