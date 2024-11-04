@@ -54,20 +54,30 @@ function b --description "build chromium"
     # end
 end
 
-# needs `brew install watchexec`. https://watchexec.github.io/
-function dtb --description "build devtools with a watch loop"    
-    set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-    set -l cmd "watchexec --ignore out \"autoninja -C $dir_default\""  
-    echo "  > $cmd"
+function dttyped --description "build devtools with typechecking"
+    #                                     ↓ this changes any output paths to be click-resolvable :)
+    set -l cmd "autoninja -C  out/Typed | awk '{gsub(\"../../front_end\", \"./front_end\"); gsub(\"(//build/toolchain/linux:x64)\", \"\"); print}'"
+    echo " > $cmd"
     eval $cmd
 end
 
-function dtbw --description "use watch_build.js"
+function dtb --description "build devtools with watch_build.js - my favorite"
     cd ./(git rev-parse --show-cdup)
 
     # dont let vpython use a 2.7.. seems to only affect this dude
     VPYTHON_BYPASS="manually managed python not supported by chrome operations" node scripts/watch_build.js
 end
+
+
+# needs `brew install watchexec`. https://watchexec.github.io/
+function dtb --description "build devtools with a watch loop"    
+    set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
+    set -l cmd "watchexec --ignore out \"autoninja -C $dir_default | awk '{gsub(\\\"../../front_end\\\", \\\"./front_end\\\"); print}'\""  
+    echo "  > $cmd"
+    eval $cmd
+end
+
+
 
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
@@ -75,7 +85,7 @@ end
 #                                                                           # Avoid weird interaction between this experiment and CDP targets
 #                                                                                                                # Hides blue bubble "user education" nudges
 #                                                                                                                                # Hides Chrome for Testing bar, among others.
-set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold --ash-no-nudges --disable-infobars"
+set -g clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold,RenderDocument --ash-no-nudges --disable-infobars"
 
 
 function cr --description "open built chromium (accepts runtime flags)"
@@ -134,7 +144,7 @@ function dtcrcanary --description "run chrome canary with dev devtools"
     # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
     # set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
     # used to use component-server --traces but nah.. http://localhost:11010/
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv "
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-canary-profile $clutch_chrome_flags --enable-features='DevToolsExplainThisResourceDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolAiAssistancePerformanceAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistanceFileAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS' $argv "
     echo "  > $cmd"
     eval $cmd
 end
@@ -222,7 +232,7 @@ end
 
 
 # dt. rpp
-alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui'
+alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
 alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
 alias rppinter 'npm run test -- test/e2e/performance/'
 alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'

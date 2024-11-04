@@ -13,6 +13,8 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
 	cherrypick = cherry-pick
 	cp = cherry-pick
+	# i'm a merger in dev branches, but a squasher for landing to main.
+	mergegood = merge --no-ff
 
 	# If you do `git git status`, this sorts out the duplicate
 	git = !exec git
