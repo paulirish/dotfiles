@@ -81,19 +81,12 @@ end
 
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
-#                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
-#                                                                           # Avoid weird interaction between this experiment and CDP targets
-<<<<<<< HEAD
-#                                                                                                               # it breaks devtools reload
-#                                                                                                                                # Hides blue bubble "user education" nudges
-#                                                                                                                                               # Hides Chrome for Testing bar, among others.
+#                                                                  # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
+#                                                                              # Avoid weird interaction between this experiment and CDP targets
+#                                                                                                                  # it breaks devtools reload
+#                                                                                                                                  # Hides blue bubble "user education" nudges
+#                                                                                                                                                  # Hides Chrome for Testing bar, among others.
 set -g clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold,RenderDocument --ash-no-nudges --disable-infobars"
-=======
-#                                                                                                                # Hides blue bubble "user education" nudges
-#                                                                                                                                # Hides Chrome for Testing bar, among others.
-set -g clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold,RenderDocument --ash-no-nudges --disable-infobars"
-
->>>>>>> refs/remotes/origin/main
 
 function cr --description "open built chromium (accepts runtime flags)"
     set -l dir "./$(git rev-parse --show-cdup)/out/Default"
