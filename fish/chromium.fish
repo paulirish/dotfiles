@@ -54,29 +54,46 @@ function b --description "build chromium"
     # end
 end
 
-# needs `brew install watchexec`. https://watchexec.github.io/
-function dtb --description "build devtools with a watch loop"    
-    set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
-    set -l cmd "watchexec --ignore out \"autoninja -C $dir_default\""  
-    echo "  > $cmd"
+function dttyped --description "build devtools with typechecking"
+    #                                     ↓ this changes any output paths to be click-resolvable :)
+    set -l cmd "autoninja -C  out/Typed | awk '{gsub(\"../../front_end\", \"./front_end\"); gsub(\"(//build/toolchain/linux:x64)\", \"\"); print}'"
+    echo " > $cmd"
     eval $cmd
 end
 
-function dtbw --description "use watch_build.js"
+function dtb --description "build devtools with watch_build.js - my favorite"
     cd ./(git rev-parse --show-cdup)
 
     # dont let vpython use a 2.7.. seems to only affect this dude
     VPYTHON_BYPASS="manually managed python not supported by chrome operations" node scripts/watch_build.js
 end
 
+
+# needs `brew install watchexec`. https://watchexec.github.io/
+function dtbw --description "build devtools with a watch loop"    
+    set -l dir_default (grealpath $PWD/(git rev-parse --show-cdup)out/Default/)
+    set -l cmd "watchexec --ignore out \"autoninja -C $dir_default | awk '{gsub(\\\"../../front_end\\\", \\\"./front_end\\\"); print}'\""  
+    echo "  > $cmd"
+    eval $cmd
+end
+
+
+
 # https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
 #                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
 #                                                                           # Avoid weird interaction between this experiment and CDP targets
+<<<<<<< HEAD
 #                                                                                                               # it breaks devtools reload
 #                                                                                                                                # Hides blue bubble "user education" nudges
 #                                                                                                                                               # Hides Chrome for Testing bar, among others.
 set -g clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold,RenderDocument --ash-no-nudges --disable-infobars"
+=======
+#                                                                                                                # Hides blue bubble "user education" nudges
+#                                                                                                                                # Hides Chrome for Testing bar, among others.
+set -g clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold,RenderDocument --ash-no-nudges --disable-infobars"
+
+>>>>>>> refs/remotes/origin/main
 
 function cr --description "open built chromium (accepts runtime flags)"
     set -l dir "./$(git rev-parse --show-cdup)/out/Default"
@@ -218,7 +235,7 @@ end
 
 
 # dt. rpp
-alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui'
+alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
 alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
 alias rppinter 'npm run test -- test/e2e/performance/'
 alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'
