@@ -73,10 +73,10 @@ end
 #                          # Avoid the startup dialog for 'Chromium wants to use your confidential information stored in "Chromium Safe Storage" in your keychain'
 #                                                               # Avoid the startup dialog for 'Do you want the application “Chromium.app” to accept incoming network connections?'
 #                                                                           # Avoid weird interaction between this experiment and CDP targets
-#                                                                                                                # Hides blue bubble "user education" nudges
-#                                                                                                                                # Hides Chrome for Testing bar, among others.
-set clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold --ash-no-nudges --disable-infobars"
-
+#                                                                                                               # it breaks devtools reload
+#                                                                                                                                # Hides blue bubble "user education" nudges
+#                                                                                                                                               # Hides Chrome for Testing bar, among others.
+set -g clutch_chrome_flags "--use-mock-keychain --disable-features=MediaRouter,ProcessPerSiteUpToMainFrameThreshold,RenderDocument --ash-no-nudges --disable-infobars"
 
 function cr --description "open built chromium (accepts runtime flags)"
     set -l dir "./$(git rev-parse --show-cdup)/out/Default"
@@ -104,13 +104,12 @@ function dtcr --description "run chrome with dev devtools"
         echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
     end
 
-    # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
-    # set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
-    # used to use component-server --traces but nah.. http://localhost:11010/
     set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv "
     echo "  > $cmd"
     eval $cmd
 end
+
+
 
 
 
@@ -131,10 +130,7 @@ function dtcrcanary --description "run chrome canary with dev devtools"
         echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
     end
 
-    # A lil landing page that gives me the local loadTimelineFromURL url to load directly (as we can't have chrome open it (or navigate to it))
-    # set -l landing_url "data:text/html;charset=utf-8,<p>hi.<p><textarea cols=100>devtools://devtools/bundled/devtools_app.html?loadTimelineFromURL=http://localhost:9435/ikea-latencyinfoflow.json</textarea><p><textarea cols=100>devtools://devtools/bundled/devtools_app.html</textarea>"
-    # used to use component-server --traces but nah.. http://localhost:11010/
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-chrome-profile $clutch_chrome_flags $argv "
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-canary-profile $clutch_chrome_flags --enable-features=\"DevToolsExplainThisResourceDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolAiAssistancePerformanceAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistanceFileAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS\" $argv "
     echo "  > $cmd"
     eval $cmd
 end
@@ -231,9 +227,13 @@ alias fjs 'git cl format --js'
 alias gitclfastupload 'git-clfastupload'
 
 function rbu
-    set -l branchname (git status --porcelain=v2 --branch | grep '^# branch.head' | awk '{print $3}')
-    git checkout origin/main && git rebase-update && git checkout -b main origin/main && depshooks && git cl archive -f --verbose
-    git checkout "$branchname" && deps
+    set -l current_branch_name (git status --porcelain=v2 --branch | grep '^# branch.head' | awk '{print $3}')
+    # ensure all branches have an upstream. (still no idea why they dont)
+    for branch in (git branch -vv | grep -v '\[origin/main' | awk ' { print $1 }' | string trim)
+        git branch --set-upstream-to=origin/main $branch
+    end
+    git checkout origin/main && git cl archive -f && git rebase-update && git checkout -b main origin/main && depshooks && git cl archive -f --verbose
+    git checkout "$current_branch_name" && deps
 end
 
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'
