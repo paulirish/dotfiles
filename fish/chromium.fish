@@ -140,7 +140,7 @@ function dtcrcanary --description "run chrome canary with dev devtools"
         echo "Not found at: $dtpath/devtools_app.html ... \nBailing"; return 1
     end
 
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-canary-profile $clutch_chrome_flags --enable-features=\"DevToolsExplainThisResourceDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolAiAssistancePerformanceAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistanceFileAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS\" $argv "
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath --user-data-dir=$HOME/chromium-devtools/dt-canary-profile $clutch_chrome_flags --enable-features=\"DevToolsExplainThisResourceDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistancePerformanceAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistanceFileAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS\" $argv "
     echo "  > $cmd"
     eval $cmd
 end
