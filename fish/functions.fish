@@ -79,10 +79,10 @@ function beep --description "make two beeps"
   echo -e '\a'; sleep 0.1; echo -e '\a';
 end
 
-function all_binaries_in_path --description "list all binaries available in \$PATH, even if theres conflicts"
+function all_binaries_in_path --description \
+  "list all binaries available in \$PATH (incl conflicts). pipe it to grep. top-most are what's used, in case of conflicts"
   # based on https://unix.stackexchange.com/a/120790/110766 but tweaked to work on mac. and then made it faster.
   find -L $PATH -maxdepth 1 -perm +111 -type f 2>/dev/null
-  #gfind -L $PATH -maxdepth 1 -executable -type f # shrug. probably can delete this.
 end
 
 function my_paths --description "list paths, in order"

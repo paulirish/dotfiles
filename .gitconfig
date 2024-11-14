@@ -29,6 +29,10 @@
 	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 
+	# I prefer these from my fish abbv's, but for bash we'll keep this as a fallback.
+	db = diffbranch
+	dbt = diffbranch-that
+
 	# Squash a branch to one commit against a branch with many non-main commits.
 	# This can't be an alias, but here's the hack.
 	#    # be on the new feature branch, be okay with rewriting it's history.
@@ -158,9 +162,6 @@
 # use separate file for username / github token / etc
 [include]
 	path = ~/.gitconfig.local
-
-#[init]
-#	templatedir = ~/.git_template
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
