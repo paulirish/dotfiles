@@ -3,7 +3,8 @@ export OSH=/home/richistron/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="90210"
+#OSH_THEME="90210"
+OSH_THEME="bobby-python"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -154,6 +155,9 @@ alias fix_postgres="rm -f /usr/local/var/postgres/postmaster.pid"
 alias nocolors='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"'
 alias slackmojify="mogrify -resize 128x128 -unsharp 2x1.4+0.5+0 -quality 100 -verbose"
 export BUNDLER_EDITOR=nvim
+
+# python
+alias py=". venv/bin/activate"
 
 ### FUNCTIONS
 # setup_docker() {
