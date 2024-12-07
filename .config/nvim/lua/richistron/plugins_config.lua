@@ -41,7 +41,7 @@ require'nvim-treesitter.configs'.setup {
     -- "css",
     -- "go",
     -- "json",
-    -- "markdown",
+    "markdown",
     -- "yaml"
   },
 

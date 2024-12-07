@@ -2,11 +2,11 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'tsserver',
-  'solargraph',
-  --'rust_analyzer',
-})
+-- lsp.ensure_installed({
+  -- 'tsserver',
+  -- 'solargraph',
+  -- 'rust_analyzer',
+-- })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
