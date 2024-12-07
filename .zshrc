@@ -158,6 +158,9 @@ export BUNDLER_EDITOR=nvim
 # python
 alias py=". venv/bin/activate"
 
+# AWS
+alias iam="aws sts get-caller-identity"
+
 ### FUNCTIONS
 
 clean_branch() {
@@ -213,4 +216,6 @@ export DOCKER_BUILDKIT=1
 
 ## END
 
+unset GEM_HOME
+export PATH="/opt/homebrew/opt/mysql@8.4/bin:$PATH"
 
