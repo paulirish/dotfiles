@@ -3,6 +3,7 @@
 # also feels like https://fishshell.com/docs/current/cmds/fish_add_path.html would clean it up a lot
 # also a .paths file seems like a great idea. https://github.com/davidaurelio/dotfiles/blob/ce3d4117762f15ed92287e1049efefadfefb557a/.profile#L16-L22
 
+
 # Grab my $PATHs from ~/.extra
 set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
     # clean up bash PATH setting pattern
@@ -27,15 +28,14 @@ for entry in (string split \n $PATH_DIRS)
 end
 
 
-set -l manually_added_paths "
 # yarn binary
+# yarn global modules (hack for me)
+# `code` binary from VS Code
+
+set -l manually_added_paths "
 $HOME/.yarn/bin
 $GOPATH/bin
-
-# yarn global modules (hack for me)
 $HOME/.config/yarn/global/node_modules/.bin
-
-# `code` binary from VS Code
 /Applications/Visual Studio Code.app/Contents/Resources/app/bin
 "
 

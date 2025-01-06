@@ -197,3 +197,13 @@ function conda -d 'lazy initialize conda'
 end
 
 # NVM doesnt support fish and its stupid to try to make it work there.
+
+
+function google_cloud_sdk_lazy_init -d 'Lazy initializer for Google Cloud SDK'
+  functions --erase gcloud gsutil bq
+  source "$HOME/google-cloud-sdk/path.fish.inc"
+  $argv
+end
+for cmd in gcloud gsutil bq
+  eval "function $cmd; google_cloud_sdk_lazy_init $cmd \$argv; end"
+end

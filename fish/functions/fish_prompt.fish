@@ -218,7 +218,49 @@ function fish_prompt
         echo ''
     end
 
-    iterm2_prompt_mark # manually place it
+
+    # instead of a onetime sourcing like
+    #          test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+    # here's a fancy lazy instantiated integration. but.. still slow and weird. 
+    # iterms timestamps on scrollbar hover are probably good enough for now.
+    # but here's the ugly thing i ended up with. prob delete later.
+    # if not set -q __iterm2_integration_initialized
+    #     echo "init thing"
+    #     set -l cmd 'iterm2_integration_init'
+
+    #     begin
+    #         set -g __iterm2_integration_initialized 1
+    #         set -g __iterm2_integration_pid 0
+
+    #         # Run the command in a private, backgrounded fish process
+    #         command fish --private --command "$cmd" >/dev/null 2>&1 &
+
+    #         # Get the PID of the background process
+    #         set -l pid (jobs --last --pid)
+    #         set -g __iterm2_integration_pid $pid
+
+    #         # Define a function to handle process exit
+    #         function __iterm2_integration_on_finish_$pid --on-process-exit $pid --inherit-variable pid
+    #             functions -e __iterm2_integration_on_finish_$pid
+
+    #             if set -q __iterm2_integration_pid
+    #                 if test $pid -eq $__iterm2_integration_pid
+    #                     # Handle exit status if needed, though sourcing usually doesn't fail drastically
+    #                     switch $argv[3]
+    #                         case 0
+    #                             echo -n -s "" > /dev/null # Success (no-op for sourcing)
+    #                         case '*'
+    #                             echo "iTerm2 integration sourcing failed with status: $argv[3]" >&2
+    #                     end
+
+    #                     # Clear the PID variable
+    #                     set -e __iterm2_integration_pid
+    #                 end
+    #             end
+    #         end
+    #     end
+    # end
+    functions -q iterm2_prompt_mark and iterm2_prompt_mark; # iterm blue marker if defined
 
     # echo -sn $user "@" $hostname
     set_color $lucid_cwd_color

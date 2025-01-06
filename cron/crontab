@@ -21,6 +21,7 @@
 #  Min  |  Hour  |  Mday  |  Month  |  Wday  |  Command               #
 #=====================================================================#
 
+   */15   7-21       *        *         *        $HOME/code/dotfiles/cron/every-fifteen-minutes.sh > /dev/null 2>&1
    */20     *        *        *         *        $HOME/code/dotfiles/cron/every-five-minutes.sh > /dev/null 2>&1
    15       *        *        *         *        $HOME/code/dotfiles/cron/every-hour.sh > /dev/null 2>&1
 #   0       3        *        *         *        $HOME/code/dotfiles/cron/daily-nighttime.sh
