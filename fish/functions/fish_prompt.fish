@@ -61,9 +61,9 @@ end
 
 
 function fish_right_prompt
-  set_color brblack
-  printf ' %s ' (date +'%l:%M:%S %p, %b %d') # simpler but with a leading 0 on hours: date +'%r, %b %d')
-  set_color normal
+  # set_color brblack
+  # printf ' %s ' (date +'%l:%M:%S %p, %b %d') # simpler but with a leading 0 on hours: date +'%r, %b %d')
+  # set_color normal
 end
 
 # https://github.com/fernzi/dotfiles/blob/c551097cd9bd872e6d71d80efb74f359377c1f08/fish/.config/fish/functions/fish_right_prompt.fish#L10

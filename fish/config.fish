@@ -1,4 +1,4 @@
-# I've noticed this file gets called 3 times. Looks like one is from pureprompt.
+# I've noticed this file gets called multiple times. 
 # todo, investigate later.
 # status stack-trace
 
@@ -15,6 +15,13 @@ function ssource --description "source most of my dotfiles, useful if making cha
     source ~/.config/fish/aliases.fish
     source ~/.config/fish/functions.fish
     source ~/.config/fish/chromium.fish
+
+    # pull in all shared `export …` aka `set -gx …`
+    source ~/.exports
+
+    if test -e "../private/extras.fish";
+        source ../private/extras.fish
+    end
 
     # for things not checked into git..
     if test -e "$HOME/.extra.fish";
@@ -91,8 +98,7 @@ set -g fish_pager_color_prefix cyan
 set -g fish_pager_color_progress cyan
 
 
-# pull in all shared `export …` aka `set -gx …`
-source ~/.exports
+
 
 # ctrl-b invokes the fancy boi. but this doesnt really work right.
 bind \cb git-recent-with-fzf-and-diff

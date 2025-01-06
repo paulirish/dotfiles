@@ -165,6 +165,11 @@ function shellswitch
 	chsh -s (brew --prefix)/bin/$argv
 end
 
+function maxcpu100 -d "literally max out all your cores."
+  echo "To stop the pain run:"
+  echo "killall yes"
+  for i in (seq (nproc)); yes >/dev/null & end
+end
 
 # requires my excellent `npm install -g statikk`
 function server -d 'Start a HTTP server in the current dir, optionally specifying the port'

@@ -11,7 +11,7 @@ echo "hi"
 statikk --cors --port=9308 $HOME/chromium-devtools/devtools-frontend/front_end/panels/timeline/fixtures/traces & 
 
 # port 10090
-cd $HOME/chromium-devtools/devtools-frontend && PORT=10090 /Users/paulirish/bin/node scripts/component_server/server.js
+cd $HOME/chromium-devtools/devtools-frontend && PORT=10090 /usr/local/bin/node scripts/component_server/server.js
 
 # but DONT background this last one.. so you can ctrl-c the script in total                        ^
 
