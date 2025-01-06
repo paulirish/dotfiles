@@ -121,10 +121,6 @@ function __lucid_git_status
             set -l cmd "if test ($git_isdirty_cmd) != "0"; exit 1; else; exit 0; end"
 
             begin
-                # Defer execution of event handlers by fish for the remainder of lexical scope.
-                # This is to prevent a race between the child process exiting before we can get set up.
-                block -l
-
                 set -g __lucid_check_pid 0
                 command fish --private --command "$cmd" >/dev/null 2>&1 &
                 set -l pid (jobs --last --pid)
