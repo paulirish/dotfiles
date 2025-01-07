@@ -23,7 +23,7 @@ export LESS_TERMCAP_ue=$(printf '\e[0m')															# leave underline mode
 export LESS_TERMCAP_us=$(printf '\e[04;36m')													# enter underline mode – cyan
 
 # I'll also make sure my `man grep` uses the right one
-export MANPATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$MANPATH";
+export MANPATH="$HOME/.homebrew/opt/gnu-sed/libexec/gnubin:$HOME/homebrew/opt/gnu-sed/libexec/gnubin:$MANPATH";
 
 
 # fzf should be populated via `fd` which is the fastest file/dir finder. (respects gitignore, etc)

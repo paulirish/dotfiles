@@ -88,6 +88,10 @@ function all_binaries_in_path --description \
   # for val in $PATH; echo "$val"; end
 end
 
+function list_path --description "list all paths in PATH"
+  for val in $PATH; echo "$val"; end
+end
+
 function my_paths --description "list paths, in order"
   echo "#  "
   printf '%s\n' (string split \n $PATH)

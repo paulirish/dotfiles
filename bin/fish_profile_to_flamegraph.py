@@ -8,8 +8,7 @@ from collections import defaultdict
 Usage
 
    a oneliner:
-set fn "/tmp/fish_profile_$(date +%I%p_%M_%S).svg"; fish --profile-startup /tmp/fish.profile -i -c exit && fish_profile_to_flamegraph.py | $HOME/code/temp/FlameGraph/flamegraph.pl --width 1400 > "$fn" &&  open "$fn
-";
+set fn "/tmp/fish_profile_$(date +%I%p_%M_%S).svg"; fish --profile-startup /tmp/fish.profile -i -c exit && $HOME/bin/fish_profile_to_flamegraph.py | $HOME/code/temp/FlameGraph/flamegraph.pl --width 1400 > "$fn" &&  open "$fn";
 
    or two lines: one to profile, the other to generate flamegraph:
 fish --profile-startup /tmp/fish.profile -i -c exit
