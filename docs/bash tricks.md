@@ -48,3 +48,12 @@ for code in {0..255}
 	do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
 done
 ```
+
+# using unix mail spool to read cron output shit
+
+mail
+h      # for list messagess
+t      # prints message where the > cursor is
+t 15   # print message 15
+d 1-21 # to delete msgs 1-21
+n      # type out the message after > cursor and move cursor

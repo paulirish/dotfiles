@@ -22,6 +22,9 @@ export LESS_TERMCAP_so=$(printf '\e[01;33m')													# enter standout mode â
 export LESS_TERMCAP_ue=$(printf '\e[0m')															# leave underline mode
 export LESS_TERMCAP_us=$(printf '\e[04;36m')													# enter underline mode â€“ cyan
 
+# I'll also make sure my `man grep` uses the right one
+export MANPATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$MANPATH";
+
 
 # fzf should be populated via `fd` which is the fastest file/dir finder. (respects gitignore, etc)
 # note.. `fd` seems faster than `ag`.. but if i wanted to use `ag` this is good: command ag --files-with-matches --filename-pattern ""
