@@ -122,44 +122,41 @@ end
 # yes I love this gross combo of shell script, escapes, and node.
 function gz --d "Get the gzipped size"
   printf "%-20s %12s\n"  "compression method"  "bytes"
-  # TODO.. omg theres no need to go backwards. i can do this in 1 pass.
-  set origstr (printf "%-20s %'12.0f"  "original"         (cat "$argv[1]" | wc -c))
-  echo $origstr
-  set -l array "$origstr"
-
-  # -5 is what GH pages uses, dunno about others
-  # -6 is the default of `gzip` cli
-  # fwiw --no-name is equivalent to catting into gzip
-  set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c)); echo $array[-1]
-  set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c)); echo $array[-1]
-
-
-  # brew install brotli to get these as well
-  if hash brotli
-  # googlenews uses about -5, walmart serves --best
-  set -a array (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c)); echo $array[-1]
-  # set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c)); echo $array[-1]
-  end
-
-  # brew install zstd to get these as well
-  if hash zstd
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c)); echo $array[-1]
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c)); echo $array[-1]
-  # set -a array (printf "%-20s %'12.0f\n"  "zstd (--22 --ultra)"    (cat "$argv[1]" | zstd -c -22 --ultra - | wc -c)); echo $array[-1]
-  end
-
-  sleep 0.05
   
-  for item in $array
-    # ANSI escape cursor movement https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
-    printf "\033[1A"  # up 1 row
+    # Function to print size and bar graph
+  function print_size_with_graph -a size orig_size method 
+    echo "size $size orig_size $orig_size method method "
+    printf "$size   "
+    echo "wid = $COLUMNS - 40; console.log('█'.repeat($size * wid / $orig_size) + '░'.repeat(wid - ($size * wid / $orig_size)))" | node
   end
 
-  set orig (string replace --all "," "" (string match --regex "  [\d,]+" $origstr))
-  for item in $array
-    printf "$item   "
-    set bytesnum (string replace --all "," "" (string match --regex "  [\d,]+" $item))
-    echo "wid = $COLUMNS - 40; console.log('█'.repeat($bytesnum * wid / $orig) + '░'.repeat(wid - ($bytesnum * wid / $orig)))" | node
+
+  # Calculate original file size
+  set -l orig_size (cat "$argv[1]" | wc -c)
+  set -l orig_str (printf "%-20s %'12.0f"  "original"  $orig_size)
+  # echo $orig_str
+  print_size_with_graph "$orig_size" "$orig_size" "original"
+
+  # Gzip compression methods
+  set -l gzip_5_size (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c))
+  print_size_with_graph "$gzip_5_size" "$orig_size" "gzipped (-5)"
+
+  set -l gzip_best_size (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c))
+  print_size_with_graph "$gzip_best_size" "$orig_size" "gzipped (--best)"
+
+  # Brotli compression (if available)
+  if hash brotli
+    set -l brotli_5_size (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c))
+    print_size_with_graph "$brotli_5_size" "$orig_size" "brotli (-q 5)"
+  end
+
+  # Zstd compression (if available)
+  if hash zstd
+    set -l zstd_3_size (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c))
+    print_size_with_graph "$zstd_3_size" "$orig_size" "zstd (-3)"
+
+    set -l zstd_19_size (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c))
+    print_size_with_graph "$zstd_19_size" "$orig_size" "zstd (--19)"
   end
 end
 
