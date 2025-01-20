@@ -246,4 +246,8 @@ function rbu
     git checkout "$current_branch_name" && deps
 end
 
+function rebasecontinue
+    GIT_EDITOR=true git rebase --continue && git rebase-update -n
+end
+
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'

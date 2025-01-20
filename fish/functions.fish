@@ -128,6 +128,7 @@ function gz --d "Get the gzipped size"
   set -l array "$origstr"
 
   # -5 is what GH pages uses, dunno about others
+  # -6 is the default of `gzip` cli
   # fwiw --no-name is equivalent to catting into gzip
   set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c)); echo $array[-1]
   set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c)); echo $array[-1]

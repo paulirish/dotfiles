@@ -57,3 +57,10 @@ t      # prints message where the > cursor is
 t 15   # print message 15
 d 1-21 # to delete msgs 1-21
 n      # type out the message after > cursor and move cursor
+
+
+# mac os verbose logs
+
+```sh
+command log stream
+```

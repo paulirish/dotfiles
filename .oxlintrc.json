@@ -1,0 +1,40 @@
+{
+  "plugins": ["import", "typescript", "unicorn"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+
+  },
+  "settings": {},
+  "categories": {
+    "correctness": "warn",
+    "perf": "warn",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "catch-or-return": "warn",
+    "import/no-cycle": "error",
+    "no-floating-promises": "error",
+    "no-non-null-assertion": "error",
+    "prefer-modern-math-apis": "warn",
+    "prefer-node-protocol": "warn",
+    "eqeqeq": "error",
+    "prefer-math-trunc": "warn",
+    "no-labels": "warn",
+    "prefer-spread": "warn",
+    "prefer-rest-params": "warn",
+    "import/first": "warn",
+    "eslint/yoda": "warn",
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.spec.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
+}
