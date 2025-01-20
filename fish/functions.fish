@@ -119,42 +119,44 @@ function md --wraps mkdir -d "Create a directory and cd into it"
   end
 end
 
-# fancy gzip size dude.
+# print compression results with a bar chart
 function gz --d "Get the gzipped size"
   set -l file "$argv[1]"
   set -l orig_size (cat "$file" | wc -c)
 
   printf "\e[1;97m%-20s %12s\e[0m\n" "compression method" "bytes"
 
-  # Compression methods with bar graph
   for method in \
     "original" \
-    "gzipped (-5)" "gzipped (--best)" \
-    (test (command -v brotli) && echo "brotli (-q 5)") \
-    (test (command -v zstd) && echo "zstd (-3)") \
-    (test (command -v zstd) && echo "zstd")
+    # Gzip CLI default is -6, but GH pages only uses -5. Dunno about others.
+    "gzip (-5)" \
+    # "gzip (--best)" \
+    # (test (command -v zstd) && echo "zstd (-3)") \
+    (test (command -v zstd) && echo "zstd") \
+    (test (command -v brotli) && echo "brotli (-q 5)")
+    
+    printf "%-20s " "$method" 
 
     set -l compressed_size (
       switch "$method"
         case "original"
-          $orig_size
-        case "gzipped (-5)"
+          cat "$file" | wc -c
+        case "gzip (-5)"
           cat "$file" | gzip -5 -c | wc -c
-        case "gzipped (--best)"
+        case "gzip (--best)"
           cat "$file" | gzip --best -c | wc -c
         case "brotli (-q 5)"
-          cat "$file" | brotli -c --quality=5 | wc -c
-        case "zstd (-3)"
-          cat "$file" | zstd -c -3 - | wc -c
+          cat "$file" | brotli -c  | wc -c
         case "zstd"
+          # If experimenting, could also do --19 or --22 --ultra
           cat "$file" | zstd -c - | wc -c
+        case '*'
+          echo "Unhandled case. $method"
       end
     )
-
-    printf "%-20s %'12.0f   " "$method" "$compressed_size"
     set -l wid (math $COLUMNS - 40)
     set -l bar_width (math -s0 $compressed_size \* $wid / $orig_size)
-    printf "%s%s\n" (string repeat -n $bar_width '█') (string repeat -n (math -s0 "$wid - $bar_width")  '░')
+    printf "%'12.0f   %s%s\n" "$compressed_size" (string repeat -n $bar_width '█') (string repeat -n (math -s0 "$wid - $bar_width")  '░')
   end
 end
 
