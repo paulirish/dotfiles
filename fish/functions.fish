@@ -119,44 +119,42 @@ function md --wraps mkdir -d "Create a directory and cd into it"
   end
 end
 
-# yes I love this gross combo of shell script, escapes, and node.
+# fancy gzip size dude.
 function gz --d "Get the gzipped size"
-  printf "%-20s %12s\n"  "compression method"  "bytes"
-  
-    # Function to print size and bar graph
-  function print_size_with_graph -a size orig_size method 
-    echo "size $size orig_size $orig_size method method "
-    printf "$size   "
-    echo "wid = $COLUMNS - 40; console.log('█'.repeat($size * wid / $orig_size) + '░'.repeat(wid - ($size * wid / $orig_size)))" | node
-  end
+  set -l file "$argv[1]"
+  set -l orig_size (cat "$file" | wc -c)
 
+  printf "\e[1;97m%-20s %12s\e[0m\n" "compression method" "bytes"
 
-  # Calculate original file size
-  set -l orig_size (cat "$argv[1]" | wc -c)
-  set -l orig_str (printf "%-20s %'12.0f"  "original"  $orig_size)
-  # echo $orig_str
-  print_size_with_graph "$orig_size" "$orig_size" "original"
+  # Compression methods with bar graph
+  for method in \
+    "original" \
+    "gzipped (-5)" "gzipped (--best)" \
+    (test (command -v brotli) && echo "brotli (-q 5)") \
+    (test (command -v zstd) && echo "zstd (-3)") \
+    (test (command -v zstd) && echo "zstd")
 
-  # Gzip compression methods
-  set -l gzip_5_size (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c))
-  print_size_with_graph "$gzip_5_size" "$orig_size" "gzipped (-5)"
+    set -l compressed_size (
+      switch "$method"
+        case "original"
+          $orig_size
+        case "gzipped (-5)"
+          cat "$file" | gzip -5 -c | wc -c
+        case "gzipped (--best)"
+          cat "$file" | gzip --best -c | wc -c
+        case "brotli (-q 5)"
+          cat "$file" | brotli -c --quality=5 | wc -c
+        case "zstd (-3)"
+          cat "$file" | zstd -c -3 - | wc -c
+        case "zstd"
+          cat "$file" | zstd -c - | wc -c
+      end
+    )
 
-  set -l gzip_best_size (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c))
-  print_size_with_graph "$gzip_best_size" "$orig_size" "gzipped (--best)"
-
-  # Brotli compression (if available)
-  if hash brotli
-    set -l brotli_5_size (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c))
-    print_size_with_graph "$brotli_5_size" "$orig_size" "brotli (-q 5)"
-  end
-
-  # Zstd compression (if available)
-  if hash zstd
-    set -l zstd_3_size (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c))
-    print_size_with_graph "$zstd_3_size" "$orig_size" "zstd (-3)"
-
-    set -l zstd_19_size (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c))
-    print_size_with_graph "$zstd_19_size" "$orig_size" "zstd (--19)"
+    printf "%-20s %'12.0f   " "$method" "$compressed_size"
+    set -l wid (math $COLUMNS - 40)
+    set -l bar_width (math -s0 $compressed_size \* $wid / $orig_size)
+    printf "%s%s\n" (string repeat -n $bar_width '█') (string repeat -n (math -s0 "$wid - $bar_width")  '░')
   end
 end
 
