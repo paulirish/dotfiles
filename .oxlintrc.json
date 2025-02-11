@@ -28,6 +28,7 @@
     "prefer-rest-params": "warn",
     "import/first": "warn",
     "eslint/yoda": "warn",
+    "typescript_eslint/no-wrapper-object-types": "off"
   },
   "overrides": [
     {
