@@ -133,7 +133,7 @@ function gz --d "Get the gzipped size"
     # "gzip (--best)" \
     # (test (command -v zstd) && echo "zstd (-3)") \
     (test (command -v zstd) && echo "zstd") \
-    (test (command -v brotli) && echo "brotli (-q 5)")
+    (test (command -v brotli) && echo "brotli (-q 5)") # brotli is last because its compressor is sloowww
     
     printf "%-20s " "$method" 
 
