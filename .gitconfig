@@ -33,6 +33,7 @@
 	db = diffbranch
 	dbt = diffbranch-that
 
+
 	# Squash a branch to one commit against a branch with many non-main commits.
 	# This can't be an alias, but here's the hack.
 	#    # be on the new feature branch, be okay with rewriting it's history.
@@ -144,9 +145,9 @@
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
-# correct typos
+# correct typos. also lol 'deciseconds': https://blog.gitbutler.com/why-is-git-autocorrect-too-fast-for-formula-one-drivers/
 [help]
-	autocorrect = 1
+	autocorrect = "immediate"
 
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
