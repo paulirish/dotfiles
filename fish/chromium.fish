@@ -228,7 +228,7 @@ end
 
 
 # dt. rpp
-alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
+alias rppunit 'npm test -- --skip-ninja front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
 alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
 alias rppinter 'npm run test -- test/e2e/performance/'
 alias rppscreen 'third_party/node/node.py --output scripts/test/run_test_suite.js --config test/interactions/test-runner-config.json --mocha-fgrep "[screenshot]" --test-file-pattern="*/performance/**"'

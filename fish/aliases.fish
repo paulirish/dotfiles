@@ -22,6 +22,9 @@ alias where=which # sometimes i forget
 alias ls='eza --classify=auto --color --group-directories-first --sort=extension -A'
 alias la='eza --classify=auto --color --group-directories-first --sort=extension -a -l --octal-permissions --no-permissions'
 
+# use gdu (gdu-go) if available, as its faster on ssd
+alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
+
 # typos and abbreviations
 abbr g git
 abbr gi git
