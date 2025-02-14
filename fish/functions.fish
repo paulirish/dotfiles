@@ -82,7 +82,14 @@ end
 function all_binaries_in_path --description \
   "list all binaries available in \$PATH (incl conflicts). pipe it to grep. top-most are what's used, in case of conflicts"
   # based on https://unix.stackexchange.com/a/120790/110766 but tweaked to work on mac. and then made it faster.
-  find -L $PATH -maxdepth 1 -perm +111 -type f 2>/dev/null
+  find -L $PATH -maxdepth 1 -executable -type f 2>/dev/null
+
+  # list path
+  # for val in $PATH; echo "$val"; end
+end
+
+function list_path --description "list all paths in PATH"
+  for val in $PATH; echo "$val"; end
 end
 
 function my_paths --description "list paths, in order"
@@ -112,46 +119,44 @@ function md --wraps mkdir -d "Create a directory and cd into it"
   end
 end
 
-# yes I love this gross combo of shell script, escapes, and node.
+# print compression results with a bar chart
 function gz --d "Get the gzipped size"
-  printf "%-20s %12s\n"  "compression method"  "bytes"
-  # TODO.. omg theres no need to go backwards. i can do this in 1 pass.
-  set origstr (printf "%-20s %'12.0f"  "original"         (cat "$argv[1]" | wc -c))
-  echo $origstr
-  set -l array "$origstr"
+  set -l file "$argv[1]"
+  set -l orig_size (cat "$file" | wc -c)
 
-  # -5 is what GH pages uses, dunno about others
-  # fwiw --no-name is equivalent to catting into gzip
-  set -a array (printf "%-20s %'12.0f"  "gzipped (-5)"     (cat "$argv[1]" | gzip -5 -c | wc -c)); echo $array[-1]
-  set -a array (printf "%-20s %'12.0f"  "gzipped (--best)" (cat "$argv[1]" | gzip --best -c | wc -c)); echo $array[-1]
+  printf "\e[1;97m%-20s %12s\e[0m\n" "compression method" "bytes"
 
+  for method in \
+    "original" \
+    # Gzip CLI default is -6, but GH pages only uses -5. Dunno about others.
+    "gzip (-5)" \
+    # "gzip (--best)" \
+    # (test (command -v zstd) && echo "zstd (-3)") \
+    (test (command -v zstd) && echo "zstd") \
+    (test (command -v brotli) && echo "brotli (-q 5)") # brotli is last because its compressor is sloowww
+    
+    printf "%-20s " "$method" 
 
-  # brew install brotli to get these as well
-  if hash brotli
-  # googlenews uses about -5, walmart serves --best
-  set -a array (printf "%-20s %'12.0f\n"  "brotli (-q 5)"    (cat "$argv[1]" | brotli -c --quality=5 | wc -c)); echo $array[-1]
-  # set -a array (printf "%-20s %'12.0f\n"  "brotli (--best)"  (cat "$argv[1]" | brotli -c --best | wc -c)); echo $array[-1]
-  end
-
-  # brew install zstd to get these as well
-  if hash zstd
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (-3)"      (cat "$argv[1]" | zstd -c -3 - | wc -c)); echo $array[-1]
-  set -a array (printf "%-20s %'12.0f\n"  "zstd (--19)"    (cat "$argv[1]" | zstd -c -19 - | wc -c)); echo $array[-1]
-  # set -a array (printf "%-20s %'12.0f\n"  "zstd (--22 --ultra)"    (cat "$argv[1]" | zstd -c -22 --ultra - | wc -c)); echo $array[-1]
-  end
-
-  sleep 0.05
-  
-  for item in $array
-    # ANSI escape cursor movement https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html
-    printf "\033[1A"  # up 1 row
-  end
-
-  set orig (string replace --all "," "" (string match --regex "  [\d,]+" $origstr))
-  for item in $array
-    printf "$item   "
-    set bytesnum (string replace --all "," "" (string match --regex "  [\d,]+" $item))
-    echo "wid = $COLUMNS - 40; console.log('█'.repeat($bytesnum * wid / $orig) + '░'.repeat(wid - ($bytesnum * wid / $orig)))" | node
+    set -l compressed_size (
+      switch "$method"
+        case "original"
+          cat "$file" | wc -c
+        case "gzip (-5)"
+          cat "$file" | gzip -5 -c | wc -c
+        case "gzip (--best)"
+          cat "$file" | gzip --best -c | wc -c
+        case "brotli (-q 5)"
+          cat "$file" | brotli -c  | wc -c
+        case "zstd"
+          # If experimenting, could also do --19 or --22 --ultra
+          cat "$file" | zstd -c - | wc -c
+        case '*'
+          echo "Unhandled case. $method"
+      end
+    )
+    set -l wid (math $COLUMNS - 40)
+    set -l bar_width (math -s0 $compressed_size \* $wid / $orig_size)
+    printf "%'12.0f   %s%s\n" "$compressed_size" (string repeat -n $bar_width '█') (string repeat -n (math -s0 "$wid - $bar_width")  '░')
   end
 end
 
@@ -165,6 +170,11 @@ function shellswitch
 	chsh -s (brew --prefix)/bin/$argv
 end
 
+function maxcpu100 -d "literally max out all your cores."
+  echo "To stop the pain run:"
+  echo "killall yes"
+  for i in (seq (nproc)); yes >/dev/null & end
+end
 
 # requires my excellent `npm install -g statikk`
 function server -d 'Start a HTTP server in the current dir, optionally specifying the port'
@@ -192,3 +202,13 @@ function conda -d 'lazy initialize conda'
 end
 
 # NVM doesnt support fish and its stupid to try to make it work there.
+
+
+function google_cloud_sdk_lazy_init -d 'Lazy initializer for Google Cloud SDK'
+  functions --erase gcloud gsutil bq
+  source "$HOME/google-cloud-sdk/path.fish.inc"
+  $argv
+end
+for cmd in gcloud gsutil bq
+  eval "function $cmd; google_cloud_sdk_lazy_init $cmd \$argv; end"
+end

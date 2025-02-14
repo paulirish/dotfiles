@@ -60,189 +60,6 @@ function __lucid_abort_check
 end
 
 
-function fish_right_prompt
-end
-
-# https://github.com/fernzi/dotfiles/blob/c551097cd9bd872e6d71d80efb74f359377c1f08/fish/.config/fish/functions/fish_right_prompt.fish#L10
-function fish_right_prompt_thing
-  set_color -b black normal
-  printf ' %s ' (basename (string replace -r \^$HOME \~ $PWD))
-
-  # Git status
-  set_color -b brblack normal
-  git status --porcelain=v2 --branch 2>/dev/null | awk '
-    $1 == "#" && $2 == "branch.head" {
-      printf "  %s ", $3
-      git=1
-    }
-    $1~/1|2/ && $2~/[^.]./ {
-      staged++
-    }
-    $1~/1|2/ {
-      modified++
-    }
-    $1 == "?" {
-      untracked++
-    }
-    END {
-      if (git) {
-        if (staged)
-          printf "•%d ", staged
-        if (modified)
-          printf "+%d ", modified
-        if (untracked)
-          printf "~%d ", untracked
-        if (!(staged || modified || untracked))
-          printf "✔ "
-      }
-    }
-  '
-
-  set_color -b normal blue
-  set_color -ro
-  printf ' %s ' $hostname
-  set_color normal
-end
-
-# https://github.com/olemb/git-prompt/blob/e4caf57bf96e735c37ac1bf7595a8e0815d5e31d/git_prompt.fish#L7
-function status_from_porcelain
-    set -l text (command git status --porcelain=v2 --branch ^/dev/null)
-    if [ $status -ne 0 ] >/dev/null
-        return
-    end
-
-    set -l branch_oid
-    set -l branch_head
-
-    # Flags.
-    set -l changes ''
-    set -l untracked ''
-    set -l conflict ''
-    set -l ahead ''
-    set -l behind ''
-
-    for line in $text
-        set -l words (string split " " $line)
-
-        switch $words[1]
-            # Why doesn't this work if the '#' case is last?
-            case '#'
-                switch $words[2]
-                    case 'branch.oid'
-                        set oid $words[3]
-                    case 'branch.head'
-                        set head $words[3]
-                    case 'branch.ab'
-                        if [ $words[3] != "+0" ]
-                            set ahead '↑'
-                        end
-                        if [ $words[4] != "-0" ]
-                            set behind '↓'
-                        end
-                end
-
-            case 'u'
-                set conflict '!'
-            case '1' '2'
-                set changes '*'
-            case '?'
-                set untracked '?'
-        end
-    end
-
-
-    if [ $oid = "(initial)" ]
-        set head ":initial"
-    else if [ $head = "(detached)" ]
-        set head ':'(string sub -l 6 $oid)
-    end
-
-
-    set -l color green
-
-    if [ $conflict != '' ]
-        set color red
-    else if [ $changes$untracked != '' ]
-        set color yellow
-    end
-
-    set -l flags $changes$untracked$conflict$ahead$behind
-
-    if [ $flags != "" ]
-       set flags " $flags"
-    end
-
-    set_color $color
-    echo "[$head$flags]"
-
-    set_color normal
-
-end
-
-
-function _paulirish_git_branch_str --description "Parse current Git branch name"
-    set --local reliable_ref_name (
-        command git symbolic-ref --short HEAD 2>/dev/null;
-        or command git describe --all --exact-match HEAD 2>/dev/null
-    )
-
-    # upstream uses name-rev but its a little too human friendly for me
-    # if the symbolic-ref or describe cmds fail.. ill use a revparse ref with name-rev in brackets.
-    if test -n "$reliable_ref_name"
-        echo $reliable_ref_name
-    else
-        set --local namerev (command git name-rev --name-only HEAD 2>/dev/null)
-        set --local revparse (command git rev-parse --short HEAD)
-
-        echo "$revparse [aka $namerev]"
-    end
-
-end
-
-
-function _pure_prompt_git_pending_commits
-    set --local git_unpushed_commits
-    set --local git_unpulled_commits
-
-    set --local has_upstream (command git rev-parse --abbrev-ref '@{upstream}' 2>/dev/null)
-    if test -n "$has_upstream"  # check there is an upstream repo configured
-        and test "$has_upstream" != '@{upstream}' # Fixed #179, dont check the empty repo
-        command git rev-list --left-right --count 'HEAD...@{upstream}' \
-        | read --local --array git_status
-        set --local commit_to_push $git_status[1]
-        set --local commit_to_pull $git_status[2]
-
-        if test "$commit_to_push" -gt 0  # upstream is behind local repo
-            set git_unpushed_commits (set_color brgreen) "⇡"
-        end
-
-        if test "$commit_to_pull" -gt 0  # upstream is ahead of local repo
-            set git_unpulled_commits (set_color yellow) "⇣"
-        end
-    end
-
-    echo "$git_unpushed_commits$git_unpulled_commits"
-end
-
-
-# function _paulirish_maybe_toggle_dirtystate -d "Ignore dirty state if we're in the huge Chromium repo"
-#     # check if we're in a git repo.
-#     if not git rev-parse &> /dev/null
-#       return
-#     end
-#     # check if an origin remote exists
-#     if not git remote get-url origin &> /dev/null
-#       return
-#     end
-#     set -l actualurl (git remote get-url origin)
-#     switch $actualurl
-#       case "*chromium.googlesource.com*"
-#         git config bash.showDirtyState false
-#     end
-# end
-
-
-
 function __lucid_git_status
     # Reset state if this call is *not* due to a redraw request
     set -l prev_dirty $__lucid_dirty
@@ -304,10 +121,6 @@ function __lucid_git_status
             set -l cmd "if test ($git_isdirty_cmd) != "0"; exit 1; else; exit 0; end"
 
             begin
-                # Defer execution of event handlers by fish for the remainder of lexical scope.
-                # This is to prevent a race between the child process exiting before we can get set up.
-                block -l
-
                 set -g __lucid_check_pid 0
                 command fish --private --command "$cmd" >/dev/null 2>&1 &
                 set -l pid (jobs --last --pid)
@@ -405,7 +218,49 @@ function fish_prompt
         echo ''
     end
 
-    iterm2_prompt_mark # manually place it
+
+    # instead of a onetime sourcing like
+    #          test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+    # here's a fancy lazy instantiated integration. but.. still slow and weird. 
+    # iterms timestamps on scrollbar hover are probably good enough for now.
+    # but here's the ugly thing i ended up with. prob delete later.
+    # if not set -q __iterm2_integration_initialized
+    #     echo "init thing"
+    #     set -l cmd 'iterm2_integration_init'
+
+    #     begin
+    #         set -g __iterm2_integration_initialized 1
+    #         set -g __iterm2_integration_pid 0
+
+    #         # Run the command in a private, backgrounded fish process
+    #         command fish --private --command "$cmd" >/dev/null 2>&1 &
+
+    #         # Get the PID of the background process
+    #         set -l pid (jobs --last --pid)
+    #         set -g __iterm2_integration_pid $pid
+
+    #         # Define a function to handle process exit
+    #         function __iterm2_integration_on_finish_$pid --on-process-exit $pid --inherit-variable pid
+    #             functions -e __iterm2_integration_on_finish_$pid
+
+    #             if set -q __iterm2_integration_pid
+    #                 if test $pid -eq $__iterm2_integration_pid
+    #                     # Handle exit status if needed, though sourcing usually doesn't fail drastically
+    #                     switch $argv[3]
+    #                         case 0
+    #                             echo -n -s "" > /dev/null # Success (no-op for sourcing)
+    #                         case '*'
+    #                             echo "iTerm2 integration sourcing failed with status: $argv[3]" >&2
+    #                     end
+
+    #                     # Clear the PID variable
+    #                     set -e __iterm2_integration_pid
+    #                 end
+    #             end
+    #         end
+    #     end
+    # end
+    functions -q iterm2_prompt_mark and iterm2_prompt_mark; # iterm blue marker if defined
 
     # echo -sn $user "@" $hostname
     set_color $lucid_cwd_color

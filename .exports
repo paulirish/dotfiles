@@ -1,4 +1,5 @@
 # file is shared between bash and fish
+# todo: place these near the thematically related stuff. grouping as .exports is dumb.
 
 # vim as default
 export EDITOR="vim"
@@ -21,6 +22,9 @@ export LESS_TERMCAP_so=$(printf '\e[01;33m')													# enter standout mode â
 export LESS_TERMCAP_ue=$(printf '\e[0m')															# leave underline mode
 export LESS_TERMCAP_us=$(printf '\e[04;36m')													# enter underline mode â€“ cyan
 
+# I'll also make sure my `man grep` uses the right one
+export MANPATH="$HOME/.homebrew/opt/gnu-sed/libexec/gnubin:$HOME/homebrew/opt/gnu-sed/libexec/gnubin:$MANPATH";
+
 
 # fzf should be populated via `fd` which is the fastest file/dir finder. (respects gitignore, etc)
 # note.. `fd` seems faster than `ag`.. but if i wanted to use `ag` this is good: command ag --files-with-matches --filename-pattern ""
@@ -30,4 +34,11 @@ export LESS_TERMCAP_us=$(printf '\e[04;36m')													# enter underline mode 
 export FZF_DEFAULT_COMMAND='fd'
 export FZF_CTRL_T_COMMAND='fd'
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {} 2>/dev/null || tree -C {}'"
+
+# Skip line-numbers and grid. https://github.com/sharkdp/bat/blob/e608b331425ca2ce8f8d0bd37e7f90901f91eb99/src/style.rs#L27-L61
+# In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
+export BAT_STYLE="changes,header-filename,header-filesize,snip,rule"
+
+
+export CLOUDSDK_PYTHON=/usr/bin/python3
 

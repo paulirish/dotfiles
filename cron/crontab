@@ -1,12 +1,10 @@
-# whats in the real crontab and this file are technically two diff things
-# for now we just manually make sure this matches whats in `crontab -e`
+# whats in the real crontab and this file are technically two diff things. for now we just manually make sure this matches whats in there.
 # todo: implement something like this? https://blog.chmd.fr/saving-your-crontab-in-your-dotfiles.html
 #
 # to edit real crontab:
 #    env EDITOR=nano crontab -e
 #
-# make sure all scripts are executable.
-# chmod +x *.sh
+# make sure all scripts are executable:  chmod +x *.sh
 
 #=====================================================================#
 #     0-23   0-59               0-30  0-6   1-12                      #
@@ -22,14 +20,19 @@
 #=====================================================================#
 #  Min  |  Hour  |  Mday  |  Month  |  Wday  |  Command               #
 #=====================================================================#
-   */7     *        *        *         *        $HOME/code/dotfiles/cron/every-five-minutes.sh > /dev/null 2>&1
-   15      *        *        *         *        $HOME/code/dotfiles/cron/every-hour.sh > /dev/null 2>&1
-   0       3        *        *         *        $HOME/code/dotfiles/cron/daily-nighttime.sh
-   20      17,18    *        *         6        $HOME/code/dotfiles/cron/weekly.sh
+
+   */15   7-21       *        *         *        $HOME/code/dotfiles/cron/every-fifteen-minutes.sh > /dev/null 2>&1
+   */20     *        *        *         *        $HOME/code/dotfiles/cron/every-five-minutes.sh > /dev/null 2>&1
+   15       *        *        *         *        $HOME/code/dotfiles/cron/every-hour.sh > /dev/null 2>&1
+#   0       3        *        *         *        $HOME/code/dotfiles/cron/daily-nighttime.sh
+   20      17,18     *        *         5        $HOME/code/dotfiles/cron/weekly.sh
+   35       16       *        *        MON-FRI   $HOME/code/dotfiles/cron/workday-end.sh
+
+# https://stackoverflow.com/questions/2135478/how-to-simulate-the-environment-cron-executes-a-script-with
+# * * * * * env > ~/cronenv
+
 #=====================================================================#
 
-   5       17       *        *        MON-FRI   $HOME/code/dotfiles/cron/workday-end.sh
-   
 
 # disabled for now
 #   20      17,18    *        *         1-5      $HOME/code/dotfiles/cron/twice-during-weekdays.sh

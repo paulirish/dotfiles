@@ -48,3 +48,37 @@ for code in {0..255}
 	do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
 done
 ```
+
+# using unix `mail` spool to read cron output shit
+
+```
+h      # for list messagess
+h 10   # list messages starting at 10
+n      # type out the message after > cursor and move cursor
+t      # prints message where the > cursor is
+t 15   # print message 15
+
+d 1-21 # to delete msgs 1-21
+d *    # delete all
+```
+
+# mac os verbose logs
+
+```sh
+command log stream
+```
+
+# mac os profiling/diagnostics
+
+```sh
+sudo fs_usage -w >> ~/Desktop/fs_usage.txt   # and ctrl-c to terminate
+
+sudo spindump -notarget 60 -o ~/Desktop/spindump.txt
+
+# log who is making system calls / starting processes - and what they are.
+sudo dtrace -q -n 'syscall::exec*:entry { printf("%s %s\n", execname, copyinstr(arg0)); }'
+```
+
+
+
+

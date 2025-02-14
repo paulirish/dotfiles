@@ -1,56 +1,13 @@
 
-# 2022-11 comment: this whole file feels gross. 
-# also feels like https://fishshell.com/docs/current/cmds/fish_add_path.html would clean it up a lot
-# also a .paths file seems like a great idea. https://github.com/davidaurelio/dotfiles/blob/ce3d4117762f15ed92287e1049efefadfefb557a/.profile#L16-L22
 
-# Grab my $PATHs from ~/.extra
-set -l PATH_DIRS (cat "$HOME/.extra" | grep "^PATH" | \
-    # clean up bash PATH setting pattern
-    sed "s/PATH=//" | sed "s/\\\$PATH://" | \
-    # rewrite ~/ to use {$HOME}
-    sed "s/~\//{\$HOME}\//")
+# Read from ~/.paths  and populate PATH based on that.
+for line in (string split -n "\n" < ~/.paths)
+  # skip comments
+  if test (string sub --length 1 "$line") = "#"
+      continue  
+  end
+  # testing first (if test -d "$line" -o -L "$line") seems nice but excludes some important thigns
 
-
-set -l PA $PATH
-
-
-
-for entry in (string split \n $PATH_DIRS)
-    # resolve the {$HOME} substitutions
-    set -l resolved_path (eval echo $entry)
-    if contains $resolved_path $PATH;
-        continue; # skip dupes
-    end
-    if test -d "$resolved_path";
-        set PA $PA "$resolved_path"
-    end
+  # --global works like normal PATH additions in bash. but default is --universal which seems like more fun. maybe try that out
+  fish_add_path --global "$line"
 end
-
-
-set -l manually_added_paths "
-# yarn binary
-$HOME/.yarn/bin
-$GOPATH/bin
-
-# yarn global modules (hack for me)
-$HOME/.config/yarn/global/node_modules/.bin
-
-# `code` binary from VS Code
-/Applications/Visual Studio Code.app/Contents/Resources/app/bin
-"
-
-for entry in (string split \n $manually_added_paths)
-    # resolve the {$HOME} substitutions
-    set -l resolved_path (eval echo $entry)
-    if contains $resolved_path $PATH;
-      
-        continue; # skip dupes
-    end
-    if test -d "$resolved_path";
-        set PA $PA "$resolved_path"
-    end
-end
-
-
-
-set --export PATH $PA

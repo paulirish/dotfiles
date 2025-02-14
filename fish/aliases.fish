@@ -71,7 +71,6 @@ subcommand_abbr git c "commit -am"
 subcommand_abbr git tc "commit -am"
 subcommand_abbr git cm "commit --no-all -m"
 subcommand_abbr git co "checkout"
-subcommand_abbr git c "commit -am"
 subcommand_abbr git s "status"
 subcommand_abbr git ts "status"
 subcommand_abbr git amend "commit --amend --all --no-edit"
@@ -129,7 +128,6 @@ alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
 
 
 # Networking. IP address, dig, DNS
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 # wget sucks with certificates. Let's keep it simple.
 alias wget="curl -L -O"
@@ -157,9 +155,9 @@ function gemi
   #    gemi "tell me a joke"
   if test -z "$argv[1]"
     # no markdown parsing here without some real fancy stuff. because you dont want to send to markdown renderer (glow) inbetween backticks, etc.
-    llm chat --continue -m gemini-1.5-pro-latest
+    llm chat --continue -m gemini-2.0-flash-exp
   else
-    llm prompt -m gemini-1.5-pro-latest "$argv" && echo "⬇️… and now rendered…⬇️" && llm logs -r | glow
+    llm prompt -m gemini-2.0-flash-exp "$argv" && echo "⬇️… and now rendered…⬇️" && llm logs -r | glow
   end
 end
 

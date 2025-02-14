@@ -1,26 +1,40 @@
-# I've noticed this file gets called 3 times. Looks like one is from pureprompt.
+# I've noticed this file gets called multiple times. 
 # todo, investigate later.
 # status stack-trace
 
+#   upfront add homebrew stuff to path
+
 # set fish_trace 1
-# fish --debug "*" # super noisy
-# fish --debug "(fish --print-debug-categories)"  and could start removing stuff.
+# /Users/paulirish/.homebrew/bin/fish --debug "*" # super noisy
+# see `fish --print-debug-categories`
+# /Users/paulirish/.homebrew/bin/fish --debug "abbrs ast-construction char-encoding complete config debug env-dispatch env-export env-locale error event exec exec-fork exec-job-exec exec-job-status fd-monitor history history-file iothread output-invalid path proc-internal-proc proc-job-run proc-pgroup proc-reap-external proc-reap-internal proc-termowner profile-history reader reader-render screen term-support topic-monitor uvar-file uvar-notifier warning warning-path" 
+
 function fish_greeting
 end
 
-
 # TODO: path and aliases are kinda slow to source. optimize later.
 function ssource --description "source most of my dotfiles, useful if making changes and iterating"
+
     source ~/.config/fish/path.fish
     source ~/.config/fish/aliases.fish
     source ~/.config/fish/functions.fish
     source ~/.config/fish/chromium.fish
+
+    # pull in all shared `export …` aka `set -gx …`
+    source ~/.exports
+
+    if test -e "../private/extras.fish";
+        source ../private/extras.fish
+    end
 
     # for things not checked into git..
     if test -e "$HOME/.extra.fish";
         source ~/.extra.fish
     end
 end
+
+
+fish_add_path $HOME/.homebrew/bin; fish_add_path $HOME/homebrew/bin; # so i can use utils in startup
 
 ssource;
 
@@ -91,15 +105,9 @@ set -g fish_pager_color_prefix cyan
 set -g fish_pager_color_progress cyan
 
 
-# pull in all shared `export …` aka `set -gx …`
-source ~/.exports
-
 # ctrl-b invokes the fancy boi. but this doesnt really work right.
 bind \cb git-recent-with-fzf-and-diff
 if bind -M insert > /dev/null 2>&1
     bind -M insert \cb git-recent-with-fzf-and-diff
 end
 
-# TODO debug this
-# this currently messes with newlines in my prompt. lets debug it later.
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
