@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+# see git_diff_image.
+
 usage()
 {
     echo "Usage: $0 [<options>] <file1> <file2>"
