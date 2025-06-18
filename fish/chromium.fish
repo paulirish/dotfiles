@@ -99,6 +99,7 @@ function cr --description "run chrome with dev devtools. optionally, pass canary
 
     if contains canary $argv
         set crpath "/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
+        # set crpath "./$cdup/third_party/branded_chrome/chrome-mac/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
         set user_data_dir "$HOME/chromium-devtools/dt-canary-profile"
         set --erase argv[1]
     end

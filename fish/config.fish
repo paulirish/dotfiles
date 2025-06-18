@@ -111,3 +111,8 @@ if bind -M insert > /dev/null 2>&1
     bind -M insert \cb git-recent-with-fzf-and-diff
 end
 
+
+
+string match -q "$TERM_PROGRAM" "vscode"
+and . (code --locate-shell-integration-path fish)
+

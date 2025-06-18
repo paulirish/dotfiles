@@ -131,8 +131,8 @@ function gz --d "Get the gzipped size"
     # Gzip CLI default is -6, but GH pages only uses -5. Dunno about others.
     "gzip (-5)" \
     # "gzip (--best)" \
-    # (test (command -v zstd) && echo "zstd (-3)") \
     (test (command -v zstd) && echo "zstd") \
+    # (test (command -v zstd) && echo "zstd (-19)") \
     (test (command -v brotli) && echo "brotli (-q 5)") # brotli is last because its compressor is sloowww
     
     printf "%-20s " "$method" 
