@@ -218,3 +218,50 @@ end
 for cmd in gcloud gsutil bq
   eval "function $cmd; google_cloud_sdk_lazy_init $cmd \$argv; end"
 end
+
+
+function fns --description "Interactively search/preview fish shell functions and aliases"
+    set -l items
+
+    #  Gather up all functions w/ descriptions
+    for fn_name in (functions -n)
+        set -l description ""
+        # Get the full function definition output
+        set -l definition_output (functions $fn_name | string collect) # Collect lines for easier matching
+
+        # extract the description, unless its a wrap fn (alias)
+        if not string match --quiet -- "--wraps*" "$definition_output"
+           string match --quiet --regex -- '--description\s+(?<desc>[^$^\n]*)' "$definition_output"
+        end
+
+        if test -n "$desc"
+            set -a items "$fn_name — $desc"
+        else
+            set -a items "$fn_name "
+        end
+    end
+
+    set -l preview_cmd "
+        set -l line {}
+        set -l parts (string split ' — ' \"\$line\")
+        set -l item_name (string trim \$parts[1])
+        functions \"\$item_name\" | bat --color=always --plain --language=fish --line-range :500
+    "
+
+    set -l chosen_fn (printf "%s\n" $items | fzf \
+        --height 60% \
+        --ansi \
+        --color="hl:#5f87af,hl+:#5fd7ff" \
+        --layout reverse \
+        --border rounded \
+        --header 'fish functions' \
+        --preview "$preview_cmd" \
+        --preview-window 'right:60%:wrap')
+
+    # on selection, output it.
+    if test -n "$chosen_fn"
+        set -l parts (string split ' — ' "$chosen_fn" \ )
+        set -l item_name (string trim $parts[1])
+        functions "$item_name" | bat --color=always --plain --language=fish --line-range :500
+    end
+end
