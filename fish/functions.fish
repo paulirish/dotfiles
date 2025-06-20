@@ -15,7 +15,7 @@ function subl --description 'Open Sublime Text'
 end
 
 
-function kill_process --description 'Kill process that user selects in fzf (from ps aux output)'
+function killprocess --description 'Kill process that user selects in fzf (from ps aux output)'
   set -l pid (ps aux | fzf -m --header-lines=1 | awk '{print $2}')
 
   if test -n "$pid"
@@ -25,7 +25,7 @@ function kill_process --description 'Kill process that user selects in fzf (from
 end
 
 
-function kill_port --description 'Select a port to kill, by pid, port, or command line'
+function killport --description 'Select a port to kill, by pid, port, or command line'
 
   # Function to get the command line for a given PID
   function get_command -a pid
@@ -48,6 +48,12 @@ function kill_port --description 'Select a port to kill, by pid, port, or comman
     awk '{print $1}' | xargs -r kill -9
 end
 
+
+# aliases so i can run a cmd somewhere when another one finishes. usage:
+#      waitfordone && command       # in one session
+#      long_running_command; done   # in another
+alias done="echo done > /tmp/done_pipe"
+alias waitfordone="mkfifo /tmp/done_pipe && read -r line < /tmp/done_pipe"
 
 function clone --description "clone something, cd into it. install it."
     git clone --depth=1 $argv[1]
@@ -134,8 +140,8 @@ function gz --d "Get the gzipped size"
     # (test (command -v zstd) && echo "zstd (-3)") \
     (test (command -v zstd) && echo "zstd") \
     (test (command -v brotli) && echo "brotli (-q 5)") # brotli is last because its compressor is sloowww
-    
-    printf "%-20s " "$method" 
+
+    printf "%-20s " "$method"
 
     set -l compressed_size (
       switch "$method"
