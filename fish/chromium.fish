@@ -233,3 +233,4 @@ end
 
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'
 
+abbr gcert 'gcert-local'
