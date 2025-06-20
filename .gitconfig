@@ -30,7 +30,7 @@
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 
 	# squash unique commits from branch into one commit that keeps commit msgs.
-	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"$commit_body\""
+	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s%+b' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"$commit_body\""
 
 	# I prefer these from my fish abbv's, but for bash we'll keep this as a fallback.
 	db = diffbranch
