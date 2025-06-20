@@ -2,7 +2,12 @@
 
 set -euo pipefail
 
-# this is installed by way of ~/.gitattributes
+# this is installed by way of ~/.gitattributes having this content:
+#   *.gif diff=image
+#   *.jpeg diff=image
+#   *.jpg diff=image
+#   *.png diff=image
+
 
 
 

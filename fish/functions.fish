@@ -15,7 +15,7 @@ function subl --description 'Open Sublime Text'
 end
 
 
-function kill_process --description 'Kill process that user selects in fzf (from ps aux output)'
+function killprocess --description 'Kill process that user selects in fzf (from ps aux output)'
   set -l pid (ps aux | fzf -m --header-lines=1 | awk '{print $2}')
 
   if test -n "$pid"
@@ -25,7 +25,7 @@ function kill_process --description 'Kill process that user selects in fzf (from
 end
 
 
-function kill_port --description 'Select a port to kill, by pid, port, or command line'
+function killport --description 'Select a port to kill, by pid, port, or command line'
 
   # Function to get the command line for a given PID
   function get_command -a pid
@@ -48,6 +48,12 @@ function kill_port --description 'Select a port to kill, by pid, port, or comman
     awk '{print $1}' | xargs -r kill -9
 end
 
+
+# aliases so i can run a cmd somewhere when another one finishes. usage:
+#      waitfordone && command       # in one session
+#      long_running_command; done   # in another
+alias done="echo done > /tmp/done_pipe"
+alias waitfordone="mkfifo /tmp/done_pipe && read -r line < /tmp/done_pipe"
 
 function clone --description "clone something, cd into it. install it."
     git clone --depth=1 $argv[1]
@@ -134,8 +140,8 @@ function gz --d "Get the gzipped size"
     (test (command -v zstd) && echo "zstd") \
     # (test (command -v zstd) && echo "zstd (-19)") \
     (test (command -v brotli) && echo "brotli (-q 5)") # brotli is last because its compressor is sloowww
-    
-    printf "%-20s " "$method" 
+
+    printf "%-20s " "$method"
 
     set -l compressed_size (
       switch "$method"
@@ -211,4 +217,51 @@ function google_cloud_sdk_lazy_init -d 'Lazy initializer for Google Cloud SDK'
 end
 for cmd in gcloud gsutil bq
   eval "function $cmd; google_cloud_sdk_lazy_init $cmd \$argv; end"
+end
+
+
+function fns --description "Interactively search/preview fish shell functions and aliases"
+    set -l items
+
+    #  Gather up all functions w/ descriptions
+    for fn_name in (functions -n)
+        set -l description ""
+        # Get the full function definition output
+        set -l definition_output (functions $fn_name | string collect) # Collect lines for easier matching
+
+        # extract the description, unless its a wrap fn (alias)
+        if not string match --quiet -- "--wraps*" "$definition_output"
+           string match --quiet --regex -- '--description\s+(?<desc>[^$^\n]*)' "$definition_output"
+        end
+
+        if test -n "$desc"
+            set -a items "$fn_name — $desc"
+        else
+            set -a items "$fn_name "
+        end
+    end
+
+    set -l preview_cmd "
+        set -l line {}
+        set -l parts (string split ' — ' \"\$line\")
+        set -l item_name (string trim \$parts[1])
+        functions \"\$item_name\" | bat --color=always --plain --language=fish --line-range :500
+    "
+
+    set -l chosen_fn (printf "%s\n" $items | fzf \
+        --height 60% \
+        --ansi \
+        --color="hl:#5f87af,hl+:#5fd7ff" \
+        --layout reverse \
+        --border rounded \
+        --header 'fish functions' \
+        --preview "$preview_cmd" \
+        --preview-window 'right:60%:wrap')
+
+    # on selection, output it.
+    if test -n "$chosen_fn"
+        set -l parts (string split ' — ' "$chosen_fn" \ )
+        set -l item_name (string trim $parts[1])
+        functions "$item_name" | bat --color=always --plain --language=fish --line-range :500
+    end
 end

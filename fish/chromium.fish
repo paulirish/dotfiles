@@ -124,7 +124,8 @@ end
 
 
 function crcanary --description "Run Chrome Canary with dev devtools"
-  dtcr canary "--enable-features=\"DevToolsExplainThisResourceDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistancePerformanceAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS,DevToolsAiAssistanceFileAgentDogfood:aida_model_id/codey_gemit_mpp_streaming/aida_temperature/0/user_tier/TESTERS\"" $argv
+  # go/perfai
+  dtcr canary "--enable-features=\"DevToolsAiAssistancePerformanceAgent:insights_enabled/true\"" $argv
 end
 
 function crrelease --description "Run Chrome for Testing with release build devtools"
@@ -192,7 +193,7 @@ function crflags
 end
 
 function maccr-flagged
-    # some dev flags plus chrome-launcher flags.
+    # some dev flags plus chrome-launcher flags.-
     set -l bigcmd $HOME/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium (crflags)
 
      echo " > $bigcmd"
@@ -218,19 +219,45 @@ alias rpplatest "git log --color=always --pretty=format:'%Cred%h%Creset -%C(yell
 
 function rbu  --description "rebase-update with extra steps"
     set -l current_branch_name (git status --porcelain=v2 --branch | grep '^# branch.head' | awk '{print $3}')
-    # ensure all branches have an upstream. (still no idea why they dont)
-    for branch in (git branch -vv | grep -v '\[origin/main' | awk ' { print $1 }' | string trim)
-        git branch --set-upstream-to=origin/main $branch
-    end
-    git checkout origin/main && git cl archive -f --verbose && git rebase-update && git checkout -b main origin/main
-    git checkout main && depshooks
+    # ensure all branches have an upstream. (still no idea why they dont).   COMMENTED oUT cuz if i use dependent branches (eg git branch -u basebranch) i think this screws it up.
+    # for branch in (git branch -vv | grep -v '\[origin/main' | awk ' { print $1 }' | string trim)
+    #     git branch --set-upstream-to=origin/main $branch
+    # end
+
+    # _watch_suspend
+
+    git checkout origin/main && git cl archive -f --verbose && git rebase-update && git checkout -b main origin/main && \
+    git checkout main && depshooks && \
     git checkout "$current_branch_name"
+
+    # _watch_resume
 end
 
 function rebasecontinue   --description "continuing after resolving rebase conflicts mid-rebase-update"
-    GIT_EDITOR=true git rebase --continue && git rebase-update -n && git checkout -b main origin/main &&  git checkout main && depshooks
+    GIT_EDITOR=true git rebase --continue; git rebase-update -n && git checkout -b main origin/main &&  git checkout main && depshooks
 end
+
+
+# # pause watch script during rebase-update
+# function _watch_suspend
+#     if set -U watch_pid (pgrep -f watch_build)
+#       kill -STOP $watch_pid
+#     end
+# end
+
+# function _watch_resume
+#     if test -n "$watch_pid"
+#         kill -CONT $watch_pid
+#         set --erase -U watch_pid
+#     end
+# end
 
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'
 
 abbr gcert 'gcert-local'
+
+function clstatus --description "pick a branch that is on gerrit as a CL"
+  set -l branch_name (git cl status --no-branch-color --date-order | awk '/ : / {print $0}' | fzf | awk '{print $1}')
+  git checkout $branch_name
+end
+

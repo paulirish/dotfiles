@@ -56,7 +56,7 @@ alias wget="curl -O"
 # Recursively delete `.DS_Store` files
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
-alias diskspace_report="df -P -kHl"
+alias diskspace_report="df --si /"
 alias free_diskspace_report="diskspace_report"
 
 # Shortcuts
