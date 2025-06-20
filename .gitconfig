@@ -90,11 +90,13 @@
 [diff]
 	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
 	# https://blog.github.com/2018-04-05-git-217-released/
-	colorMoved = default
+	colorMoved = plain  # plain seems just _barely_ better than default.
 	# Detect copies in addition to renames
 	renames = copies
 	# A la `git submodule summary`
 	submodule = log
+	# Histogram is best. https://blog.gitbutler.com/how-git-core-devs-configure-git/
+	algorithm = histogram
 
 # special hunk parsing for .pdl. https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitattributes.html#_defining_a_custom_hunk_header
 [diff "pdl"]
@@ -139,6 +141,8 @@
 [merge]
 	tool = opendiff
 	renameLimit = 0
+	# still evaluating if i prefer this 3 item conflict dealio....
+	conflictstyle = zdiff3
 
 
 [url "git@github.com:"]
@@ -153,7 +157,7 @@
 
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
-	default = current
+	default = simple
 	followTags = true
 	autoSetupRemote = true
 [pull]
@@ -173,7 +177,10 @@
 	process = git-lfs filter-process
 
 [fetch]
+	# prune stuff locally if it was deleted from the remote
 	prune = true
+	pruneTags = true
+	all = true
 
 [stash]
 	showPatch = true
@@ -186,3 +193,13 @@
 
 [advice]
 	detachedHead = false
+
+[commit]
+	# include whole diff in message composition screen
+	verbose = true
+
+
+[rerere]
+	# remember conflict resolutions
+	enabled = true
+	autoupdate = true

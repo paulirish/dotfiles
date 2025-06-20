@@ -99,6 +99,7 @@ function cr --description "run chrome with dev devtools. optionally, pass canary
 
     if contains canary $argv
         set crpath "/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
+        # set crpath "./$cdup/third_party/branded_chrome/chrome-mac/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
         set user_data_dir "$HOME/chromium-devtools/dt-canary-profile"
         set --erase argv[1]
     end
@@ -206,7 +207,7 @@ end
 
 
 # dt. rpp
-alias rppunit 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
+alias rppunit 'npm test -- --skip-ninja front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
 alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
 alias rppinter 'npm run test -- test/e2e/performance/'
 alias rppe2e 'npm run test -- test/e2e/performance/'
