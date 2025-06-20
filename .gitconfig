@@ -10,7 +10,7 @@
 	hreset = reset --hard
 	co = checkout
 	df = diff --color --color-words --abbrev
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --abbrev-commit
 	cherrypick = cherry-pick
 	cp = cherry-pick
 	# i'm a merger in dev branches, but a squasher for landing to main.
@@ -29,6 +29,9 @@
 	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 
+	# squash unique commits from branch into one commit that keeps commit msgs.
+	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"$commit_body\""
+
 	# I prefer these from my fish abbv's, but for bash we'll keep this as a fallback.
 	db = diffbranch
 	dbt = diffbranch-that
@@ -40,7 +43,7 @@
 	#    git reset --soft (git merge-base Other_Branch_Name HEAD)
 
 
-	# Two utils: 
+	# Two utils:
 	#   What's the ancestor commit this branch shares with (the parent branch, or, more likely...) main?
 	#   diffbase = !"git config --get branch.$(command git symbolic-ref --short HEAD).base || git merge-base origin/$(git mainormaster) HEAD"
 	diffbase = !"git merge-base origin/$(git mainormaster) HEAD"
@@ -52,13 +55,12 @@
 
 	# commit (past) WIP changes with a message stating when they happened. (Cuz I sometimes leave changes uncommitted for a while, but want the dates for reference)
 	# todo: maybe use `git commit --date=X` to set a past date. would need to pick one, tho.
-	commitwip = !"git commit -am \"Assorted changes. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
+	commitwip = !"git commit --no-verify -am \"Assorted changes. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
 
-
-	# I'm curious about some of these git + fzf aliases... 
+	# I'm curious about some of these git + fzf aliases...
 	#   https://github.com/mattorb/dotfiles/blob/d16776eff48d831bcfaca58f1972e6b587f5dc28/git/.gitaliases#L89
 	#   https://github.com/junegunn/fzf-git.sh
-	#   https://brettterpstra.com/2021/11/25/git-better-with-fzf-and-fish/ and https://gist.github.com/aluxian/9c6f97557b7971c32fdff2f2b1da8209                   
+	#   https://brettterpstra.com/2021/11/25/git-better-with-fzf-and-fish/ and https://gist.github.com/aluxian/9c6f97557b7971c32fdff2f2b1da8209
 
 [core]
 	excludesfile = ~/.gitignore
