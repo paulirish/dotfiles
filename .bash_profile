@@ -1,8 +1,8 @@
-
+# shellcheck shell=bash
 
 # PATH setup via ~/.paths
 setupPATH() {
-    # Credit to https://github.com/davidaurelio/dotfiles/blob/main/.profile for the technique
+    # Credit to https://github.com/davidaurelio/dotfiles/blob/main/.profile for the technique of resolving $variables
     while read -r P; do
     P=`eval echo $P`
     if [ -d "$P" ]; then
