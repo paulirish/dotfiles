@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    # I tried 4 of the top shellcheck actions. They all kinda suck. Not providing much output, not letting me run it on all files, etc. On this one for now, but happy to change it later.
     - uses: Azbagheri/shell-linter@latest
       with:
         severity: error
         path: ".exports,.functions,.macos,.aliases,.bash_prompt,.bash_profile,.bashrc"
+    - name: Fish syntax check
+      uses: fish-shop/syntax-check@v2
