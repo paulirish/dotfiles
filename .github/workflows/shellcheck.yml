@@ -12,5 +12,8 @@ jobs:
       with:
         severity: error
         path: ".exports,.functions,.macos,.aliases,.bash_prompt,.bash_profile,.bashrc"
+        
+    - name: Install fish shell
+      uses: fish-shop/install-fish-shell@v1
     - name: Fish syntax check
       uses: fish-shop/syntax-check@v2
