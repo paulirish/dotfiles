@@ -1,4 +1,4 @@
-
+# shellcheck shell=bash
 
 # PATH setup via ~/.paths
 setupPATH() {

@@ -1,3 +1,4 @@
+# shellcheck shell=sh
 
 # TODO: I'll clean these up somehow
 
