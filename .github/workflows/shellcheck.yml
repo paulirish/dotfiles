@@ -10,3 +10,5 @@ jobs:
     - uses: ludeeus/action-shellcheck@master
       with:
         severity: error
+        format: tty
+        additional_files: .exports .functions .macos .aliases .bash_prompt .bash_profile .bashrc
