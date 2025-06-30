@@ -42,3 +42,4 @@ export BAT_STYLE="changes,header-filename,header-filesize,snip,rule"
 
 export CLOUDSDK_PYTHON=/usr/bin/python3
 
+export GOPATH=$HOME/.go/
