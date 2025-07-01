@@ -207,7 +207,7 @@ end
 
 
 # dt. rpp
-alias rppunit 'npm test -- --skip-ninja front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
+alias rppunit 'npm test -- --skip-ninja front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds front_end/models/ai_assistance/'
 alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
 alias rppinter 'npm run test -- test/e2e/performance/'
 alias rppe2e 'npm run test -- test/e2e/performance/'
@@ -255,6 +255,8 @@ end
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'
 
 abbr gcert 'gcert-local'
+# copy a diff-looking thing (like our karma diffs) to clipboard and this'll run em through delta.  Could be improved for multiline strings but.. requires lotta lines.
+abbr deltapb 'printf "%s\n" "@@ -1,1 +1,1 @@" (pbpaste) | delta --max-line-length 1024 --minus-style "white #2b0000" --plus-style "white #001900"'
 
 function clstatus --description "pick a branch that is on gerrit as a CL"
   set -l branch_name (git cl status --no-branch-color --date-order | awk '/ : / {print $0}' | fzf | awk '{print $1}')

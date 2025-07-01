@@ -2,15 +2,14 @@
 
 # PATH setup via ~/.paths
 setupPATH() {
-    # Credit to https://github.com/davidaurelio/dotfiles/blob/main/.profile for the technique
+    # Credit to https://github.com/davidaurelio/dotfiles/blob/main/.profile this cute pattern.
     while read -r P; do
     P=`eval echo $P`
     if [ -d "$P" ]; then
-        # echo "okay $P"
         export PATH="$PATH:$P"
     fi
     # read these files but strip out comments and newlines.
-    done < <(cat ~/.paths ~/.paths.local 2> /dev/null | grep -v "^#")
+    done < <(tac ~/.paths ~/.paths.local 2> /dev/null | sed 's|#.*||')
 }
 setupPATH;
 

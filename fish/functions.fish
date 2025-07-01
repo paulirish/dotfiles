@@ -1,4 +1,3 @@
-# thx to https://github.com/mduvall/config/
 
 function subl --description 'Open Sublime Text'
   if test -d "/Applications/Sublime Text.app"
@@ -87,10 +86,10 @@ end
 
 function all_binaries_in_path --description \
   "list all binaries available in \$PATH (incl conflicts). pipe it to grep. top-most are what's used, in case of conflicts"
-  # based on https://unix.stackexchange.com/a/120790/110766 but tweaked to work on mac. and then made it faster.
-  find -L $PATH -maxdepth 1 -executable -type f 2>/dev/null
+  # based on https://unix.stackexchange.com/a/120790/110766. and then made it faster. needs `brew install findutils`
+  gfind -L $PATH -maxdepth 1 -executable -type f 2>/dev/null
 
-  # list path
+  # to list path. topmost wins.
   # for val in $PATH; echo "$val"; end
 end
 
