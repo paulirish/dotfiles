@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # file is shared between bash and fish
 # todo: place these near the thematically related stuff. grouping as .exports is dumb.
 
@@ -42,3 +44,4 @@ export BAT_STYLE="changes,header-filename,header-filesize,snip,rule"
 
 export CLOUDSDK_PYTHON=/usr/bin/python3
 
+export GOPATH=$HOME/.go/
