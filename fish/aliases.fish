@@ -35,7 +35,9 @@ abbr bwre brew
 abbr brwe brew
 
 abbr cat 'bat -P'
-set -x BAT_STYLE "header,header-filesize,header-filename,changes"
+# Skip line-numbers and grid. https://github.com/sharkdp/bat/blob/e608b331425ca2ce8f8d0bd37e7f90901f91eb99/src/style.rs#L27-L61
+# In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
+set -x BAT_STYLE "changes,header-filename,header-filesize,snip,rule"
 
 alias push="git push"
 
@@ -117,7 +119,6 @@ alias sorteduniq-asc="sort | uniq -c | sort --ignore-leading-blanks --numeric-so
 
 
 alias diskspace_report="df --si /"
-alias free_diskspace_report="diskspace_report"
 
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)

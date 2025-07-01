@@ -37,10 +37,6 @@ export FZF_DEFAULT_COMMAND='fd'
 export FZF_CTRL_T_COMMAND='fd'
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {} 2>/dev/null || tree -C {}'"
 
-# Skip line-numbers and grid. https://github.com/sharkdp/bat/blob/e608b331425ca2ce8f8d0bd37e7f90901f91eb99/src/style.rs#L27-L61
-# In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
-export BAT_STYLE="changes,header-filename,header-filesize,snip,rule"
-
 
 export CLOUDSDK_PYTHON=/usr/bin/python3
 

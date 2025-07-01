@@ -2,12 +2,15 @@
 # todo, investigate later.
 # status stack-trace
 
-#   upfront add homebrew stuff to path
 
+# Debugging 
 # set fish_trace 1
+# fish_trace 1 outputs 3,500 lines when spawning a fresh shell.
+
 # /Users/paulirish/.homebrew/bin/fish --debug "*" # super noisy
-# see `fish --print-debug-categories`
-# /Users/paulirish/.homebrew/bin/fish --debug "abbrs ast-construction char-encoding complete config debug env-dispatch env-export env-locale error event exec exec-fork exec-job-exec exec-job-status fd-monitor history history-file iothread output-invalid path proc-internal-proc proc-job-run proc-pgroup proc-reap-external proc-reap-internal proc-termowner profile-history reader reader-render screen term-support topic-monitor uvar-file uvar-notifier warning warning-path" 
+#    see `fish --print-debug-categories`
+# fish --debug "$(fish --print-debug-categories | grep -v "ast-construction" | sed 's| .*||' | string join ',')"
+#     ^ outputs 11,400 lines of spawning a fresh shell
 
 function fish_greeting
 end
@@ -27,14 +30,12 @@ function ssource --description "source most of my dotfiles, useful if making cha
         source ../private/extras.fish
     end
 
-    # for things not checked into git..
+    # for things not checked into git
     if test -e "$HOME/.extra.fish";
         source ~/.extra.fish
     end
 end
 
-
-fish_add_path $HOME/.homebrew/bin; fish_add_path $HOME/homebrew/bin; # so i can use utils in startup
 
 ssource;
 
@@ -95,21 +96,12 @@ set __fish_git_prompt_color_dirtystate 'red'
 set __fish_git_prompt_color_upstream_ahead ffb90f
 set __fish_git_prompt_color_upstream_behind blue
 
-# Local prompt customization
-set -e fish_greeting
 
 
 set -g fish_pager_color_completion normal
 set -g fish_pager_color_description 555 yellow
 set -g fish_pager_color_prefix cyan
 set -g fish_pager_color_progress cyan
-
-
-# ctrl-b invokes the fancy boi. but this doesnt really work right.
-bind \cb git-recent-with-fzf-and-diff
-if bind -M insert > /dev/null 2>&1
-    bind -M insert \cb git-recent-with-fzf-and-diff
-end
 
 
 

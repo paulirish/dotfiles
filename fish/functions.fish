@@ -206,6 +206,13 @@ function conda -d 'lazy initialize conda'
   conda $argv
 end
 
+
+function cargo -d 'lazy initialize cargo'
+  functions --erase cargo
+  sh "$HOME/.cargo/env"
+  cargo $argv
+end
+
 # NVM doesnt support fish and its stupid to try to make it work there.
 
 
