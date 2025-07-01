@@ -88,19 +88,17 @@ function all_binaries_in_path --description \
   "list all binaries available in \$PATH (incl conflicts). pipe it to grep. top-most are what's used, in case of conflicts"
   # based on https://unix.stackexchange.com/a/120790/110766. and then made it faster. needs `brew install findutils`
   gfind -L $PATH -maxdepth 1 -executable -type f 2>/dev/null
-
-  # to list path. topmost wins.
-  # for val in $PATH; echo "$val"; end
 end
 
-function list_path --description "list all paths in PATH"
+function all_binaries_in_path_grep --description "run all_binaries_in_path and grep with your argument"
+  all_binaries_in_path | grep $argv
+end
+
+function list_path --description "list all paths in PATH, top-most wins"
   for val in $PATH; echo "$val"; end
 end
 
-function my_paths --description "list paths, in order"
-  echo "#  "
-  printf '%s\n' (string split \n $PATH)
-end
+
 
 function stab --description "stabalize a video"
   set -l vid $argv[1]

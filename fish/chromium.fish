@@ -258,8 +258,4 @@ abbr gcert 'gcert-local'
 # copy a diff-looking thing (like our karma diffs) to clipboard and this'll run em through delta.  Could be improved for multiline strings but.. requires lotta lines.
 abbr deltapb 'printf "%s\n" "@@ -1,1 +1,1 @@" (pbpaste) | delta --max-line-length 1024 --minus-style "white #2b0000" --plus-style "white #001900"'
 
-function clstatus --description "pick a branch that is on gerrit as a CL"
-  set -l branch_name (git cl status --no-branch-color --date-order | awk '/ : / {print $0}' | fzf | awk '{print $1}')
-  git checkout $branch_name
-end
 

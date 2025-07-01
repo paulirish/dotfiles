@@ -1,4 +1,4 @@
-# I've noticed this file gets called multiple times. 
+# I've noticed this file gets called multiple times. (not on mbp)
 # todo, investigate later.
 # status stack-trace
 
@@ -12,10 +12,11 @@
 # fish --debug "$(fish --print-debug-categories | grep -v "ast-construction" | sed 's| .*||' | string join ',')"
 #     ^ outputs 11,400 lines of spawning a fresh shell
 
+
 function fish_greeting
 end
 
-# TODO: path and aliases are kinda slow to source. optimize later.
+# TODO: path and aliases are kinda slow to source. optimize later. 
 function ssource --description "source most of my dotfiles, useful if making changes and iterating"
 
     source ~/.config/fish/path.fish
