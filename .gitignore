@@ -11,3 +11,11 @@ node_modules
 
 # why u be like that
 .DS_Store
+
+
+.aider.chat.history.md
+.aider.input.history
+.aider.tags.cache.v4
+
+.gemini
+.roo

@@ -226,7 +226,7 @@ function rbu  --description "rebase-update with extra steps"
 
     # _watch_suspend
 
-    git checkout origin/main && git cl archive -f --verbose && git rebase-update && git checkout -b main origin/main && \
+    git checkout origin/main && git cl archive --force --verbose && git rebase-update && git checkout -b main origin/main && \
     git checkout main && depshooks && \
     git checkout "$current_branch_name"
 
@@ -234,7 +234,7 @@ function rbu  --description "rebase-update with extra steps"
 end
 
 function rebasecontinue   --description "continuing after resolving rebase conflicts mid-rebase-update"
-    GIT_EDITOR=true git rebase --continue; git rebase-update -n && git checkout -b main origin/main &&  git checkout main && depshooks
+    GIT_EDITOR=true git rebase --continue; git rebase-update --no-fetch && git checkout -b main origin/main &&  git checkout main && depshooks
 end
 
 

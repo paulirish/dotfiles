@@ -196,32 +196,34 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
     end
 end
 
-
-function conda -d 'lazy initialize conda'
-  functions --erase conda
-  eval /opt/miniconda3/bin/conda "shell.fish" "hook" | source
-  # There's some opportunity to use `psub` but I don't really understand it.
-  conda $argv
+# straight from the docs 
+function last_history_item
+    echo $history[1]
 end
+abbr -a !! --position anywhere --function last_history_item
 
 
-function cargo -d 'lazy initialize cargo'
-  functions --erase cargo
+# I crafted this lazy init pattern. It's lovely.
+# I first did it with functions but it's better with abbr to get completions etc immediately.
+function __lazy_init_conda -d 'lazy initialize conda'
+  abbr --erase conda; functions --erase __lazy_init_conda
+  eval $(which conda) "shell.fish" "hook" | source
+  echo "conda"
+end
+abbr --add conda --function __lazy_init_conda
+
+
+function __lazy_init_cargo -d 'lazy initialize cargo'
+  abbr --erase cargo; functions --erase __lazy_init_cargo
   sh "$HOME/.cargo/env"
-  cargo $argv
+  echo "cargo"
 end
+abbr --add cargo --function __lazy_init_cargo
 
 # NVM doesnt support fish and its stupid to try to make it work there.
+# gcloud: Don't need "$HOME/google-cloud-sdk/path.fish.inc" lazyily done because it only adds to PATH which is already done.
 
 
-function google_cloud_sdk_lazy_init -d 'Lazy initializer for Google Cloud SDK'
-  functions --erase gcloud gsutil bq
-  source "$HOME/google-cloud-sdk/path.fish.inc"
-  $argv
-end
-for cmd in gcloud gsutil bq
-  eval "function $cmd; google_cloud_sdk_lazy_init $cmd \$argv; end"
-end
 
 
 function fns --description "Interactively search/preview fish shell functions and aliases"

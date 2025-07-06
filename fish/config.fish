@@ -27,8 +27,8 @@ function ssource --description "source most of my dotfiles, useful if making cha
     # pull in all shared `export …` aka `set -gx …`
     source ~/.exports
 
-    if test -e "../private/extras.fish";
-        source ../private/extras.fish
+    if test -e "$HOME/code/dotfiles/private/extras.fish";
+        source $HOME/code/dotfiles/private/extras.fish
     end
 
     # for things not checked into git

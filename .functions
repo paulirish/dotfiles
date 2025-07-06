@@ -24,17 +24,7 @@ whichlink() {
 }
 
 
-# git commit browser. needs fzf. ctrl-m to view commit.
-log() {
-  git log --graph --color=always \
-      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --toggle-sort=\` \
-      --bind "ctrl-m:execute:
-                echo '{}' | grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R'"
-}
-
-#make two beeps
+# make two beeps. 
 beep() { 
   echo -e '\a'; sleep 0.1; echo -e '\a';
 }
@@ -152,10 +142,6 @@ webmify(){
 	ffmpeg -i "$1" -vcodec libvpx -acodec libvorbis -isync -copyts -aq 80 -threads 3 -qmax 30 -y "$2" "$1.webm"
 }
 
-# direct it all to /dev/null
-function nullify() {
-  "$@" >/dev/null 2>&1
-}
 
 # `shellswitch [bash |zsh]`
 #   Must be in /etc/shells
