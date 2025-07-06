@@ -262,7 +262,7 @@ function fish_prompt
     # end
     functions -q iterm2_prompt_mark and iterm2_prompt_mark; # iterm blue marker if defined
 
-    # echo -sn $user "@" $hostname
+
     set_color $lucid_cwd_color
     echo -sn $cwd
     set_color normal
@@ -291,4 +291,12 @@ function fish_prompt
     set_color "$prompt_symbol_color"
     echo -n "$prompt_symbol "
     set_color normal
+end
+
+if test -n "$SSH_TTY"
+    function fish_right_prompt; 
+        set_color $fish_color_host
+        echo -sn "(@" $hostname ")"
+        set_color normal
+    end
 end
