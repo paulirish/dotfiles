@@ -191,17 +191,14 @@ cond () {
 # VPN with Cisco Anyconnect, using 1password-stored passwords
 # Must be 
 connect () {
-	if [[ $1 == "ucsd_easy" ]]; then
-		PASS=$(op item get hkbrgyxuubyudypzqlnanpdiya --fields password)
-		printf "0\nmcuoco\n${PASS}\ny" | vpn -s connect vpn.ucsd.edu # connect to 2-Step Secured - EasyConnect
-	elif [[ $1 == "ucsd_all" ]]; then 
-		PASS=$(op item get hkbrgyxuubyudypzqlnanpdiya --fields password)
-		printf "3\nmcuoco\n${PASS}\ny" | vpn -s connect vpn.ucsd.edu # connect to 2-Step Secured - allthruucsd
+	if [[ $1 == "ucsd" ]]; then 
+		PASS=$(op item get hkbrgyxuubyudypzqlnanpdiya --reveal --fields password)
+		printf "0\nmcuoco\n${PASS}\ny" | vpn -s connect vpn.ucsd.edu # connect to 2-Step Secured - allthruucsd
 	elif [[ $1 == "salk" ]]; then
-		PASS=$(op item get ltzmpxtabm66b5acokjubr6g3m --fields password)
+		PASS=$(op item get ltzmpxtabm66b5acokjubr6g3m --reveal --fields password)
 		printf "1\nmcuoco\n${PASS}\ny" | vpn -s connect vpnfp.salk.edu # connect to Salk
 	else 
-		echo "ERROR: please enter 'ucsd_easy', 'ucsd_all', or 'salk'"
+		echo "ERROR: please enter 'ucsd' or 'salk'"
 	fi 
 } 
 
