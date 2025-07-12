@@ -22,6 +22,10 @@ eval "$(gdircolors -b ~/.dircolors)"
 
 # export packages to PATH
 export PATH=$PATH:~/code/bin
+# if cargo exists
+if command -v cargo >/dev/null 2>&1; then
+  export PATH=$PATH:~/.cargo/bin
+fi
 
 #iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
@@ -33,4 +37,8 @@ export DATE=$(date "+%Y-%m-%d%n")
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # cromwell jar
-export CROMWELL_JAR="/opt/homebrew/Cellar/cromwell/78/libexec/cromwell.jar"
+export CROMWELL_JAR=$(ls -1 /opt/homebrew/Cellar/cromwell/*/libexec/cromwell.jar)
+
+# one password integration
+# export OP_BIOMETRIC_UNLOCK_ENABLED=true # TODO: not working
+# source /Users/mcuoco/.config/op/plugins.sh
