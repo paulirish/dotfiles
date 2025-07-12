@@ -45,10 +45,6 @@ cp -Rp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration/Library
 cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/ # all those fonts you've installed
 
-# editor settings & plugins
-cp -Rp ~/Library/Application\ Support/Sublime\ Text\ * ~/migration/Library/"Application Support"
-cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"Application Support"
-
 # also consider...
 # random git branches you never pushed anywhere?
 # git untracked files (or local gitignored stuff). stuff you never added, but probably want..

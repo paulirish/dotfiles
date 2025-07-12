@@ -22,8 +22,6 @@ brew install gnu-sed
 # Updated shells
 # Note: don’t forget to add `/usr/local/bin/<EACHSHELL>` to `/etc/shells` before running `chsh`.
 brew install bash
-brew install zsh
-brew install fish
 brew install bash-completion
 
 # Install wget
@@ -43,7 +41,6 @@ brew install entr
 
 # git stuff
 brew install libgit2
-brew install svn
 brew install git
 brew install gh # github cli
 brew install git-delta # nicer git diffs
@@ -57,17 +54,7 @@ brew install htop
 # linting for .sh files
 brew install shellcheck 
 
-# mtr - ping & traceroute. best.
-brew install mtr
-
-# allow mtr to run without sudo
-mtrlocation=$(brew info mtr | grep Cellar | sed -e 's/ (.*//') #  e.g. `/Users/paulirish/.homebrew/Cellar/mtr/0.86`
-sudo chmod 4755 $mtrlocation/sbin/mtr
-sudo chown root $mtrlocation/sbin/mtr
-
 # Install other useful binaries
-brew install exa # better ls
-brew install bat # better cat
 brew install ripgrep # fastest grep (shortcut = rg)
 brew install the_silver_searcher # ack is an alternative, tbh i forget which i like more.
 brew install fzf
@@ -83,6 +70,7 @@ brew install watchman
 brew install trash-cli
 brew install datamash
 brew install xsv
+brew install freetype mysql # for cellprofiler
 
 # citations
 brew install pandoc
@@ -91,7 +79,7 @@ brew install pandoc
 brew install cookiecutter
 brew tap brewsci/bio
 brew install r
-brew install cookiecutter
+brew install java
 brew install igv
 brew install samtools
 brew install bcftools
@@ -99,9 +87,7 @@ brew install bedtools
 brew install brewsci/bio/nextflow
 brew install broadinstitute/dsp/cromshell
 brew install cromwell
-
-#brew install scrcpy # control/view android phone from PC. amazing
-brew install youtube-dl
+brew install kubectl
 
 # will probably need these at some point
 brew install automake cmake go rust mysql
