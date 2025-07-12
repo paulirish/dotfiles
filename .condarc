@@ -1,0 +1,10 @@
+channels:
+  - bioconda
+  - conda-forge
+  - nodefaults
+channel_priority: strict
+auto_update_conda: true
+show_channel_urls: true
+auto_activate_base: true
+conda_build:
+  config_file: ~/.conda_build_config.yaml
