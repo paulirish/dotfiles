@@ -131,4 +131,10 @@
 	date = relative
 [user]
 	name = mikecuoco
-	email = mcuoco12@gmail.com
+	email = mcuoco@ucsd.edu
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
