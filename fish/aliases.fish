@@ -147,9 +147,9 @@ function gemi
   #    gemi "tell me a joke"
   if test -z "$argv[1]"
     # no markdown parsing here without some real fancy stuff. because you dont want to send to markdown renderer (glow) inbetween backticks, etc.
-    llm chat --continue -m gemini-2.0-flash-exp
+    llm chat --continue -m gemini-2.5-flash
   else
-    llm prompt -m gemini-2.0-flash-exp "$argv" && echo "⬇️… and now rendered…⬇️" && llm logs -r | glow
+    llm prompt -m gemini-2.5-flash "$argv" && echo "⬇️… and now rendered…⬇️" && llm logs -r | glow
   end
 end
 
