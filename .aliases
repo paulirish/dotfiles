@@ -59,7 +59,6 @@ alias wget="curl -O"
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
 alias diskspace_report="df --si /"
-alias free_diskspace_report="diskspace_report"
 
 # Shortcuts
 alias g="git"

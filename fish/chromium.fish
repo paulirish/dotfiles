@@ -206,7 +206,7 @@ end
 
 
 # dt. rpp
-alias rppunit 'npm test -- --skip-ninja front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds'
+alias rppunit 'npm test -- --skip-ninja front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui front_end/models/cpu_profile front_end/services/trace_bounds front_end/models/ai_assistance/'
 alias rppunit-debug 'npm test -- front_end/panels/timeline/ front_end/models/trace front_end/ui/legacy/components/perf_ui --debug'
 alias rppinter 'npm run test -- test/e2e/performance/'
 alias rppe2e 'npm run test -- test/e2e/performance/'
@@ -225,7 +225,7 @@ function rbu  --description "rebase-update with extra steps"
 
     # _watch_suspend
 
-    git checkout origin/main && git cl archive -f --verbose && git rebase-update && git checkout -b main origin/main && \
+    git checkout origin/main && git cl archive --force --verbose && git rebase-update && git checkout -b main origin/main && \
     git checkout main && depshooks && \
     git checkout "$current_branch_name"
 
@@ -233,7 +233,7 @@ function rbu  --description "rebase-update with extra steps"
 end
 
 function rebasecontinue   --description "continuing after resolving rebase conflicts mid-rebase-update"
-    GIT_EDITOR=true git rebase --continue; git rebase-update -n && git checkout -b main origin/main &&  git checkout main && depshooks
+    GIT_EDITOR=true git rebase --continue; git rebase-update --no-fetch && git checkout -b main origin/main &&  git checkout main && depshooks
 end
 
 
@@ -254,9 +254,7 @@ end
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'
 
 abbr gcert 'gcert-local'
+# copy a diff-looking thing (like our karma diffs) to clipboard and this'll run em through delta.  Could be improved for multiline strings but.. requires lotta lines.
+abbr deltapb 'printf "%s\n" "@@ -1,1 +1,1 @@" (pbpaste) | delta --max-line-length 1024 --minus-style "white #2b0000" --plus-style "white #001900"'
 
-function clstatus --description "pick a branch that is on gerrit as a CL"
-  set -l branch_name (git cl status --no-branch-color --date-order | awk '/ : / {print $0}' | fzf | awk '{print $1}')
-  git checkout $branch_name
-end
 

@@ -293,8 +293,6 @@ function fish_prompt
     set_color normal
 end
 
-
-
 if test -n "$SSH_TTY"
     function fish_right_prompt;
         set_color $fish_color_host

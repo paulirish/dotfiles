@@ -2,14 +2,14 @@
 
 # PATH setup via ~/.paths
 setupPATH() {
-    # Credit to https://github.com/davidaurelio/dotfiles/blob/main/.profile for the technique of resolving $variables
+    # Credit to https://github.com/davidaurelio/dotfiles/blob/main/.profile this cute pattern.
     while read -r P; do
     P=`eval echo $P`
     if [ -d "$P" ]; then
         export PATH="$PATH:$P"
     fi
-    # read these files but strip out comments and newlines.
-    done < <(cat ~/.paths ~/.paths.local 2> /dev/null | grep -v "^#")
+    #subread these files but strip out comments, extra whitespace, and empty lines
+    done < <(tac ~/.paths ~/.paths.local 2> /dev/null | sed 's|#.*||' | sed 's/^[ \t]*//;s/[ \t]*$//' | sed '/^$/d')
 }
 setupPATH;
 
@@ -39,6 +39,12 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+
+# Skip line-numbers and grid. https://github.com/sharkdp/bat/blob/e608b331425ca2ce8f8d0bd37e7f90901f91eb99/src/style.rs#L27-L61
+# In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
+export BAT_STYLE="changes,header-filename,header-filesize,snip,rule"
+
 
 ##
 ## HISTORY settings... 
