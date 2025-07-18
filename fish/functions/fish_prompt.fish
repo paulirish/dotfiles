@@ -221,7 +221,7 @@ function fish_prompt
 
     # instead of a onetime sourcing like
     #          test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-    # here's a fancy lazy instantiated integration. but.. still slow and weird. 
+    # here's a fancy lazy instantiated integration. but.. still slow and weird.
     # iterms timestamps on scrollbar hover are probably good enough for now.
     # but here's the ugly thing i ended up with. prob delete later.
     # if not set -q __iterm2_integration_initialized
@@ -262,7 +262,7 @@ function fish_prompt
     # end
     functions -q iterm2_prompt_mark and iterm2_prompt_mark; # iterm blue marker if defined
 
-    # echo -sn $user "@" $hostname
+
     set_color $lucid_cwd_color
     echo -sn $cwd
     set_color normal
@@ -291,4 +291,14 @@ function fish_prompt
     set_color "$prompt_symbol_color"
     echo -n "$prompt_symbol "
     set_color normal
+end
+
+
+
+if test -n "$SSH_TTY"
+    function fish_right_prompt;
+        set_color $fish_color_host
+        echo -sn "(@" $hostname ")"
+        set_color normal
+    end
 end

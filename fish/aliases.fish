@@ -23,7 +23,8 @@ alias ls='eza --classify=auto --color --group-directories-first --sort=extension
 alias la='eza --classify=auto --color --group-directories-first --sort=extension -a -l --octal-permissions --no-permissions'
 
 # use gdu (gdu-go) if available, as its faster on ssd
-alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
+# Ehh.. yes gdu is much faster but doesnt support ** in ignore/excludes.  use them deliberately for now
+# alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
 
 # typos and abbreviations
 abbr g git

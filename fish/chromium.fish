@@ -57,8 +57,7 @@ end
 function dtb --description "build devtools with watch_build.js - my favorite"
     cd ./(git rev-parse --show-cdup)
 
-    # dont let vpython use a 2.7.. seems to only affect this dude
-    VPYTHON_BYPASS="manually managed python not supported by chrome operations" node scripts/watch_build.js
+    npm run build -- --watch
 end
 
 
