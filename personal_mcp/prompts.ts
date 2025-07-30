@@ -8,18 +8,19 @@ export const rewordItLikeMeSchema = z.object({
 export const rewordItLikeMe = async ({content}): Promise<GetPromptResult> => {
   return {
     messages: [
-      {
-        role: 'user',
-        content: {
-          type: 'text',
-          text: `${content}`,
-        },
-      },
+      // Dunno if tools can handle this multi message prompt style.
+      // {
+      //   role: 'user',
+      //   content: {
+      //     type: 'text',
+      //     text: `${content}`,
+      //   },
+      // },
       {
         role: 'assistant',
         content: {
           type: 'text',
-          text: `Please reword the provided text to use a cool vibe and relaxed tone of voice. Add in three emoji.`,
+          text: `${content}\n\n\nPlease reword the provided text to use a cool vibe and relaxed tone of voice. Add in three emoji.`,
         },
       },
     ],

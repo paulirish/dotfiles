@@ -36,7 +36,6 @@ server.tool(
   Tools.hello
 );
 
-// Gemini CLI doesn't seem to use prompts yet. :/
 server.prompt('reword-as-me', 'Reword it like me', Prompts.rewordItLikeMeSchema.shape, Prompts.rewordItLikeMe);
 
 const transport = new StdioServerTransport();
