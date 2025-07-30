@@ -7,10 +7,10 @@
 
 # FWIW, this `defaults find` is good at finding some set preferences.
 # e.g.    defaults find com.apple.ActivityMonitor
+# and try `defaults domains` and read `defaults help` for more info.
 
 #
 # TODO: capture some preferences in 
-#     - com.apple.ActivityMonitor "UserColumnsPerTab v6.0" (i have the 5.0s below.)
 #     - 'com.apple.dock'    "persistent-apps" somehow?
 #
 
@@ -38,9 +38,6 @@ sudo pmset -a standbydelay 86400
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
-# Disable transparency in the menu bar and elsewhere on Yosemite
-defaults write com.apple.universalaccess reduceTransparency -bool true
-
 # Set highlight color to pink
 defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.252792 1.000000 Other"
 
@@ -50,9 +47,6 @@ defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 # Always show scrollbars
 # defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
-
-# Adjust toolbar title rollover delay
-defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
 
 # Disable smooth scrolling
 # (Uncomment if you’re on an older Mac that messes up the animation)
@@ -84,9 +78,6 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Display ASCII control characters using caret notation in standard text views
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
 defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
-
-# Disable Resume system-wide
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # Edit: ALLOW automatic termination of inactive apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool false
@@ -123,6 +114,9 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Disable automatic period substitution as its not my style.
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
@@ -180,8 +174,11 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 
 # mute all sounds, incl volume change feedback
 defaults write "com.apple.sound.beep.feedback" -int 0
-defaults write com.apple.systemsound 'com.apple.sound.beep.volume' -float 0
-defaults write "com.apple.systemsound" "com.apple.sound.uiaudio.enabled" -int 0
+defaults write com.apple.systemsound com.apple.sound.beep.volume -float 0.2 
+defaults write com.apple.systemsound com.apple.sound.uiaudio.enabled -int 0
+# This is a tad nicer than default of Tink.aiff
+defaults write .GlobalPreferences com.apple.sound.beep.sound /System/Library/Sounds/Purr.aiff
+
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
@@ -195,11 +192,6 @@ sudo chmod 444 /private/var/db/.AccessibilityAPIEnabled
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-# Follow the keyboard focus while zoomed in
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool false
-# Zoom should use nearest neighbor instead of smoothing.
-defaults write com.apple.universalaccess 'closeViewSmoothImages' -bool false
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -336,8 +328,9 @@ file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
 	General -bool true \
+    MetaData -bool true \
 	OpenWith -bool true \
-	Privileges -bool true
+	Privileges -bool false
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -346,8 +339,8 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# Set the icon size of Dock items to 52 pixels
+defaults write com.apple.dock tilesize -int 52
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
@@ -444,50 +437,10 @@ defaults write com.apple.dock wvous-br-modifier -int 1048576
 # Safari & WebKit                                                             #
 ###############################################################################
 
-# Privacy: don’t send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-
-# Press Tab to highlight each item on a web page
-defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
-
-# Show the full URL in the address bar (note: this still hides the scheme)
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
-
-# Set Safari’s home page to `about:blank` for faster loading
-defaults write com.apple.Safari HomePage -string "about:blank"
-
-# Prevent Safari from opening ‘safe’ files automatically after downloading
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-
-# Allow hitting the Backspace key to go to the previous page in history
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
-
-# Hide Safari’s bookmarks bar by default
-defaults write com.apple.Safari ShowFavoritesBar -bool false
-
-# Hide Safari’s sidebar in Top Sites
-defaults write com.apple.Safari ShowSidebarInTopSites -bool false
-
-# Disable Safari’s thumbnail cache for History and Top Sites
-defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
-
-# Enable Safari’s debug menu
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-
-# Make Safari’s search banners default to Contains instead of Starts With
-defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
-
-# Remove useless icons from Safari’s bookmarks bar
-defaults write com.apple.Safari ProxiesInBookmarksBar "()"
-
 # Enable the Develop menu and the Web Inspector in Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-
-# Add a context menu item for showing the Web Inspector in web views
+defaults write com.apple.Safari WebKitPreferences.developerExtrasEnabled -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 
@@ -495,29 +448,11 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Spotlight                                                                   #
 ###############################################################################
 
-# Hide Spotlight tray-icon (and subsequent helper)
-#sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-# Disable Spotlight indexing for any volume that gets mounted and has not yet
-# been indexed before.
-# Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
-# Change indexing order and disable some search results
-# Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# 	MENU_DEFINITION
-# 	MENU_CONVERSION
-# 	MENU_EXPRESSION
-# 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# 	MENU_WEBSEARCH             (send search queries to Apple)
-# 	MENU_OTHER
+# Disable Spotlight indexing mostly.
+# TODO: do it manually. thar be dragons in the equivalent commands. I deleted a bunch of these.
 defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
-# Load new settings before rebuilding the index
-killall mds > /dev/null 2>&1
-# Make sure indexing is enabled for the main volume
-sudo mdutil -i on / > /dev/null
-# Rebuild the index from scratch
-sudo mdutil -E / > /dev/null
 
 ###############################################################################
 # Terminal                                                                    #
@@ -555,27 +490,27 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 # Show the main window when launching Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
-# Visualize CPU usage in the Activity Monitor Dock icon
-defaults write com.apple.ActivityMonitor IconType -int 5
+# Visualize network usage in the Activity Monitor Dock icon. CPU is 5.
+defaults write com.apple.ActivityMonitor IconType -int 2
 
 # Show all processes in Activity Monitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
-# Sets columns for all tabs
-defaults read com.apple.ActivityMonitor "UserColumnsPerTab v5.0" -dict \
-    '0' '( Command, CPUUsage, CPUTime, Threads, PID, UID, Ports )' \
-    '1' '( Command, ResidentSize, Threads, Ports, PID, UID,  )' \
-    '2' '( Command, PowerScore, 12HRPower, AppSleep, UID, powerAssertion )' \
-    '3' '( Command, bytesWritten, bytesRead, Architecture, PID, UID, CPUUsage )' \
-    '4' '( Command, txBytes, rxBytes, PID, UID, txPackets, rxPackets, CPUUsage )'
+# Sets columns for all tabs. Do it manually.
+# defaults read com.apple.ActivityMonitor "UserColumnsPerTab v6.0" -dict \
+#     '0' '( Command, CPUUsage, CPUTime, Threads, PID, UID, Ports )' \
+#     '1' '( Command, ResidentSize, Threads, Ports, PID, UID,  )' \
+#     '2' '( Command, PowerScore, 12HRPower, AppSleep, UID, powerAssertion )' \
+#     '3' '( Command, bytesWritten, bytesRead, Architecture, PID, UID, CPUUsage )' \
+#     '4' '( Command, txBytes, rxBytes, PID, UID, txPackets, rxPackets, CPUUsage )'
 
-# Set sort column
-defaults write com.apple.ActivityMonitor UserColumnSortPerTab -dict \
-    '0' '{ direction = 0; sort = CPUUsage; }' \
-    '1' '{ direction = 0; sort = ResidentSize; }' \
-    '2' '{ direction = 0; sort = 12HRPower; }' \
-    '3' '{ direction = 0; sort = bytesWritten; }' \
-    '4' '{ direction = 0; sort = rxBytes; }'
+# # Set sort column
+# defaults write com.apple.ActivityMonitor UserColumnSortPerTab -dict \
+#     '0' '{ direction = 0; sort = CPUUsage; }' \
+#     '1' '{ direction = 0; sort = ResidentSize; }' \
+#     '2' '{ direction = 0; sort = 12HRPower; }' \
+#     '3' '{ direction = 0; sort = bytesWritten; }' \
+#     '4' '{ direction = 0; sort = rxBytes; }'
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 # Show Data in the Disk graph (instead of IO)
@@ -625,9 +560,6 @@ defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool 
 defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
 
 # Use the system-native print preview dialog, because chrome's is very slow and i hit this shortcut accidentally alot.
-defaults write com.google.Chrome DisablePrintPreview -bool true
-defaults write com.google.Chrome.canary DisablePrintPreview -bool true
-
 # Keep chrome print dialog collapsed
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool false
 defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool false
