@@ -70,7 +70,7 @@
 	pager = delta
 
 [delta]
-	max-line-length = 700
+	max-line-length = 1400
 	# max-line-distance = 0.3 # better word-diff?
 	syntax-theme = base16
 	hyperlinks = true # i filed https://github.com/dandavison/delta/issues/362 but in 2022 i can't see brokenness in the issue nor repro weirdness. but i installed latest `less` anyway
@@ -141,7 +141,7 @@
 [merge]
 	tool = opendiff
 	renameLimit = 0
-	# still evaluating if i prefer this 3 item conflict dealio....
+	# This 3-item conflict style is MUCH better.
 	conflictstyle = zdiff3
 
 
