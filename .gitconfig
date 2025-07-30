@@ -179,8 +179,7 @@
 [fetch]
 	# prune stuff locally if it was deleted from the remote
 	prune = true
-	pruneTags = true
-	all = true
+	# all = true
 
 [stash]
 	showPatch = true

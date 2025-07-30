@@ -60,3 +60,6 @@ set convert-meta off
 
 # Use Alt/Meta + Delete to delete the preceding word
 "\e[3;3~": kill-word
+
+# https://www.masteringemacs.org/article/keyboard-shortcuts-every-command-line-hacker-should-know-about-gnu-readline#:~:text=Basic%20Navigation%20and%20Editing
+# - ctrl-w to delete the previous word
