@@ -1,10 +1,10 @@
-import { describe, it } from 'node:test';
+import {describe, it} from 'node:test';
 import assert from 'node:assert';
-import { hello } from './tools.ts';
+import {hello} from './tools.ts';
 
 describe('hello tool', () => {
   it('should return a friendly greeting', async () => {
-    const result = await hello({ name: 'World' }, {});
+    const result = await hello({name: 'World'}, {});
     assert.deepStrictEqual(result, {
       content: [
         {
