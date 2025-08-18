@@ -82,7 +82,7 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+export HISTIGNORE="exit:ls:bg:fg:history:clear"
 
 # Save and reload the history after each command finishes. Also look for any conflicting prompt_command definitions!!
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
