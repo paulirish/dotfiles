@@ -155,6 +155,12 @@ bash < <( curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
 
+# Install Node.js via fnm (Fast Node Manager)
+# fnm should already be installed via brew.sh
+fnm install --lts  # Install latest LTS version of Node
+fnm default lts-latest  # Set it as default
+fnm use default  # Use the default version
+
 # Type `git open` to open the GitHub page or website for a repository.
 npm install -g git-open
 
@@ -180,7 +186,7 @@ curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 # github.com/thebitguru/play-button-itunes-patch
 # disable itunes opening on media keys
-# git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
+git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
 
 
 
@@ -204,10 +210,20 @@ fisher install oh-my-fish/theme-bobthefish
 
 
 # setting up the sublime symlink
-# ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
-# install nvm (Node Version Nanager, https://github.com/nvm-sh/nvm)
-# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
+
+
+###
+##############################################################################################################
+
+
+
+##############################################################################################################
+## Chromium hacking
+
+# see setup-chromium.sh
 
 
 
