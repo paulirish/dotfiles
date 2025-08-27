@@ -40,7 +40,7 @@ brew install openssh
 brew install screen
 
 # z hopping around folders
-brew install z
+# brew install z
 
 # run this script when this file changes guy.
 brew install entr
@@ -59,14 +59,14 @@ brew install mtr
 
 
 # Install other useful binaries
-brew install the_silver_searcher
-brew install fzf
+# brew install the_silver_searcher
+# brew install fzf
 brew install git-delta
 
 brew install git
 brew install imagemagick
-brew install node # This installs `npm` too using the recommended installation method
-brew install pv
+# brew install node # This installs `npm` too using the recommended installation method
+# brew install pv
 brew install rename
 brew install tree
 brew install zopfli

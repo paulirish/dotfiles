@@ -174,7 +174,7 @@ npm install --global diff-so-fancy
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 # github.com/rupa/z   - oh how i love you
-git clone https://github.com/rupa/z.git ~/code/z
+# git clone https://github.com/rupa/z.git ~/code/z
 # consider reusing your current .z file if possible. it's painful to rebuild :)
 # z is hooked up in .bash_profile
 
@@ -210,7 +210,7 @@ fisher install oh-my-fish/theme-bobthefish
 
 # Install utils
 fisher install edc/bass
-fisher install jorgebucaran/nvm.fish
+# fisher install jorgebucaran/nvm.fish
 
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
 #   (admittedly not as easy to maintain)
