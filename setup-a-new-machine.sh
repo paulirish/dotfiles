@@ -1,5 +1,6 @@
 # copy paste this file in bit by bit.
 # don't run it.
+# shellcheck disable=2148
   echo "do not run this script in one go. hit ctrl-c NOW"
   read -n 1
 
@@ -17,9 +18,7 @@ cd ~/migration
 
 # what is worth reinstalling?
 brew leaves              > brew-list.txt    # all top-level brew installs
-brew list --cask         > cask-list.txt
 npm list -g --depth=0    > npm-g-list.txt
-yarn global list --depth=0 > yarn-g-list.txt
 
 # then compare brew-list to what's in `brew.sh`
 #   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
@@ -86,6 +85,8 @@ cp -Rp ~/Pictures ~/migration
 ##############################################################################################################
 ### XCode Command Line Tools
 #      thx https://github.com/alrra/dotfiles/blob/ff123ca9b9b/os/os_x/installs/install_xcode.sh
+
+# !!! doesnt work, need to update this section..
 
 if ! xcode-select --print-path &> /dev/null; then
 
@@ -154,14 +155,17 @@ bash < <( curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
 
+# Install Node.js via fnm (Fast Node Manager)
+# fnm should already be installed via brew.sh
+fnm install --lts  # Install latest LTS version of Node
+fnm default lts-latest  # Set it as default
+fnm use default  # Use the default version
+
 # Type `git open` to open the GitHub page or website for a repository.
 npm install -g git-open
 
 # fancy listing of recent branches
 npm install -g git-recent
-
-# sexy git diffs
-npm install -g diff-so-fancy
 
 # trash as the safe `rm` alternative
 npm install --global trash-cli
@@ -169,58 +173,53 @@ npm install --global trash-cli
 # more readable git diffs
 npm install --global diff-so-fancy
 
+# my preferred statik webserver
+npm install -g statikk
+
 # install better nanorc config
 # https://github.com/scopatz/nanorc
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
-# github.com/rupa/z   - oh how i love you
-git clone https://github.com/rupa/z.git ~/code/z
 # consider reusing your current .z file if possible. it's painful to rebuild :)
 # z is hooked up in .bash_profile
 
 
 # github.com/thebitguru/play-button-itunes-patch
 # disable itunes opening on media keys
-# git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
+git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-button-itunes-patch
 
 
-# my magic photobooth symlink -> dropbox. I love it.
-# 	 + first move Photo Booth folder out of Pictures
-# 	 + then start Photo Booth. It'll ask where to put the library.
-# 	 + put it in Dropbox/public
-# 	* Now… you can record photobooth videos quickly and they upload to dropbox DURING RECORDING
-# 	* then you grab public URL and send off your video message in a heartbeat.
+
+# change to bash 4 (installed by homebrew)
+BASHPATH=$(brew --prefix)/bin/bash
+sudo bash -c "echo $BASHPATH >> /etc/shells"
+chsh -s $BASHPATH # will set for current user only.
+echo $BASH_VERSION # should be 4.x not the old 3.2.X
+# repeat for fish, zsh
+# Later, confirm iterm settings aren't conflicting.
 
 
-# for the c alias (syntax highlighted cat)
-sudo easy_install Pygments
 
-# Add new bash v5 to `/etc/shells`
-echo $(brew --prefix)/bin/bash | sudo tee -a /etc/shells
-
-# Add fish to `/etc/shells`
-FISHPATH=$(brew --prefix)/bin/fish
-echo $FISHPATH | sudo tee -a /etc/shells
-chsh -s $FISHPATH
-
-# Install fisher
-curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-# Install theme
-fisher install oh-my-fish/theme-bobthefish
-
-# Install utils
-fisher install edc/bass
-fisher install jorgebucaran/nvm.fish
 
 # iterm with more margin! http://hackr.it/articles/prettier-gutter-in-iterm-2/
 #   (admittedly not as easy to maintain)
 
 
 # setting up the sublime symlink
-# ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
-# install nvm (Node Version Nanager, https://github.com/nvm-sh/nvm)
-# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
+
+
+###
+##############################################################################################################
+
+
+
+##############################################################################################################
+## Chromium hacking
+
+# see setup-chromium.sh
 
 
 
@@ -233,9 +232,9 @@ fisher install jorgebucaran/nvm.fish
 # prezto and antigen communties also have great stuff
 #   github.com/sorin-ionescu/prezto/blob/master/modules/utility/init.zsh
 
-# set up osx defaults
-#   maybe something else in here https://github.com/hjuutilainen/dotfiles/blob/master/bin/osx-user-defaults.sh
-sh .osx
+# set up macos defaults
+#   maybe something else in here https://github.com/hjuutilainen/dotfiles/tree/master/bin
+sh .macos
 
 # setup and run Rescuetime!
 

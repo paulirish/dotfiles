@@ -1,7 +1,7 @@
 
 # git root
 function gr --description "Jump to the git root"
-	set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD ^/dev/null)
+	set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD 2> /dev/null)
   	test -n "$repo_info"; or return
 
 	set -l cd_up_path (command git rev-parse --show-cdup)

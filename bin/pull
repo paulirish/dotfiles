@@ -1,1 +1,77 @@
-git-friendly/pull
+#!/bin/bash
+
+
+# forked from https://github.com/git-friendly/git-friendly/blob/395440b8ac43721c57158f58bb28168eb6e94396/pull
+
+#
+# Usage: pull
+#
+# Pulls remote changes using rebase & tries to rebundle,
+# safely stashing and re-applying your local changes, if any
+#
+
+# Colors
+color_error="$(tput sgr 0 1)$(tput setaf 1)"
+color_reset="$(tput sgr0)"
+
+# Pop any stashed changes
+unstash() {
+  if [[ ! "$stash" =~ "No local changes to save" ]]; then
+    echo
+    echo "🍯  Popping stash..."
+    git stash pop
+  fi
+}
+
+# Pop any stashed changes and exit
+rollback() {
+  echo
+  echo "${color_error}Something went wrong, rolling back${color_reset}"
+  unstash
+  exit $1
+}
+
+branch=$(git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/') || exit $?
+default_remote="origin"
+remote=$(git config "branch.${branch}.remote" || echo "$default_remote")
+remote_branch=$( (git config "branch.${branch}.merge" || echo "refs/heads/$branch") | cut -d/ -f3- )
+
+# Stash any local changes
+stash=$(git stash)
+
+# Update our remote
+echo "🚀  Fetching from $remote..."
+git fetch $remote || rollback $?
+
+# Pull, using rebase if configured
+rebase="--rebase" # TODO disable if env-var is set
+git pull $rebase $remote $remote_branch || rollback $?
+
+# Update submodules
+git submodule update || rollback $?
+
+unstash
+
+# Remove old, stale branches
+git remote prune $remote >/dev/null 2>&1 &
+
+# Bundle em if you got em!
+if [ "$GIT_FRIENDLY_NO_BUNDLE" != "true" ]; then
+  if which bundle >/dev/null 2>&1 && [ -f Gemfile ]; then
+    echo
+    echo "⚔  Bundling gems..."
+    bundle check >/dev/null 2>&1 || bundle install
+  fi
+fi
+
+# Skip installs if devtools because weird node_modules situation
+# repoUrl=$(git config --get remote.origin.url)
+# if grep -q chromium.googlesource.com <<<$repoUrl; then
+#   gclient sync --delete_unversioned_trees  # chromium deps instead
+#   exit 0
+# fi
+
+
+echo
+echo "🦄  Done"
+exit 0

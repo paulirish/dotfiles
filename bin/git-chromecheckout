@@ -12,16 +12,16 @@ white="\e[38;5;7m"
 reset="\e[0m"
 
 app="Google Chrome"
-
-if [[ $@ == *'canary'* ]]; then
-	app="Google Chrome Canary"
-fi
+if [[ "$#" -eq 1 && "$1" == "canary" ]]; then
+  app="Google Chrome Canary"
+ fi
 
 active_chrome_url() {
 	osascript -e "tell application \"$app\" to get URL of active tab of front window"
 }
 checkout() {
 	url=$(active_chrome_url)
+	echo "frontmost tab url: $url"
 	if hash hub 2>/dev/null && [[ $url == *"https://github.com"* && $url == *"/pull/"* ]]; then
 		printf "%bChecking out: %b$url %b...%b\n" "$green" "$white" "$green" "$reset"
 		hub checkout "$url"

@@ -1,16 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # prereqs:
 #
-#     pip install pygithub
+#     pip3 install pygithub
 #
 
 # usage:
 #     git delete-squashed-and-merged-branches --dry-run  # won't actually delete shit
 #     git delete-squashed-and-merged-branches            # probably will delete shit
 
-# get a github personal access token and put it in ~/.githubtoken
+# get a github personal access token (no scopes) and put it in ~/.githubtoken
 
 # thanks!
 # this script is a bit of a combo from:
@@ -27,9 +27,9 @@ import subprocess
 import time
 
 yellow = '\033[93m'
+brightblack = '\u001b[30;1m'
 reset = '\033[0m'
 DRY_RUN = len(sys.argv) > 1 and sys.argv[1] == '--dry-run'
-
 
 tokenpath = os.path.expanduser('~/.githubtoken')
 tokenfile = open(tokenpath)
@@ -41,15 +41,15 @@ def get_branch_heads():
     branch_to_sha = []
     # %09 is a tab, which we later split on
     refsoutput = subprocess.check_output(["git", "for-each-ref", "--sort=-committerdate", "refs/heads/", "--format=%(refname)%09%(objectname)"])
-    lines = refsoutput.split('\n')
+    lines = refsoutput.decode().split('\n')
 
     for line in lines:
         if not line:
-            print('omg')
             continue
         objectname,sha = line.split('\t')
         branch_name = objectname.replace('refs/heads/', '')
-        branch_to_sha.append([branch_name, sha])
+        if branch_name != 'main':
+            branch_to_sha.append([branch_name, sha])
     return branch_to_sha
 
 
@@ -59,15 +59,19 @@ def main():
     retval = 0
     items = get_branch_heads()
 
-    print 'Looking at {} total local heads, from newest to oldest.'.format(len(items))
+    print(f"Looking at {len(items)} total local heads, from newest to oldest.")
 
     for [branch, sha] in items:
-        print '\n'
+        print('\n')
         time.sleep(2) # search only allows 30 req/min. https://developer.github.com/v3/search/#rate-limit
         res = G.search_issues(sha)
         shortsha = sha[0:7]
         issue_closed_states = [issue.state == 'closed' for issue in res]
-        
+        open_issues = [issue for issue in res if issue.state != 'closed']
+
+        # todo: filter found issues to see if they are from remotes that we care about.
+        # eg not this shit https://github.com/DrippingFuture/lighthouse/pull/1
+
         if not issue_closed_states:
             msg = '🔃  No PRs found'
             retval = 4
@@ -81,7 +85,9 @@ def main():
             msg = '🔃  All PRs still open'
             retval = 2
 
-        print ('{}{}{} ({}):\n{}'.format(yellow, branch, reset, shortsha, msg))
+        print('{}{}{} ({}):\n{}'.format(yellow, branch, reset, shortsha, msg))
+        for issue in open_issues:
+            print('    · "{}" {}{}{}'.format(issue.title, brightblack, issue.html_url, reset))
 
         if retval == 0:
             if DRY_RUN:
