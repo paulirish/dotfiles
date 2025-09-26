@@ -48,16 +48,13 @@ end
 
 function dttyped --description "build devtools with typechecking"
     cd ./(git rev-parse --show-cdup)
-    #                                     ↓ this changes any output paths to be click-resolvable :)
-    set -l cmd "autoninja -C  out/Typed | awk '{gsub(\"../../front_end\", \"./front_end\"); gsub(\"(//build/toolchain/linux:x64)\", \"\"); print}'"
+    set -l cmd "autoninja -C  out/Typed"
     echo " > $cmd"
     eval $cmd
 end
 
-function dtb --description "build devtools with watch_build.js - my favorite"
-    cd ./(git rev-parse --show-cdup)
-
-    npm run build -- --watch
+function dtb --description "build devtools with npm run watch"
+    npm run watch
 end
 
 
@@ -161,9 +158,7 @@ function glurpgrab0
 end
 
 function glurpgrab --description "dl mac-cross build from glurp"
-    glurpgrab0
-
-    maccr-flagged
+    glurpgrab0 && maccr-flagged
 end
 
 function maccr  --description "run the mac-os cross build grabbed from glurp"
@@ -203,6 +198,7 @@ end
 function git-clfastupload
     git cl upload --force --bypass-hooks -o "banned-words~skip"
 end
+
 
 
 # dt. rpp
@@ -258,3 +254,16 @@ abbr gcert 'gcert-local'
 abbr deltapb 'printf "%s\n" "@@ -1,1 +1,1 @@" (pbpaste) | delta --max-line-length 1024 --minus-style "white #2b0000" --plus-style "white #001900"'
 
 
+function branches-where-filename-changed --description "find what branches touch a given file. Just string matching across the --stat, so.. partial filename is fine"
+    for b in (git for-each-ref --format='%(refname:short)' refs/heads/)
+        git diffbranch-that "$b" | grep -q "$argv" && echo "$b"; 
+    end
+end
+
+
+function list-all-branches-diff-size --description "list the diff line length of all branches"
+    for branch in (git branch --format="%(refname:short)")
+         set -l diff_lines (git diffbranch-that "$branch" | wc -l)
+         echo (string pad  -w 7 "$diff_lines") (set_color yellow)$branch(set_color normal)
+     end
+ end

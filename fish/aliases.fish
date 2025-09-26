@@ -43,6 +43,7 @@ set -x BAT_STYLE "changes,header-filename,header-filesize,snip,rule"
 alias push="git push"
 
 # `g co`, etc. subcommand expansion with `abbr`.
+# todo, migrate to the new --command thing? https://github.com/paulirish/dotfiles/issues/121
 function subcommand_abbr
   set -l cmd "$argv[1]"
   set -l short "$argv[2]"

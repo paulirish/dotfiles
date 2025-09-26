@@ -13,6 +13,19 @@ function subl --description 'Open Sublime Text'
   end
 end
 
+function solve_all_conflicts --description 'try to solve all current git conflicts with mergiraf'
+  set before (git diff --name-only --diff-filter=U | wc -l)
+  for file in (git diff --name-only --diff-filter=U)
+    set output (mergiraf solve --keep-backup=false "$file" 2>&1)
+    echo "$output"
+    if string match -q -- "*Solved all conflicts*" "$output"
+      git add "$file"
+      echo "now all resolved: $file"
+    end
+  end
+  set after (git diff --name-only --diff-filter=U | wc -l)
+  echo "Conflicted files: $before ==> $after"
+end
 
 function killprocess --description 'Kill process that user selects in fzf (from ps aux output)'
   set -l pid (ps aux | fzf -m --header-lines=1 | awk '{print $2}')

@@ -29,8 +29,8 @@
 	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 
-	# squash unique commits from branch into one commit that keeps commit msgs.
-	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s%+b' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"$commit_body\""
+	# squash unique commits from branch into one commit that keeps commit msgs. The extra \n is very important if this is used multiple times.
+	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s%w(0,4,4)%+b%w(0,0,0)' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"Squashed:\n\n$commit_body\""
 
 	# I prefer these from my fish abbv's, but for bash we'll keep this as a fallback.
 	db = diffbranch
@@ -55,7 +55,7 @@
 
 	# commit (past) WIP changes with a message stating when they happened. (Cuz I sometimes leave changes uncommitted for a while, but want the dates for reference)
 	# todo: maybe use `git commit --date=X` to set a past date. would need to pick one, tho.
-	commitwip = !"git commit --no-verify -am \"Assorted changes. Last modified on:\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
+	commitwip = !"git commit --no-verify -am \"Assorted changes. Last modified on:\n\n$(( git diff --name-only --cached; git ls-files --modified ) | uniq | xargs gstat -c '- %.19y %N')\""
 
 	# I'm curious about some of these git + fzf aliases...
 	#   https://github.com/mattorb/dotfiles/blob/d16776eff48d831bcfaca58f1972e6b587f5dc28/git/.gitaliases#L89
@@ -141,9 +141,13 @@
 [merge]
 	tool = opendiff
 	renameLimit = 0
-	# This 3-item conflict style is MUCH better.
-	conflictstyle = zdiff3
+	# I really prefer the extra context of `zdiff3`'s 3-item conflict style MUCH more. But mergiraf isnt compatible with it and requires `diff3`
+	conflictstyle = diff3
 
+# to work, mergiraf also relies on a line in .gitattributes. FYI. But it does autoresolve quite a bit!
+[merge "mergiraf"]
+    name = mergiraf
+    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
