@@ -79,6 +79,16 @@ sudo spindump -notarget 60 -o ~/Desktop/spindump.txt
 sudo dtrace -q -n 'syscall::exec*:entry { printf("%s %s\n", execname, copyinstr(arg0)); }'
 ```
 
+# set -euxo pipefail
+
+well.. for set -e at least... https://news.ycombinator.com/item?id=44666984
+
+```sh
+  trap 'caller 1' ERR
+```
+
+also can add -E as of recently.
+
 
 
 

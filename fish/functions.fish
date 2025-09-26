@@ -192,6 +192,31 @@ function maxcpu100 -d "literally max out all your cores."
   for i in (seq (nproc)); yes >/dev/null & end
 end
 
+function copy_modification_date -d "Copies the modification time (and access time) of one file to another"
+    # Check if the correct number of arguments are provided
+    if test (count $argv) -ne 2
+        echo "Usage: cpmodtime <source_file> <target_file>" >&2
+        echo "Copies the modification time (and access time) from <source_file> to <target_file>." >&2
+        return 1
+    end
+
+    set -l source_file $argv[1]
+    set -l target_file $argv[2]
+
+    # Check if the source file exists and is a regular file
+    if not test -f "$source_file"
+        echo "Error: Source file '$source_file' does not exist or is not a regular file." >&2
+        return 1
+    end
+
+    # Use 'touch -r' to copy the timestamps (both modification and access)
+    touch -r "$source_file" "$target_file"
+end
+
+
+
+
+
 # requires my excellent `npm install -g statikk`
 function server -d 'Start a HTTP server in the current dir, optionally specifying the port'
     # arg can either be port number or extra args to statikk
