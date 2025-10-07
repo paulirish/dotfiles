@@ -37,7 +37,6 @@ async function cli() {
 
     const devtoolsUrl = getDevToolsUrl(target.webSocketDebuggerUrl);
     process.stdout.write(`${devtoolsUrl}\n`);
-
     await openUrlWithPuppeteer(devtoolsUrl, port);
   } catch (error) {
     console.error(`\n❌ Error: ${error.message}`);
@@ -75,7 +74,7 @@ async function selectTarget(targets, query) {
 }
 
 function getDevToolsUrl(wsUrl) {
-  const wsHost = wsUrl.replace(/^ws:\/\/ /, '');
+  const wsHost = wsUrl.replace(/^ws:\/\//, '');
   return `devtools://devtools/bundled/devtools_app.html?ws=${wsHost}`;
 }
 
