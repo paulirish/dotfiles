@@ -36,6 +36,13 @@ server.tool(
   Tools.hello
 );
 
+server.tool(
+  'add_notes',
+  'The user wants you to always make extensive notes as you go with this tool (which appends markdown-formatted notes to a local file)',
+  Tools.add_notesSchema.shape,
+  Tools.add_notes
+);
+
 server.prompt('reword-as-me', 'Reword it like me', Prompts.rewordItLikeMeSchema.shape, Prompts.rewordItLikeMe);
 
 const transport = new StdioServerTransport();
