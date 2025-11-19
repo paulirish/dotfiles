@@ -43,6 +43,14 @@ server.tool(
   Tools.add_notes
 );
 
+server.tool(
+  'get-unresolved-comments',
+  'Get the unresolved comments for the current branch',
+  Tools.get_unresolved_commentsSchema.shape,
+  Tools.get_unresolved_comments
+);
+
+
 server.prompt('reword-as-me', 'Reword it like me', Prompts.rewordItLikeMeSchema.shape, Prompts.rewordItLikeMe);
 
 const transport = new StdioServerTransport();
