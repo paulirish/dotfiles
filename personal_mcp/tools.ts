@@ -33,7 +33,7 @@ export async function add_notes(params: z.infer<typeof add_notesSchema>, extra):
   const filePath = `${process.cwd()}/agent_notes.md`;
   const {content} = params;
   try {
-    await fs.appendFile(filePath, content);
+    await fs.appendFile(filePath, `\n${content}\n\n`);
     return {
       content: [
         {
