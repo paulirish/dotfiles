@@ -28,6 +28,7 @@
 	# Show commit log of unique commits of this branch (not on main)
 	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
+	diffcommitsfrommain-incl-merges = !"git log origin/$(git mainormaster).."
 
 	# squash unique commits from branch into one commit that keeps commit msgs. The extra \n is very important if this is used multiple times.
 	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s%w(0,4,4)%+b%w(0,0,0)' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"Squashed:\n\n$commit_body\""
@@ -206,5 +207,5 @@
 	# remember conflict resolutions
 	enabled = true
 	autoupdate = true
-[blame]
-	ignorerevsfile = .git-blame-ignore-revs
+# [blame]
+# 	ignorerevsfile = .git-blame-ignore-revs

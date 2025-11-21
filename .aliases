@@ -49,6 +49,7 @@ alias main="git checkout \$(gitmainormaster)"
 alias master="main"
 
 alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
+alias gemset="subl ~/.gemini/settings.json" # edit gemini cli settings
 
 # Networking. IP address, dig, DNS
 # alias dig="dig +nocmd any +multiline +noall +answer"

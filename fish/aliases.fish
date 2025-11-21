@@ -14,6 +14,8 @@ abbr mv 'mv -v'
 abbr rm 'rm -v'
 abbr cp 'cp -v'
 
+abbr nr 'npm run'
+
 alias chmox='chmod +x'
 
 alias where=which # sometimes i forget
@@ -25,6 +27,8 @@ alias la='eza --classify=auto --color --group-directories-first --sort=extension
 # use gdu (gdu-go) if available, as its faster on ssd
 # Ehh.. yes gdu is much faster but doesnt support ** in ignore/excludes.  use them deliberately for now
 # alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
+
+abbr write-commit-message "git diffbranch | llm --system-fragment ~/code/dotfiles/private/prompts/devtools-commit-message.md --model=gemini-2.5-pro"
 
 # typos and abbreviations
 abbr g git
@@ -40,7 +44,7 @@ abbr cat 'bat -P'
 # In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
 set -x BAT_STYLE "changes,header-filename,header-filesize,snip,rule"
 
-alias push="git push"
+abbr push "git push"
 
 # `g co`, etc. subcommand expansion with `abbr`.
 # todo, migrate to the new --command thing? https://github.com/paulirish/dotfiles/issues/121
@@ -107,12 +111,12 @@ alias master="main"
 # i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
 # OKAY RIPGREP is way faster than AG. i gotta drop ag like its hot.
 #        also ripgrep doesnt buffer output so you can pipe it somewhere and it'll go as it happens.  wow yah SO much better.
-alias ag='command ag -W (math $COLUMNS - 14)'
+# alias ag='command ag -W (math $COLUMNS - 14)'
 
 # fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
 # alias fd='command fd -j1 --exclude node_modules'
 # By default watchexec thinks the project origin is higher up.  So dumb.
-alias watchexec='command watchexec --project-origin . --ignore node_modules'
+abbr watchexec 'watchexec --project-origin . --ignore node_modules'
 
 
 # for counting instances.. `ag -o 'metadata","name":".*?"' trace.json | sorteduniq`
@@ -128,6 +132,7 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 alias resetmouse='printf '"'"'\e[?1000l'"'"
 
 alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
+alias gemset="subl ~/.gemini/settings.json" # edit gemini cli settings
 
 
 # Networking. IP address, dig, DNS

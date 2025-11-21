@@ -87,8 +87,12 @@ end
 
 function cr --description "run chrome with dev devtools. optionally, pass canary or release plus additional flags as args"
     set -l cdup (git rev-parse --show-cdup)
-
+    set -l folder (basename $PWD)
     set -l user_data_dir "$HOME/chromium-devtools/dt-chrome-profile" # Default to stable profile
+    if test "$current_folder" != "devtools-frontend"
+        set user_data_dir "$HOME/chromium-devtools/$folder-profile"
+    end
+
     set -l crpath "./$cdup/third_party/chrome/chrome*/Google\ Chrome\ for\ Testing.app/Contents/MacOS/Google\ Chrome\ for\ Testing"
     set -l dtpath (realpath out/Default/gen/front_end)
 
@@ -188,7 +192,7 @@ end
 
 function maccr-flagged
     # some dev flags plus chrome-launcher flags.-
-    set -l bigcmd $HOME/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium (crflags)
+    set -l bigcmd $HOME/chromium/src/out/Mac-cross-from-glurp/Chromium.app/Contents/MacOS/Chromium (crflags) $argv
 
      echo " > $bigcmd"
      eval $bigcmd
@@ -266,4 +270,42 @@ function list-all-branches-diff-size --description "list the diff line length of
          set -l diff_lines (git diffbranch-that "$branch" | wc -l)
          echo (string pad  -w 7 "$diff_lines") (set_color yellow)$branch(set_color normal)
      end
- end
+end
+
+abbr last7dcommits 'git log --all --author=paulirish --since="8 days ago" --oneline --decorate'
+
+# function gentlerebase
+    
+# end
+
+
+function git_log_grouped_by_branch_paul
+    # Get all local and remote-tracking branch names, removing 'origin/' for cleaner grouping
+    # and deduplicating. 'sort -u' ensures each logical branch appears once.
+    set -l all_branches (git branch --all --format='%(refname:short)'  | \
+                         string replace -r '^(remotes/)?origin/' '' | \
+                         sort -u | grep -v "chromium")
+
+    for branch in $all_branches
+        # Skip 'HEAD' if it's not a proper branch name (it often points to a branch)
+        if test "$branch" = "HEAD"
+            continue
+        end
+
+        # Capture the output of git log into a variable
+        set -l log_output (git log "$branch" --author=paulirish --since="8 days ago" --oneline --decorate \
+                                   --no-merges 2>/dev/null) # Redirect stderr to /dev/null to suppress warnings for non-existent branches etc.
+
+        # Check if the log_output variable is not empty
+        if test -n "$log_output"
+            # Print a clear header for the current branch
+            echo ""
+            echo "## Commits in last 8 days by 'paulirish' on branch: $branch"
+            echo ""
+
+            # Print the captured log output
+            git log "$branch" --author=paulirish --since="8 days ago" --oneline --decorate
+        end
+    end
+end
+
