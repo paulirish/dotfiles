@@ -38,14 +38,14 @@ server.tool(
 
 server.tool(
   'add_notes',
-  'The user wants you to always make extensive notes as you go with this tool (which appends markdown-formatted notes to a local file)',
+  'You MUST make extensive markdown notes as you go with this tool.',
   Tools.add_notesSchema.shape,
   Tools.add_notes
 );
 
 server.tool(
   'get-unresolved-comments',
-  'Get the unresolved comments for the current branch',
+  'Get the unresolved CL comments for the current DevTools/Chromium branch',
   Tools.get_unresolved_commentsSchema.shape,
   Tools.get_unresolved_comments
 );

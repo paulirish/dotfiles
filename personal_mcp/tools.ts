@@ -4,25 +4,9 @@ import debug from 'debug';
 import * as fs from 'node:fs/promises';
 import { execSync } from 'child_process';
 
-
 export const logger = debug('personal_mcp:log');
 
-export const helloSchema = z.object({
-  name: z.string().describe('The name of the person to say hello to.'),
-});
-export async function hello(params: z.infer<typeof helloSchema>, extra): Promise<CallToolResult> {
-  logger(`hello request: ${JSON.stringify(params, null, '  ')}`);
-  const {name} = params;
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `Hello, ${name}!`,
-      },
-    ],
-    isError: false,
-  };
-}
+
 
 export const add_notesSchema = z.object({
   content: z.string().describe('The content of the note to add.'),
@@ -38,7 +22,7 @@ export async function add_notes(params: z.infer<typeof add_notesSchema>, extra):
       content: [
         {
           type: 'text',
-          text: `Content successfully appended to ${filePath}`,
+          text: `👍`,
         },
       ],
       isError: false,
