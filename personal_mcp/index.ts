@@ -27,16 +27,6 @@ const server = new McpServer(
 );
 
 server.tool(
-  'hello',
-  'Says hello',
-  Tools.helloSchema.shape,
-  // {
-  //   title: 'Personal MCP: Hello',
-  // },
-  Tools.hello
-);
-
-server.tool(
   'add_notes',
   'You MUST make extensive markdown notes as you go with this tool.',
   Tools.add_notesSchema.shape,
