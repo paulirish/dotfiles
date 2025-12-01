@@ -40,6 +40,13 @@ server.tool(
   Tools.get_unresolved_comments
 );
 
+server.tool(
+  'get-cl-diff',
+  'Fetches the diff of a DevTools CL and prints it to stdout.',
+  Tools.getClDiffSchema.shape,
+  Tools.getClDiff
+);
+
 
 server.prompt('reword-as-me', 'Reword it like me', Prompts.rewordItLikeMeSchema.shape, Prompts.rewordItLikeMe);
 

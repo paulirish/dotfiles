@@ -2,8 +2,10 @@ import {z} from 'zod';
 import type {CallToolResult} from '@modelcontextprotocol/sdk/types.js';
 import debug from 'debug';
 import * as fs from 'node:fs/promises';
-import { execSync } from 'child_process';
+import { execSync, exec } from 'child_process';
+import {promisify} from 'node:util';
 
+const execAsync = promisify(exec);
 export const logger = debug('personal_mcp:log');
 
 
@@ -141,3 +143,30 @@ export interface GerritComment {
   };
   unresolved?: boolean;
 }
+
+
+
+export const getClDiffSchema = z.object({
+  urlOrId: z.string().describe('The URL or ID of the DevTools CL.'),
+});
+
+
+export async function getClDiff(params: z.infer<typeof getClDiffSchema>): Promise<CallToolResult> {
+  const {urlOrId} = params;
+  const path = URL.parse(urlOrId, 'https://crrev.com/').pathname || '';
+  const numericid = /\b\d+\b/.exec(path)?.[0];
+
+
+  if (!numericid) {
+    return {content: [{type: 'text', text: 'Invalid CL URL or ID'}], isError: true};
+  }
+  const url = `https://chromium-review.googlesource.com/changes/devtools%2Fdevtools-frontend~${numericid}/revisions/current/patch?download&raw`;
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    return {content: [{type: 'text', text: `Error: ${resp.statusText}`}], isError: true};
+  }
+
+  const text = await resp.text();
+  return {content: [{type: 'text', text: text}]};
+}
+
