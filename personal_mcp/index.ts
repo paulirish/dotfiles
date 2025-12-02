@@ -42,7 +42,7 @@ server.tool(
 
 server.tool(
   'get-cl-diff',
-  'Fetches the diff of a DevTools CL and prints it to stdout.',
+  'Get the diff of a DevTools/Chromium CL from chromium-review.googlesource.com.',
   Tools.getClDiffSchema.shape,
   Tools.getClDiff
 );
