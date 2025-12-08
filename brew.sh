@@ -36,6 +36,9 @@ brew install z
 # Fast Node Manager - better than nvm
 brew install fnm
 
+# Fast Python package manager
+brew install uv
+
 # run this script when this file changes guy.
 brew install entr
 
@@ -71,4 +74,18 @@ brew install gdu # available as gdu-go. faster than ncdu on SSD's.
 
 
 brew install scrcpy # control/view android phone from PC. amazing
+
+# Dotfiles / config management
+brew install stow
+brew install chezmoi
+brew install yadm
+
+# Terminal / editor / search
+brew install tmux
+brew install neovim
+brew install ripgrep
+
+# macOS utilities
+brew install dockutil
+brew install mas
 

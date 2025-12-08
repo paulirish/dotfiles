@@ -14,6 +14,7 @@ brew install --cask rectangle
 brew install --cask claude-code
 brew install --cask iterm2@beta
 brew install --cask imageoptim
+brew install --cask docker
 
 # less often
 brew install --cask disk-inventory-x
