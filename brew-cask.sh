@@ -19,6 +19,7 @@ brew install --cask rescuetime
 brew install --cask iterm2
 brew install --cask sublime-text
 brew install --cask imageoptim
+brew install --cask docker
 
 
 # less often

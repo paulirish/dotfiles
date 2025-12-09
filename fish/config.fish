@@ -106,6 +106,9 @@ set -g fish_pager_color_progress cyan
 
 
 
+# pyenv setup
+pyenv init - | source
+
 string match -q "$TERM_PROGRAM" "vscode"
 and . (code --locate-shell-integration-path fish)
 
