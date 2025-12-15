@@ -309,5 +309,21 @@ sh .macos
 
 # add manual symlink for .ssh/config and probably .config/fish
 
+# Install Oh My Fish
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
+# Install bobthefish theme
+omf install bobthefish
+omf theme bobthefish
+
+# Install some popular OMF plugins
+omf install bass  # bash compatibility
+omf install foreign-env  # source foreign environment files
+omf install z  # directory jumping
+omf install git-flow  # git flow support
+
+# Note: Ensure your terminal (iTerm2) is using a Powerline/Nerd Font like Hack Nerd Font for the theme to display correctly.
+# In iTerm2: Preferences > Profiles > Text > Font > Change Font to "Hack Nerd Font" or similar.
+
 ###
 ##############################################################################################################

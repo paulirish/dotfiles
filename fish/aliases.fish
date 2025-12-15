@@ -103,6 +103,8 @@ subcommand_abbr git dbt "diffbranch-that"
 subcommand_abbr npm i "install"
 #subcommand_abbr pnpm i "install"
 
+abbr gfm 'git fetch origin master && git rebase origin/master'
+
 abbr mtr "sudo mtr"
 
 

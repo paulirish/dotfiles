@@ -260,17 +260,39 @@ function fish_prompt
     #         end
     #     end
     # end
+function fish_prompt
+    set -l last_pipestatus $pipestatus
+    set -l cwd (pwd | string replace "$HOME" '~')
+
+    if test -z "$lucid_skip_newline"
+        echo ''
+    end
+
     functions -q iterm2_prompt_mark and iterm2_prompt_mark; # iterm blue marker if defined
 
+    # Powerline-style segments inspired by bobthefish
+    set -l segment_separator \uE0B0  # Powerline separator
 
-    set_color $lucid_cwd_color
-    echo -sn $cwd
+    # CWD segment with background
+    set_color -b blue
+    set_color black
+    echo -n " $cwd "
+    set_color -b normal
+    set_color blue
+    echo -n "$segment_separator"
     set_color normal
 
+    # Git segment
     if test $cwd != '~'; or test -n "$lucid_git_status_in_home_directory"
         set -l git_state (__lucid_git_status)
         if test $status -eq 0
-            echo -sn " $git_state"  # branch name and dirtystate
+            set_color -b brblack
+            set_color white
+            echo -n " $git_state "
+            set_color -b normal
+            set_color brblack
+            echo -n "$segment_separator"
+            set_color normal
         end
     end
 
@@ -291,6 +313,7 @@ function fish_prompt
     set_color "$prompt_symbol_color"
     echo -n "$prompt_symbol "
     set_color normal
+end
 end
 
 if test -n "$SSH_TTY"

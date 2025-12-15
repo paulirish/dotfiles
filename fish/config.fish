@@ -25,7 +25,9 @@ function ssource --description "source most of my dotfiles, useful if making cha
     source ~/.config/fish/chromium.fish
 
     # pull in all shared `export …` aka `set -gx …`
-    source ~/.exports
+    if test -e "$HOME/.exports"
+        source ~/.exports
+    end
 
     if test -e "$HOME/code/dotfiles/private/extras.private.fish";
         source $HOME/code/dotfiles/private/extras.private.fish
@@ -72,19 +74,28 @@ set -g __fish_git_prompt_showdirtystate 'yes'
 set -g __fish_git_prompt_showupstream auto
 set -g pure_git_untracked_dirty false
 
-# pure
-set pure_threshold_command_duration 1
-set pure_separate_prompt_on_error true
-set pure_begin_prompt_with_current_directory false
-set -U pure_color_success (set_color green)
-set -U pure_color_git_dirty (set_color cyan)
+# bobthefish performance optimizations
+set -g theme_display_git_master_branch no
+set -g theme_display_git_untracked no
+set -g theme_display_git_dirty_verbose no
 
-set -U pure_color_git_unpushed_commits (set_color yellow)
-set -U pure_color_git_unpulled_commits (set_color brgreen)
+# bobthefish theme settings
+set -g theme_nerd_fonts yes
+set -g theme_powerline_fonts no  # since using nerd fonts
 
-# prompt (lucid)
+# pure - commented out to use omf theme
+# set pure_threshold_command_duration 1
+# set pure_separate_prompt_on_error true
+# set pure_begin_prompt_with_current_directory false
+# set -U pure_color_success (set_color green)
+# set -U pure_color_git_dirty (set_color cyan)
 
-set -g lucid_prompt_symbol_error_color red
+# set -U pure_color_git_unpushed_commits (set_color yellow)
+# set -U pure_color_git_unpulled_commits (set_color brgreen)
+
+# prompt (lucid) - commented out to use omf theme
+
+# set -g lucid_prompt_symbol_error_color red
 
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
@@ -107,8 +118,9 @@ set -g fish_pager_color_progress cyan
 
 
 # pyenv setup
-pyenv init - | source
+pyenv init - fish | source
 
 string match -q "$TERM_PROGRAM" "vscode"
 and . (code --locate-shell-integration-path fish)
 
+test -f "$HOME/.afm-bin-path-manager.fish"; and source "$HOME/.afm-bin-path-manager.fish"
