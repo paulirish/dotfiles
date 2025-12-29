@@ -27,8 +27,8 @@ function ssource --description "source most of my dotfiles, useful if making cha
     # pull in all shared `export …` aka `set -gx …`
     source ~/.exports
 
-    if test -e "$HOME/code/dotfiles/private/extras.fish";
-        source $HOME/code/dotfiles/private/extras.fish
+    if test -e "$HOME/code/dotfiles/private/extras.private.fish";
+        source $HOME/code/dotfiles/private/extras.private.fish
     end
 
     # for things not checked into git
@@ -108,3 +108,4 @@ set -g fish_pager_color_progress cyan
 
 string match -q "$TERM_PROGRAM" "vscode"
 and . (code --locate-shell-integration-path fish)
+

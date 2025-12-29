@@ -35,6 +35,7 @@ export FZF_CTRL_T_COMMAND='fd'
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {} 2>/dev/null || tree -C {}'"
 
 
-export CLOUDSDK_PYTHON=/usr/bin/python3
+# FYI /usr/bin/python3 and the xcode python3 (also listed in `which -a python3` are py3.9. we want py3.10+)
+export CLOUDSDK_PYTHON=/Library/GoogleCorpSupport/bin/python3
 
 export GOPATH=$HOME/.go/

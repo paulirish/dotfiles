@@ -117,7 +117,7 @@ function cr --description "run chrome with dev devtools. optionally, pass canary
         set --erase argv[1]
     end
 
-    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath $_flags $clutch_chrome_flags $argv"
+    set -l cmd "$crpath --custom-devtools-frontend=file://$dtpath $_flags $clutch_chrome_flags --enable-features=\"DevToolsGreenDevUi\" $argv"
     echo " > $cmd"
     eval $cmd
 end
@@ -125,7 +125,8 @@ end
 
 function crcanary --description "Run Chrome Canary with dev devtools"
   # go/perfai
-  dtcr canary "--enable-features=\"DevToolsAiAssistancePerformanceAgent:insights_enabled/true\"" $argv
+  # dtcr canary "--enable-features=\"DevToolsAiAssistancePerformanceAgent:insights_enabled/true\"" $argv
+  dtcr canary $argv
 end
 
 function crrelease --description "Run Chrome for Testing with release build devtools"

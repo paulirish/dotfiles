@@ -209,3 +209,5 @@
 	autoupdate = true
 # [blame]
 # 	ignorerevsfile = .git-blame-ignore-revs
+[protocol "sso"]
+	allow = always

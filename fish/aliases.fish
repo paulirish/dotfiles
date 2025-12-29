@@ -15,6 +15,9 @@ abbr rm 'rm -v'
 abbr cp 'cp -v'
 
 abbr nr 'npm run'
+abbr npmrun 'npm run'
+abbr pnpmrun 'pnpm run'
+
 
 alias chmox='chmod +x'
 
@@ -28,7 +31,7 @@ alias la='eza --classify=auto --color --group-directories-first --sort=extension
 # Ehh.. yes gdu is much faster but doesnt support ** in ignore/excludes.  use them deliberately for now
 # alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
 
-abbr write-commit-message "git diffbranch | llm --system-fragment ~/code/dotfiles/private/prompts/devtools-commit-message.md --model=gemini-2.5-pro"
+abbr write-commit-message "git diffbranch | llm --system-fragment ~/code/dotfiles/private/prompts/devtools-commit-message.md --model=gemini-3-flash-preview"
 
 # typos and abbreviations
 abbr g git
@@ -40,11 +43,13 @@ abbr bwre brew
 abbr brwe brew
 
 abbr cat 'bat -P'
+abbr ccat 'cat'
 # Skip line-numbers and grid. https://github.com/sharkdp/bat/blob/e608b331425ca2ce8f8d0bd37e7f90901f91eb99/src/style.rs#L27-L61
 # In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
 set -x BAT_STYLE "changes,header-filename,header-filesize,snip,rule"
 
 abbr push "git push"
+abbr dels "delta --side-by-side"
 
 # `g co`, etc. subcommand expansion with `abbr`.
 # todo, migrate to the new --command thing? https://github.com/paulirish/dotfiles/issues/121
@@ -76,6 +81,7 @@ function subcommand_abbr
 end
 
 subcommand_abbr git c "commit -am"
+abbr gitc "git commit -am"
 subcommand_abbr git tc "commit -am"
 subcommand_abbr git cm "commit --no-all -m"
 subcommand_abbr git co "checkout"
@@ -115,8 +121,12 @@ alias master="main"
 
 # fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
 # alias fd='command fd -j1 --exclude node_modules'
+abbr fdfind 'fd'
+abbr fzfall 'fd --unrestricted | fzf'
+
 # By default watchexec thinks the project origin is higher up.  So dumb.
 abbr watchexec 'watchexec --project-origin . --ignore node_modules'
+
 
 
 # for counting instances.. `ag -o 'metadata","name":".*?"' trace.json | sorteduniq`
@@ -156,7 +166,7 @@ function gemi
     # no markdown parsing here without some real fancy stuff. because you dont want to send to markdown renderer (glow) inbetween backticks, etc.
     llm chat -m gemini-2.5-flash
   else
-    llm prompt -m gemini-2.5-flash "$argv" && echo "⬇️… and now rendered…⬇️" && llm logs -r | glow
+    llm prompt -m gemini-2.5-flash "$argv" && echo -e "\n\n\n⬇️… and now rendered…⬇️\n\n\n" && llm logs -r | glow
   end
 end
 
@@ -165,7 +175,7 @@ function openai
   if test -z "$argv[1]"
     llm chat -m gpt-4o
   else
-    llm prompt -m gpt-4o "$argv" && echo "⬇️… and now rendered…⬇️" && llm logs -r | glow
+    llm prompt -m gpt-4o "$argv" && echo -e "\n\n\n⬇️… and now rendered…⬇️\n\n\n" && llm logs -r | glow
   end
 end
 
