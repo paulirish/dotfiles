@@ -15,3 +15,16 @@ node_modules
 
 .aider*
 
+
+# Dont keep these under VC
+/fish/completions/*.fish
+/fish/fish_variables
+/fish/config.fish.backup
+
+# bins I just want in PATH but i dont want in VC
+bin/gcert-*
+bin/repo
+bin/rwmin*
+bin/scriber*
+
+/private

@@ -1,0 +1,264 @@
+#!/usr/bin/env bash
+
+# summary of a repo
+
+# https://github.com/tj/git-extras/blob/main/bin/git-summary
+# https://stackoverflow.com/questions/1265040/how-to-count-total-lines-changed-by-a-specific-author-in-a-git-repository
+
+
+# cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
+
+PROJECT_FULL_PATH=
+SUMMARY_BY_LINE=
+DEDUP_BY_EMAIL=
+MERGES_ARG=
+OUTPUT_STYLE=
+for arg in "$@"; do
+    case "$arg" in
+        --full-path)
+            PROJECT_FULL_PATH=1
+            ;;
+        --line)
+            SUMMARY_BY_LINE=1
+            ;;
+        --dedup-by-email)
+            DEDUP_BY_EMAIL=1
+            ;;
+        --no-merges)
+            MERGES_ARG="--no-merges"
+            ;;
+        --output-style)
+            OUTPUT_STYLE="$2"
+            shift
+            ;;
+        -*)
+            >&2 echo "unknown argument $arg found"
+            exit 1
+            ;;
+        *)
+            # set the argument back
+            set -- "$@" "$arg"
+            ;;
+    esac
+
+    shift
+done
+
+if [ -n "$DEDUP_BY_EMAIL" ] && [ -n "$SUMMARY_BY_LINE" ]; then
+    >&2 echo "--dedup-by-email used with --line is not supported"
+    exit 1
+fi
+
+if [ -n "$MERGES_ARG" ] && [ -n "$SUMMARY_BY_LINE" ]; then
+    >&2 echo "--no-merges used with --line is not supported"
+    exit 1
+fi
+
+commit="HEAD"
+if [ -n "$SUMMARY_BY_LINE" ]; then
+  paths=( "$@" )
+else
+  [ $# -ne 0 ] && commit=$*
+fi
+
+if [[ -n "$PROJECT_FULL_PATH" ]]; then
+  project=${PWD/${HOME}/\~}
+else
+  project=${PWD##*/}
+fi
+
+#
+# get date for the given <commit>
+#
+commit_date() {
+  # the $1 can be empty
+  # shellcheck disable=SC2086
+  git log $MERGES_ARG --pretty='format: %ai' "$1" | cut -d ' ' -f 2
+}
+
+#
+# get active days for the given <commit>
+#
+active_days() {
+  commit_date "$1" | sort -r | uniq | awk '
+    { sum += 1 }
+    END { print sum }
+  '
+}
+
+#
+# get the commit total
+#
+commit_count() {
+  # shellcheck disable=SC2086
+  git rev-list $MERGES_ARG --count "$commit"
+}
+
+#
+# total file count
+#
+file_count() {
+  git ls-files | wc -l | tr -d ' '
+}
+
+#
+# remove duplicate authors who belong to the same email address
+#
+dedup_by_email() {
+    # in:
+    # 27  luo zexuan <LuoZexuan@xxx.com>
+    #  7  罗泽轩 <luozexuan@xxx.com>
+    # out:
+    # 34 luo zexuan
+    LC_ALL=C awk '
+    {
+        sum += $1
+        last_field = tolower($NF)
+        if (last_field in emails) {
+            emails[last_field] += $1
+        } else {
+            email = last_field
+            emails[email] = $1
+            # set commits/email to empty
+            $1=$NF=""
+            sub(/^[[:space:]]+/, "", $0)
+            sub(/[[:space:]]+$/, "", $0)
+            name = $0
+            if (name in names) {
+                # when the same name is associated with existed email,
+                # merge the previous email into the later one.
+                emails[email] += emails[names[name]]
+                emails[names[name]] = 0
+            }
+            names[name] = email
+        }
+    }
+    END {
+        for (name in names) {
+            email = names[name]
+            printf "%6d\t%s\n", emails[email], name
+        }
+    }' | sort -rn -k 1
+}
+
+#
+# list authors
+#
+format_authors() {
+  # a rare unicode character is used as separator to avoid conflicting with
+  # author name. However, Linux column utility will escape tab if separator
+  # specified, so we do unesaping after it.
+  LC_ALL=C awk '
+  { args[NR] = $0; sum += $0 }
+  END {
+    for (i = 1; i <= NR; ++i) {
+      printf "%s♪%2.1f%%\n", args[i], 100 * args[i] / sum
+    }
+  }
+  ' | column -t -s♪ | sed "s/\\\x09/\t/g"
+}
+
+#
+# fetch repository age from oldest commit
+#
+repository_age() {
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
+}
+
+#
+# fetch repository age of the latest commit
+#
+last_active() {
+  git log --pretty=oneline --format="%ar" -n 1
+}
+
+#
+# list the last modified author for each line
+#
+single_file() {
+  while read -r data
+  do
+    if [[ $(file "$data") = *text* ]]; then
+      git blame --line-porcelain "$data" 2>/dev/null | grep "^author " | LC_ALL=C sed -n 's/^author //p';
+    fi
+  done
+}
+
+current_branch_name() {
+  git rev-parse --abbrev-ref HEAD
+}
+
+#
+# list the author for all file
+#
+lines() {
+  git ls-files -- "$@" | single_file
+}
+
+#
+# get the number of the lines
+#
+line_count() {
+  lines "$@" | wc -l
+}
+
+uncommitted_changes_count() {
+  git status --porcelain | wc -l
+}
+
+
+COLUMN_CMD_DELIMTER="¬" # Hopefully, this symbol is not used in branch names... I use it as a separator for columns
+SP="$COLUMN_CMD_DELIMTER|"
+
+print_summary_by_line() {
+  if [ "$OUTPUT_STYLE" = "tabular" ]; then
+    tabular_headers="# Repo $SP Lines"
+    echo -e "$tabular_headers\n$project $SP $(line_count "${paths[@]}")" | column -t -s "$COLUMN_CMD_DELIMTER"
+  elif [ "$OUTPUT_STYLE" = "oneline" ]; then
+    echo "$project / lines: $(line_count "${paths[@]}")"
+  elif [ -n "$SUMMARY_BY_LINE" ]; then
+    echo
+    echo " project     : $project"
+    echo " lines       : $(line_count "${paths[@]}")"
+    echo " authors     :"
+    lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
+  fi
+}
+
+print_summary() {
+  if [ "$OUTPUT_STYLE" = "tabular" ]; then
+    tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted $SP Branch"
+    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days "$commit") days $SP $(commit_count "$commit") $SP $(uncommitted_changes_count) $SP $(current_branch_name)" | column -t -s "$COLUMN_CMD_DELIMTER"
+  elif [ "$OUTPUT_STYLE" = "oneline" ]; then
+    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count) / branch: $(current_branch_name)"
+  else
+    echo
+    echo " project     : $project"
+    echo " repo age    : $(repository_age)"
+    echo " branch:     : $(current_branch_name)"
+    echo " last active : $(last_active)"
+    echo " active on   : $(active_days "$commit") days"
+    echo " commits     : $(commit_count "$commit")"
+
+    # The file count doesn't support passing a git ref so ignore it if a ref is given
+    if [ "$commit" = "HEAD" ]; then
+      echo " files       : $(file_count)"
+    fi
+    echo " uncommitted : $(uncommitted_changes_count)"
+    echo " authors     : "
+    if [ -n "$DEDUP_BY_EMAIL" ]; then
+      # the $commit can be empty
+      # shellcheck disable=SC2086
+      git shortlog $MERGES_ARG -n -s -e "$commit" | dedup_by_email | format_authors
+    else
+      # shellcheck disable=SC2086
+      git shortlog $MERGES_ARG -n -s "$commit" | format_authors
+    fi
+  fi
+}
+
+if [ -n "$SUMMARY_BY_LINE" ]; then
+  print_summary_by_line
+else
+  print_summary
+fi
