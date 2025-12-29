@@ -1,0 +1,88 @@
+#!/bin/zsh
+set -euo pipefail
+
+###############################################################################
+# Purpose: Relocates a file (the "Truth") to the Current Working Directory (CWD)
+#          and ensures all existing references to that file become symlinks
+#          pointing to its new home.
+#
+# Usage:   replace-with-link ~/some/path/to/file.md
+#
+# Behavior:
+#   1. Moves the actual file to CWD.
+#   2. Replaces the file at the original path with a symlink to CWD.
+#   3. If the provided path was ALREADY a link, it follows that link to find 
+#      the real file, moves it, and updates BOTH the provided path and the 
+#      original home to point to the new location (no link-chaining).
+###############################################################################
+
+
+# Usage check
+if [[ -z "${1:-}" ]]; then
+    echo "Usage: replace-with-link <path>"
+    exit 1
+fi
+
+PROVIDED_PATH="$1"
+
+# 1. Resolve absolute path of the input without resolving the symlink itself
+ABS_PROVIDED=$(perl -e 'use File::Spec; print File::Spec->rel2abs($ARGV[0])' "$PROVIDED_PATH")
+
+if [[ ! -e "$ABS_PROVIDED" && ! -L "$ABS_PROVIDED" ]]; then
+    echo "Error: '$PROVIDED_PATH' not found."
+    exit 1
+fi
+
+# 2. Identify the "Truth" (the actual file)
+REAL_SOURCE=$(perl -e 'use Cwd "abs_path"; print abs_path($ARGV[0])' "$ABS_PROVIDED")
+
+FILENAME=$(basename "$REAL_SOURCE")
+NEW_DEST="$(pwd)/$FILENAME"
+
+# Safety: Exit gracefully if the file is already in the CWD
+if [[ "$REAL_SOURCE" == "$NEW_DEST" ]]; then
+    echo "File is already in the current directory."
+    exit 0
+fi
+
+# 3. Handle collision in CWD
+if [[ -e "$NEW_DEST" || -L "$NEW_DEST" ]]; then
+    if [[ -L "$NEW_DEST" ]]; then
+        # It's a link - ask to replace
+        echo -n "Target '$FILENAME' already exists in CWD as a link. Replace with actual asset? [y/N] "
+        # Read from /dev/tty to stay interactive
+        read -r response < /dev/tty
+        if [[ ! "$response" =~ ^[Yy]$ ]]; then
+            echo "Aborted."
+            exit 1
+        fi
+        # Remove the link so 'mv' can place the real file there
+        rm "$NEW_DEST"
+    else
+        # It's a real file - hard stop to prevent data loss
+        echo "Error: '$FILENAME' already exists in current directory as a real file."
+        exit 1
+    fi
+fi
+
+# 4. Execute the Move
+mv "$REAL_SOURCE" "$NEW_DEST"
+
+# 5. Update the pointers
+echo "Updating links..."
+
+# We use 'ln -snf' which is the standard way to overwrite symlinks safely
+# -s: symbolic
+# -n: treat existing symlink to a directory as a normal file (prevents nesting)
+# -f: force overwrite
+
+# Point the provided path directly to the new home
+ln -snfv "$NEW_DEST" "$ABS_PROVIDED"
+
+# If the provided path was a link, update the old source location to point to the new home too
+if [[ "$ABS_PROVIDED" != "$REAL_SOURCE" ]]; then
+    ln -snfv "$NEW_DEST" "$REAL_SOURCE"
+fi
+
+echo "Success: Moved truth to $NEW_DEST"
+
