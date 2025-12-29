@@ -14,6 +14,9 @@ importers:
       debug:
         specifier: ^4.4.1
         version: 4.4.1
+      playwright:
+        specifier: ^1.57.0
+        version: 1.57.0
       zod:
         specifier: ^3.25.76
         version: 3.25.76
@@ -211,6 +214,11 @@ packages:
     resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
     engines: {node: '>= 0.8'}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
@@ -318,6 +326,16 @@ packages:
   pkce-challenge@5.0.0:
     resolution: {integrity: sha512-ueGLflrrnvwB3xuo/uGob5pd5FN7l0MsLf0Z87o/UQmRtwjvfylfc9MurIxRAWywCYTgrvpXBcqjV4OfCYGCIQ==}
     engines: {node: '>=16.20.0'}
+
+  playwright-core@1.57.0:
+    resolution: {integrity: sha512-agTcKlMw/mjBWOnD6kFZttAAGHgi/Nw0CZ2o6JqWSbMlI219lAFLZZCyqByTsvVAJq5XA5H8cA6PrvBRpBWEuQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.57.0:
+    resolution: {integrity: sha512-ilYQj1s8sr2ppEJ2YVadYBN0Mb3mdo9J0wQ+UuDhzYqURwSoW4n1Xs5vs7ORwgDGmyEh33tRMeS8KhdkMoLXQw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -660,6 +678,9 @@ snapshots:
 
   fresh@2.0.0: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   function-bind@1.1.2: {}
 
   get-intrinsic@1.3.0:
@@ -747,6 +768,14 @@ snapshots:
   path-to-regexp@8.2.0: {}
 
   pkce-challenge@5.0.0: {}
+
+  playwright-core@1.57.0: {}
+
+  playwright@1.57.0:
+    dependencies:
+      playwright-core: 1.57.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   proxy-addr@2.0.7:
     dependencies:

@@ -20,7 +20,7 @@ export const rewordItLikeMe = async ({content}): Promise<GetPromptResult> => {
         role: 'assistant',
         content: {
           type: 'text',
-          text: `${content}\n\n\nPlease reword the provided text to use a cool vibe and relaxed tone of voice. Add in three emoji.`,
+          text: `${content}\n\n\nPlease reword the provided text. Tone: Technical substance, competent, slightly irreverent, brief.`,
         },
       },
     ],

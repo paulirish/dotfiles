@@ -2,8 +2,11 @@ import {z} from 'zod';
 import type {CallToolResult} from '@modelcontextprotocol/sdk/types.js';
 import debug from 'debug';
 import * as fs from 'node:fs/promises';
+import * as os from 'node:os';
+import * as path from 'node:path';
 import { execSync, exec } from 'child_process';
 import {promisify} from 'node:util';
+import { chromium } from 'playwright';
 
 const execAsync = promisify(exec);
 export const logger = debug('personal_mcp:log');
@@ -19,7 +22,7 @@ export async function add_notes(params: z.infer<typeof add_notesSchema>, extra):
   const filePath = `${process.cwd()}/agent_notes.md`;
   const {content} = params;
   try {
-    await fs.appendFile(filePath, `\n${content}\n\n`);
+    await fs.appendFile(filePath, `${content}\n\n* * *\n`);
     return {
       content: [
         {
@@ -145,7 +148,6 @@ export interface GerritComment {
 }
 
 
-
 export const getClDiffSchema = z.object({
   urlOrId: z.string().describe('The URL or ID of the DevTools CL.'),
 });
@@ -168,5 +170,111 @@ export async function getClDiff(params: z.infer<typeof getClDiffSchema>): Promis
 
   const text = await resp.text();
   return {content: [{type: 'text', text: text}]};
+}
+
+export const runGoogleAiSearchSchema = z.object({
+  query: z.string().describe('The search query to run.'),
+  remoteDebuggingPort: z.number().optional().describe('The remote debugging port of the browser to connect to. Defaults to 51673.'),
+});
+
+export async function runGoogleAiSearch(
+  params: z.infer<typeof runGoogleAiSearchSchema>,
+): Promise<CallToolResult> {
+  const {query} = params;
+  const port = params.remoteDebuggingPort || 51673;
+  let browser;
+  try {
+    try {
+      browser = await chromium.connectOverCDP(`http://localhost:${port}`);
+    } catch (e) {
+      return {
+        content: [{type: 'text', text: `Failed to connect to browser on port ${port}. Ensure Chrome is running with --remote-debugging-port=${port}. Error: ${e.message}`}],
+        isError: true,
+      };
+    }
+    
+    // Create a new context to avoid interfering with existing tabs/state too much
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    let aiResponseContent: string | null = null;
+    page.on('response', async (response) => {
+      const url = response.url();
+      if (
+        url.startsWith('https://www.google.com/async/folif?') &&
+        response.headers()['content-type']?.includes('text/html')
+      ) {
+        try {
+          const text = await response.text();
+          if (!aiResponseContent) aiResponseContent = text;
+        } catch (e) {
+          // ignore
+        }
+      }
+    });
+
+    await page.goto('https://www.google.com/search?q=&udm=50');
+
+    // Wait a bit to be nice
+    await page.waitForTimeout(1000);
+
+    // Type query with some delay to simulate human typing
+    const searchBox = page.locator('textarea:visible').first();
+    await searchBox.fill(query, {timeout: 5000});
+    await page.waitForTimeout(500);
+    await page.keyboard.press('Enter');
+
+    // Wait for networkidle
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(1000); // Extra safety
+
+    let savedSource = 'network';
+    let contentToSave = aiResponseContent;
+
+    if (!contentToSave) {
+      // Strategy 2: DOM
+      const element = await page.locator('*[data-subtree="aimc"]').first();
+      if ((await element.count()) > 0) {
+        contentToSave = await element.evaluate((el) => el.outerHTML);
+        savedSource = 'dom';
+      }
+    }
+
+    // Cleanup page/context
+    await page.close();
+    await context.close();
+
+    if (contentToSave) {
+      const slug = query
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+        .substring(0, 30);
+      const filename = `aimode_${slug}.html`;
+      const downloadsDir = path.join(os.homedir(), 'Downloads');
+      const fullPath = path.join(downloadsDir, filename);
+      
+      await fs.writeFile(fullPath, contentToSave);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Saved AI response to ${fullPath} (source: ${savedSource})`,
+          },
+        ],
+      };
+    } else {
+      return {
+        content: [{type: 'text', text: 'Could not find AI response via network or DOM.'}],
+        isError: true,
+      };
+    }
+  } catch (error) {
+    return {content: [{type: 'text', text: `Error: ${error.message}`}], isError: true};
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
 }
 

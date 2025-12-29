@@ -20,6 +20,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.0",
     "debug": "^4.4.1",
+    "playwright": "^1.57.0",
     "zod": "^3.25.76",
     "zod-to-json-schema": "^3.24.1"
   }

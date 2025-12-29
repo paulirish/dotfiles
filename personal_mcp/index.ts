@@ -28,7 +28,7 @@ const server = new McpServer(
 
 server.tool(
   'add_notes',
-  'You MUST make extensive markdown notes as you go with this tool.',
+  'MANDATORY: You MUST make extensive markdown notes as you go with this tool.',
   Tools.add_notesSchema.shape,
   Tools.add_notes
 );
@@ -45,6 +45,14 @@ server.tool(
   'Get the diff of a DevTools/Chromium CL from chromium-review.googlesource.com.',
   Tools.getClDiffSchema.shape,
   Tools.getClDiff
+);
+
+
+server.tool(
+  'run_google_ai_search',
+  'Run a Google AI search query and save the response.',
+  Tools.runGoogleAiSearchSchema.shape,
+  Tools.runGoogleAiSearch
 );
 
 
