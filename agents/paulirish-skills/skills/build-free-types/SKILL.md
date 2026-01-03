@@ -10,7 +10,7 @@ Configure projects for type safety without a compilation step (tsc/build) by lev
 ## Core Philosophy
 
 *   **Browser (Client-side)**: Use pure `.js` files with **JSDoc annotations**. This ensures the code runs directly in the browser while maintaining full IDE type support and error checking.
-*   **Node.js (Server-side/Tooling)**: Use `.ts` files with **Erasable Syntax**. This allows Node.js (v22.11.0+) to execute TypeScript files directly without a build step, provided they don't use non-erasable features like enums or namespaces.
+*   **Node.js (Server-side/Tooling)**: Use `.ts` files with **Erasable Syntax**. This allows Node.js (v24.11.0+) to execute TypeScript files directly without a build step, provided they don't use non-erasable features like enums or namespaces.
 
 ## Configuration Standards
 
@@ -24,7 +24,7 @@ Ensure the project is an ES Module and specifies a modern Node.js version.
 {
   "type": "module",
   "engines": {
-    "node": ">=22.11.0"
+    "node": ">=24.11.0"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
@@ -43,10 +43,10 @@ Configure the TypeScript compiler to check JavaScript files and enforce erasable
     "module": "nodenext",
 
     /* Node.js - Native TS Execution Flags */    
-    "erasableSyntaxOnly": true,
-    "verbatimModuleSyntax": true,
-    "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true, /* Prevents using unsupported TypeScript features. */
+    "verbatimModuleSyntax": true, /* Enforces explicit type imports: https://nodejs.org/api/typescript.html#importing-types-without-type-keyword */
+    "allowImportingTsExtensions": true, /* Allows 'import x from "./file.ts"' */
+    "rewriteRelativeImportExtensions": true, /* Handle the import adjustment if compiling to JS */
 
     /* Type Checking Strategy */
     "noEmit": true,
@@ -78,16 +78,7 @@ Follow these rules to maintain a build-free environment.
 *   **Include file extensions**: Always include the `.ts` extension in import paths: `import { x } from './utils.ts'`.
 *   **Use `import type`**: Explicitly mark type-only imports to satisfy `verbatimModuleSyntax`.
 
-## Additional Resources
 
-### Reference Files
+## Example Files
 
-Consult these files for detailed patterns and techniques:
-- **`references/jsdoc-patterns.md`** - Comprehensive JSDoc patterns for vanilla JS.
-
-### Example Files
-
-Review working examples of this configuration:
 - **`examples/tsconfig.json`** - A complete type-checking configuration.
-- **`examples/vanilla.js`** - Browser-ready JS with JSDoc types.
-- **`examples/node.ts`** - Node.js TypeScript with erasable syntax.
