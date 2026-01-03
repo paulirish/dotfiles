@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "plugins": [
+    {
+      "name": "paulirish-skills",
+      "description": "Paul Irish's Claude Code skills: build-free-types and hot-reload",
+      "source": "./paulirish-skills"
+    }
+  ]
+}
