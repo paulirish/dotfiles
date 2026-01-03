@@ -1,40 +1,40 @@
 ---
-name: no-build-types
-description: Sets up modern type checking without a build step. Use when setting up a new project, introducing TypeScript or JSDOC types, or when the user asks for "no build," "vanilla JS," or "erasable syntax" setups.
+name: build-free-types
+description: This skill should be used when the user asks to "set up types without a build step", "use vanilla JS with types", "configure erasable syntax", or mentions "JSDoc type checking". It provides instructions for modern type safety using JSDoc in browsers and native TypeScript execution in Node.js.
 ---
 
 # Modern Type Checking (No Build Step)
 
-This skill configures a project for type safety without requiring a compilation step (tsc/build).
+Configure projects for type safety without a compilation step (tsc/build) by leveraging JSDoc for browser code and Erasable Syntax for Node.js.
 
 ## Core Philosophy
 
-1. **Browser (Client-side)**: Use pure `.js` files with **JSDoc annotations**.
-2. **Node.js (Server-side/Tooling)**: Use `.ts` files with **Erasable Syntax**.
+*   **Browser (Client-side)**: Use pure `.js` files with **JSDoc annotations**. This ensures the code runs directly in the browser while maintaining full IDE type support and error checking.
+*   **Node.js (Server-side/Tooling)**: Use `.ts` files with **Erasable Syntax**. This allows Node.js (v22.11.0+) to execute TypeScript files directly without a build step, provided they don't use non-erasable features like enums or namespaces.
 
 ## Configuration Standards
 
-When configuring the project, always generate or update these files with the following settings:
+Apply these settings to enable seamless type checking.
 
 ### 1. `package.json`
-Must be an ES Module and require modern Node.js (for native TS support).
+
+Ensure the project is an ES Module and specifies a modern Node.js version.
 
 ```json
 {
   "type": "module",
   "engines": {
-    "node": ">=24.11.0"
+    "node": ">=22.11.0"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
   }
 }
-
 ```
 
 ### 2. `tsconfig.json`
 
-Must enable `erasableSyntaxOnly` and `checkJs`.
+Configure the TypeScript compiler to check JavaScript files and enforce erasable syntax.
 
 ```json
 {
@@ -43,42 +43,51 @@ Must enable `erasableSyntaxOnly` and `checkJs`.
     "module": "nodenext",
 
     /* Node.js - Native TS Execution Flags */    
-    "erasableSyntaxOnly": true, /* Prevents using unsupported TypeScript features. */
-    "verbatimModuleSyntax": true, /* Enforces explicit type imports: https://nodejs.org/api/typescript.html#importing-types-without-type-keyword */
-    "allowImportingTsExtensions": true, /* Allows 'import x from "./file.ts"' */
-    "rewriteRelativeImportExtensions": true, /* Handle the import adjustment if compiling to JS */
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
 
     /* Type Checking Strategy */
     "noEmit": true,
     "allowJs": true,
     "checkJs": true,
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true
   }
 }
-
 ```
 
 ## Coding Rules
 
-When generating code under this specific configuration, strictly follow these rules:
+Follow these rules to maintain a build-free environment.
 
 ### Browser Rules (`.js` files)
 
-* **Types**: Use JSDoc for all type definitions.
-* Variables: `/** @type {MyType} */`
-* Functions: `/** @param {string} arg */`
-* Imports: `/** @import {Types} from './mytypes.js' */`
-
+*   **Use JSDoc for all types**: Define variable types, function signatures, and complex objects using JSDoc comments.
+*   **Avoid TS-specific syntax**: Do not use `interface`, `type` aliases, or other TypeScript-only syntax in `.js` files.
+*   **Import types correctly**: Use the `/** @import {Type} from './file.js' */` syntax to bring in types without runtime impact.
 
 ### Node.js Rules (`.ts` files)
 
-* **Erasable Syntax Only**: Do NOT use features that require transformation.
-* ❌ No `enum`
-* ❌ No `namespaces`
-* ❌ No parameter properties (`constructor(public x: string)`)
-* ❌ No `experimentalDecorators`
+*   **Strictly use Erasable Syntax**: Avoid features that require transformation.
+    *   ❌ No `enum`
+    *   ❌ No `namespaces`
+    *   ❌ No parameter properties in constructors
+    *   ❌ No `experimentalDecorators`
+*   **Include file extensions**: Always include the `.ts` extension in import paths: `import { x } from './utils.ts'`.
+*   **Use `import type`**: Explicitly mark type-only imports to satisfy `verbatimModuleSyntax`.
 
+## Additional Resources
 
-* **Imports**:
-* Always include the file extension: `import { x } from './utils.ts'`
-* Always use `import type` for type-only imports.
+### Reference Files
+
+Consult these files for detailed patterns and techniques:
+- **`references/jsdoc-patterns.md`** - Comprehensive JSDoc patterns for vanilla JS.
+
+### Example Files
+
+Review working examples of this configuration:
+- **`examples/tsconfig.json`** - A complete type-checking configuration.
+- **`examples/vanilla.js`** - Browser-ready JS with JSDoc types.
+- **`examples/node.ts`** - Node.js TypeScript with erasable syntax.
