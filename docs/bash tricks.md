@@ -77,6 +77,9 @@ sudo spindump -notarget 60 -o ~/Desktop/spindump.txt
 
 # log who is making system calls / starting processes - and what they are.
 sudo dtrace -q -n 'syscall::exec*:entry { printf("%s %s\n", execname, copyinstr(arg0)); }'
+
+# collect a CPU sample for a process (like you can from activity monitor)
+sample 19286 2 -file /tmp/19286.sample.txt
 ```
 
 # set -euxo pipefail

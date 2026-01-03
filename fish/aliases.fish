@@ -110,6 +110,7 @@ abbr mtr "sudo mtr"
 alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"
 alias main="git checkout (gitmainormaster)"
 alias master="main"
+alias mine="git checkout mine"
 
 
 
@@ -143,7 +144,7 @@ alias resetmouse='printf '"'"'\e[?1000l'"'"
 
 alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
 alias gemset="subl ~/.gemini/settings.json" # edit gemini cli settings
-
+abbr geminif 'gemini --model gemini-3-flash-preview'
 
 # Networking. IP address, dig, DNS
 alias dig="dig +nocmd any +multiline +noall +answer"
@@ -164,9 +165,9 @@ function gemi
   #    gemi "tell me a joke"
   if test -z "$argv[1]"
     # no markdown parsing here without some real fancy stuff. because you dont want to send to markdown renderer (glow) inbetween backticks, etc.
-    llm chat -m gemini-2.5-flash
+    llm chat -m gemini-2.5-flash-lite
   else
-    llm prompt -m gemini-2.5-flash "$argv" && echo -e "\n\n\n⬇️… and now rendered…⬇️\n\n\n" && llm logs -r | glow
+    llm prompt -m gemini-2.5-flash-lite "$argv" && echo -e "\n\n\n⬇️… and now rendered…⬇️\n\n\n" && llm logs -r | glow
   end
 end
 

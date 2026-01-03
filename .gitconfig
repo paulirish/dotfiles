@@ -49,7 +49,7 @@
 	#   diffbase = !"git config --get branch.$(command git symbolic-ref --short HEAD).base || git merge-base origin/$(git mainormaster) HEAD"
 	diffbase = !"git merge-base origin/$(git mainormaster) HEAD"
 	#   Is it a `main` or a `master` repo? Will default to main if neither is found.
-	mainormaster = !"(git branch --format '%(refname:short)' --sort=-committerdate --list master main; echo main) | head -n1 || echo main"
+	mainormaster = !"git rev-parse --abbrev-ref origin/HEAD | sed 's|^origin/||'"
 
 	# fyi to change a git checkout from master to main.. (gh's suggested commands:)
 	#    git branch -m master main; git fetch origin; git branch -u origin/main main; git remote set-head origin -a
@@ -166,7 +166,8 @@
 	followTags = true
 	autoSetupRemote = true
 [pull]
-	ff = only
+	# ff if possible, otherwise, merge commit. I prefer merge commits vs rebase on pull.
+	ff = true
 	default = current
 [checkout]
 	defaultRemote = origin
