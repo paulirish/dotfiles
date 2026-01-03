@@ -1,46 +1,62 @@
+---
+name: Hot Reloading for Chrome Extensions
+description: This skill should be used when the user asks to "setup hot reload", "add hot reloading to chrome extension", "watch extension files", "auto reload extension", or mentions "manifest v3 hot reload". Provides a zero-dependency solution for automatic extension refreshing during development.
+version: 0.1.0
+---
+
 # Hot Reloading for Chrome Extension Development
 
-Developing Chrome extensions can be tedious when you have to manually reload the extension every time you make a change. This guide explains how to set up a simple, robust hot-reloading system for Manifest V3 (MV3) extensions with **zero dependencies**.
+Provide a zero-dependency hot-reloading system for Manifest V3 (MV3) extensions. This system enables automatic extension and tab refreshing whenever source files change, eliminating the need for manual reloads in `chrome://extensions`.
 
-## The Architecture
+## How It Works
 
-The system consists of two parts:
-1.  **Watcher Server (Node.js):** A script that runs on your development machine using native Node.js modules (`http` and `fs`). It watches your extension's files and notifies the extension via Server-Sent Events (SSE).
-2.  **Extension Client (JavaScript):** A small script included in your extension that connects to the Watcher Server and triggers a reload when notified.
+The system consists of a server-side watcher and a client-side listener:
+1.  **The Watcher (Node.js)**: Runs on the developer's machine. It uses native `fs.watch` to monitor the project directory and exposes a Server-Sent Events (SSE) endpoint (`/events`). When a file change is detected, it broadcasts a "reload" signal.
+2.  **The Client (JavaScript)**: Injected into the extension's background service worker. It connects to the watcher server using `EventSource`. Upon receiving a "reload" signal, it reloads any open extension tabs (options pages, popups) and then calls `chrome.runtime.reload()` to refresh the extension itself.
 
-## Step 1: The Watcher Server (`hot-reload-server.mjs`)
+## Implementation Guide for the Agent
 
-This script uses native `fs.watch` for file watching and a native `http` server for SSE. Within, it uses a single regex to ignore irrelevant files.
+To implement hot reloading in the current project, follow these steps:
 
-See `hot-reload-server.mjs`
+### 1. Copy the Source Files
 
-## Step 2: The Extension Client (`hot-reload.js`)
+Copy the following files from the skill's `examples/` directory into the project root or a designated `tools/` directory:
 
-This script runs inside your extension and listens for the 'reload' message using the native `EventSource` API.
+-   `examples/hot-reload-server.mjs` -> `hot-reload-server.mjs`
+-   `examples/hot-reload-client.js` -> `hot-reload-client.js`
 
-See `hot-reload-client.js`
+### 2. Configure the Background Script
 
-# Step 3: Import hot-reload-client.js in the background service-worker script.
+Update the extension's background service worker (e.g., `service-worker.js`) to import the client script. This should be the first line in the file:
 
-Add this to your `background.js`:
 ```javascript
 importScripts('hot-reload-client.js');
 ```
 
-> **Note:** The `management` permission is required for `chrome.management.getSelf` to detect if the extension is in development mode. The `tabs` permission is required to reload open extension tabs.
+### 3. Update Permissions
 
-## Step 4: Usage
+Ensure the `manifest.json` includes `management` (to detect development mode) and `tabs` (to refresh open extension pages):
 
-1.  Start the watcher:
-    ```bash
-    node hot-reload-server.js
-    ```
-2.  Load your extension as an "Unpacked Extension" in Chrome (`chrome://extensions`).
-3.  Every time you save a file, the extension will automatically reload!
+```json
+{
+  "permissions": [
+    "management",
+    "tabs"
+  ]
+}
+```
 
-## Benefits of this Approach
+### 4. Provide Execution Instructions to the User
 
-- **Zero Dependencies:** No `npm install` required. Uses only native Node.js and Browser APIs.
-- **Lightweight:** Uses the native `EventSource` API for efficient server-side events.
-- **Robust:** Handles server restarts and provides debounced file watching.
-- **Clean State:** `chrome.runtime.reload()` ensures the entire extension state is reset.
+Inform the user to start the watcher server in their terminal:
+
+```bash
+node hot-reload-server.mjs
+```
+
+## Additional Resources
+
+### Examples
+Working configuration and implementation scripts in `examples/`:
+- **`examples/hot-reload-server.mjs`** - The Node.js watcher server (to be copied to the project).
+- **`examples/hot-reload-client.js`** - The extension-side client (to be copied to the project).

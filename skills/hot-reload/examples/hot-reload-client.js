@@ -6,9 +6,7 @@ const connect = () => {
       console.log('Reloading extension...');
       const tabs = await chrome.tabs.query({ url: `chrome-extension://${chrome.runtime.id}/*` });
       for (const tab of tabs) {
-        // try {
           await chrome.tabs.reload(tab.id);
-        // } catch (e) {}
       }
       chrome.runtime.reload();
     }

@@ -3,7 +3,7 @@ import fs from 'fs';
 
 const PORT = process.env.PORT || 50523;
 const clients = new Set();
-const IGNORE_RE = /^\.|node_modules|tests|\.md$|hot-reload-server\.js|package\.json/;
+const IGNORE_RE = /^\.|node_modules|tests|\.md$|hot-reload-|package(?:-lock)?\.json/;
 
 const server = http.createServer((req, res) => {
   if (req.url !== '/events') {
