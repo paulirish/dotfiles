@@ -18,7 +18,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.17.0",
+    "@modelcontextprotocol/sdk": "^1.25.2",
     "debug": "^4.4.1",
     "playwright": "^1.57.0",
     "zod": "^3.25.76",
