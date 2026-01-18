@@ -1,7 +1,11 @@
-# Writing Modern CSS Like a God - 2026 Edition
+---
+name: modern-css
+description: Specialized knowledge for writing modern high-quality CSS. Trigger this skill when starting a new CSS project/file, when the user asks about new CSS features (e.g. Masonry, View Transitions, Container Queries, Scroll-driven animations), or requests refactoring of legacy styles to modern standards.
+---
 
-A reference guide for experienced front-end engineers.
+# Modern CSS
 
+This skill provides a reference for writing modern, robust, and efficient CSS.
 
 ---
 
@@ -731,11 +735,22 @@ Here's a card component using many modern CSS features:
 ```
 
 
-
-
 ## Canonical Resources
 
 - [CSS Wrapped 2025](https://chrome.dev/css-wrapped-2025/) - The year's CSS features
 - [The Coyier CSS Starter](https://frontendmasters.com/blog/the-coyier-css-starter/) - Opinionated modern baseline
 - [Adam Argyle's CascadiaJS 2025 Deck](https://cascadiajs-2025.netlify.app/) - (markdownified locally in ./argyle-cacadia-2025-deck.md)
 - [Modern CSS in Real Life](https://chriscoyier.net/2023/06/06/modern-css-in-real-life/) - Practical applications
+
+
+## Usage Guidelines
+
+1.  **Prioritize Stability:**
+    *   Recommend **Newly Available** or **Widely Available** features for production code.
+    *   Use **Limited Availability** features with progressive enhancement, graceful degredation, or `@supports`. Or ask the user how they want to handle it.
+
+2.  **Use the web platform:**
+    *   Always prefer standard CSS solutions over JavaScript libraries for layout, animation, and interaction (e.g., use CSS Masonry instead of Masonry.js, Popover API instead of custom tooltip scripts).
+
+3.  **Code Style:**
+    *   Use modern color spaces (`oklch`) for new palettes.
