@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:chrome.dev)",
+      "WebFetch(domain:frontendmasters.com)",
+      "WebFetch(domain:chriscoyier.net)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
