@@ -278,3 +278,39 @@ export async function runGoogleAiSearch(
   }
 }
 
+export const fetchAsMarkdownSchema = z.object({
+  url: z.string().url().describe('The URL to fetch and convert to markdown.'),
+});
+
+export async function fetchAsMarkdown(
+  params: z.infer<typeof fetchAsMarkdownSchema>,
+): Promise<CallToolResult> {
+  const {url} = params;
+  let browser;
+  try {
+    browser = await chromium.launch();
+    const page = await browser.newPage();
+    await page.goto(url, {waitUntil: 'networkidle'});
+    const bodyHtml = await page.content(); // full HTML
+
+    // @ts-ignore TODO: fix and use the published npm package dur
+    const {convert} = await import('../../markpaste/src/index.js');
+    const markdown = await convert(bodyHtml, {converter: 'pandoc'});
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: markdown,
+        },
+      ],
+    };
+  } catch (error) {
+    return {content: [{type: 'text', text: `Error: ${error.message}`}], isError: true};
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
+}
+

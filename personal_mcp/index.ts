@@ -55,6 +55,13 @@ server.tool(
   Tools.runGoogleAiSearch
 );
 
+server.tool(
+  'fetch_url_as_markdown',
+  'Fetch a URL and get the body HTML as markdown.',
+  Tools.fetchAsMarkdownSchema.shape,
+  Tools.fetchAsMarkdown
+);
+
 
 server.prompt('reword-as-me', 'Reword it like me', Prompts.rewordItLikeMeSchema.shape, Prompts.rewordItLikeMe);
 
