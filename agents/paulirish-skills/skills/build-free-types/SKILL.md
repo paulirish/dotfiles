@@ -66,7 +66,7 @@ Follow these rules to maintain a build-free environment.
 
 *   **Use JSDoc for all types**: Define variable types, function signatures, and complex objects using JSDoc comments.
 *   **Avoid TS-specific syntax**: Do not use `interface`, `type` aliases, or other TypeScript-only syntax in `.js` files.
-*   **Import types correctly**: Use the `/** @import {Type} from './file.js' */` syntax to bring in types without runtime impact.
+*   **Import types correctly**: Do NOT use the legacy typedef import (`/** @typedef {import('./types.js').User} User */`).  Use the modern TS 5.5+ style: `/** @import {User} from './types.js' */`.
 
 ### Node.js Rules (`.ts` files)
 
