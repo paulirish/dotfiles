@@ -20,6 +20,8 @@ brew install --cask iterm2
 brew install --cask sublime-text
 brew install --cask imageoptim
 brew install --cask docker
+brew install --cask visual-studio-code
+brew install --cask codex
 
 
 # less often

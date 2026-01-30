@@ -1,0 +1,2 @@
+# Add this to ~/.bashrc
+eval "$(fnm env --use-on-cd --shell bash)"
