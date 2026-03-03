@@ -92,9 +92,15 @@ while IFS= read -r line || [ -n "$line" ]; do
         start_idx=2
         [[ "${cmd_parts[0]}" == "sudo" ]] && start_idx=3
 
-        domain="${cmd_parts[$start_idx]}"
-        key="${cmd_parts[$((start_idx+1))]}"
-        val_type="${cmd_parts[$((start_idx+2))]}"
+                domain="${cmd_parts[$start_idx]}"
+                key="${cmd_parts[$((start_idx+1))]}"
+        
+                # Skip Dock persistent items as they are noisy and rebuilt via functions in .macos
+                if [[ "$key" == "persistent-apps" || "$key" == "persistent-others" ]]; then
+                    continue
+                fi
+                
+                val_type="${cmd_parts[$((start_idx+2))]}"
         
         # Construct and run the 'read' command
         read_cmd="defaults read \"$domain\" \"$key\""

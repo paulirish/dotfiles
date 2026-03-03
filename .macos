@@ -11,7 +11,7 @@
 
 #
 # TODO: capture some preferences in 
-#     - 'com.apple.dock'    "persistent-apps" somehow?
+#     - 
 #
 
 
@@ -365,7 +365,25 @@ defaults write com.apple.dock show-process-indicators -bool true
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
-#defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-apps -array
+
+# Helper function to add apps to the Dock
+# Note: If an app path does not exist, macOS will show a 'Question Mark' icon.
+add_app() {
+	local app_path="$1"
+	defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app_path</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+}
+
+add_app "/Applications/Google Chrome.app"
+add_app "/System/Applications/System Settings.app"
+add_app "$HOME/Applications/Chrome Apps.localized/Gmail.app"
+add_app "/Applications/Jetski.app"
+add_app "/Applications/Visual Studio Code.app"
+add_app "$HOME/Applications/Chrome Apps.localized/Google Calendar.app"
+add_app "$HOME/Applications/Chrome Apps.localized/Google Meet.app"
+add_app "/Applications/Google Chrome Canary.app"
+add_app "$HOME/Applications/Chrome Canary Apps.localized/Gmail.app"
+add_app "/Applications/iTerm.app"
 
 # Show only open applications in the Dock
 #defaults write com.apple.dock static-only -bool true
