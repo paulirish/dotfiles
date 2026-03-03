@@ -442,6 +442,18 @@ defaults write com.apple.dock wvous-br-corner -int 1
 defaults write com.apple.dock wvous-br-modifier -int 1048576
 
 ###############################################################################
+# Control Center & Menu Bar                                                   #
+###############################################################################
+
+# Show Battery percentage in menu bar
+defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -int 1
+
+# Hide Bluetooth, AirDrop, and Focus from menu bar
+# defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -int 0
+# defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible FocusModes" -int 0
+
+###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
 
@@ -570,7 +582,7 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool f
 # Activate some of the above settings without a logout
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+for app in "Activity Monitor" "Address Book" "Calendar" "ControlCenter" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
 	"Opera" "Photos" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
 	"Transmission" "Tweetbot" "Twitter" "iCal"; do
