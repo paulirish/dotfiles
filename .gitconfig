@@ -214,3 +214,8 @@
 # 	ignorerevsfile = .git-blame-ignore-revs
 [protocol "sso"]
 	allow = always
+
+[gpg]
+	format = ssh
+[tag]
+	gpgSign = true
