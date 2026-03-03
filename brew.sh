@@ -8,7 +8,7 @@
 # Thematic grouping of currently installed (on-request) packages
 PACKAGES=(
   # GNU core utilities
-  coreutils findutils gnu-sed gnu-tar grep awk gawk
+  coreutils findutils gnu-sed gnu-tar grep gawk
 
   # Shells & Navigation
   fish bash-completion z
@@ -20,25 +20,23 @@ PACKAGES=(
   the_silver_searcher ripgrep fzf fd bat eza glow jq jdupes datamash pandoc pdfgrep cloc
 
   # Dev Runtimes & Build Tools
-  deno pnpm rbenv bazel gradle cmake ninja pkgconf ccache expect mkcert
+  deno pnpm rbenv bazel gradle cmake ninja mkcert
 
   # Watchers & Linters
   watchexec entr shellcheck
 
   # Media, Networking & Data
-  ffmpeg yt-dlp exiftool tree rename wget lftp nmap pv pstree
+  ffmpeg yt-dlp exiftool tree rename wget nmap pv pstree
 
   # System & Performance
   btop gdu ncdu zstd
 
-  # AI & Science
-  llm whisper-cpp pytorch leveldb
+  # AI
+  llm
 
   # Graphics, Fonts & Processing
-  fontforge fonttools openjpeg libtiff libwebm little-cms2 librist vapoursynth vivictpp
+  fontforge fonttools vivictpp
 
-  # Misc
-  slackdump openssl@3
 )
 
 brew install "${PACKAGES[@]}"
