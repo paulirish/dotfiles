@@ -103,26 +103,6 @@ if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
     return 1 2> /dev/null || exit 1;
 fi;
 
-# Sourcing brew completions manually is often redundant if bash-completion@2 is installed.
-# We'll comment these out and let the system handle it, but keep them for reference.
-# if command -v brew > /dev/null; then
-#
-#     # bash completion.
-#     if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-#         source "$(brew --prefix)/share/bash-completion/bash_completion";
-#     elif [ -f /etc/bash_completion ]; then
-#         source /etc/bash_completion;
-#     fi
-#
-#     # homebrew completion
-#     source "$(brew --prefix)/etc/bash_completion.d/brew"
-#
-#     # hub completion
-#     if command -v hub > /dev/null; then
-#         source "$(brew --prefix)/etc/bash_completion.d/hub.bash_completion.sh";
-#     fi;
-# fi;
-
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type __git_complete &> /dev/null; then
     __git_complete g __git_main
@@ -134,7 +114,6 @@ fi;
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
-
 
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
@@ -168,3 +147,9 @@ shopt -s dotglob
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"
+
+# Load bash-completion if available
+# We load this last to ensure PS1 is already set, which the completion engine requires.
+if command -v brew > /dev/null; then
+    [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+fi
