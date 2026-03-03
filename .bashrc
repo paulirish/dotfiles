@@ -25,16 +25,9 @@ done
 unset file
 
 
-# generic colouriser
-GRC=`which grc`
-if [ "$TERM" != dumb ] && [ -n "$GRC" ]
-    then
-        alias colourify="$GRC -es --colour=auto"
-        alias configure='colourify ./configure'
-        for app in {diff,make,gcc,g++,ping,traceroute}; do
-            alias "$app"='colourify '$app
-    done
-fi
+##
+## UI and Colors
+##
 
 # highlighting inside manpages and elsewhere
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -96,9 +89,9 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 
 # z beats cd most of the time. `brew install z`
-if which brew > /dev/null; then
+if command -v brew > /dev/null; then
     zpath="$(brew --prefix)/etc/profile.d/z.sh"
-    [ -s $zpath ] && source $zpath
+    [ -s "$zpath" ] && source "$zpath"
 fi;
 
 ##
@@ -110,24 +103,25 @@ if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
     return 1 2> /dev/null || exit 1;
 fi;
 
-# Sorry, very MacOS centric here. :/
-if  which brew > /dev/null; then
-
-    # bash completion.
-    if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-        source "$(brew --prefix)/share/bash-completion/bash_completion";
-    elif [ -f /etc/bash_completion ]; then
-        source /etc/bash_completion;
-    fi
-
-    # homebrew completion
-    source "$(brew --prefix)/etc/bash_completion.d/brew"
-
-    # hub completion
-    if  which hub > /dev/null; then
-        source "$(brew --prefix)/etc/bash_completion.d/hub.bash_completion.sh";
-    fi;
-fi;
+# Sourcing brew completions manually is often redundant if bash-completion@2 is installed.
+# We'll comment these out and let the system handle it, but keep them for reference.
+# if command -v brew > /dev/null; then
+#
+#     # bash completion.
+#     if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+#         source "$(brew --prefix)/share/bash-completion/bash_completion";
+#     elif [ -f /etc/bash_completion ]; then
+#         source /etc/bash_completion;
+#     fi
+#
+#     # homebrew completion
+#     source "$(brew --prefix)/etc/bash_completion.d/brew"
+#
+#     # hub completion
+#     if command -v hub > /dev/null; then
+#         source "$(brew --prefix)/etc/bash_completion.d/hub.bash_completion.sh";
+#     fi;
+# fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type __git_complete &> /dev/null; then
@@ -147,7 +141,7 @@ fi
 complete -W "NSGlobalDomain" defaults
 
 ##
-## better `cd`'ing
+## better `cd`'ing. (see also .inputrc)
 ##
 
 # Case-insensitive globbing (used in pathname expansion)
@@ -162,7 +156,11 @@ shopt -s dirspell 2> /dev/null
 # Turn on recursive globbing (enables ** to recurse all directories)
 shopt -s globstar 2> /dev/null
 
+# Prepend cd to a directory name if it's not an executable
+shopt -s autocd 2> /dev/null
 
+# Include filenames starting with a '.' in the results of pathname expansion.
+shopt -s dotglob
 
 
 # Integrations
@@ -170,6 +168,3 @@ shopt -s globstar 2> /dev/null
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"
-
-
-
