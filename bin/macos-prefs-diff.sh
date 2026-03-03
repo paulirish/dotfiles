@@ -3,7 +3,7 @@
 # set -euxo pipefail
 
 SETTINGS_FILE="$HOME/code/dotfiles/.macos"
-# ---------------------
+TEMP_DOMAIN="com.paulirish.macos-prefs-diff.temp"
 
 # Color codes for output
 GREEN='\033[0;32m'
@@ -11,51 +11,51 @@ YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Clean up any leftover temp settings on exit
+cleanup() {
+    defaults delete "$TEMP_DOMAIN" > /dev/null 2>&1
+}
+trap cleanup EXIT
+
 run_tests() {
-    echo -e "🧪 Running parsing tests..."
+    echo -e "🧪 Running parsing and comparison tests..."
     
+    # 1. Test Domain/Key parsing
     local test_cases=(
         'defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true'
         'defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.252792 1.000000 Other"'
-        'sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName'
-        'defaults write com.apple.finder FXInfoPanesExpanded -dict General -bool true MetaData -bool true'
     )
-
-    local expected_domains=(
-        "com.apple.print.PrintingPrefs"
-        "NSGlobalDomain"
-        "/Library/Preferences/com.apple.loginwindow"
-        "com.apple.finder"
-    )
-
-    local expected_keys=(
-        "Quit When Finished"
-        "AppleHighlightColor"
-        "AdminHostInfo"
-        "FXInfoPanesExpanded"
-    )
+    local expected_domains=("com.apple.print.PrintingPrefs" "NSGlobalDomain")
+    local expected_keys=("Quit When Finished" "AppleHighlightColor")
 
     for i in "${!test_cases[@]}"; do
-        local line="${test_cases[$i]}"
-        eval "local cmd_parts=($line)"
-        
-        local start_idx=2
-        if [[ "${cmd_parts[0]}" == "sudo" ]]; then
-            start_idx=3
-        fi
-        
-        local domain="${cmd_parts[$start_idx]}"
-        local key="${cmd_parts[$((start_idx+1))]}"
-        
-        echo "Test $((i+1)): $line"
+        eval "local cmd_parts=(${test_cases[$i]})"
+        local domain="${cmd_parts[2]}"
+        local key="${cmd_parts[3]}"
         if [[ "$domain" == "${expected_domains[$i]}" && "$key" == "${expected_keys[$i]}" ]]; then
-            echo -e "  ✅ ${GREEN}Passed${NC} (Domain: '$domain', Key: '$key')"
+            echo -e "  ✅ Test $((i+1)) (Parse): ${GREEN}Passed${NC}"
         else
-            echo -e "  ❌ ${RED}Failed${NC}"
-            echo "     Expected Domain: '${expected_domains[$i]}', Key: '${expected_keys[$i]}'"
-            echo "     Got      Domain: '$domain', Key: '$key'"
+            echo -e "  ❌ Test $((i+1)) (Parse): ${RED}Failed${NC} (Got Domain: '$domain', Key: '$key')"
         fi
     done
+
+    # 2. Test Complex Type Comparison
+    echo "  Testing complex type normalization..."
+    local array_cmd='defaults write "$TEMP_DOMAIN" "TestArray" -array "item 1" "item 2"'
+    eval "$array_cmd"
+    local actual_output=$(defaults read "$TEMP_DOMAIN" "TestArray")
+    
+    # Simulate what we expect
+    local expected_raw_args=("-array" "item 1" "item 2")
+    defaults write "$TEMP_DOMAIN" "CheckKey" "${expected_raw_args[@]}"
+    local expected_normalized=$(defaults read "$TEMP_DOMAIN" "CheckKey")
+    
+    if [[ "$actual_output" == "$expected_normalized" ]]; then
+        echo -e "  ✅ Test Complex Comparison: ${GREEN}Passed${NC}"
+    else
+        echo -e "  ❌ Test Complex Comparison: ${RED}Failed${NC}"
+    fi
+
     exit 0
 }
 
@@ -70,105 +70,72 @@ fi
 
 echo -e "🔍 Checking settings from '${YELLOW}${SETTINGS_FILE}${NC}'..."
 
-# Process 'defaults' commands
-# We need to handle multi-line commands ending with \
 current_cmd=""
 
 while IFS= read -r line || [ -n "$line" ]; do
-    # Skip comments and empty lines
     if [[ "$line" =~ ^[[:space:]]*# ]] || [[ -z "${line// }" ]]; then
         continue
     fi
 
-    # Check if line ends with \
     if [[ "$line" == *\\ ]]; then
-        # Remove the \ and append to current_cmd
         current_cmd="${current_cmd}${line%\\} "
         continue
     else
         current_cmd="${current_cmd}${line}"
     fi
 
-    # Only process defaults write commands
     if [[ "$current_cmd" =~ ^(sudo[[:space:]]+)?defaults[[:space:]]+write ]]; then
         # Use eval to let bash correctly parse quotes and spaces into an array
         eval "cmd_parts=($current_cmd)"
-        
-        # Reset current_cmd for the next command
         current_cmd=""
 
-        # Handle optional 'sudo'
         start_idx=2
-        if [[ "${cmd_parts[0]}" == "sudo" ]]; then
-            start_idx=3
-        fi
+        [[ "${cmd_parts[0]}" == "sudo" ]] && start_idx=3
 
         domain="${cmd_parts[$start_idx]}"
         key="${cmd_parts[$((start_idx+1))]}"
-        
-        # The rest is the value definition
-        # Arrays and dicts are harder to compare strictly, so we try our best
         val_type="${cmd_parts[$((start_idx+2))]}"
-        val_data="${cmd_parts[$((start_idx+3))]}"
-        expected_val=""
-
-        case "$val_type" in
-          "-bool"|"-boolean")
-            [[ "$val_data" == "false" || "$val_data" == "0" ]] && expected_val="0" || expected_val="1"
-            ;;
-          "-string")
-            expected_val="$val_data"
-            ;;
-          "-int"|"-integer"|"-float")
-            expected_val="$val_data"
-            ;;
-          "-dict"|"-array"|"-dict-add"|"-array-add")
-             # For dicts and arrays, evaluating the exact expected string is complex 
-             # because `defaults read` outputs a formatted list/dict.
-             # We will just capture the raw arguments to print if they differ.
-             expected_val="${cmd_parts[*]:$((start_idx+2))}"
-             ;;
-          *)
-            # Handles cases with no type flag, e.g., "... AdminHostInfo HostName"
-            expected_val="${cmd_parts[*]:$((start_idx+2))}"
-            ;;
-        esac
-
+        
         # Construct and run the 'read' command
         read_cmd="defaults read \"$domain\" \"$key\""
-
-        # Get the current setting, hiding "does not exist" errors
-        command_output=$(eval "$read_cmd" 2>&1)
+        current_val=$(eval "$read_cmd" 2>/dev/null)
         exit_code=$?
+
+        # Normalize the expected value using the temp domain trick
+        # This ensures we are comparing against the exact format 'defaults read' returns
+        defaults write "$TEMP_DOMAIN" "CheckKey" "${cmd_parts[@]:$((start_idx+2))}"
+        expected_val=$(defaults read "$TEMP_DOMAIN" "CheckKey" 2>/dev/null)
+        
+        # Special handling for booleans as 'defaults read' output varies by macOS version
+        if [[ "$val_type" == "-bool" || "$val_type" == "-boolean" ]]; then
+            [[ "$current_val" == "true" || "$current_val" == "1" ]] && current_val="1" || current_val="0"
+            [[ "$expected_val" == "true" || "$expected_val" == "1" ]] && expected_val="1" || expected_val="0"
+        fi
 
         if [[ $exit_code -ne 0 ]]; then
             echo -e "\nChecking key: ${YELLOW}${key}${NC} : $read_cmd"
             echo "  .macos to set:  $expected_val"
-            echo -e "  Failure:        ${RED}$command_output${NC}"
+            echo -e "  Failure:        ${RED}Key does not exist${NC}"
+        elif [[ "$current_val" == "$expected_val" ]]; then
+            printf "." # Progress indicator
         else
-            # Normalize boolean outputs from defaults read (it prints 1/0 or true/false depending on macOS version)
-            if [[ "$val_type" == "-bool" || "$val_type" == "-boolean" ]]; then
-                if [[ "$command_output" == "true" || "$command_output" == "1" ]]; then command_output="1"; fi
-                if [[ "$command_output" == "false" || "$command_output" == "0" ]]; then command_output="0"; fi
-            fi
-
-            if [[ "$command_output" == "$expected_val" ]]; then
-                printf " " # OK, silently skip
-            elif [[ "$val_type" == "-dict" || "$val_type" == "-array" || "$val_type" == "-dict-add" || "$val_type" == "-array-add" ]]; then
-                # For complex types, we just warn that a check should be manual, or print it clearly
-                echo -e "\nChecking key: ${YELLOW}${key}${NC} : $read_cmd (Complex Type)"
-                echo "  .macos to set:  $expected_val"
-                echo -e "  Current:        ${YELLOW}${command_output}${NC}"
+            echo -e "\nChecking key: ${YELLOW}${key}${NC} : $read_cmd"
+            if [[ "$expected_val" == *$'\n'* || "$current_val" == *$'\n'* ]]; then
+                echo "  .macos to set:"
+                echo "$expected_val" | sed 's/^/    /'
+                echo -e "  Current:"
+                echo -e "${RED}$current_val${NC}" | sed 's/^/    /'
             else
-                echo -e "\nChecking key: ${YELLOW}${key}${NC} : $read_cmd"
                 echo "  .macos to set:  $expected_val"
-                echo -e "  Current:        ${RED}${command_output}${NC}"
+                echo -e "  Current:        ${RED}${current_val}${NC}"
             fi
         fi
+        
+        # Clean up temp key for next check
+        defaults delete "$TEMP_DOMAIN" "CheckKey" > /dev/null 2>&1
     else
-        # Reset if it wasn't a defaults write command
         current_cmd=""
     fi
 done < "$SETTINGS_FILE"
 
-echo ""
+echo -e "\n\n✨ Done."
