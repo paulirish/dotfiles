@@ -39,7 +39,7 @@ sudo pmset -a standbydelay 86400
 sudo nvram SystemAudioVolume=" "
 
 # Set highlight color to pink
-defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.252792 1.000000 Other"
+defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.252792 1.000000"
 
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
@@ -252,9 +252,6 @@ defaults write com.apple.Finder AppleShowAllFiles -bool true
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-# Finder: show status bar
-defaults write com.apple.finder ShowStatusBar -bool true
-
 # Finder: show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -327,11 +324,13 @@ file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
+	Comments -bool false \
 	General -bool true \
-    MetaData -bool true \
+	MetaData -bool true \
+	Name -bool false \
 	OpenWith -bool true \
-	Privileges -bool false
-
+	Preview -bool false \
+	Privileges -bool true
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
@@ -340,7 +339,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 52 pixels
-defaults write com.apple.dock tilesize -int 52
+defaults write com.apple.dock tilesize -int 53
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
@@ -424,8 +423,8 @@ sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/iOS Simulat
 defaults write com.apple.dock wvous-tl-corner -int 10
 defaults write com.apple.dock wvous-tl-modifier -int 0
 # Top right screen corner → no-op
-defaults write com.apple.dock wvous-tr-corner -int 1
-defaults write com.apple.dock wvous-tr-modifier -int 1048576
+defaults write com.apple.dock wvous-tr-corner -int 2
+defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner → no-op
 defaults write com.apple.dock wvous-bl-corner -int 1
 defaults write com.apple.dock wvous-bl-modifier -int 1048576
@@ -481,10 +480,10 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
 # Visualize network usage in the Activity Monitor Dock icon. CPU is 5.
-defaults write com.apple.ActivityMonitor IconType -int 2
+defaults write com.apple.ActivityMonitor IconType -int 6
 
 # Show all processes in Activity Monitor
-defaults write com.apple.ActivityMonitor ShowCategory -int 0
+defaults write com.apple.ActivityMonitor ShowCategory -int 100
 
 # Sets columns for all tabs. Do it manually.
 # defaults read com.apple.ActivityMonitor "UserColumnsPerTab v6.0" -dict \
