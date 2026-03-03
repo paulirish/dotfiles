@@ -77,6 +77,7 @@ Follow these rules to maintain a build-free environment.
     *   ❌ No `experimentalDecorators`
 *   **Include file extensions**: Always include the `.ts` extension in import paths: `import { x } from './utils.ts'`.
 *   **Use `import type`**: Explicitly mark type-only imports to satisfy `verbatimModuleSyntax`.
+*   Once implemented, add to project docs/guidelines that agents should NOT use `npx tsx` or `ts-node` to run node scripts; instead, just run them directly: `node script.ts`.
 
 
 ## Example Files

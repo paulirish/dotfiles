@@ -18,6 +18,12 @@ abbr nr 'npm run'
 abbr npmrun 'npm run'
 abbr pnpmrun 'pnpm run'
 
+# because its easier to type.... 
+# abbr yarn pnpm 
+
+alias yarnn 'yarn'
+alias yyarn 'yarn'
+
 
 alias chmox='chmod +x'
 
@@ -60,7 +66,7 @@ function subcommand_abbr
 
   # Check that these strings are safe, since we're going to eval. 👺
   if not string match --regex --quiet '^[a-z]*$' "$short"
-    or not string match --regex --quiet '^[a-z- ]*$' "$long"
+    or not string match --regex --quiet '^[a-z-/. ]*$' "$long"
     echo "Scary unsupported alias or expansion $short $long"; exit 1;
   end
 
@@ -95,7 +101,8 @@ subcommand_abbr git dif "diff"
 
 # some of my git aliases
 subcommand_abbr git db "diffbranch"
-subcommand_abbr git dbt "diffbranch-that"
+# fully expand because the alias is has a # which fucks with git-filter-branch.
+subcommand_abbr git dbt "diff origin/main..."
 
 
 
@@ -104,7 +111,6 @@ subcommand_abbr npm i "install"
 #subcommand_abbr pnpm i "install"
 
 abbr mtr "sudo mtr"
-
 
 # is it a `main` or a `master` repo?
 alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"

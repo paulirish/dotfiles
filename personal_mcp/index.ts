@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {McpServer} from '@modelcontextprotocol/sdk/server/mcp.js';
 import {StdioServerTransport} from '@modelcontextprotocol/sdk/server/stdio.js';
 import fs from 'node:fs';
@@ -28,7 +30,7 @@ const server = new McpServer(
 
 server.tool(
   'add_notes',
-  'MANDATORY: You MUST make extensive markdown notes as you go with this tool.',
+  'If the user requests, make extensive markdown notes as you go with this tool.',
   Tools.add_notesSchema.shape,
   Tools.add_notes
 );

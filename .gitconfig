@@ -24,7 +24,7 @@
 	# Essentially GitHub's compare view: show all 'ahead' changes (incl working tree) vs the merge-base
 	diffbranch = !"git diff  $(git diffbase)"
 	# Diff of branch that's not checked out. Doesn't include working tree (but obv doesnt need to)
-	diffbranch-that = !"git diff origin/$(git mainormaster)...\"$1\" #"
+	# diffbranch-that = !"git diff origin/$(git mainormaster)...\"$1\""
 	# Show commit log of unique commits of this branch (not on main)
 	diffcommitsfrommain = !"git log --no-merges origin/$(git mainormaster).."
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
@@ -168,7 +168,8 @@
 [pull]
 	# ff if possible, otherwise, merge commit. I prefer merge commits vs rebase on pull.
 	ff = true
-	default = current
+	# default of 'current' leads to too many problems of needing "git branch --set-upstream-to=" ...
+	default = keep
 [checkout]
 	defaultRemote = origin
 
@@ -202,6 +203,7 @@
 [commit]
 	# include whole diff in message composition screen
 	verbose = true
+	gpgSign = true
 
 
 [rerere]
