@@ -445,16 +445,6 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 
 ###############################################################################
-# Spotlight                                                                   #
-###############################################################################
-
-# Disable Spotlight indexing mostly.
-# TODO: do it manually. thar be dragons in the equivalent commands. I deleted a bunch of these.
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
-
-###############################################################################
 # Terminal                                                                    #
 ###############################################################################
 
