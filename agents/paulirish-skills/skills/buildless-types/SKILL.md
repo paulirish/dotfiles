@@ -1,6 +1,6 @@
 ---
-name: build-free-types
-description: This skill should be used when the user asks to "set up types without a build step", "use vanilla JS with types", "configure erasable syntax", or mentions "JSDoc type checking". It provides instructions for modern type safety using JSDoc in browsers and native TypeScript execution in Node.js.
+name: buildless-types
+description: Use when the user asks to "set up types without a build step", "use vanilla JS with types", "configure erasable syntax", or mentions "JSDoc type checking". It provides instructions for modern type safety using JSDoc in browsers and native TypeScript execution in Node.js.
 ---
 
 # Modern Type Checking (No Build Step)
