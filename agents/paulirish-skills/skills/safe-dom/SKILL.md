@@ -152,37 +152,34 @@ const result = dom`
 
 ## 4. `render()` — Safe Rendering
 
-Renders a `SafeHTML` result into an element.
+Renders a `SafeHTML` result into an element using `setHTML()`.
 
-### Original version (uses innerHTML — blocked by Perfect Types CSP)
+### Strategy: Allow List vs. Block List
 
-```js
-export function render(el, safeHtml) {
-  if (!(safeHtml instanceof SafeHTML)) {
-    throw new Error('render() only accepts results from the dom`...` tag');
-  }
-  el.innerHTML = safeHtml.html;  // ⚠️ blocked when trusted-types 'none' is active
-}
-```
+When configuring the `Sanitizer`, you have two architectural choices for attributes:
 
-### Perfect Types-compatible version (use this with the CSP)
+*   **Allow List (`allowAttributes`)**: Permissive only for what you specify. **Expert recommendation for untrusted content.** It follows the "Least Privilege" principle.
+*   **Block List (`dropAttributes`)**: Permissive for everything *except* what you specify. Useful for "surgical" cleaning of trusted content (e.g., stripping `id`s to prevent DOM clobbering).
 
-Use `setHTML()` instead of `innerHTML`. **Critical gotcha:** the default `Sanitizer` strips ALL attributes including `class`, `id`, `style`, and `data-*`. You must pass a custom `Sanitizer` that re-allows the presentation attributes you need:
+> **The Sanitizer "Safety Net":** Regardless of your config, "Safe" methods like `setHTML()` always use a browser-maintained baseline that strips `on*` event handlers and `<script>` tags. You cannot accidentally "allow" a standard XSS vector.
+
+### Example: Balanced Allow List Sanitizer
+
+This configuration re-allows common presentation attributes that the default sanitizer would otherwise strip.
 
 ```js
 // Create once at module level, reuse across renders.
 const renderSanitizer = new Sanitizer({
   allowAttributes: {
+    // Global allow (careful with 'id' and 'style')
     'class': ['*'],
-    'id': ['*'],
-    'style': ['*'],
+    'role': ['*'],
+    'aria-*': ['*'],
     'data-*': ['*'],
+    // Element-specific allow (safer)
     'href': ['a'],
     'src': ['img', 'video', 'audio', 'source'],
     'alt': ['img'],
-    'aria-label': ['*'],
-    'aria-hidden': ['*'],
-    'role': ['*'],
   },
 });
 
