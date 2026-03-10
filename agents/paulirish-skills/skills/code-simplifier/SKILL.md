@@ -1,11 +1,10 @@
+---
+name: code-simplifier
+description: Installs and runs the Code Simplifier subagents (Code Reuse Reviewer, Code Quality Reviewer, and Efficiency Reviewer) to review and clean up code changes. Trigger this skill when the user asks to "simplify code", "run code simplifier", "review changes for quality", or "setup review agents".
+---
+
 # Code Simplifier Skill
 
-<description>
-Installs and runs the Code Simplifier subagents (Code Reuse Reviewer, Code Quality Reviewer, and Efficiency Reviewer) to review and clean up code changes.
-Trigger this skill when the user asks to "simplify code", "run code simplifier", "review changes for quality", or "setup review agents".
-</description>
-
-<instructions>
 When triggered, perform the following steps to execute a code simplification review:
 
 ## Phase 1: Installation & Setup
@@ -80,5 +79,5 @@ When triggered, perform the following steps to execute a code simplification rev
 
 4. **Review Changes**: Once the agents are available, run the review process. The user should specify what changes to review.
 5. **Parallel Invocation**: Invoke all three agents (`code_reuse_reviewer`, `code_quality_reviewer`, `efficiency_reviewer`) in parallel using their respective tools. Pass each agent the full context or diff of the changes to review.
-6. **Aggregate and Fix**: Wait for all three agents to complete. Aggregate their findings and fix each issue directly. If a finding is a false positive or not worth addressing, note it and move on — do not argue with the finding, just skip it.
-</instructions>
+6. Aggregation and Fix: Wait for all three agents to complete. Aggregate their findings and fix each issue directly. If a finding is a false positive or not worth addressing, note it and move on — do not argue with the finding, just skip it.
+

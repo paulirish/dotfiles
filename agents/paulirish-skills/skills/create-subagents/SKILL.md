@@ -1,11 +1,10 @@
+---
+name: create-subagents
+description: Teaches the agent how to define, create, and invoke custom subagents (specialist agents). Trigger this skill when the user asks to create a subagent, how to make a subagent, or wants to define a new specialist agent for a specific task.
+---
+
 # Create Subagents Skill
 
-<description>
-Teaches the agent how to define, create, and invoke custom subagents (specialist agents).
-Trigger this skill when the user asks to create a subagent, how to make a subagent, or wants to define a new specialist agent for a specific task.
-</description>
-
-<instructions>
 When the user wants to create a new subagent, follow these guidelines to define and set it up:
 
 1. **Agent Definition File**: Custom subagents are defined as Markdown files (`.md`) with YAML frontmatter.
@@ -41,4 +40,3 @@ When the user wants to create a new subagent, follow these guidelines to define 
 4. **Activation Requirements**: Always inform the user that they MUST run `/agents refresh` in their CLI to load the newly created subagents before they can be used.
 
 5. **Invocation**: Once refreshed, the subagent becomes available as a tool matching its `name`. You can delegate tasks to it by calling that tool and passing instructions to it.
-</instructions>
