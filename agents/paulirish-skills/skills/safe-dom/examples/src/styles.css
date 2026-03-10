@@ -1,0 +1,116 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  max-inline-size: 600px;
+  margin-block: 2rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  color-scheme: light dark;
+}
+
+h1 {
+  text-wrap: balance;
+  margin-block-end: 0.25rem;
+}
+
+.subtitle {
+  color: #666;
+  margin-block-end: 1.5rem;
+}
+
+/* Add player form */
+
+#add-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: light-dark(#f5f5f5, #1e1e1e);
+  border-radius: 8px;
+  margin-block-end: 1.5rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+label.grow {
+  flex: 1;
+  min-inline-size: 10ch;
+}
+
+input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid light-dark(#ccc, #444);
+  border-radius: 4px;
+  font: inherit;
+  background: light-dark(white, #2a2a2a);
+  color: inherit;
+}
+
+button[type="submit"] {
+  padding: 0.45rem 1rem;
+  background: oklch(55% 0.2 250);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+
+  &:hover {
+    background: oklch(50% 0.2 250);
+  }
+}
+
+/* Leaderboard */
+
+#leaderboard {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.player {
+  display: grid;
+  grid-template-columns: 2ch 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid light-dark(#e0e0e0, #333);
+  border-radius: 6px;
+  transition: border-color 0.2s;
+
+  &[data-rank="1"] {
+    border-color: oklch(85% 0.15 90);
+    background: oklch(from oklch(85% 0.15 90) 97% 0.02 h);
+  }
+}
+
+.rank {
+  font-size: 0.8rem;
+  color: light-dark(#999, #666);
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  font-weight: 500;
+  word-break: break-all; /* long XSS payloads shouldn't overflow */
+}
+
+.score {
+  font-variant-numeric: tabular-nums;
+  color: light-dark(#555, #aaa);
+  font-size: 0.95rem;
+}

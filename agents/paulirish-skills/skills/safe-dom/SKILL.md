@@ -167,18 +167,34 @@ export function render(el, safeHtml) {
 
 ### Perfect Types-compatible version (use this with the CSP)
 
-Use `setHTML()` instead of `innerHTML`:
+Use `setHTML()` instead of `innerHTML`. **Critical gotcha:** the default `Sanitizer` strips ALL attributes including `class`, `id`, `style`, and `data-*`. You must pass a custom `Sanitizer` that re-allows the presentation attributes you need:
 
 ```js
-export function render(el, safeHtml) {
+// Create once at module level, reuse across renders.
+const renderSanitizer = new Sanitizer({
+  allowAttributes: {
+    'class': ['*'],
+    'id': ['*'],
+    'style': ['*'],
+    'data-*': ['*'],
+    'href': ['a'],
+    'src': ['img', 'video', 'audio', 'source'],
+    'alt': ['img'],
+    'aria-label': ['*'],
+    'aria-hidden': ['*'],
+    'role': ['*'],
+  },
+});
+
+export function render(el, safeHtml, sanitizer = renderSanitizer) {
   if (!(safeHtml instanceof SafeHTML)) {
     throw new Error('render() only accepts results from the dom`...` tag');
   }
-  el.setHTML(safeHtml.html);  // ✅ works with Perfect Types CSP, adds extra sanitization layer
+  el.setHTML(safeHtml.html, { sanitizer });
 }
 ```
 
-> `setHTML()` will also strip any remaining `<script>` tags or event handlers that somehow slipped through the `dom` template. This is a useful defense-in-depth property.
+This config preserves presentation attributes while still blocking `onerror`, `onclick`, and all other event handlers — which is the XSS risk the Sanitizer exists to prevent.
 
 ---
 
@@ -280,11 +296,13 @@ const html = dom`<li>${userInput}</li>`;
 render($('ul'), html);  // original render() with innerHTML
 ```
 
-### Known limitations
+### Known limitations / gotchas
 
-- `setHTML()` is not in all browsers — check Baseline status before shipping
-- `ParseSelector<T>` type inference only works for simple selectors (tag, tag#id) — complex selectors like `div > span` fall back to `HTMLElement`
-- `dom` arrays require explicit typing if you mix `SafeHTML` and strings; TypeScript may not catch all misuse without stricter generics
+- **Default Sanitizer strips all attributes** — `class`, `id`, `style`, `data-*` are all removed unless explicitly re-allowed via `allowAttributes`. This will silently break CSS-dependent rendering. Always pass a custom `Sanitizer` in `render()`.
+- `Sanitizer` and `setHTML()` are not yet in TypeScript's DOM lib — declare them manually in `types.d.ts` (see examples folder).
+- `setHTML()` is not in all browsers — check Baseline status. As of 2026: Chrome 133+, Firefox 135+, Safari unknown.
+- `ParseSelector<T>` type inference only works for simple selectors (tag, tag#id) — complex selectors like `div > span` fall back to `HTMLElement`.
+- `dom` arrays require explicit typing if you mix `SafeHTML` and strings; TypeScript may not catch all misuse without stricter generics.
 
 ---
 

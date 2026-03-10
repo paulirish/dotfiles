@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Perfect Types CSP — uncomment for production builds served via `vite preview`.
+      This blocks all legacy HTML sinks (innerHTML, document.write, etc.).
+      Vite HMR uses innerHTML internally so this breaks hot reload in dev mode.
+
+      <meta
+        http-equiv="Content-Security-Policy"
+        content="require-trusted-types-for 'script'; trusted-types 'none';"
+      />
+    -->
+    <title>Safe DOM Demo</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Safe DOM Leaderboard</h1>
+      <p class="subtitle">
+        Player names are unescaped user input. Try entering
+        <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> as a name.
+      </p>
+
+      <form id="add-form">
+        <label class="grow">
+          Name
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Player name (try XSS!)"
+            autocomplete="off"
+          />
+        </label>
+        <label>
+          Score
+          <input type="number" name="score" required value="0" />
+        </label>
+        <button type="submit">Add Player</button>
+      </form>
+
+      <ul id="leaderboard"></ul>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
