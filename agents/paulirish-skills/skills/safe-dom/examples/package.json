@@ -6,22 +6,13 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "pnpm run typecheck && pnpm run test:e2e",
-    "test:e2e": "playwright test",
+    "test": "playwright test",
     "typecheck": "tsc --noEmit",
-    "lint": "oxlint --ignore-path .oxlintignore",
-    "format": "oxfmt --write '**/*.{ts,js,css,html,json}'",
-    "preflight": "pnpm typecheck && pnpm lint && pnpm test"
+    "preflight": "pnpm typecheck && pnpm test"
   },
   "devDependencies": {
     "@playwright/test": "*",
     "@types/node": "*",
-    "oxfmt": "*",
-    "oxlint": "*",
-    "typescript": "*",
-    "vite": "*"
+    "typescript": "*"
   }
 }

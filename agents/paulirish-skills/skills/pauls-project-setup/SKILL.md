@@ -33,7 +33,7 @@ Ensure the project is an ES Module and defines standard scripts inspired by Paul
     "node": ">=24.11.0"
   },
   "scripts": {
-    "test": "pnpm run typecheck && pnpm run test:node",
+    "test": "pnpm run test:node",
     "test:node": "node --test test/**/*.test.js",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint --ignore-path .oxlintignore",
