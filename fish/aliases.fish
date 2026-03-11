@@ -23,7 +23,8 @@ abbr pnpmrun 'pnpm run'
 
 alias yarnn 'yarn'
 alias yyarn 'yarn'
-
+abbr typecheck 'pnpm typecheck'
+abbr preflight 'pnpm preflight'
 
 alias chmox='chmod +x'
 

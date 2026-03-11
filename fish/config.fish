@@ -109,3 +109,7 @@ set -g fish_pager_color_progress cyan
 string match -q "$TERM_PROGRAM" "vscode"
 and . (code --locate-shell-integration-path fish)
 
+
+# begin gd completion
+gd --completion-fish | source
+# end gd completion
