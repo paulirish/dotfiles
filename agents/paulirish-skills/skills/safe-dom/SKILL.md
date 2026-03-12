@@ -163,25 +163,16 @@ When configuring the `Sanitizer`, you have two architectural choices for attribu
 
 > **The Sanitizer "Safety Net":** Regardless of your config, "Safe" methods like `setHTML()` always use a browser-maintained baseline that strips `on*` event handlers and `<script>` tags. You cannot accidentally "allow" a standard XSS vector.
 
-### Example: Balanced Allow List Sanitizer
+### Example: The "Expert" Baseline Sanitizer
 
-This configuration re-allows common presentation attributes that the default sanitizer would otherwise strip.
+Instead of maintaining a manual allow-list (which often breaks attributes like `aria-*`, `title`, or `data-*`), use an empty configuration object. This triggers the browser's **Baseline Configuration**.
+
+*   **Behavior**: Blocks only known XSS vectors (scripts, event handlers, etc.).
+*   **Benefit**: Allows all other safe HTML/CSS attributes automatically.
 
 ```js
-// Create once at module level, reuse across renders.
-const renderSanitizer = new Sanitizer({
-  allowAttributes: {
-    // Global allow (careful with 'id' and 'style')
-    'class': ['*'],
-    'role': ['*'],
-    'aria-*': ['*'],
-    'data-*': ['*'],
-    // Element-specific allow (safer)
-    'href': ['a'],
-    'src': ['img', 'video', 'audio', 'source'],
-    'alt': ['img'],
-  },
-});
+// An empty config {} tells the API "No allow-list, use the Baseline block-list."
+const renderSanitizer = new Sanitizer({});
 
 export function render(el, safeHtml, sanitizer = renderSanitizer) {
   if (!(safeHtml instanceof SafeHTML)) {
@@ -190,6 +181,8 @@ export function render(el, safeHtml, sanitizer = renderSanitizer) {
   el.setHTML(safeHtml.html, { sanitizer });
 }
 ```
+
+> **Note on `new Sanitizer()` vs `new Sanitizer({})`**: The former uses a restrictive default allow-list (stripping classes/IDs); the latter uses the permissive baseline block-list. Experts usually prefer `{}`.
 
 This config preserves presentation attributes while still blocking `onerror`, `onclick`, and all other event handlers — which is the XSS risk the Sanitizer exists to prevent.
 
