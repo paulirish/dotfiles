@@ -10,7 +10,7 @@ export default defineConfig({
     baseURL: 'http://localhost:5173',
   },
   webServer: {
-    command: 'pnpm dlx serve . -p 5173',
+    command: 'pnpm dlx statikk --port 5173',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
   },
