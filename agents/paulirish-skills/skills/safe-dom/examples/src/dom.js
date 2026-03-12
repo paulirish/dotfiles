@@ -64,35 +64,18 @@ export function dom(strings, ...values) {
   return new SafeHTML(html);
 }
 
-// The default Sanitizer strips all attributes (including class, data-*).
-// This permissive config re-allows safe presentation attributes that don't
-// execute scripts, while still blocking onerror, onclick, etc.
-const defaultRenderSanitizer = new Sanitizer({
-  allowAttributes: {
-    'class': ['*'],
-    'id': ['*'],
-    'style': ['*'],
-    'data-*': ['*'],
-    'href': ['a'],
-    'src': ['img', 'video', 'audio', 'source'],
-    'alt': ['img'],
-    'type': ['input', 'button'],
-    'value': ['input'],
-    'disabled': ['*'],
-    'hidden': ['*'],
-    'aria-label': ['*'],
-    'aria-hidden': ['*'],
-    'role': ['*'],
-  },
-});
+// An empty config {} tells the API "No allow-list, use the Baseline block-list."
+// This permissive config allows safe attributes like class, id, aria-*, and data-*
+// automatically, while still blocking event handlers (onerror, onclick, etc.).
+// See: https://wicg.github.io/sanitizer-api/#built-in-safe-baseline-configuration
+const defaultRenderSanitizer = new Sanitizer({});
 
 /**
  * Renders a SafeHTML result into an element using setHTML() for Perfect Types compatibility.
  * setHTML() adds a second sanitization layer on top of the dom`` template's escaping.
  *
- * NOTE: The default Sanitizer strips all attributes. This function uses a permissive
- * config that re-allows class, id, style, data-*, and common safe attributes while
- * still blocking event handlers (onerror, onclick, etc.).
+ * NOTE: new Sanitizer() (no config) uses a restrictive default allow-list.
+ * this function uses new Sanitizer({}) which uses the permissive Baseline block-list.
  *
  * @param {Element} el
  * @param {SafeHTML} safeHtml
