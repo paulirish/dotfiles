@@ -165,7 +165,7 @@ When configuring the `Sanitizer`, you have two architectural choices for attribu
 
 ### Example: The "Expert" Baseline Sanitizer
 
-Instead of maintaining a manual allow-list (which often breaks attributes like `aria-*`, `title`, or `data-*`), use an empty configuration object. This triggers the browser's **Baseline Configuration**.
+Instead of maintaining a manual allow-list (which often breaks attributes like `aria-*`, `title`, or `data-*`), use an empty configuration object. This triggers the browser's [Baseline Configuration](https://wicg.github.io/sanitizer-api/#built-in-safe-baseline-configuration).
 
 *   **Behavior**: Blocks only known XSS vectors (scripts, event handlers, etc.).
 *   **Benefit**: Allows all other safe HTML/CSS attributes automatically.
@@ -182,7 +182,7 @@ export function render(el, safeHtml, sanitizer = renderSanitizer) {
 }
 ```
 
-> **Note on `new Sanitizer()` vs `new Sanitizer({})`**: The former uses a restrictive default allow-list (stripping classes/IDs); the latter uses the permissive baseline block-list. Experts usually prefer `{}`.
+> **Note on `new Sanitizer()` vs `new Sanitizer({})`**: The former uses a restrictive default allow-list (stripping classes/IDs); the latter uses the permissive [baseline block-list](https://wicg.github.io/sanitizer-api/#built-in-safe-baseline-configuration). Experts usually prefer `{}`.
 
 This config preserves presentation attributes while still blocking `onerror`, `onclick`, and all other event handlers — which is the XSS risk the Sanitizer exists to prevent.
 
@@ -334,6 +334,9 @@ renderLeaderboard([
 
 ## References
 
+- [Sanitizer API Spec: Built-in safe baseline configuration](https://wicg.github.io/sanitizer-api/#built-in-safe-baseline-configuration)
+- [web.dev: Safe DOM manipulation with the Sanitizer API](https://web.dev/articles/sanitizer)
+- [Sanitizer API Playground](https://sanitizer-api.dev/)
 - [MDN: Element.setHTML()](https://developer.mozilla.org/en-US/docs/Web/API/Element/setHTML)
 - [MDN: Document.parseHTML()](https://developer.mozilla.org/en-US/docs/Web/API/Document/parseHTML)
 - [MDN: Sanitizer constructor](https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer/Sanitizer)
