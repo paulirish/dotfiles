@@ -3,7 +3,7 @@ name: code-simplifier
 description: Installs and runs the Code Simplifier subagents for Gemini CLI (Code Reuse Reviewer, Code Quality Reviewer, and Efficiency Reviewer) to review and clean up code changes. Trigger this skill when the user asks to "simplify code", "run code simplifier", "review changes for quality", or "setup review agents".
 ---
 
-# Code Simplifier Skill
+# Code Simplifier Skill for Gemini CLI
 
 When triggered, perform the following steps to execute a code simplification review:
 
