@@ -108,6 +108,3 @@ export function $(query, context) {
   return /** @type {ParseSelector<T>} */ (result);
 }
 
-// Also expose as globals for ergonomic inline use.
-globalThis.$ = $;
-globalThis.dom = dom;

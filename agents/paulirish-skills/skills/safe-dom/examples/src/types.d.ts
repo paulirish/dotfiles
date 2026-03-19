@@ -20,9 +20,6 @@ declare class SafeHTML {
   toString(): string;
 }
 
-declare function $<T extends string>(query: T, context?: ParentNode): ParseSelector<T>;
-declare function dom(strings: TemplateStringsArray, ...values: any[]): SafeHTML;
-
 // Sanitizer API — not yet in TypeScript's DOM lib.
 // https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer
 interface SanitizerConfig {
