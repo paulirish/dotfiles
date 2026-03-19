@@ -40,6 +40,8 @@ alias la='eza --classify=auto --color --group-directories-first --sort=extension
 
 abbr write-commit-message "git diffbranch | llm --system-fragment ~/code/dotfiles/private/prompts/devtools-commit-message.md --model=gemini-3-flash-preview"
 
+abbr preflight 'pnpm run preflight'
+
 # typos and abbreviations
 abbr g git
 abbr gi git
