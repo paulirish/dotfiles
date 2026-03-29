@@ -142,8 +142,8 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
             echo -e "${GRAY}[DRY RUN] Would create tag $TAG_NAME and delete $branch${NC}"
         else
             echo "Archiving $branch..."
-            # Using -m prevents git from opening an editor for a tag message
-            git tag "$TAG_NAME" "$branch" -m "Archived by git-archive-merged-branches" > /dev/null
+            # Create a lightweight tag so it isn't automatically pushed by followTags
+            git tag "$TAG_NAME" "$branch" > /dev/null
 
             # Handle worktree if branch is in use
             WORKTREE_PATH=$(git worktree list --porcelain | grep -B 2 "branch refs/heads/$branch$" | grep "^worktree " | head -n 1 | cut -d' ' -f2-)
