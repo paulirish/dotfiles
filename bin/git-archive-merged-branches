@@ -144,9 +144,21 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
             echo "Archiving $branch..."
             # Using -m prevents git from opening an editor for a tag message
             git tag "$TAG_NAME" "$branch" -m "Archived by git-archive-merged-branches" > /dev/null
+
+            # Handle worktree if branch is in use
+            WORKTREE_PATH=$(git worktree list --porcelain | grep -B 2 "branch refs/heads/$branch$" | grep "^worktree " | head -n 1 | cut -d' ' -f2-)
+            if [ -n "$WORKTREE_PATH" ]; then
+                echo "Removing worktree at $WORKTREE_PATH..."
+                # --force handles cases where there might be uncommitted changes in the worktree
+                git worktree remove --force "$WORKTREE_PATH"
+            fi
+
             git branch -D "$branch"
         fi
     done
+
+    # Clean up stale worktree information
+    git worktree prune
 else
     echo "Aborted."
 fi
