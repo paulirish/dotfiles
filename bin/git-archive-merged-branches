@@ -17,6 +17,11 @@
 #    b) Calculates the patch-id of the *entire* candidate branch (diff from merge-base).
 #    c) If the branch's patch-id matches a commit's patch-id on main, the content
 #       is identical, meaning it was squashed and merged.
+#
+# CONVERTING EXISTING ANNOTATED TAGS TO LIGHTWEIGHT (to avoid auto-pushing):
+#   for tag in (git tag -l "archived/*")
+#       GIT_EDITOR=true git tag -f $tag "$tag^{commit}"
+#   end
 
 DRYRUN=0
 
