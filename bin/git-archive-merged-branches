@@ -148,9 +148,13 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
             # Handle worktree if branch is in use
             WORKTREE_PATH=$(git worktree list --porcelain | grep -B 2 "branch refs/heads/$branch$" | grep "^worktree " | head -n 1 | cut -d' ' -f2-)
             if [ -n "$WORKTREE_PATH" ]; then
+                # Check for uncommitted changes in the worktree
+                if [ -n "$(git -C "$WORKTREE_PATH" status --porcelain)" ]; then
+                    echo -e "${YELLOW}Skipping $branch: Worktree at $WORKTREE_PATH has uncommitted changes.${NC}"
+                    continue
+                fi
                 echo "Removing worktree at $WORKTREE_PATH..."
-                # --force handles cases where there might be uncommitted changes in the worktree
-                git worktree remove --force "$WORKTREE_PATH"
+                git worktree remove "$WORKTREE_PATH"
             fi
 
             git branch -D "$branch"
