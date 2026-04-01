@@ -1,0 +1,14 @@
+.DS_Store
+.claude/
+.claude-plugin/
+agent_notes.md
+heap-explorer.js
+node_modules/
+pnpm-lock.yaml
+pnpm-workspace.yaml
+tsconfig.json
+**/*.test.js
+**/*.test.ts
+tests/
+examples/
+scripts/

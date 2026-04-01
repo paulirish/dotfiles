@@ -1,0 +1,22 @@
+{
+  "name": "@paulirish/heap-snapshot-cli",
+  "version": "0.1.0",
+  "description": "A CLI to explore Chromium heap snapshots.",
+  "type": "module",
+  "bin": {
+    "heap-snapshot": "./bin/heap-snapshot.js"
+  },
+  "engines": {
+    "node": ">=24.11.0"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "heap-snapshot-toolkit": "file:../../../../trajectoryview/heap-snapshot-toolkit"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
