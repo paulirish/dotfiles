@@ -1,14 +1,9 @@
-.DS_Store
-.claude/
-.claude-plugin/
-agent_notes.md
-heap-explorer.js
-node_modules/
-pnpm-lock.yaml
-pnpm-workspace.yaml
-tsconfig.json
-**/*.test.js
-**/*.test.ts
-tests/
-examples/
-scripts/
+# No ignore for heap-snapshot-toolkit if we want to bundle it or ensure it's available.
+# Actually, if it's a 'file:' dependency, npm pack might handle it differently.
+# But for now, let's keep the clis and skills.
+clis/
+skills/
+package.json
+!clis/**
+!skills/**
+!package.json

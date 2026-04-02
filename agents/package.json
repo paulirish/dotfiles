@@ -4,6 +4,9 @@
   "description": "A monorepo for Paul Irish's Gemini skills and CLI agents.",
   "type": "module",
   "private": true,
+  "bin": {
+    "heap-snapshot": "./clis/heap-snapshot-cli/bin/heap-snapshot.js"
+  },
   "engines": {
     "node": ">=24.11.0"
   },
@@ -11,6 +14,9 @@
     "test": "pnpm -r run test",
     "typecheck": "pnpm -r run typecheck",
     "preflight": "pnpm typecheck && pnpm test"
+  },
+  "dependencies": {
+    "heap-snapshot-toolkit": "file:../../../trajectoryview/heap-snapshot-toolkit"
   },
   "devDependencies": {
     "typescript": "^5.0.0"
