@@ -20,7 +20,7 @@ PACKAGES=(
   the_silver_searcher ripgrep fzf fd bat eza glow jq jdupes datamash pandoc pdfgrep cloc
 
   # Dev Runtimes & Build Tools
-  deno pnpm rbenv bazel gradle cmake ninja mkcert
+  node deno pnpm rbenv bazel gradle cmake ninja mkcert
 
   # Watchers & Linters
   watchexec entr shellcheck

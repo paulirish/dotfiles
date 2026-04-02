@@ -5,6 +5,10 @@
   read -n 1
 
 
+# ssh multiplexing control sockets
+mkdir ~/.ssh/control
+
+
 ##############################################################################################################
 ###  backup old machine's key items
 
@@ -147,9 +151,6 @@ export PATH=$HOME/homebrew/bin:$HOME/homebrew/sbin:$PATH
 ### install of common things
 ###
 
-# github.com/jamiew/git-friendly
-# the `push` command which copies the github compare URL to my clipboard is heaven
-bash < <( curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
 
 # autocompletion for git branch names https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
@@ -163,9 +164,6 @@ npm install -g git-recent
 
 # trash as the safe `rm` alternative
 npm install --global trash-cli
-
-# more readable git diffs
-npm install --global diff-so-fancy
 
 # my preferred statik webserver
 npm install -g statikk

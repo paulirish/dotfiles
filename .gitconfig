@@ -67,8 +67,8 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	precomposeUnicode = true
-	# https://github.com/dandavison/delta
-	pager = delta
+	# https://github.com/dandavison/delta.  full path for agents running in subshells.
+	pager = /opt/homebrew/bin/delta
 
 [delta]
 	max-line-length = 1400

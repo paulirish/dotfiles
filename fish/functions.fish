@@ -27,6 +27,18 @@ function solve_all_conflicts --description 'try to solve all current git conflic
   echo "Conflicted files: $before ==> $after"
 end
 
+
+# git-recent with experimental worktree support
+function recent
+  set -l o (~/code/git-recent/git-recent $argv)
+  if test -d "$o"
+    cd $o
+  else if test -n "$o"
+    echo $o
+  end
+end
+
+
 function killprocess --description 'Kill process that user selects in fzf (from ps aux output)'
   set -l pid (ps aux | fzf -m --header-lines=1 | awk '{print $2}')
 

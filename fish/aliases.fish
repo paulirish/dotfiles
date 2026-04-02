@@ -123,15 +123,14 @@ alias mine="git checkout mine"
 
 
 
-# ag defaults. go as wide as terminal (minus some space for line numbers)
-# i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
-# OKAY RIPGREP is way faster than AG. i gotta drop ag like its hot.
-#        also ripgrep doesnt buffer output so you can pipe it somewhere and it'll go as it happens.  wow yah SO much better.
-# alias ag='command ag -W (math $COLUMNS - 14)'
+# Ripgrep > ag (silver_seacher).  By far. definitely faster and also doesnt buffer output so you can pipe it somewhere and it'll go as it happens
+# -uu is the combo of `--no-ignore` and `--hidden` which is what i often want to look through gitignored stuff and other hidden things.
+abbr rgu 'rg -uu'
 
 # fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
 # alias fd='command fd -j1 --exclude node_modules'
 abbr fdfind 'fd'
+# fd's -u  is equivalent to rg's -uu.
 abbr fzfall 'fd --unrestricted | fzf'
 
 # By default watchexec thinks the project origin is higher up.  So dumb.
