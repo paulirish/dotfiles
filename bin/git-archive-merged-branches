@@ -148,7 +148,7 @@ if [[ "$response" =~ ^[Yy]$ ]]; then
         else
             echo "Archiving $branch..."
             # Create a lightweight tag so it isn't automatically pushed by followTags
-            git tag "$TAG_NAME" "$branch" > /dev/null
+            GIT_EDITOR=true git tag --no-sign "$TAG_NAME" "$branch" > /dev/null
 
             # Handle worktree if branch is in use
             WORKTREE_PATH=$(git worktree list --porcelain | grep -B 2 "branch refs/heads/$branch$" | grep "^worktree " | head -n 1 | cut -d' ' -f2-)
