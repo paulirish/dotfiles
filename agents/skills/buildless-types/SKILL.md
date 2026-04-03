@@ -58,6 +58,10 @@ Configure the TypeScript compiler to check JavaScript files and enforce erasable
 }
 ```
 
+> [!WARNING]
+> **Anti-Pattern: Avoid explicit `include` fields**
+> Do NOT add an `include` array or `files` block to the `tsconfig.json` unless previously requested or strictly required to isolate specific directories. Explicit `include` fields are an anti-pattern because they override the default behavior (which natively scans all project files), leading to missing coverage when new files or extensions (like `.mjs`) are added later.
+
 ## Coding Rules
 
 Follow these rules to maintain a build-free environment.
