@@ -62,6 +62,10 @@ Configure the TypeScript compiler to check JavaScript files and enforce erasable
 > **Anti-Pattern: Avoid explicit `include` fields**
 > Do NOT add an `include` array or `files` block to the `tsconfig.json` unless previously requested or strictly required to isolate specific directories. Explicit `include` fields are an anti-pattern because they override the default behavior (which natively scans all project files), leading to missing coverage when new files or extensions (like `.mjs`) are added later.
 
+> [!WARNING]
+> **Anti-Pattern: Avoid fragmented sub-package TSConfigs**
+> Just because a monorepo workspace has multiple child `package.json` files (e.g., for publishing or dependency isolation), do NOT assume they each require their own localized `tsconfig.json`. It is fundamentally best practice to manage all typechecking via a **Single Unified Root `tsconfig.json`** that covers the entire repository. This prevents cross-package path resolution friction and avoids massive script redundancy when running full-repo checks.
+
 ## Coding Rules
 
 Follow these rules to maintain a build-free environment.
