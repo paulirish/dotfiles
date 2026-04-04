@@ -17,6 +17,25 @@ fi
 EOF
 ```
 
+# git rebase stacked branch when first one is squash-merged
+
+```sh
+git checkout newstuffbranch
+git fetch origin && git rebase --onto origin/main basebranch
+```
+
+# find bigass files
+
+```sh
+# best probably
+fd -u --size +1G --type f . ~
+
+# fast (thx spotlight) but misses hidden areas
+mdfind "kMDItemFSSize > 1000000000"
+
+# or ncdu or gdu/gdu-go
+```
+
 
 # use one of two binaries:
 Create alias if it doesn't already exist:
