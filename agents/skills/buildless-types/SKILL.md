@@ -88,6 +88,22 @@ Follow these rules to maintain a build-free environment.
 *   Once implemented, add to project docs/guidelines that agents should NOT use `npx tsx` or `ts-node` to run node scripts; instead, just run them directly: `node script.ts`.
 
 
+## Type Design & Analysis Principles
+
+When working with types (whether in TS or via JSDoc), apply these principles to ensure high-quality type design:
+
+### Analysis Framework
+Evaluate types across these dimensions:
+1. **Encapsulation**: Hide implementation details. Don't let invariants be violated from outside.
+2. **Invariant Expression**: Express constraints clearly in the type structure. Make illegal states unrepresentable.
+3. **Invariant Usefulness**: Ensure invariants prevent real bugs and model the domain accurately.
+4. **Invariant Enforcement**: Enforce constraints at construction or via type guards. Prefer compile-time guarantees over runtime checks.
+
+### Key Practices for Buildless Types
+*   **Discriminated Unions**: Use them over enums (especially in TS where enums are non-erasable).
+*   **Modern JSDoc Imports**: Use `@import` to bring in strong types from `.d.ts` or external packages.
+*   **Pragmatism**: Value pragmatism over perfection. Use types to prevent bugs, not just to satisfy the compiler.
+
 ## Example Files
 
 - **`examples/tsconfig.json`** - A complete type-checking configuration.
