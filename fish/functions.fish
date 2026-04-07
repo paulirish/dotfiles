@@ -79,6 +79,24 @@ end
 alias done="echo done > /tmp/done_pipe"
 alias waitfordone="mkfifo /tmp/done_pipe && read -r line < /tmp/done_pipe"
 
+
+
+# "Join & Flatten" Keybinding
+#   Prereq: iTerm2: Settings > Profiles > Keys. Set Left Option Key to Esc+.
+#   My usage:
+#     1. Type `trash `
+#     2. Paste your block of files from `git status`.
+#     3. Press `Alt+j`. 
+#     4. The buffer will instantly collapse into `trash test/data/file1 test/data/file2 ...`
+function flatten_commandline
+    set -l buf (commandline) # Get the current buffer
+    # Replace newlines with spaces. Trim leading/trailing whitespace from each line. Collapse multiple spaces into one
+    set -l flattened (echo $buf | string split \n | string trim | string join ' ')
+    commandline -r $flattened
+end
+bind \ej flatten_commandline
+
+
 function clone --description "clone something, cd into it. install it."
     git clone --depth=1 $argv[1]
     cd (basename $argv[1] | sed 's/.git$//')

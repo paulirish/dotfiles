@@ -113,4 +113,3 @@ and . (code --locate-shell-integration-path fish)
 # begin gd completion
 gd --completion-fish | source
 # end gd completion
-
