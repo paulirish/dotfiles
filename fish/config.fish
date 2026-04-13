@@ -113,3 +113,13 @@ and . (code --locate-shell-integration-path fish)
 # begin gd completion
 gd --completion-fish | source
 # end gd completion
+
+# adapt gd for worktrees.
+function gd
+    set -l git_root (git rev-parse --show-toplevel 2>/dev/null)
+    if test -n "$git_root"
+        $git_root/bin/gd.ts $argv
+    else
+        echo "Error: Not in a git repository"
+    end
+end

@@ -1,4 +1,9 @@
+
 {
+  "//": "this is a good default, but.. shouldn't be a ~/ level default",
+
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+
   "plugins": ["import", "typescript", "unicorn"],
   "env": {
     "browser": true,
@@ -27,8 +32,7 @@
     "prefer-spread": "warn",
     "prefer-rest-params": "warn",
     "import/first": "warn",
-    "eslint/yoda": "warn",
-    "typescript_eslint/no-wrapper-object-types": "off"
+    "eslint/yoda": "warn"
   },
   "overrides": [
     {
