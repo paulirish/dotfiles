@@ -1,6 +1,6 @@
 ---
 name: pauls-project-setup
-description: Paul's modern stack conventions for new projects (pnpm, native node test, esbuild/vite, buildless-types). Consult when starting a new project or repository.
+description: Paul's modern stack conventions for new projects (pnpm, native node test, esbuild, buildless-types). Consult when starting a new project or repository.
 ---
 
 # Paul's Project Setup
@@ -51,4 +51,3 @@ Ensure the project is an ES Module and defines standard scripts inspired by Paul
 
 ### 4. Bundling
 - Use `esbuild` for fast Node.js CLI tooling compilation or generic JS bundling.
-- Use `vite` for modern web application frontend development and building.
