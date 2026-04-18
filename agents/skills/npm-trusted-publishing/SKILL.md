@@ -1,6 +1,6 @@
 ---
 name: npm-trusted-publishing
-description: Use this skill to set up or debug npm "Trusted Publishing" (OIDC) from GitHub Actions. It handles OIDC permissions, Node.js version requirements, package.json metadata validation (specifically repository.url), and robust publish commands with provenance. Trigger this when the user mentions "npm OIDC", "trusted publishing", "publish to npm from github", or encounters 404/422 errors during npm publish in CI.
+description: Set up or debug npm Trusted Publishing (OIDC) from GitHub Actions. Handles permissions, metadata validation, and provenance.
 ---
 
 # npm Trusted Publishing (OIDC)
