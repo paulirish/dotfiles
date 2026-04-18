@@ -1,6 +1,6 @@
 ---
 name: pauls-project-setup
-description: Use this skill ALWAYS when the user asks to start a new project, initialize a repository, bootstrap a new app, or set up a codebase from scratch. It provides Paul's exact required modern stack conventions (pnpm, native node test, esbuild/vite, and buildless-types). If the user mentions "new project" or "setup", you must consult this skill before creating any files to ensure the correct architecture is used.
+description: Paul's modern stack conventions for new projects (pnpm, native node test, esbuild/vite, buildless-types). Consult when starting a new project or repository.
 ---
 
 # Paul's Project Setup
