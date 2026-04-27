@@ -25,6 +25,7 @@ query($owner: String!, $name: String!, $number: Int!) {
               path
               line
               createdAt
+              diffHunk
             }
           }
         }
@@ -66,18 +67,13 @@ function main() {
         body: comment.body,
         path: comment.path,
         line: comment.line,
-        created_at: comment.createdAt
+        created_at: comment.createdAt,
+        diff_hunk: comment.diffHunk
       }))
     }));
 
-    const outputPath = path.join(process.cwd(), `pr_${prNumber}_reviews.json`);
-    fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
-    console.log(`Saved JSON data to ${outputPath}`);
-
     const mdContent = convertToMarkdown(results, prNumber);
-    const mdPath = outputPath.replace('.json', '.md');
-    fs.writeFileSync(mdPath, mdContent);
-    console.log(`Saved Markdown data to ${mdPath}`);
+    console.log(mdContent);
 
   } catch (e) {
     console.error('Failed to fetch or process reviews:', e);
@@ -113,6 +109,12 @@ function renderThread(thread: any): string {
   for (const comment of thread.comments) {
     md += `#### **${comment.user}** at ${comment.created_at}\n`;
     md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
+    
+    if (comment.diff_hunk) {
+      const lines = comment.diff_hunk.split('\n');
+      const truncated = lines.slice(-4).join('\n');
+      md += `<details>\n<summary>Diff Hunk (Truncated)</summary>\n\n\`\`\`diff\n${truncated}\n\`\`\`\n\n</details>\n\n`;
+    }
   }
 
   md += '---\n\n';
