@@ -104,24 +104,30 @@ function main() {
 export function convertToMarkdown(threads: any[], generalComments: any[], prNumber: number): string {
   let md = `# PR #${prNumber} Comments\n\n`;
 
-  md += `## General Comments (${generalComments.length})\n\n`;
-  for (const comment of generalComments) {
-    md += `#### **${comment.user}** at ${comment.created_at}\n`;
-    md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
-    md += '---\n\n';
+  if (generalComments.length > 0) {
+    md += `## General Comments (${generalComments.length})\n\n`;
+    for (const comment of generalComments) {
+      md += `#### **${comment.user}** at ${comment.created_at}\n`;
+      md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
+      md += '---\n\n';
+    }
   }
 
   const openThreads = threads.filter(t => !t.isResolved);
   const resolvedThreads = threads.filter(t => t.isResolved);
 
-  md += `## Resolved Discussions (${resolvedThreads.length})\n\n`;
-  for (const thread of resolvedThreads) {
-    md += renderThread(thread);
+  if (resolvedThreads.length > 0) {
+    md += `## Resolved Discussions (${resolvedThreads.length})\n\n`;
+    for (const thread of resolvedThreads) {
+      md += renderThread(thread);
+    }
   }
 
-  md += `## Open Discussions (${openThreads.length})\n\n`;
-  for (const thread of openThreads) {
-    md += renderThread(thread);
+  if (openThreads.length > 0) {
+    md += `## Open Discussions (${openThreads.length})\n\n`;
+    for (const thread of openThreads) {
+      md += renderThread(thread);
+    }
   }
 
   return md;

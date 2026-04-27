@@ -75,3 +75,11 @@ test('convertToMarkdown separates open and resolved discussions and includes gen
   assert.match(output, /### on `p1`/);
   assert.match(output, /### on `p2`/);
 });
+
+test('convertToMarkdown omits headers when count is zero', () => {
+  const output = convertToMarkdown([], [], 123);
+
+  assert.strictEqual(output.includes('## General Comments'), false);
+  assert.strictEqual(output.includes('## Resolved Discussions'), false);
+  assert.strictEqual(output.includes('## Open Discussions'), false);
+});
