@@ -3,6 +3,34 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
+interface RawComment {
+  author?: { login: string };
+  body: string;
+  path?: string;
+  line?: number;
+  createdAt: string;
+  diffHunk?: string;
+}
+
+interface RawThread {
+  isResolved: boolean;
+  comments: { nodes: RawComment[] };
+}
+
+interface ParsedComment {
+  user: string;
+  body: string;
+  path?: string;
+  line?: number;
+  created_at: string;
+  diff_hunk?: string;
+}
+
+interface ParsedThread {
+  isResolved: boolean;
+  comments: ParsedComment[];
+}
+
 function runGh(args: string): string {
   try {
     return execSync(`gh ${args}`, { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
@@ -43,43 +71,34 @@ query($owner: String!, $name: String!, $number: Int!) {
 }
 `;
 
-export function fetchAndProcessReviews(owner: string, name: string, prNumber: number, runGhFn: (args: string) => string) {
-  console.log(`Fetching review threads for PR #${prNumber} in ${owner}/${name}...`);
+export function fetchReviews(owner: string, name: string, prNumber: number, runGhFn: (args: string) => string) {
+  const result = runGhFn(`api graphql -F owner="${owner}" -F name="${name}" -F number=${prNumber} -f query='${query}'`);
+  return JSON.parse(result);
+}
 
-  try {
-    const result = runGhFn(`api graphql -F owner="${owner}" -F name="${name}" -F number=${prNumber} -f query='${query}'`);
-    const data = JSON.parse(result);
+export function parseReviews(data: any): { results: ParsedThread[], parsedGeneralComments: ParsedComment[] } {
+  const threads = data.data.repository.pullRequest.reviewThreads.nodes as RawThread[];
+  const generalComments = data.data.repository.pullRequest.comments.nodes as RawComment[];
 
-    const threads = data.data.repository.pullRequest.reviewThreads.nodes;
-    console.log(`Found ${threads.length} review threads.`);
-
-    const generalComments = data.data.repository.pullRequest.comments.nodes;
-    console.log(`Found ${generalComments.length} general comments.`);
-
-    const results = threads.map((thread: any) => ({
-      isResolved: thread.isResolved,
-      comments: thread.comments.nodes.map((comment: any) => ({
-        user: comment.author ? comment.author.login : 'ghost',
-        body: comment.body,
-        path: comment.path,
-        line: comment.line,
-        created_at: comment.createdAt,
-        diff_hunk: comment.diffHunk
-      }))
-    }));
-
-    const parsedGeneralComments = generalComments.map((comment: any) => ({
-      user: comment.author ? comment.author.login : 'ghost',
+  const results: ParsedThread[] = threads.map((thread) => ({
+    isResolved: thread.isResolved,
+    comments: thread.comments.nodes.map((comment) => ({
+      user: comment.author?.login ?? 'ghost',
       body: comment.body,
-      created_at: comment.createdAt
-    }));
+      path: comment.path,
+      line: comment.line,
+      created_at: comment.createdAt,
+      diff_hunk: comment.diffHunk
+    }))
+  }));
 
-    const mdContent = convertToMarkdown(results, parsedGeneralComments, prNumber);
-    console.log(mdContent);
+  const parsedGeneralComments: ParsedComment[] = generalComments.map((comment) => ({
+    user: comment.author?.login ?? 'ghost',
+    body: comment.body,
+    created_at: comment.createdAt
+  }));
 
-  } catch (e) {
-    console.error('Failed to fetch or process reviews:', e);
-  }
+  return { results, parsedGeneralComments };
 }
 
 function main() {
@@ -98,17 +117,31 @@ function main() {
     process.exit(1);
   }
 
-  fetchAndProcessReviews(owner, name, prNumber, runGh);
+  console.log(`Fetching review threads for PR #${prNumber} in ${owner}/${name}...`);
+
+  try {
+    const data = fetchReviews(owner, name, prNumber, runGh);
+    const { results, parsedGeneralComments } = parseReviews(data);
+    
+    console.log(`Found ${results.length} review threads.`);
+    console.log(`Found ${parsedGeneralComments.length} general comments.`);
+
+    const mdContent = convertToMarkdown(results, parsedGeneralComments, prNumber);
+    console.log(mdContent);
+  } catch (e) {
+    console.error('Failed to fetch or process reviews:', e);
+    process.exit(1);
+  }
 }
 
-export function convertToMarkdown(threads: any[], generalComments: any[], prNumber: number): string {
+export function convertToMarkdown(threads: ParsedThread[], generalComments: ParsedComment[], prNumber: number): string {
   let md = `# PR #${prNumber} Comments\n\n`;
 
   if (generalComments.length > 0) {
     md += `## General Comments (${generalComments.length})\n\n`;
     for (const comment of generalComments) {
       md += `#### **${comment.user}** at ${comment.created_at}\n`;
-      md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
+      md += `> ${comment.body.replace(/\r?\n/g, '\n> ')}\n\n`;
       md += '---\n\n';
     }
   }
@@ -133,7 +166,7 @@ export function convertToMarkdown(threads: any[], generalComments: any[], prNumb
   return md;
 }
 
-export function renderThread(thread: any): string {
+export function renderThread(thread: ParsedThread): string {
   let md = '';
   const firstComment = thread.comments[0];
   if (!firstComment) return md;
@@ -148,13 +181,13 @@ export function renderThread(thread: any): string {
 
   for (const comment of thread.comments) {
     md += `#### **${comment.user}** at ${comment.created_at}\n`;
-    md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
+    md += `> ${comment.body.replace(/\r?\n/g, '\n> ')}\n\n`;
   }
 
   md += '---\n\n';
   return md;
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (process.argv[1] === import.meta.filename) {
   main();
 }
