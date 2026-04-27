@@ -50,7 +50,7 @@ test('renderThread formats thread correctly with diff hunk', () => {
   assert.strictEqual(detailsCount, 1);
 });
 
-test('convertToMarkdown separates open and resolved discussions', () => {
+test('convertToMarkdown separates open and resolved discussions and includes general comments', () => {
   const mockThreads = [
     {
       isResolved: false,
@@ -62,9 +62,15 @@ test('convertToMarkdown separates open and resolved discussions', () => {
     }
   ];
 
-  const output = convertToMarkdown(mockThreads, 123);
+  const mockGeneralComments = [
+    { user: 'u3', body: 'c3', created_at: 't3' }
+  ];
+
+  const output = convertToMarkdown(mockThreads, mockGeneralComments, 123);
 
   assert.match(output, /# PR #123 Comments/);
+  assert.match(output, /## General Comments \(1\)/);
+  assert.match(output, /> c3/);
   assert.match(output, /## Resolved Discussions \(1\)[\s\S]*## Open Discussions \(1\)/);
   assert.match(output, /### on `p1`/);
   assert.match(output, /### on `p2`/);

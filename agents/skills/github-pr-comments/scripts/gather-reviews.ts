@@ -31,6 +31,13 @@ query($owner: String!, $name: String!, $number: Int!) {
           }
         }
       }
+      comments(first: 100) {
+        nodes {
+          author { login }
+          body
+          createdAt
+        }
+      }
     }
   }
 }
@@ -46,6 +53,9 @@ export function fetchAndProcessReviews(owner: string, name: string, prNumber: nu
     const threads = data.data.repository.pullRequest.reviewThreads.nodes;
     console.log(`Found ${threads.length} review threads.`);
 
+    const generalComments = data.data.repository.pullRequest.comments.nodes;
+    console.log(`Found ${generalComments.length} general comments.`);
+
     const results = threads.map((thread: any) => ({
       isResolved: thread.isResolved,
       comments: thread.comments.nodes.map((comment: any) => ({
@@ -58,7 +68,13 @@ export function fetchAndProcessReviews(owner: string, name: string, prNumber: nu
       }))
     }));
 
-    const mdContent = convertToMarkdown(results, prNumber);
+    const parsedGeneralComments = generalComments.map((comment: any) => ({
+      user: comment.author ? comment.author.login : 'ghost',
+      body: comment.body,
+      created_at: comment.createdAt
+    }));
+
+    const mdContent = convertToMarkdown(results, parsedGeneralComments, prNumber);
     console.log(mdContent);
 
   } catch (e) {
@@ -85,8 +101,15 @@ function main() {
   fetchAndProcessReviews(owner, name, prNumber, runGh);
 }
 
-export function convertToMarkdown(threads: any[], prNumber: number): string {
+export function convertToMarkdown(threads: any[], generalComments: any[], prNumber: number): string {
   let md = `# PR #${prNumber} Comments\n\n`;
+
+  md += `## General Comments (${generalComments.length})\n\n`;
+  for (const comment of generalComments) {
+    md += `#### **${comment.user}** at ${comment.created_at}\n`;
+    md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
+    md += '---\n\n';
+  }
 
   const openThreads = threads.filter(t => !t.isResolved);
   const resolvedThreads = threads.filter(t => t.isResolved);
