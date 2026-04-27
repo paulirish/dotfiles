@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 
 function runGh(args: string): string {
   try {
@@ -35,26 +36,11 @@ query($owner: String!, $name: String!, $number: Int!) {
 }
 `;
 
-function main() {
-  const args = process.argv.slice(2);
-  if (args.length < 2) {
-    console.error('Usage: node gather-reviews.ts <owner/repo> <pr_number>');
-    process.exit(1);
-  }
-
-  const [repoStr, prNumberStr] = args;
-  const [owner, name] = repoStr.split('/');
-  const prNumber = parseInt(prNumberStr, 10);
-
-  if (!owner || !name || isNaN(prNumber)) {
-    console.error('Invalid arguments. Repo must be in owner/repo format, and PR number must be an integer.');
-    process.exit(1);
-  }
-
+export function fetchAndProcessReviews(owner: string, name: string, prNumber: number, runGhFn: (args: string) => string) {
   console.log(`Fetching review threads for PR #${prNumber} in ${owner}/${name}...`);
 
   try {
-    const result = runGh(`api graphql -F owner="${owner}" -F name="${name}" -F number=${prNumber} -f query='${query}'`);
+    const result = runGhFn(`api graphql -F owner="${owner}" -F name="${name}" -F number=${prNumber} -f query='${query}'`);
     const data = JSON.parse(result);
 
     const threads = data.data.repository.pullRequest.reviewThreads.nodes;
@@ -80,45 +66,66 @@ function main() {
   }
 }
 
-function convertToMarkdown(threads: any[], prNumber: number): string {
-  let md = `# PR #${prNumber} Reviews Archive\n\n`;
+function main() {
+  const args = process.argv.slice(2);
+  if (args.length < 2) {
+    console.error('Usage: node gather-reviews.ts <owner/repo> <pr_number>');
+    process.exit(1);
+  }
+
+  const [repoStr, prNumberStr] = args;
+  const [owner, name] = repoStr.split('/');
+  const prNumber = parseInt(prNumberStr, 10);
+
+  if (!owner || !name || isNaN(prNumber)) {
+    console.error('Invalid arguments. Repo must be in owner/repo format, and PR number must be an integer.');
+    process.exit(1);
+  }
+
+  fetchAndProcessReviews(owner, name, prNumber, runGh);
+}
+
+export function convertToMarkdown(threads: any[], prNumber: number): string {
+  let md = `# PR #${prNumber} Comments\n\n`;
 
   const openThreads = threads.filter(t => !t.isResolved);
   const resolvedThreads = threads.filter(t => t.isResolved);
-
-  md += `## Open Discussions (${openThreads.length})\n\n`;
-  for (const thread of openThreads) {
-    md += renderThread(thread);
-  }
 
   md += `## Resolved Discussions (${resolvedThreads.length})\n\n`;
   for (const thread of resolvedThreads) {
     md += renderThread(thread);
   }
 
+  md += `## Open Discussions (${openThreads.length})\n\n`;
+  for (const thread of openThreads) {
+    md += renderThread(thread);
+  }
+
   return md;
 }
 
-function renderThread(thread: any): string {
+export function renderThread(thread: any): string {
   let md = '';
   const firstComment = thread.comments[0];
   if (!firstComment) return md;
 
   md += `### on \`${firstComment.path}\`${firstComment.line ? ` at line ${firstComment.line}` : ''}\n\n`;
 
+  if (firstComment.diff_hunk) {
+    const lines = firstComment.diff_hunk.split('\n');
+    const truncated = lines.slice(-4).join('\n');
+    md += `<details>\n<summary>Context</summary>\n\n\`\`\`diff\n${truncated}\n\`\`\`\n\n</details>\n\n`;
+  }
+
   for (const comment of thread.comments) {
     md += `#### **${comment.user}** at ${comment.created_at}\n`;
     md += `> ${comment.body.replace(/\n/g, '\n> ')}\n\n`;
-    
-    if (comment.diff_hunk) {
-      const lines = comment.diff_hunk.split('\n');
-      const truncated = lines.slice(-4).join('\n');
-      md += `<details>\n<summary>Diff Hunk (Truncated)</summary>\n\n\`\`\`diff\n${truncated}\n\`\`\`\n\n</details>\n\n`;
-    }
   }
 
   md += '---\n\n';
   return md;
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
