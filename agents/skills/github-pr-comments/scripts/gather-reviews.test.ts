@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import * as assert from 'node:assert';
-import { convertToMarkdown, renderThread } from './gather-reviews.ts';
+import { convertToMarkdown, renderThread, parseReviews } from './gather-reviews.ts';
 
 test('renderThread formats thread correctly with diff hunk', () => {
   const mockThread = {
@@ -82,4 +82,57 @@ test('convertToMarkdown omits headers when count is zero', () => {
   assert.strictEqual(output.includes('## General Comments'), false);
   assert.strictEqual(output.includes('## Resolved Discussions'), false);
   assert.strictEqual(output.includes('## Open Discussions'), false);
+});
+
+test('parseReviews handles missing author with ghost fallback', () => {
+  const mockData = {
+    data: {
+      repository: {
+        pullRequest: {
+          reviewThreads: {
+            nodes: [
+              {
+                isResolved: false,
+                comments: {
+                  nodes: [
+                    { author: null, body: 'c1', createdAt: 't1' }
+                  ]
+                }
+              }
+            ]
+          },
+          comments: {
+            nodes: [
+              { author: null, body: 'c2', createdAt: 't2' }
+            ]
+          }
+        }
+      }
+    }
+  };
+
+  const { results, parsedGeneralComments } = parseReviews(mockData);
+
+  assert.strictEqual(results[0].comments[0].user, 'ghost');
+  assert.strictEqual(parsedGeneralComments[0].user, 'ghost');
+});
+
+test('convertToMarkdown handles CRLF newlines', () => {
+  const mockGeneralComments = [
+    { user: 'u1', body: 'line1\r\nline2', created_at: 't1' }
+  ];
+
+  const output = convertToMarkdown([], mockGeneralComments, 123);
+
+  assert.match(output, /> line1\n> line2/);
+});
+
+test('renderThread returns empty string for thread with no comments', () => {
+  const mockThread = {
+    isResolved: false,
+    comments: []
+  };
+
+  const output = renderThread(mockThread);
+  assert.strictEqual(output, '');
 });
