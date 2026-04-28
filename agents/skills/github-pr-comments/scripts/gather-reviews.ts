@@ -188,6 +188,7 @@ export function renderThread(thread: ParsedThread): string {
   return md;
 }
 
-if (process.argv[1] === import.meta.filename) {
+if (process.argv[1] && fs.realpathSync(process.argv[1]) === fs.realpathSync(import.meta.filename)) {
   main();
 }
+
