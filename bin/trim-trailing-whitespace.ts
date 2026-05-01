@@ -3,6 +3,8 @@
 import { execSync } from 'child_process';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from "url";
+import { realpathSync } from 'fs';
 
 /**
  * Trims trailing whitespace from files.
@@ -20,6 +22,7 @@ export async function main(args: string[]) {
     try {
       const diffCommand = 'git diff --name-only origin/main...';
       const gitFiles = execSync(diffCommand).toString().trim().split('\n').filter(f => f.length > 0);
+      console.log({gitFiles})
       filesToProcess = gitFiles;
       if (filesToProcess.length === 0) {
         console.log('No modified files detected relative to origin/main.');
@@ -36,7 +39,11 @@ export async function main(args: string[]) {
     try {
       await processFile(file, useAll);
     } catch (e) {
-      console.error(`Error processing ${file}:`, e);
+      if (e && typeof e === 'object' && 'code' in e && e.code === 'ENOENT') {
+        console.log(`File skipped (does not exist): ${file}`);
+      } else {
+        console.error(`Error processing ${file}:`, e);
+      }
     }
   }
   console.log('Done.');
@@ -44,7 +51,7 @@ export async function main(args: string[]) {
 
 async function processFile(filePath: string, useAll: boolean) {
   const resolvedPath = path.resolve(filePath);
-  
+
   if (useAll) {
     console.log(`Trimming all lines: ${filePath}...`);
     const content = await fs.readFile(resolvedPath, 'utf8');
@@ -97,7 +104,7 @@ async function processFile(filePath: string, useAll: boolean) {
 }
 
 // Guard for direct execution
-const isDirectExecution = import.meta.url === `file://${process.argv[1]}`;
+const isDirectExecution = process.argv[1] ? realpathSync(process.argv[1]) === fileURLToPath(import.meta.url) : false;
 if (isDirectExecution) {
   main(process.argv.slice(2));
 }
