@@ -1,5 +1,6 @@
 {
   "//": "    ln -sf $HOME/code/dotfiles/node_modules $HOME/.node_libraries     ",
+  "type": "module",
   "devDependencies": {
     "eslint": "^6.0.1",
     "eslint-config-google": "^0.13.0",

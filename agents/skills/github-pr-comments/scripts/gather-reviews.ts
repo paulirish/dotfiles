@@ -122,7 +122,7 @@ function main() {
   try {
     const data = fetchReviews(owner, name, prNumber, runGh);
     const { results, parsedGeneralComments } = parseReviews(data);
-    
+
     console.log(`Found ${results.length} review threads.`);
     console.log(`Found ${parsedGeneralComments.length} general comments.`);
 

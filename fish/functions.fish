@@ -86,7 +86,7 @@ alias waitfordone="mkfifo /tmp/done_pipe && read -r line < /tmp/done_pipe"
 #   My usage:
 #     1. Type `trash `
 #     2. Paste your block of files from `git status`.
-#     3. Press `Alt+j`. 
+#     3. Press `Alt+j`.
 #     4. The buffer will instantly collapse into `trash test/data/file1 test/data/file2 ...`
 function flatten_commandline
     set -l buf (commandline) # Get the current buffer
