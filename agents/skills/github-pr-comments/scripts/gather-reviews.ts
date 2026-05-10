@@ -12,6 +12,13 @@ interface RawComment {
   diffHunk?: string;
 }
 
+interface RawReview {
+  author?: { login: string };
+  body: string;
+  state: string;
+  createdAt: string;
+}
+
 interface RawThread {
   isResolved: boolean;
   comments: { nodes: RawComment[] };
@@ -24,6 +31,13 @@ interface ParsedComment {
   line?: number;
   created_at: string;
   diff_hunk?: string;
+}
+
+interface ParsedReview {
+  user: string;
+  body: string;
+  state: string;
+  created_at: string;
 }
 
 interface ParsedThread {
@@ -66,6 +80,14 @@ query($owner: String!, $name: String!, $number: Int!) {
           createdAt
         }
       }
+      reviews(first: 100) {
+        nodes {
+          author { login }
+          body
+          state
+          createdAt
+        }
+      }
     }
   }
 }
@@ -76,9 +98,10 @@ export function fetchReviews(owner: string, name: string, prNumber: number, runG
   return JSON.parse(result);
 }
 
-export function parseReviews(data: any): { results: ParsedThread[], parsedGeneralComments: ParsedComment[] } {
+export function parseReviews(data: any): { results: ParsedThread[], parsedGeneralComments: ParsedComment[], parsedReviews: ParsedReview[] } {
   const threads = data.data.repository.pullRequest.reviewThreads.nodes as RawThread[];
   const generalComments = data.data.repository.pullRequest.comments.nodes as RawComment[];
+  const rawReviews = data.data.repository.pullRequest.reviews.nodes as RawReview[];
 
   const results: ParsedThread[] = threads.map((thread) => ({
     isResolved: thread.isResolved,
@@ -98,7 +121,16 @@ export function parseReviews(data: any): { results: ParsedThread[], parsedGenera
     created_at: comment.createdAt
   }));
 
-  return { results, parsedGeneralComments };
+  const parsedReviews: ParsedReview[] = rawReviews
+    .filter(r => r.body && r.body.trim().length > 0)
+    .map(r => ({
+      user: r.author?.login ?? 'ghost',
+      body: r.body,
+      state: r.state,
+      created_at: r.createdAt
+    }));
+
+  return { results, parsedGeneralComments, parsedReviews };
 }
 
 function main() {
@@ -121,12 +153,13 @@ function main() {
 
   try {
     const data = fetchReviews(owner, name, prNumber, runGh);
-    const { results, parsedGeneralComments } = parseReviews(data);
+    const { results, parsedGeneralComments, parsedReviews } = parseReviews(data);
 
     console.log(`Found ${results.length} review threads.`);
     console.log(`Found ${parsedGeneralComments.length} general comments.`);
+    console.log(`Found ${parsedReviews.length} review summaries.`);
 
-    const mdContent = convertToMarkdown(results, parsedGeneralComments, prNumber);
+    const mdContent = convertToMarkdown(results, parsedGeneralComments, parsedReviews, prNumber);
     console.log(mdContent);
   } catch (e) {
     console.error('Failed to fetch or process reviews:', e);
@@ -134,8 +167,17 @@ function main() {
   }
 }
 
-export function convertToMarkdown(threads: ParsedThread[], generalComments: ParsedComment[], prNumber: number): string {
+export function convertToMarkdown(threads: ParsedThread[], generalComments: ParsedComment[], reviews: ParsedReview[], prNumber: number): string {
   let md = `# PR #${prNumber} Comments\n\n`;
+
+  if (reviews.length > 0) {
+    md += `## Review Summaries (${reviews.length})\n\n`;
+    for (const r of reviews) {
+      md += `#### **${r.user}** (${r.state}) at ${r.created_at}\n`;
+      md += `> ${r.body.replace(/\r?\n/g, '\n> ')}\n\n`;
+      md += '---\n\n';
+    }
+  }
 
   if (generalComments.length > 0) {
     md += `## General Comments (${generalComments.length})\n\n`;
