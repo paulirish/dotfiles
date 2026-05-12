@@ -151,5 +151,5 @@ shopt -s dotglob
 # Load bash-completion if available
 # We load this last to ensure PS1 is already set, which the completion engine requires.
 if command -v brew > /dev/null; then
-    [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+    [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh" 2>/dev/null
 fi
