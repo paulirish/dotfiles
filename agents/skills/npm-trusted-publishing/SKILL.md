@@ -11,13 +11,16 @@ Configure and debug secure, tokenless npm publishing from GitHub Actions using O
 
 Trusted Publishing eliminates the need for long-lived `NPM_TOKEN` secrets by using short-lived, cryptographically-signed tokens.
 
-### 1. GitHub Actions Permissions
-The workflow MUST have explicit permissions to fetch the OIDC ID token.
+### 1. GitHub Actions Permissions (CRITICAL)
+The publishing job MUST declare explicit permissions to fetch the OIDC ID token directly inside its target job configuration block (e.g., `jobs.publish.permissions`), rather than relying solely on top-level file placement. Certain hardened runner execution matrices strip globally-scoped token inheritance during individual job executions.
 
 ```yaml
-permissions:
-  id-token: write # Required for OIDC
-  contents: read  # Required for checkout
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for OIDC provenance authentication
+      contents: read  # Required for repository checkout
 ```
 
 ### 2. Node.js Version
@@ -44,6 +47,8 @@ NPM validates provenance against the `repository` field. If this is missing or i
 
 ## Workflow Implementation
 
+A standard reference template is provided inside this skill folder at `references/publish.yml` for drop-in integration.
+
 ### Recommended Publish Step
 Always use the latest `npm` CLI and explicit flags for maximum reliability.
 
@@ -55,6 +60,10 @@ Always use the latest `npm` CLI and explicit flags for maximum reliability.
 ```
 
 ## Troubleshooting Guide
+
+### 400 Bad Request - OIDC publish authorize: Invalid token
+*   **Cause**: If a manual or test version of the package was published previously, automated GitHub Actions deployment runs attempting to verify token permissions against an existing version string are rejected on registry pre-authorization checks to prevent shadow collisions.
+*   **Fix**: Ensure the `version` property in `package.json` is strictly bumped to a new, unreleased semver identifier prior to workflow execution.
 
 ### 404 Not Found
 *   **Cause**: Usually a registry mismatch.
