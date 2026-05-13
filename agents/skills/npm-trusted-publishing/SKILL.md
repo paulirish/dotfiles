@@ -84,15 +84,16 @@ Always use the latest `npm` CLI and explicit flags for maximum reliability.
 
 ## User Instructions
 
-When setting up a new project, provide these instructions to the user:
+When setting up a new project, provide these instructions to the user in strict sequential order:
 
-1.  **Configure npmjs.com**: Go to your package settings → Trusted Publishing and add a new "GitHub Actions" publisher.
-2.  **Fields**:
+1.  **Commit Workflow First (CRITICAL Order of Operations)**: You MUST commit and push the `.github/workflows/publish.yml` file to your remote GitHub repository *before* initializing the trusted publisher mapping on npmjs.com. Configuring the dashboard mapping while the upstream repository lacks the workflow script can cause preliminary token evaluation handshakes to cache invalid target structures, resulting in unresolvable `400 Bad Request` authorization drops during deployment runs.
+2.  **Configure npmjs.com**: Go to your package settings → Trusted Publishing and add a new "GitHub Actions" publisher.
+3.  **Fields**:
     *   **Organization**: `YOUR_USERNAME`
     *   **Repository**: `YOUR_REPO`
     *   **Workflow filename**: `publish.yml`
     *   **Environment**: Leave blank (unless explicitly requested).
-3.  **No Secrets Needed**: Remind the user that `NPM_TOKEN` is NO LONGER REQUIRED in GitHub Secrets.
+4.  **No Secrets Needed**: Remind the user that `NPM_TOKEN` is NO LONGER REQUIRED in GitHub Secrets.
 
 ## Additional Resources
 
