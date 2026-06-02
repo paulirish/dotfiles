@@ -1,6 +1,6 @@
 ---
 name: Hot Reloading for Chrome Extensions
-description: This skill should be used when the user asks to "setup hot reload", "add hot reloading to chrome extension", "watch extension files", "auto reload extension", or mentions "manifest v3 hot reload". Provides a zero-dependency solution for automatic extension refreshing during development.
+description: Set up hot-reloading for chrome extensions. Provides a zero-dependency solution for automatic extension refreshing during development.
 version: 0.1.0
 ---
 
