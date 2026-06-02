@@ -17,9 +17,10 @@ brew install --cask mathpix-snipping-tool # for auto latex generation and OCR
 brew install --cask google-chrome
 brew install --cask skim # papers
 brew install --cask raycast # better spotlight
-brew install --cask cursor # better vscode
 brew install --cask iterm2
 brew install --cask chatgpt 
+brew install --cask claude 
+brew install --cask claude-code 
 
 # music
 brew install --cask spotify
@@ -31,7 +32,6 @@ brew install --cask slack
 brew install --cask discord
 brew install --cask zoom
 brew install --cask whatsapp
-mas install 1176895641 # Spark email client
 
 # cloud storage / backups
 brew install rclone
