@@ -1,69 +1,95 @@
 # @paulirish/agents
 
-A monorepo for Paul Irish's Gemini/Claude skills and CLI agents.
+A collection of expert agent skills and command-line tools for Gemini and Claude.
 
-## Structure
+## Installing Skills
 
-- `skills/`: Specialized agent skills for Gemini and Claude.
-- `clis/`: Command-line tools intended for use via `npx`.
-
-## Featured Tools
-
-### Heap Snapshot Inspection
-A suite of tools for investigating memory issues in Chromium environments.
-
-- **CLI**: `npx @paulirish/agents heap-snapshot`
-- **Skill**: `heap-snapshot-inspection` (Guides you through memory analysis)
-
-## Installation & Setup
-
-### For Development
-This project uses `pnpm` for package management and follows the `buildless-types` standard.
+Skills can be installed directly into your agent environment (e.g., Gemini CLI, Claude) using the `skills` CLI:
 
 ```bash
-pnpm install
+npx skills add paulirish/dotfiles/agents --skill <skill-name>
 ```
 
-### Installing Skills
-To install the skills to your local Gemini or Claude configuration:
+## Available Skills
 
+Here is the list of available skills that you can add to your agent configuration:
+
+### 🛠️ [buildless-types](skills/buildless-types/SKILL.md)
+Use when setting up type checking/type safety without a compilation/build step (e.g., using JSDoc for browsers or erasable syntax for Node.js).
 ```bash
-./paulirish-skills/install-skills.sh
+npx skills add paulirish/dotfiles/agents --skill buildless-types
 ```
 
-## Usage
-
-### Using CLIs
-CLIs are designed to be run directly via `npx` without local installation:
-
+### 🧹 [code-simplifier-gemini-cli](skills/code-simplifier-gemini-cli/SKILL.md)
+Installs and configures a set of specialized subagents (Code Reuse Reviewer, Code Quality Reviewer, and Efficiency Reviewer) in Gemini CLI to automatically review and simplify code changes.
 ```bash
-npx @paulirish/agents heap-snapshot summary my-app.heapsnapshot
+npx skills add paulirish/dotfiles/agents --skill code-simplifier-gemini-cli
 ```
 
-### Using Skills
-Once installed, skills can be activated within your AI agent environment (e.g., Gemini CLI or Claude) to provide expert guidance on specific tasks.
+### 🤖 [create-gemini-cli-subagents](skills/create-gemini-cli-subagents/SKILL.md)
+An expert guide on how to define, create, configure, and delegate tasks to custom subagents inside the Gemini CLI environment.
+```bash
+npx skills add paulirish/dotfiles/agents --skill create-gemini-cli-subagents
+```
 
-## Development
+### 💬 [github-pr-comments](skills/github-pr-comments/SKILL.md)
+Easily query for open discussions, review feedback, and comments on a GitHub pull request to resolve them directly from your agent workflow.
+```bash
+npx skills add paulirish/dotfiles/agents --skill github-pr-comments
+```
+
+### 🔍 [heap-snapshot-inspection](skills/heap-snapshot-inspection/SKILL.md)
+Provides expert guidance and step-by-step workflows for inspecting heap snapshots and resolving memory leaks in Chromium, Node.js, and Electron.
+```bash
+npx skills add paulirish/dotfiles/agents --skill heap-snapshot-inspection
+```
+
+### ⚡ [hot-reload-chrome-ext](skills/hot-reload-chrome-ext/SKILL.md)
+Sets up a zero-dependency hot-reloading system for Manifest V3 Chrome extensions to automatically refresh open pages and reload the extension when source files change.
+```bash
+npx skills add paulirish/dotfiles/agents --skill hot-reload-chrome-ext
+```
+
+### 🎨 [modern-css](skills/modern-css/SKILL.md)
+Brings specialized knowledge for writing high-quality modern CSS (including View Transitions, Container Queries, Scroll-driven animations, Masonry, `:has()`, and more) and refactoring legacy styles.
+```bash
+npx skills add paulirish/dotfiles/agents --skill modern-css
+```
+
+### 🔑 [npm-trusted-publishing](skills/npm-trusted-publishing/SKILL.md)
+Expert walkthrough for setting up or debugging npm Trusted Publishing (OIDC) from GitHub Actions, handling secure credential-less publishing, provenance, and metadata validation.
+```bash
+npx skills add paulirish/dotfiles/agents --skill npm-trusted-publishing
+```
+
+### 🏗️ [pauls-project-setup](skills/pauls-project-setup/SKILL.md)
+Applies Paul's modern project stack conventions for new repos (pnpm, native node test runner, esbuild, buildless JSDoc type checking, etc.).
+```bash
+npx skills add paulirish/dotfiles/agents --skill pauls-project-setup
+```
+
+### 🔎 [qmd-expert](skills/qmd-expert/SKILL.md)
+Enables advanced usage of QMD (Quick Markdown Search) to run multi-query searches, retrieve deep contextual knowledge, and extract high-scoring chunk IDs.
+```bash
+npx skills add paulirish/dotfiles/agents --skill qmd-expert
+```
+
+---
+
+## Development & Contribution
+
+To contribute new skills or make improvements to existing ones:
+
+### Structure
+- `skills/`: The public skills directories.
+- `clis/`: Command-line tools.
 
 ### Adding a New Skill
 1. Create a new directory in `skills/`.
-2. Add a `SKILL.md` file with the skill definition.
-
-### Adding a New CLI
-1. Create a new directory in `clis/`.
-2. Set up a `package.json` following the `pauls-project-setup` conventions.
-3. Add the CLI entry point to the root `package.json` `bin` field for easy `npx` access.
-
-### Testing
-We use the native Node.js test runner:
-
-```bash
-pnpm test
-```
-
-## Publishing
-The project is configured for publishing to npm as `@paulirish/agents`.
-
-```bash
-npm publish
-```
+2. Add a `SKILL.md` file with your skill definition and the standard YAML frontmatter:
+   ```yaml
+   ---
+   name: my-awesome-skill
+   description: A short description of what this skill does.
+   ---
+   ```
