@@ -1,15 +1,17 @@
 ---
-name: GitHub PR Reviewer
+name: GitHub PR comment fetcher
 description: Easily query for open discussions and reviews on a pull request to help resolve them.
 ---
 
-# GitHub PR Reviewer
+# GitHub PR comment fetcher
 
 This skill enables agents to query for reviews and comments on a pull request, including the resolved status of comment threads, to facilitate resolving open discussions.
 
 ## Usage
 
 Use the included script to gather reviews and comments for a specific PR.
+
+After fetching and presenting the results to the user, you can offer to address the comments. 
 
 ```bash
 node scripts/gather-reviews.ts <repo> <pr_number>

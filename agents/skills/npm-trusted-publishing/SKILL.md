@@ -12,24 +12,21 @@ Configure and debug secure, tokenless npm publishing from GitHub Actions using O
 Trusted Publishing eliminates the need for long-lived `NPM_TOKEN` secrets by using short-lived, cryptographically-signed tokens.
 
 ### 1. GitHub Actions Permissions (CRITICAL)
-The publishing job MUST declare explicit permissions to fetch the OIDC ID token directly inside its target job configuration block (e.g., `jobs.publish.permissions`), rather than relying solely on top-level file placement. Certain hardened runner execution matrices strip globally-scoped token inheritance during individual job executions.
+The workflow MUST grant `id-token: write` permissions to fetch the OIDC token. This can be declared globally at the top level of the file or inside the target job block.
 
 ```yaml
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write # Required for OIDC provenance authentication
-      contents: read  # Required for repository checkout
+permissions:
+  id-token: write # Required for OIDC provenance authentication
+  contents: read  # Required for repository checkout
 ```
 
 ### 2. Node.js Version
-Trusted Publishing requires **Node.js 22.14.0 or higher** and **npm 11.5.1 or higher**.
+Trusted Publishing with provenance requires a modern Node.js environment (v20+) and npm v9.5.0+. Using standard runner defaults or `.nvmrc` configurations works reliably.
 
 ```yaml
 - uses: actions/setup-node@v4
   with:
-    node-version: 22.14.0
+    node-version-file: '.nvmrc' # Or explicit version like 22.x
     registry-url: 'https://registry.npmjs.org'
 ```
 
@@ -50,13 +47,11 @@ NPM validates provenance against the `repository` field. If this is missing or l
 A standard reference template is provided inside this skill folder at `references/publish.yml` for drop-in integration.
 
 ### Recommended Publish Step
-Always use the latest `npm` CLI and explicit flags for maximum reliability.
+Use standard publish flags to enable provenance.
 
 ```yaml
 - name: Publish to npm
-  run: |
-    npm install -g npm@latest
-    npm publish --provenance --access public --registry https://registry.npmjs.org/
+  run: npm publish --provenance --access public --registry https://registry.npmjs.org/
 ```
 
 ## Troubleshooting Guide

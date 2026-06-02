@@ -67,7 +67,7 @@ When triggered, perform the following steps to execute a code simplification rev
    6. Overly broad operations: reading entire files when only a portion is needed, loading all items when filtering for one
    ```
 
-3. **Prompt for Refresh**: If you installed any files or modified settings in step 2, tell the user they must run the `/agents refresh` command to load the new agents. **Stop execution here and wait for the user to run the command.**
+3. **Prompt for Reloading Agents**: If you installed any files or modified settings in step 2, tell the user they must run the `/agents reload` command to load the new agents. **Stop execution here and wait for the user to run the command.**
 
 ## Phase 2: Execution
 

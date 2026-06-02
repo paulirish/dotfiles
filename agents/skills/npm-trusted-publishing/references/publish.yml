@@ -13,9 +13,6 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - uses: actions/checkout@v6
 
@@ -35,6 +32,4 @@ jobs:
         run: pnpm run preflight
 
       - name: Publish to npm
-        run: |
-          npm install -g npm@latest
-          npm publish --provenance --access public --registry https://registry.npmjs.org/
+        run: npm publish --provenance --access public --registry https://registry.npmjs.org/
