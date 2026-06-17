@@ -36,6 +36,10 @@ brew install z
 # Fast Node Manager - better than nvm
 brew install fnm
 
+# Bun runtime and OpenCode terminal agent
+brew install bun
+brew install opencode
+
 # Local wildcard DNS and reverse proxy for named localhost services
 brew install dnsmasq
 brew install caddy

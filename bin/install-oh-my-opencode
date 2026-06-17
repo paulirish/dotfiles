@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v opencode >/dev/null 2>&1; then
+  cat <<'EOF'
+opencode not found.
+
+Install it first:
+  brew install opencode
+EOF
+  exit 1
+fi
+
+if ! command -v bunx >/dev/null 2>&1; then
+  cat <<'EOF'
+bunx not found.
+
+Install Bun first:
+  brew install bun
+EOF
+  exit 1
+fi
+
+exec bunx oh-my-opencode install "$@"
