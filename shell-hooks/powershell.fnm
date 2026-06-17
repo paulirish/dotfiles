@@ -1,0 +1,2 @@
+# Add this to the end of your PowerShell profile
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression

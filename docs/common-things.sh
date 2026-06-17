@@ -3,7 +3,7 @@
 
 # listing all useragent from your logs
 zcat ~/path/to/access/logs* | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn | head -n20000
-zcat logs/paulirish.com/http/access.log* | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn | head -n20000 | less
+zcat logs/dbachko.com/http/access.log* | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn | head -n20000 | less
 
 
 ### rsync

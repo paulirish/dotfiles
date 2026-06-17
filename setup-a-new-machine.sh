@@ -141,6 +141,15 @@ export PATH=$HOME/homebrew/bin:$HOME/homebrew/sbin:$PATH
 ./brew.sh
 ./brew-cask.sh
 
+# Configure named local services like http://oi.localhost.
+./bin/local-services install
+
+# Start the OpenAI-compatible local MLX model backend when you want local chat.
+# ./bin/mlx-lm-server start
+
+# Start Open WebUI after Docker Desktop is running.
+./bin/open-webui up
+
 ### end of homebrew
 ##############################################################################################################
 
@@ -155,6 +164,12 @@ export PATH=$HOME/homebrew/bin:$HOME/homebrew/sbin:$PATH
 # autocompletion for git branch names https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
+
+# Install Node.js via fnm (Fast Node Manager)
+# fnm should already be installed via brew.sh
+fnm install --lts  # Install latest LTS version of Node
+fnm default lts-latest  # Set it as default
+fnm use default  # Use the default version
 
 # Type `git open` to open the GitHub page or website for a repository.
 npm install -g git-open
@@ -190,6 +205,10 @@ echo $BASH_VERSION # should be 4.x not the old 3.2.X
 # repeat for fish, zsh
 # Later, confirm iterm settings aren't conflicting.
 
+# Install fisher
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+# Install theme
+fisher install oh-my-fish/theme-bobthefish
 
 
 
@@ -212,6 +231,56 @@ ln -sf "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/su
 ## Chromium hacking
 
 # see setup-chromium.sh
+
+
+
+
+###
+##############################################################################################################
+
+
+## Chromium hacking
+
+# improve perf of git inside of chromium checkout
+
+# read https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
+
+# default is (257*1024)
+sudo sysctl kern.maxvnodes=$((512*1024))
+echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
+
+# https://facebook.github.io/watchman/docs/install.html#mac-os-file-descriptor-limits
+sudo sysctl -w kern.maxfiles=$((10*1024*1024))
+sudo sysctl -w kern.maxfilesperproc=$((1024*1024))
+echo kern.maxfiles=$((10*1024*1024)) | sudo tee -a /etc/sysctl.conf
+echo kern.maxfilesperproc=$((1024*1024)) | sudo tee -a /etc/sysctl.conf
+
+# also it looks like there's still a session limit thx to ulimit.
+# this sets file descriptor max (per shell session above 256). (see `man ulimit`)
+ulimit -n 98304 # same as ulimit -n $((1024*1024))
+# see https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c for how this will stick around.......
+
+
+# speed up git status (to run only in chromium repo)
+git config status.showuntrackedfiles no
+git update-index --untracked-cache
+
+# faster git server communication.
+# like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
+git config protocol.version 2
+
+# see also "A Chromium Compiling Setup for DevTools Hackers"
+# https://gist.github.com/paulirish/2d84a6db1b41b4020685
+
+# also this unrelated thing
+# git config user.email "xxxx@chromium.org"
+
+
+##############################################################################################################
+## Chromium hacking
+
+# see setup-chromium.sh
+
 
 
 
@@ -246,6 +315,22 @@ sh .macos
 ./symlink-setup.sh
 
 # add manual symlink for .ssh/config and probably .config/fish
+
+# Install Oh My Fish
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
+# Install bobthefish theme
+omf install bobthefish
+omf theme bobthefish
+
+# Install some popular OMF plugins
+omf install bass  # bash compatibility
+omf install foreign-env  # source foreign environment files
+omf install z  # directory jumping
+omf install git-flow  # git flow support
+
+# Note: Ensure your terminal (iTerm2) is using a Powerline/Nerd Font like Hack Nerd Font for the theme to display correctly.
+# In iTerm2: Preferences > Profiles > Text > Font > Change Font to "Hack Nerd Font" or similar.
 
 ###
 ##############################################################################################################

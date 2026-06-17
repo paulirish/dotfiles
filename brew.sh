@@ -20,7 +20,7 @@ PACKAGES=(
   the_silver_searcher ripgrep fzf fd bat eza glow jq jdupes datamash pandoc pdfgrep cloc
 
   # Dev Runtimes & Build Tools
-  node deno pnpm bun rbenv bazel gradle cmake ninja mkcert
+  node deno pnpm bun fnm rbenv pyenv bazel gradle cmake ninja mkcert
 
   # Watchers & Linters
   watchexec entr shellcheck
@@ -29,14 +29,20 @@ PACKAGES=(
   ffmpeg yt-dlp exiftool tree rename wget nmap pv pstree
 
   # System & Performance
-  btop gdu ncdu zstd
+  btop glances gdu ncdu zstd
 
   # AI
-  llm opencode
+  llm opencode llama.cpp
+
+  # Local Services
+  dnsmasq caddy
 
   # Graphics, Fonts & Processing
   fontforge fonttools vivictpp
-
 )
 
 brew install "${PACKAGES[@]}"
+
+# Extra taps and formulae that need explicit names.
+brew tap steipete/tap
+brew install steipete/tap/oracle

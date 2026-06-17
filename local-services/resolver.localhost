@@ -1,0 +1,2 @@
+# macOS resolver entry for the localhost special-use domain.
+nameserver 127.0.0.1

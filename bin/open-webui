@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source_path="${BASH_SOURCE[0]}"
+while [ -L "$source_path" ]; do
+  source_dir="$(cd -P "$(dirname "$source_path")" >/dev/null 2>&1 && pwd)"
+  source_path="$(readlink "$source_path")"
+  [[ "$source_path" != /* ]] && source_path="$source_dir/$source_path"
+done
+
+repo_dir="$(cd -P "$(dirname "$source_path")/.." >/dev/null 2>&1 && pwd)"
+compose_file="$repo_dir/docker/open-webui/compose.yaml"
+
+case "${1:-up}" in
+  up | start)
+    docker compose -f "$compose_file" up -d
+    ;;
+  update | pull)
+    docker compose -f "$compose_file" pull
+    docker compose -f "$compose_file" up -d
+    ;;
+  stop)
+    docker compose -f "$compose_file" stop
+    ;;
+  restart)
+    docker compose -f "$compose_file" restart
+    ;;
+  down)
+    docker compose -f "$compose_file" down
+    ;;
+  logs)
+    docker compose -f "$compose_file" logs -f "${@:2}"
+    ;;
+  ps | status)
+    docker compose -f "$compose_file" ps
+    ;;
+  *)
+    echo "Usage: open-webui [up|start|update|pull|stop|restart|down|logs|ps|status]" >&2
+    exit 2
+    ;;
+esac

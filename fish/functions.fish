@@ -271,7 +271,27 @@ function __lazy_init_cargo -d 'lazy initialize cargo'
 end
 abbr --add cargo --function __lazy_init_cargo
 
-# NVM doesnt support fish and its stupid to try to make it work there.
+# fnm - fast node manager. Replacement for nvm that works with fish.
+function __lazy_init_fnm -d 'lazy initialize fnm'
+  abbr --erase fnm; functions --erase __lazy_init_fnm
+  abbr --erase node; functions --erase __lazy_init_node
+  abbr --erase npm; functions --erase __lazy_init_npm
+  fnm env --use-on-cd --shell fish | source
+  echo "fnm"
+end
+abbr --add fnm --function __lazy_init_fnm
+
+function __lazy_init_node -d 'lazy initialize node via fnm'
+  __lazy_init_fnm
+  echo "node"
+end
+abbr --add node --function __lazy_init_node
+
+function __lazy_init_npm -d 'lazy initialize npm via fnm'
+  __lazy_init_fnm
+  echo "npm"
+end
+abbr --add npm --function __lazy_init_npm
 
 function __lazy_init_bun_path -d 'lazy initialize Bun installer path'
   abbr --erase bun; functions --erase __lazy_init_bun_path

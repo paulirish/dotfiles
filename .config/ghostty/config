@@ -1,0 +1,16 @@
+# Paul's Ghostty defaults.
+
+font-family = "Fira Code"
+font-size = 13
+
+command = /opt/homebrew/bin/fish
+
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+window-save-state = always
+
+macos-option-as-alt = true
+copy-on-select = clipboard
+shell-integration = fish
+shell-integration-features = cursor,sudo,title,ssh-env,path

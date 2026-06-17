@@ -146,8 +146,6 @@ alias sorteduniq-asc="sort | uniq -c | sort --ignore-leading-blanks --numeric-so
 alias diskspace_report="df --si /"
 
 
-alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
-
 alias resetmouse='printf '"'"'\e[?1000l'"'"
 
 alias dotfiles="subl ~/code/dotfiles" # open dotfiles for viewing
