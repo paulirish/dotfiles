@@ -1,1 +1,1 @@
-fnm env --use-on-cd --shell fish | source
+# fnm is initialized lazily from fish/functions.fish to keep shell startup fast.

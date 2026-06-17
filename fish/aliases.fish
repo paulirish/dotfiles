@@ -103,8 +103,6 @@ subcommand_abbr git dbt "diffbranch-that"
 subcommand_abbr npm i "install"
 #subcommand_abbr pnpm i "install"
 
-abbr gfm 'git fetch origin master && git rebase origin/master'
-
 abbr mtr "sudo mtr"
 
 
@@ -139,24 +137,6 @@ alias sorteduniq-asc="sort | uniq -c | sort --ignore-leading-blanks --numeric-so
 
 alias diskspace_report="df --si /"
 
-
-# use gdu (gdu-go) if available, as its faster on ssd
-# Ehh.. yes gdu is much faster but doesnt support ** in ignore/excludes.  use them deliberately for now
-# alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
-
-# typos and abbreviations
-abbr g git
-abbr gi git
-abbr gti git
-abbr yearn yarn
-abbr v vim
-abbr bwre brew
-abbr brwe brew
-
-abbr cat 'bat -P'
-# Skip line-numbers and grid. https://github.com/sharkdp/bat/blob/e608b331425ca2ce8f8d0bd37e7f90901f91eb99/src/style.rs#L27-L61
-# In the future this can be `default,-numbers,-grid` but they haven't released in 18months so.....   
-set -x BAT_STYLE "changes,header-filename,header-filesize,snip,rule"
 
 alias resetmouse='printf '"'"'\e[?1000l'"'"
 

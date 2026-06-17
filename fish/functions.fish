@@ -259,7 +259,28 @@ function __lazy_init_cargo -d 'lazy initialize cargo'
 end
 abbr --add cargo --function __lazy_init_cargo
 
-# NVM doesnt support fish and its stupid to try to make it work there.
+# fnm - fast node manager. Replacement for nvm that works with fish.
+function __lazy_init_fnm -d 'lazy initialize fnm'
+  abbr --erase fnm; functions --erase __lazy_init_fnm
+  abbr --erase node; functions --erase __lazy_init_node
+  abbr --erase npm; functions --erase __lazy_init_npm
+  fnm env --use-on-cd --shell fish | source
+  echo "fnm"
+end
+abbr --add fnm --function __lazy_init_fnm
+
+function __lazy_init_node -d 'lazy initialize node via fnm'
+  __lazy_init_fnm
+  echo "node"
+end
+abbr --add node --function __lazy_init_node
+
+function __lazy_init_npm -d 'lazy initialize npm via fnm'
+  __lazy_init_fnm
+  echo "npm"
+end
+abbr --add npm --function __lazy_init_npm
+
 # gcloud: Don't need "$HOME/google-cloud-sdk/path.fish.inc" lazyily done because it only adds to PATH which is already done.
 
 
@@ -309,12 +330,4 @@ function fns --description "Interactively search/preview fish shell functions an
         set -l item_name (string trim $parts[1])
         functions "$item_name" | bat --color=always --plain --language=fish --line-range :500
     end
-end
-
-function cond -d 'initialize conda'
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-  # <<< conda initialize <<<
-  conda activate py2
 end
