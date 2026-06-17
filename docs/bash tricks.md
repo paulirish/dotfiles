@@ -2,19 +2,20 @@ bash tricks
 
 # dont allow commiting to main branch
 
+run this:
+
 ```sh
+cat << 'EOF' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
 #!/bin/sh
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
 
 if [ "$branch" = "main" ]; then
-  echo "Hello from .git/hooks/pre-commit"
-  echo "You can't commit directly to main branch."
+  echo "You can't commit directly to main. Make a feature branch.  [Sincerely, your .git/hooks/pre-commit]"
   exit 1
 fi
+EOF
 ```
-
-save that to `.git/hooks/pre-commit`
 
 
 # use one of two binaries:

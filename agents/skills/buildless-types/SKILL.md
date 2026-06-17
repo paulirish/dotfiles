@@ -1,6 +1,6 @@
 ---
-name: build-free-types
-description: This skill should be used when the user asks to "set up types without a build step", "use vanilla JS with types", "configure erasable syntax", or mentions "JSDoc type checking". It provides instructions for modern type safety using JSDoc in browsers and native TypeScript execution in Node.js.
+name: buildless-types
+description: Use when the user asks to "set up types without a build step", "use vanilla JS with types", "configure erasable syntax", or mentions "JSDoc type checking". It provides instructions for modern type safety using JSDoc in browsers and native TypeScript execution in Node.js.
 ---
 
 # Modern Type Checking (No Build Step)
@@ -77,6 +77,7 @@ Follow these rules to maintain a build-free environment.
     *   ❌ No `experimentalDecorators`
 *   **Include file extensions**: Always include the `.ts` extension in import paths: `import { x } from './utils.ts'`.
 *   **Use `import type`**: Explicitly mark type-only imports to satisfy `verbatimModuleSyntax`.
+*   Once implemented, add to project docs/guidelines that agents should NOT use `npx tsx` or `ts-node` to run node scripts; instead, just run them directly: `node script.ts`.
 
 
 ## Example Files

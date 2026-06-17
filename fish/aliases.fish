@@ -18,6 +18,13 @@ abbr nr 'npm run'
 abbr npmrun 'npm run'
 abbr pnpmrun 'pnpm run'
 
+# because its easier to type.... 
+# abbr yarn pnpm 
+
+alias yarnn 'yarn'
+alias yyarn 'yarn'
+abbr typecheck 'pnpm typecheck'
+abbr preflight 'pnpm preflight'
 
 alias chmox='chmod +x'
 
@@ -32,6 +39,8 @@ alias la='eza --classify=auto --color --group-directories-first --sort=extension
 # alias ncdu "command -v gdu-go > /dev/null && gdu-go  || ncdu"
 
 abbr write-commit-message "git diffbranch | llm --system-fragment ~/code/dotfiles/private/prompts/devtools-commit-message.md --model=gemini-3-flash-preview"
+
+abbr preflight 'pnpm run preflight'
 
 # typos and abbreviations
 abbr g git
@@ -60,7 +69,7 @@ function subcommand_abbr
 
   # Check that these strings are safe, since we're going to eval. 👺
   if not string match --regex --quiet '^[a-z]*$' "$short"
-    or not string match --regex --quiet '^[a-z- ]*$' "$long"
+    or not string match --regex --quiet '^[a-z-/. ]*$' "$long"
     echo "Scary unsupported alias or expansion $short $long"; exit 1;
   end
 
@@ -95,7 +104,8 @@ subcommand_abbr git dif "diff"
 
 # some of my git aliases
 subcommand_abbr git db "diffbranch"
-subcommand_abbr git dbt "diffbranch-that"
+# fully expand because the alias is has a # which fucks with git-filter-branch.
+subcommand_abbr git dbt "diff origin/main..."
 
 
 
@@ -105,7 +115,6 @@ subcommand_abbr npm i "install"
 
 abbr mtr "sudo mtr"
 
-
 # is it a `main` or a `master` repo?
 alias gitmainormaster="printf '%s\n' (git branch --format '%(refname:short)' --sort=-committerdate --list master main)  main | head -n 1"
 alias main="git checkout (gitmainormaster)"
@@ -114,15 +123,14 @@ alias mine="git checkout mine"
 
 
 
-# ag defaults. go as wide as terminal (minus some space for line numbers)
-# i used to like `--follow --hidden` but dont anymore. -follow ends up with lots of fstat errors on broken symlinks. and --hidden is something that should be turned on explicitly.
-# OKAY RIPGREP is way faster than AG. i gotta drop ag like its hot.
-#        also ripgrep doesnt buffer output so you can pipe it somewhere and it'll go as it happens.  wow yah SO much better.
-# alias ag='command ag -W (math $COLUMNS - 14)'
+# Ripgrep > ag (silver_seacher).  By far. definitely faster and also doesnt buffer output so you can pipe it somewhere and it'll go as it happens
+# -uu is the combo of `--no-ignore` and `--hidden` which is what i often want to look through gitignored stuff and other hidden things.
+abbr rgu 'rg -uu'
 
 # fd is fast but their multicore stuff is dumb and slow and bad. https://github.com/sharkdp/fd/issues/1203
 # alias fd='command fd -j1 --exclude node_modules'
 abbr fdfind 'fd'
+# fd's -u  is equivalent to rg's -uu.
 abbr fzfall 'fd --unrestricted | fzf'
 
 # By default watchexec thinks the project origin is higher up.  So dumb.

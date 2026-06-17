@@ -1,22 +1,16 @@
 # copy to ~/.ssh/config
 
-Host github.com
-	ControlMaster auto
-	ControlPersist 120
-
 Host *
-	# Always use SSH2.
-	Protocol 2
+    # Use a shared channel for all sessions to the same host,
+    # instead of always opening a new one. This leads to much
+    # quicker connection times.
+    ControlMaster auto
+    ControlPath ~/.ssh/control/%C
+    ControlPersist 1800
 
-	# Use a shared channel for all sessions to the same host,
-	# instead of always opening a new one. This leads to much
-	# quicker connection times.
-	ControlMaster auto
-	ControlPath ~/.ssh/control/%r@%h:%p
-	ControlPersist 1800
-
-	# also this stuff
-	Compression yes
-	TCPKeepAlive yes
-	ServerAliveInterval 20
-	ServerAliveCountMax 10
+    # Personal preference but with 'no', the OS won't kill the socket during a temporary outage
+    TCPKeepAlive no 
+    # Also this stuff
+    Compression yes
+    ServerAliveInterval 30
+    ServerAliveCountMax 6

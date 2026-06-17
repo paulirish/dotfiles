@@ -11,7 +11,7 @@
 
 #
 # TODO: capture some preferences in 
-#     - 'com.apple.dock'    "persistent-apps" somehow?
+#     - 
 #
 
 
@@ -31,6 +31,12 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Menu bar: disable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
+
+# Set Dark Mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+# Disable automatic capitalization as it’s annoying when typing code
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -199,6 +205,9 @@ defaults write com.apple.BezelServices kDimTime -int 300
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Enable automatic text completion
+defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool true
+
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
@@ -229,24 +238,31 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 # Finder                                                                      #
 ###############################################################################
 
+# Finder: show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
 # Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
 defaults write com.apple.finder QuitMenuItem -bool true
 
 # Finder: disable window animations and Get Info animations
 defaults write com.apple.finder DisableAllAnimations -bool true
 
+# Set Home folder as the default location for new Finder windows
+# For other paths, use `PfLo` and `file:///full/path/here/`
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
 # Finder: show hidden files by default
-defaults write com.apple.Finder AppleShowAllFiles -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-# Finder: show status bar
-defaults write com.apple.finder ShowStatusBar -bool true
-
-# Finder: show path bar
-defaults write com.apple.finder ShowPathbar -bool true
+# Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # When performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
@@ -260,36 +276,14 @@ defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 # I dont want the drag n drop happening SUPERFAST. https://discussions.apple.com/thread/7160895
 defaults write NSGlobalDomain com.apple.springing.delay -float 2
 
-# Avoid creating .DS_Store files on network volumes
+# Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Automatically open a new Finder window when a volume is mounted
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
-
-# Show item info near icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-
-# Show item info to the right of the icons on the desktop
-/usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
-
-# Enable snap-to-grid for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
-# Increase grid spacing for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-
-# Increase the size of icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
@@ -317,11 +311,25 @@ file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
+	Comments -bool false \
 	General -bool true \
-    MetaData -bool true \
+	MetaData -bool true \
+	Name -bool false \
 	OpenWith -bool true \
-	Privileges -bool false
+	Preview -bool false \
+	Privileges -bool true
 
+# Sidebar: show ejectables, hard disks, removable, and servers
+defaults write com.apple.sidebarlists ShowEjectables -bool true
+defaults write com.apple.sidebarlists ShowHardDisks -bool true
+defaults write com.apple.sidebarlists ShowRemovable -bool true
+defaults write com.apple.sidebarlists ShowServers -bool true
+
+# Set sort column to dateModified in list view
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:ListViewSettings:sortColumn dateModified" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:ListViewSettings:columns:dateModified:ascending false" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:ListViewSettings:sortColumn dateModified" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:ListViewSettings:columns:dateModified:ascending false" ~/Library/Preferences/com.apple.finder.plist
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
@@ -347,7 +355,25 @@ defaults write com.apple.dock show-process-indicators -bool true
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
-#defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-apps -array
+
+# Helper function to add apps to the Dock
+# Note: If an app path does not exist, macOS will show a 'Question Mark' icon.
+add_app() {
+	local app_path="$1"
+	defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app_path</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+}
+
+add_app "/Applications/Google Chrome.app"
+add_app "/System/Applications/System Settings.app"
+add_app "$HOME/Applications/Chrome Apps.localized/Gmail.app"
+add_app "/Applications/Jetski.app"
+add_app "/Applications/Visual Studio Code.app"
+add_app "$HOME/Applications/Chrome Apps.localized/Google Calendar.app"
+add_app "$HOME/Applications/Chrome Apps.localized/Google Meet.app"
+add_app "/Applications/Google Chrome Canary.app"
+add_app "$HOME/Applications/Chrome Canary Apps.localized/Gmail.app"
+add_app "/Applications/iTerm.app"
 
 # Show only open applications in the Dock
 #defaults write com.apple.dock static-only -bool true
@@ -419,6 +445,21 @@ defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner → Start screen saver
 defaults write com.apple.dock wvous-bl-corner -int 11
 defaults write com.apple.dock wvous-bl-modifier -int 0
+# Bottom right screen corner → no-op
+defaults write com.apple.dock wvous-br-corner -int 1
+defaults write com.apple.dock wvous-br-modifier -int 1048576
+
+###############################################################################
+# Control Center & Menu Bar                                                   #
+###############################################################################
+
+# Show Battery percentage in menu bar
+defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -int 1
+
+# Hide Bluetooth, AirDrop, and Focus from menu bar
+# defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -int 0
+# defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible FocusModes" -int 0
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -430,16 +471,6 @@ defaults write com.apple.Safari WebKitPreferences.developerExtrasEnabled -bool t
 defaults write com.apple.Safari IncludeDevelopMenu -bool true 2>/dev/null
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-
-###############################################################################
-# Spotlight                                                                   #
-###############################################################################
-
-# Disable Spotlight indexing mostly.
-# TODO: do it manually. thar be dragons in the equivalent commands. I deleted a bunch of these.
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -474,10 +505,10 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
 # Visualize network usage in the Activity Monitor Dock icon. CPU is 5.
-defaults write com.apple.ActivityMonitor IconType -int 2
+defaults write com.apple.ActivityMonitor IconType -int 6
 
 # Show all processes in Activity Monitor
-defaults write com.apple.ActivityMonitor ShowCategory -int 0
+defaults write com.apple.ActivityMonitor ShowCategory -int 100
 
 # Sets columns for all tabs. Do it manually.
 # defaults read com.apple.ActivityMonitor "UserColumnsPerTab v6.0" -dict \
@@ -555,7 +586,7 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool f
 # Activate some of the above settings without a logout
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+for app in "Activity Monitor" "Address Book" "Calendar" "ControlCenter" "Contacts" "cfprefsd" \
 	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
 	"Opera" "Photos" "Safari" "SizeUp" "Spectacle" "SystemUIServer" "Terminal" \
 	"Transmission" "Tweetbot" "Twitter" "iCal"; do
