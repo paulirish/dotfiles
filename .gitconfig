@@ -206,7 +206,6 @@
 [commit]
 	# include whole diff in message composition screen
 	verbose = true
-	gpgSign = true
 
 
 [rerere]
@@ -217,11 +216,6 @@
 # 	ignorerevsfile = .git-blame-ignore-revs
 [protocol "sso"]
 	allow = always
-
-[gpg]
-	format = ssh
-[tag]
-	gpgSign = true
 
 [user]
 	name = Dzmitry Bachko
