@@ -36,6 +36,17 @@ brew install z
 # Fast Node Manager - better than nvm
 brew install fnm
 
+# Local wildcard DNS and reverse proxy for named localhost services
+brew install dnsmasq
+brew install caddy
+
+# Local LLM inference runtime
+brew install llama.cpp
+
+# AI second-opinion CLI
+brew tap steipete/tap
+brew install steipete/tap/oracle
+
 # Python version manager
 brew install pyenv
 
@@ -48,6 +59,8 @@ brew install git
 brew install git-lfs
 # nicer git diffs
 brew install git-delta
+# syntax-aware git merge driver
+brew install mergiraf
 
 # better `top`
 brew install glances
@@ -81,4 +94,3 @@ brew install scrcpy # control/view android phone from PC. amazing
 brew install youtube-dl
 
 git lfs install
-

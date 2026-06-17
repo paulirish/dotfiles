@@ -40,6 +40,10 @@ function ssource --description "source most of my dotfiles, useful if making cha
 end
 
 
+# pnpm
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
+fish_add_path $PNPM_HOME
+
 ssource;
 
 # I don't need a prompt symbol for you-got-things-in-yr-stash
@@ -117,10 +121,12 @@ set -g fish_pager_color_progress cyan
 
 
 
-# pyenv setup
-pyenv init - fish | source
+# uv owns the default `python` and `python3` executables.
 
 string match -q "$TERM_PROGRAM" "vscode"
 and . (code --locate-shell-integration-path fish)
 
 test -f "$HOME/.afm-bin-path-manager.fish"; and source "$HOME/.afm-bin-path-manager.fish"
+
+# Added by Devin
+fish_add_path /Users/dbachko/.codeium/windsurf/bin

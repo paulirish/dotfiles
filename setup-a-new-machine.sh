@@ -137,6 +137,15 @@ export PATH=$HOME/homebrew/bin:$HOME/homebrew/sbin:$PATH
 ./brew.sh
 ./brew-cask.sh
 
+# Configure named local services like http://oi.localhost.
+./bin/local-services install
+
+# Start the OpenAI-compatible local MLX model backend when you want local chat.
+# ./bin/mlx-lm-server start
+
+# Start Open WebUI after Docker Desktop is running.
+./bin/open-webui up
+
 ### end of homebrew
 ##############################################################################################################
 

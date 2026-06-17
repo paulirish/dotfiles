@@ -1,0 +1,2 @@
+# Add this to ~/.bashrc
+export PATH="$HOME/.local/bin:$PATH"

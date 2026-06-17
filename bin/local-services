@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source_path="${BASH_SOURCE[0]}"
+while [ -L "$source_path" ]; do
+  source_dir="$(cd -P "$(dirname "$source_path")" >/dev/null 2>&1 && pwd)"
+  source_path="$(readlink "$source_path")"
+  [[ "$source_path" != /* ]] && source_path="$source_dir/$source_path"
+done
+
+repo_dir="$(cd -P "$(dirname "$source_path")/.." >/dev/null 2>&1 && pwd)"
+brew_prefix="${HOMEBREW_PREFIX:-$(brew --prefix)}"
+
+caddyfile="$repo_dir/local-services/Caddyfile"
+dnsmasq_conf="$repo_dir/local-services/dnsmasq.localhost.conf"
+resolver_conf="$repo_dir/local-services/resolver.localhost"
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: local-services <command>
+
+Commands:
+  install              Install/link configs and start dnsmasq + caddy
+  start|up             Start dnsmasq + caddy
+  stop                 Stop dnsmasq + caddy
+  restart              Restart dnsmasq + caddy
+  reload               Reload Caddy config and restart dnsmasq
+  status|ps            Show service and route status
+  test [host]          Test DNS and HTTP for host, default oi.localhost
+  add <name> <port>    Add name.localhost -> 127.0.0.1:port to Caddyfile
+EOF
+}
+
+need_brew_package() {
+  local package="$1"
+  if ! brew list --versions "$package" >/dev/null 2>&1; then
+    brew install "$package"
+  fi
+}
+
+ensure_config() {
+  need_brew_package dnsmasq
+  need_brew_package caddy
+
+  mkdir -p "$brew_prefix/etc/dnsmasq.d"
+  ln -sf "$dnsmasq_conf" "$brew_prefix/etc/dnsmasq.d/localhost.conf"
+  ln -sf "$caddyfile" "$brew_prefix/etc/Caddyfile"
+
+  if [ ! -f "$brew_prefix/etc/dnsmasq.conf" ]; then
+    touch "$brew_prefix/etc/dnsmasq.conf"
+  fi
+
+  local conf_dir_line="conf-dir=$brew_prefix/etc/dnsmasq.d,*.conf"
+  if ! grep -Fqx "$conf_dir_line" "$brew_prefix/etc/dnsmasq.conf"; then
+    printf '\n# dotfiles local-services\n%s\n' "$conf_dir_line" >> "$brew_prefix/etc/dnsmasq.conf"
+  fi
+
+  sudo mkdir -p /etc/resolver
+  sudo cp "$resolver_conf" /etc/resolver/localhost
+}
+
+start_services() {
+  sudo brew services start dnsmasq
+  sudo brew services start caddy
+}
+
+stop_services() {
+  sudo brew services stop caddy || true
+  sudo brew services stop dnsmasq || true
+}
+
+restart_services() {
+  sudo brew services restart dnsmasq
+  sudo brew services restart caddy
+}
+
+reload_services() {
+  sudo brew services restart dnsmasq
+  if sudo caddy validate --config "$brew_prefix/etc/Caddyfile" >/dev/null; then
+    sudo caddy reload --config "$brew_prefix/etc/Caddyfile" || sudo brew services restart caddy
+  fi
+}
+
+status_services() {
+  brew services list | grep -E '^(dnsmasq|caddy)[[:space:]]' || true
+  printf '\nRoutes:\n'
+  grep -E '^http://.*\.localhost[[:space:]]*\{' "$caddyfile" | sed 's/[[:space:]]*{//'
+}
+
+test_service() {
+  local host="${1:-oi.localhost}"
+  dscacheutil -q host -a name "$host" || true
+  curl --noproxy '*' -I --max-time 10 "http://$host" | sed -n '1,8p'
+}
+
+add_route() {
+  local name="${1:-}"
+  local port="${2:-}"
+
+  if [ -z "$name" ] || [ -z "$port" ]; then
+    usage
+    exit 2
+  fi
+
+  name="${name%.localhost}"
+  if ! [[ "$name" =~ ^[a-zA-Z0-9-]+$ ]]; then
+    echo "Invalid service name: $name" >&2
+    exit 2
+  fi
+  if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    echo "Invalid port: $port" >&2
+    exit 2
+  fi
+
+  local host="$name.localhost"
+  if grep -Fq "http://$host" "$caddyfile"; then
+    echo "$host already exists in $caddyfile"
+    return
+  fi
+
+  cat >>"$caddyfile" <<EOF
+
+http://$host {
+	reverse_proxy 127.0.0.1:$port
+}
+EOF
+
+  if command -v caddy >/dev/null 2>&1; then
+    caddy fmt --overwrite "$caddyfile" >/dev/null
+  fi
+  echo "Added http://$host -> 127.0.0.1:$port"
+}
+
+case "${1:-}" in
+  install)
+    ensure_config
+    start_services
+    ;;
+  start | up)
+    ensure_config
+    start_services
+    ;;
+  stop)
+    stop_services
+    ;;
+  restart)
+    ensure_config
+    restart_services
+    ;;
+  reload)
+    ensure_config
+    reload_services
+    ;;
+  status | ps)
+    status_services
+    ;;
+  test)
+    test_service "${2:-oi.localhost}"
+    ;;
+  add)
+    add_route "${2:-}" "${3:-}"
+    ensure_config
+    reload_services
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

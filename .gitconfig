@@ -215,3 +215,7 @@
 # 	ignorerevsfile = .git-blame-ignore-revs
 [protocol "sso"]
 	allow = always
+
+[user]
+	name = Dzmitry Bachko
+	email = dbachko@users.noreply.github.com

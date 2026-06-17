@@ -9,6 +9,9 @@
 
 # daily
 brew install --cask rectangle
+brew install --cask tailscale-app
+brew install --cask discord
+brew install --cask obsidian
 # brew install --cask 1password
 # brew install --cask rescuetime
 

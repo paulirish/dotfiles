@@ -1,0 +1,212 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+label="com.dbachko.mlx-lm-server"
+model="${MLX_LM_MODEL:-Youssofal/Qwen3.6-35B-A3B-Abliterated-Heretic-MLX-4bit}"
+host="${MLX_LM_HOST:-127.0.0.1}"
+port="${MLX_LM_PORT:-8080}"
+mlx_bin="${MLX_LM_BIN:-$HOME/.local/bin/mlx_lm.server}"
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/mlx-lm-server"
+log_file="$state_dir/server.log"
+launch_agents_dir="$HOME/Library/LaunchAgents"
+plist_file="$launch_agents_dir/$label.plist"
+api_url="http://$host:$port/v1/models"
+user_id="$(id -u)"
+service_target="gui/$user_id/$label"
+
+usage() {
+  cat >&2 <<'EOF'
+Usage: mlx-lm-server <command>
+
+Commands:
+  install        Install/update the per-user LaunchAgent without starting it
+  uninstall      Stop and remove the per-user LaunchAgent
+  start|up       Start mlx_lm.server with launchd
+  stop           Stop the launchd-managed server
+  restart        Restart the launchd-managed server
+  status|ps      Show launchd, listener, and API status
+  logs           Follow server logs
+  test           Query /v1/models
+  run            Run mlx_lm.server in the foreground
+
+Environment:
+  MLX_LM_MODEL   Hugging Face repo or local model path
+  MLX_LM_HOST    Bind host, default 127.0.0.1
+  MLX_LM_PORT    Bind port, default 8080
+  MLX_LM_BIN     mlx_lm.server executable, default ~/.local/bin/mlx_lm.server
+EOF
+}
+
+xml_escape() {
+  local value="$1"
+  value="${value//&/&amp;}"
+  value="${value//</&lt;}"
+  value="${value//>/&gt;}"
+  value="${value//\"/&quot;}"
+  value="${value//\'/&apos;}"
+  printf '%s' "$value"
+}
+
+require_mlx_bin() {
+  if [ ! -x "$mlx_bin" ]; then
+    echo "Missing executable: $mlx_bin" >&2
+    echo "Install it with: uv tool install mlx-lm" >&2
+    exit 1
+  fi
+}
+
+api_is_serving() {
+  curl --noproxy '*' --silent --show-error --max-time 5 "$api_url" >/dev/null 2>&1
+}
+
+listener_pid() {
+  command -v lsof >/dev/null 2>&1 || return 1
+  lsof -tiTCP:"$port" -sTCP:LISTEN -a -nP 2>/dev/null | head -n 1
+}
+
+is_agent_loaded() {
+  launchctl print "$service_target" >/dev/null 2>&1
+}
+
+install_agent() {
+  require_mlx_bin
+  mkdir -p "$state_dir" "$launch_agents_dir"
+
+  cat >"$plist_file" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>$(xml_escape "$label")</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>$(xml_escape "$mlx_bin")</string>
+		<string>--model</string>
+		<string>$(xml_escape "$model")</string>
+		<string>--host</string>
+		<string>$(xml_escape "$host")</string>
+		<string>--port</string>
+		<string>$(xml_escape "$port")</string>
+	</array>
+	<key>RunAtLoad</key>
+	<false/>
+	<key>KeepAlive</key>
+	<false/>
+	<key>WorkingDirectory</key>
+	<string>$(xml_escape "$HOME")</string>
+	<key>StandardOutPath</key>
+	<string>$(xml_escape "$log_file")</string>
+	<key>StandardErrorPath</key>
+	<string>$(xml_escape "$log_file")</string>
+</dict>
+</plist>
+EOF
+
+  plutil -lint "$plist_file" >/dev/null
+  launchctl bootout "gui/$user_id" "$plist_file" >/dev/null 2>&1 || true
+  launchctl bootstrap "gui/$user_id" "$plist_file"
+  echo "Installed LaunchAgent: $plist_file"
+}
+
+uninstall_agent() {
+  launchctl kill TERM "$service_target" >/dev/null 2>&1 || true
+  launchctl bootout "gui/$user_id" "$plist_file" >/dev/null 2>&1 || true
+  rm -f "$plist_file"
+  echo "Removed LaunchAgent: $plist_file"
+}
+
+start_server() {
+  if api_is_serving; then
+    echo "mlx_lm.server API is already reachable on $api_url"
+    pid="$(listener_pid || true)"
+    [ -n "$pid" ] && echo "Listener pid: $pid"
+    return
+  fi
+
+  install_agent
+  launchctl kickstart -k "$service_target"
+  echo "Starting mlx_lm.server on http://$host:$port"
+  echo "Model: $model"
+  echo "Logs: $log_file"
+}
+
+stop_server() {
+  if is_agent_loaded; then
+    launchctl kill TERM "$service_target" >/dev/null 2>&1 || true
+    echo "Stopped launchd service: $label"
+  else
+    echo "LaunchAgent is not loaded: $label"
+  fi
+
+  if api_is_serving; then
+    echo "An API is still reachable on $api_url."
+    pid="$(listener_pid || true)"
+    [ -n "$pid" ] && echo "Listener pid: $pid"
+  fi
+}
+
+status_server() {
+  if is_agent_loaded; then
+    echo "LaunchAgent loaded: $label"
+  else
+    echo "LaunchAgent not loaded: $label"
+  fi
+
+  pid="$(listener_pid || true)"
+  if [ -n "$pid" ]; then
+    echo "Listener pid on port $port: $pid"
+  else
+    echo "No listener on port $port"
+  fi
+
+  if api_is_serving; then
+    echo "API reachable: $api_url"
+    curl --noproxy '*' --silent --show-error --max-time 5 "$api_url"
+    printf '\n'
+  else
+    echo "API not reachable: $api_url"
+  fi
+}
+
+run_foreground() {
+  require_mlx_bin
+  exec "$mlx_bin" --model "$model" --host "$host" --port "$port"
+}
+
+case "${1:-}" in
+  install)
+    install_agent
+    ;;
+  uninstall)
+    uninstall_agent
+    ;;
+  start | up)
+    start_server
+    ;;
+  stop)
+    stop_server
+    ;;
+  restart)
+    stop_server
+    start_server
+    ;;
+  status | ps)
+    status_server
+    ;;
+  logs)
+    mkdir -p "$state_dir"
+    touch "$log_file"
+    tail -f "$log_file"
+    ;;
+  test)
+    curl --noproxy '*' --fail --show-error "$api_url"
+    ;;
+  run)
+    run_foreground
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac
