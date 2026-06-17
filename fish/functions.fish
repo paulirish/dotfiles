@@ -272,6 +272,28 @@ end
 abbr --add cargo --function __lazy_init_cargo
 
 # NVM doesnt support fish and its stupid to try to make it work there.
+
+function __lazy_init_bun_path -d 'lazy initialize Bun installer path'
+  abbr --erase bun; functions --erase __lazy_init_bun_path
+  abbr --erase bunx; functions --erase __lazy_init_bunx
+  if test -d "$HOME/.bun/bin"
+    set -gx BUN_INSTALL "$HOME/.bun"
+    fish_add_path --global "$HOME/.bun/bin"
+  end
+end
+
+function __lazy_init_bun -d 'lazy initialize bun path'
+  __lazy_init_bun_path
+  echo "bun"
+end
+abbr --add bun --function __lazy_init_bun
+
+function __lazy_init_bunx -d 'lazy initialize bunx path'
+  __lazy_init_bun_path
+  echo "bunx"
+end
+abbr --add bunx --function __lazy_init_bunx
+
 # gcloud: Don't need "$HOME/google-cloud-sdk/path.fish.inc" lazyily done because it only adds to PATH which is already done.
 
 
