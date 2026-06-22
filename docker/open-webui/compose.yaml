@@ -6,12 +6,12 @@ services:
     container_name: open-webui
     restart: unless-stopped
     environment:
-      WEBUI_URL: "http://oi.localhost"
+      WEBUI_URL: "http://open-webui.localhost"
       ENABLE_OPENAI_API: "True"
       OPENAI_API_BASE_URLS: "http://host.docker.internal:8080/v1"
       OPENAI_API_KEYS: "local"
     ports:
-      - "3000:8080"
+      - "18080:8080"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:

@@ -149,7 +149,11 @@ print_success() {
 # finds all .dotfiles in this folder
 # shellcheck disable=SC2207
 FILES_TO_SYMLINK=($(find . -type f -maxdepth 1 -name ".*" -not -name .DS_Store -not -name .git -not -name .macos | sed -e 's|//|/|' | sed -e 's|./.|.|' | sort))
-FILES_TO_SYMLINK+=(".vim" "bin" "fish") # add in vim, the binaries, and fish config
+for extra_path in ".vim" "bin" "fish"; do
+    if [ -e "$extra_path" ]; then
+        FILES_TO_SYMLINK+=("$extra_path")
+    fi
+done
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

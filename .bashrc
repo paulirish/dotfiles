@@ -153,3 +153,9 @@ shopt -s dotglob
 if command -v brew > /dev/null; then
     [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 fi
+
+# fnm (added by dotfiles script)
+eval "$(fnm env --use-on-cd --shell bash)"
+
+# uv (added by dotfiles script)
+export PATH="$HOME/.local/bin:$PATH"

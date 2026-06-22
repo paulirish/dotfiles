@@ -2,11 +2,11 @@
 # dnsmasq resolves *.localhost to loopback; Caddy routes names to service ports.
 
 http://oi.localhost {
-	reverse_proxy 127.0.0.1:3000
+	reverse_proxy 127.0.0.1:18080
 }
 
 http://open-webui.localhost {
-	reverse_proxy 127.0.0.1:3000
+	reverse_proxy 127.0.0.1:18080
 }
 
 http://mlx.localhost {

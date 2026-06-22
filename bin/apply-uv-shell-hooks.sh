@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="/Users/dbachko/dev/dotfiles"
+source_path="${BASH_SOURCE[0]}"
+while [ -L "$source_path" ]; do
+  source_dir="$(cd -P "$(dirname "$source_path")" >/dev/null 2>&1 && pwd)"
+  source_path="$(readlink "$source_path")"
+  [[ "$source_path" != /* ]] && source_path="$source_dir/$source_path"
+done
+
+REPO="$(cd -P "$(dirname "$source_path")/.." >/dev/null 2>&1 && pwd)"
 
 add_line() {
   FILE="$1"

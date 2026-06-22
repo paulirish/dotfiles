@@ -2,7 +2,7 @@
 
 # Get the directory where the script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-SKILLS_SRC_DIR="$SCRIPT_DIR/skills"
+SKILLS_SRC_DIR="$(cd "$SCRIPT_DIR/../skills" && pwd)"
 GEMINI_TARGET_DIR="$HOME/.gemini/skills"
 CLAUDE_TARGET_DIR="$HOME/.claude/skills"
 
