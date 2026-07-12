@@ -15,6 +15,7 @@ We use this specific stack to maximize execution speed, minimize configuration o
 - **Type Checking**: `buildless-types` standard (JSDoc or Erasable Syntax with `tsc --noEmit` to get type safety without the overhead of a build step)
 - **Testing**: Node.js native test runner (`node --test`)`. We avoid Jest entirely because it is notoriously slow and requires complex transpilation pipelines.
 - **Bundler / Dev Server**: `esbuild` (for fast Node.js tooling compilation).
+- **Isomorphic Core**: Keep core orchestration, logic, and math in a browser-agnostic library testable directly in Node.js. The Web UI should be a thin presentation layer. This allows coding agents to iterate and test logic instantly via CLI/Node unit tests without browser automation overhead (which is ~20x slower).
 
 ## Configuration Standards
 

@@ -123,4 +123,3 @@ function gd
         echo "Error: Not in a git repository"
     end
 end
-
