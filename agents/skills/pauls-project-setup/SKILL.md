@@ -15,6 +15,7 @@ We use this specific stack to maximize execution speed, minimize configuration o
 - **Type Checking**: `buildless-types` standard (JSDoc or Erasable Syntax with `tsc --noEmit` to get type safety without the overhead of a build step)
 - **Testing**: Node.js native test runner (`node --test`)`. We avoid Jest entirely because it is notoriously slow and requires complex transpilation pipelines.
 - **Bundler / Dev Server**: `esbuild` (for fast Node.js tooling compilation).
+- **Linting**: `oxlint` (for ultra-fast linting without ESLint overhead).
 - **Isomorphic Core**: Keep core orchestration, logic, and math in a browser-agnostic library testable directly in Node.js. The Web UI should be a thin presentation layer. This allows coding agents to iterate and test logic instantly via CLI/Node unit tests without browser automation overhead (which is ~20x slower).
 
 ## Configuration Standards
@@ -35,7 +36,8 @@ Ensure the project is an ES Module and defines standard scripts inspired by Paul
     "test": "pnpm run typecheck && pnpm run test:node",
     "test:node": "node --test test/**/*.test.js",
     "typecheck": "tsc --noEmit",
-    "preflight": "pnpm typecheck && pnpm test"
+    "lint": "oxlint",
+    "preflight": "pnpm typecheck && pnpm lint && pnpm test"
   }
 }
 ```
@@ -52,3 +54,36 @@ Ensure the project is an ES Module and defines standard scripts inspired by Paul
 
 ### 4. Bundling
 - Use `esbuild` for fast Node.js CLI tooling compilation or generic JS bundling.
+
+### 5. Linting
+- Use `oxlint` for ultra-fast linting. Configure it with a `.oxlintrc.json` file in the root of the project using the following template:
+
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2021": true
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^.*$"
+      }
+    ],
+    "no-explicit-any": "error",
+    "typescript/no-restricted-types": [
+      "error",
+      {
+        "types": {
+          "unknown": "Restrict weak/imprecise unknown type usages."
+        }
+      }
+    ]
+  }
+}
+```
