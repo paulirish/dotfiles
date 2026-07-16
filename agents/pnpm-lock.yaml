@@ -17,6 +17,9 @@ importers:
       playwright:
         specifier: ^1.61.1
         version: 1.61.1
+      protobufjs:
+        specifier: ^8.7.1
+        version: 8.7.1
     devDependencies:
       typescript:
         specifier: ^5.0.0
@@ -113,6 +116,9 @@ packages:
       canvas:
         optional: true
 
+  long@5.3.2:
+    resolution: {integrity: sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==}
+
   marked@17.0.6:
     resolution: {integrity: sha512-gB0gkNafnonOw0obSTEGZTT86IuhILt2Wfx0mWH/1Au83kybTayroZ/V6nS25mN7u8ASy+5fMhgB3XPNrOZdmA==}
     engines: {node: '>= 20'}
@@ -135,6 +141,10 @@ packages:
     resolution: {integrity: sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==}
     engines: {node: '>=18'}
     hasBin: true
+
+  protobufjs@8.7.1:
+    resolution: {integrity: sha512-agdGHrXNTv0IrYscJPDou/PlEJk1c/hBZ9o/B5NH2i/nSPtPqacNxzgwf1CebXxFMjMrZH5sqv9uQuw96aGt/A==}
+    engines: {node: '>=12.0.0'}
 
   turndown-plugin-gfm@1.0.2:
     resolution: {integrity: sha512-vwz9tfvF7XN/jE0dGoBei3FXWuvll78ohzCZQuOb+ZjWrs3a0XhQVomJEb2Qh4VHTPNRO4GPZh0V7VRbiWwkRg==}
@@ -242,6 +252,8 @@ snapshots:
       htmlparser2: 10.1.0
       uhyphen: 0.2.0
 
+  long@5.3.2: {}
+
   marked@17.0.6: {}
 
   markpaste@0.0.6:
@@ -266,6 +278,10 @@ snapshots:
       playwright-core: 1.61.1
     optionalDependencies:
       fsevents: 2.3.2
+
+  protobufjs@8.7.1:
+    dependencies:
+      long: 5.3.2
 
   turndown-plugin-gfm@1.0.2: {}
 

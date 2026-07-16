@@ -1,10 +1,10 @@
 # @paulirish/agents
 
-A collection of expert agent skills and command-line tools for Gemini and Claude.
+A collection of expert agent skills and CLIs.
 
 ## Installing Skills
 
-Skills can be installed directly into your agent environment (e.g., Gemini CLI, Claude) using the `skills` CLI:
+Skills can be installed directly into your coding agent using the vercel `skills` CLI:
 
 ```bash
 npx skills add paulirish/dotfiles/agents --skill <skill-name>
