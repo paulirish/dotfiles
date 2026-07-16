@@ -4,6 +4,8 @@ import {decodeAnnotatedPageContent, convertToMarkdown} from './decode_annotation
 
 export {decodeAnnotatedPageContent, convertToMarkdown};
 
+// AnnotatedPageContent has no semantic represnetation of these things. 
+// But they are important enough that we gotta do this.
 export async function injectSemanticMarkers(page: any) {
   await page.evaluate(() => {
     document.querySelectorAll('code').forEach(el => {

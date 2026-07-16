@@ -2,8 +2,8 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { execSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import {execSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,24 +22,24 @@ async function fetchProto() {
   }
   const base64Text = await response.text();
   const protoContent = Buffer.from(base64Text, 'base64').toString('utf8');
-  
+
   if (!fs.existsSync(PROTO_DIR)) {
-    fs.mkdirSync(PROTO_DIR, { recursive: true });
+    fs.mkdirSync(PROTO_DIR, {recursive: true});
   }
-  
+
   fs.writeFileSync(PROTO_FILE, protoContent, 'utf8');
   console.log(`Saved proto to ${PROTO_FILE}`);
 }
 
 function generateBuf() {
   console.log('Generating buf files...');
-  
+
   const templateFile = path.join(PROTO_DIR, 'buf.gen.yaml');
   // Run buf generate using @bufbuild/buf and @bufbuild/protoc-gen-es
   const bufCmd = `npx --yes --registry=https://registry.npmjs.org/ -p @bufbuild/buf -p @bufbuild/protoc-gen-es buf generate ${PROTO_FILE} --template ${templateFile} -o ${PROTO_DIR}`;
   console.log(`$ ${bufCmd}`);
-  execSync(bufCmd, { stdio: 'inherit' });
-  
+  execSync(bufCmd, {stdio: 'inherit'});
+
   console.log('Generation complete.');
 }
 

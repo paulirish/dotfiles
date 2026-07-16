@@ -42,10 +42,10 @@ async function main() {
   try {
     browser = await chromium.launch();
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle' });
+    await page.goto(url, { waitUntil: 'load' });
     const bodyHtml = await page.content();
 
-    const markdown = await convert(bodyHtml, { converter: 'pandoc' });
+    const markdown = await convert(bodyHtml, { converter: 'turndown' });
     console.log(markdown);
   } catch (error: any) {
     console.error(`Error: ${error.message}`);

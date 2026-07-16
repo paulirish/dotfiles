@@ -1,9 +1,12 @@
 import test from 'node:test';
 import {chromium} from 'playwright';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {fileURLToPath} from 'node:url';
 import {decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/decode_annotations.ts';
-import { injectSemanticMarkers } from '../scripts/distill-page.ts';
+import {injectSemanticMarkers} from '../scripts/distill-page.ts';
+import TurndownService from 'turndown';
+// @ts-expect-error - no types for turndown-plugin-gfm
+import {gfm} from 'turndown-plugin-gfm';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +24,12 @@ test('Run Turndown cases against CDP getAnnotatedPageContent', async () => {
   });
 
   const context = await browser.newContext();
+  const turndownGfm = new TurndownService({
+    headingStyle: 'atx',
+    codeBlockStyle: 'fenced'
+  });
+  turndownGfm.use(gfm);
+
   const indexPage = await context.newPage();
 
   const indexPath = path.resolve(__dirname, '../turndown_tmp/test/index.html');
@@ -40,14 +49,7 @@ test('Run Turndown cases against CDP getAnnotatedPageContent', async () => {
 
   // To avoid 200s runtime, we can just run the first 5 tests or specific ones
   // that we want to try supporting.
-  const SKIPPED_TESTS = [
-    'multiple ps',
-    'em',
-    'i',
-    'code containing a backtick',
-    'code containing three or more backticks',
-    'code containing one or more backticks'
-  ];
+  const SKIPPED_TESTS: string[] = [];
 
   let passed = 0;
   let failed = 0;
@@ -56,7 +58,7 @@ test('Run Turndown cases against CDP getAnnotatedPageContent', async () => {
   const client = await page.context().newCDPSession(page);
   await client.send('Page.enable');
 
-  for (const tc of testCases.slice(0, 10)) {
+  for (const tc of testCases) {
     if (SKIPPED_TESTS.includes(tc.name || '')) {
       console.log(`\n⏭️ Skipped: ${tc.name}`);
       continue;
@@ -80,12 +82,13 @@ test('Run Turndown cases against CDP getAnnotatedPageContent', async () => {
       console.error(`Failed on ${tc.name}`, e);
     }
 
-    if (actualMd === tc.expected) {
+    const expectedGfm = turndownGfm.turndown(tc.inputHtml);
+    if (actualMd.trim() === expectedGfm.trim()) {
       passed++;
     } else {
       console.log(`\n❌ Failed: ${tc.name}`);
-      console.log(`EXPECTED:\n${tc.expected}`);
-      console.log(`ACTUAL:\n${actualMd}`);
+      console.log(`EXPECTED (Turndown GFM):\n${expectedGfm}`);
+      console.log(`ACTUAL (Page Distiller):\n${actualMd}`);
       failed++;
     }
   }

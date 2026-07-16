@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Mock Page Title</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "isAccessibleForFree": "False",
+    "hasPart": {
+      "@type": "WebPageElement",
+      "isAccessibleForFree": "False",
+      "cssSelector": ".premium-content"
+    }
+  }
+  </script>
 </head>
 <body>
   <h1>Main Page Heading (H1)</h1>
@@ -15,6 +27,7 @@
       <tr>
         <th>Header A</th>
         <th>Header B</th>
+        <th>Header C</th>
       </tr>
     </thead>
     <tbody>
@@ -50,13 +63,81 @@
   <h2>Section 4: Extra Elements for Testing</h2>
   <ul>
     <li>Item 1</li>
-    <li>Item 2</li>
+    <li>Item 2
+      <ul>
+        <li>Nested Item A</li>
+        <li>Nested Item B</li>
+      </ul>
+    </li>
   </ul>
-  <p>Here is a link: <a href="/relative-path">Link Text</a>.</p>
-  <p>Here is inline code: <code>const x = 1;</code>.</p>
+  <p>Here is a link: <a href="/relative-path">Link Text</a> and a <a href="#section-10">same-page fragment link</a>.</p>
+  <p>A very strange <a href="https://github.com/earendil-works/pi/issues/6278">Pi issue</a>
+sent me down a rabbit hole over the last two days.  The short version is that
+newer Claude models sometimes call Pi&#8217;s edit tool with extra, invented fields in
+the nested <code>edits[]</code> array.  And not Haiku or some small model: Opus 4.8.  The
+edit itself is usually correct but the arguments do not match the schema as
+the model invents made-up keys and Pi thus rejects the tool call and asks to
+try again.</p>
   <p>Here is a preformatted code block:</p>
-  <pre><code>function test() {}</code></pre>
+  <div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some/file.py&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;edits&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;oldText&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text to replace&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;newText&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;replacement text&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
   <p>Here is an image: <img src="mock-image.png" alt="With URL" width="100" height="100"></p>
+  <p>First reference image: <img alt="Reference Image A"></p>
+  <p>Second reference image: <img alt="Reference Image B"></p>
+  <p>Here is a styled paragraph that should not split into heading tags:</p>
+  <p style="font-size: 1.2em;">Hi, I'm Kilian. I make <a href="https://polypane.app/"><strong>Polypane</strong></a>, the browser for responsive web development and design.</p>
 
+  <h2>Section 5: Ad Block (Should be omitted)</h2>
+  <div class="ad-container ad-banner" style="width: 300px; height: 250px; background: #eee;">
+    <h3>Sponsored Advertisement</h3>
+    <p>This ad content must be ignored by the distiller.</p>
+  </div>
+
+  <h2>Section 6: Dynamic Font Size Headings</h2>
+  <!-- XL computed font size -->
+  <h2 style="font-size: 40px;">Dynamic Size XL Heading <a href="#dynamic-size-xl-heading">#</a></h2>
+  <!-- L computed font size -->
+  <h2 style="font-size: 28px;"><a href="#dynamic-size-l-heading">Dynamic Size L Heading</a></h2>
+  <!-- M computed font size -->
+  <h2 style="font-size: 18px;">Dynamic Size M Heading</h2>
+  <!-- S/XS computed font size -->
+  <h2 style="font-size: 12px;">Dynamic Size S Heading</h2>
+
+  <h2>Section 7: Inlines spacing & code formatting</h2>
+  <p>Punctuation spacing test: Hello , world ! This is a test .</p>
+  <p>Dialog transparency test: Before dialog <dialog open>Inside modal dialog</dialog> After dialog.</p>
+  <p>Code spacing test: <code>  const a = 123;  </code></p>
+  <p>Bold code test: <strong><code>const b = 456;</code></strong></p>
+  <p>Variable spacing test: <code>sk<!-- -->_<wbr>test<!-- -->_<wbr>id</code> and <code>payment<!-- -->-<wbr>intent</code>.</p>
+  <p>Sentence dot spacing test. <strong>This should have a space before it.</strong></p>
+  <p>Dotted variable test: <code>payment.method.id</code>.</p>
+
+  <h2>Section 8: Navigation and Footer (Should be omitted)</h2>
+  <nav>
+    <a href="/home">Home</a> | <a href="/about">About Us</a>
+  </nav>
+  <h2>Section 9: Merged Code Block Tab Layout</h2>
+  <p>app/layout.tsx TypeScript TypeScript
+```
+import { Geist } from 'next/font/google'
+const geist = Geist({
+  subsets: ['latin'],
+})
+```</p>
+
+  <h2>Section 10: Nested Container Code Blocks</h2>
+  <pre><div><span>const</span> <span>x</span> <span>=</span> <span>1;</span></div></pre>
+
+  <footer>
+    <p>&copy; 2026 Mock Company. All rights reserved.</p>
+  </footer>
 </body>
 </html>
