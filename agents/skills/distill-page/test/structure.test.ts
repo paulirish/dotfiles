@@ -1,9 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import * as pb from '../scripts/proto/common_quality_data_pbjs.js';
+import { fromJson, toBinary } from '@bufbuild/protobuf';
+import {
+  AnnotatedPageContentSchema,
+  AnnotatedRole,
+  ContentAttributeType
+} from '../scripts/proto/common_quality_data_pb.js';
 import {decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/distill-page.ts';
 
-const {ContentAttributeType} = pb.optimization_guide.proto;
 const {
   CONTENT_ATTRIBUTE_TEXT,
   CONTENT_ATTRIBUTE_IMAGE,
@@ -48,8 +52,7 @@ test('convertToMarkdown handles lists correctly', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -128,8 +131,7 @@ test('convertToMarkdown handles tables correctly', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -152,7 +154,7 @@ test('convertToMarkdown skips nav and footer roles', () => {
         {
           contentAttributes: {
             attributeType: CONTENT_ATTRIBUTE_CONTAINER,
-            annotatedRoles: [pb.optimization_guide.proto.AnnotatedRole.ANNOTATED_ROLE_NAV],
+            annotatedRoles: [AnnotatedRole.NAV],
           },
           childrenNodes: [
             {
@@ -173,8 +175,7 @@ test('convertToMarkdown skips nav and footer roles', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -200,8 +201,7 @@ test('convertToMarkdown handles images correctly', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);

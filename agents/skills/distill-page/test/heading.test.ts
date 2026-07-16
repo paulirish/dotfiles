@@ -1,9 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import * as pb from '../scripts/proto/common_quality_data_pbjs.js';
+import { fromJson, toBinary } from '@bufbuild/protobuf';
+import {
+  AnnotatedPageContentSchema,
+  ContentAttributeType,
+  TextSize
+} from '../scripts/proto/common_quality_data_pb.js';
 import {decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/distill-page.ts';
 
-const {ContentAttributeType} = pb.optimization_guide.proto;
 const {
   CONTENT_ATTRIBUTE_TEXT,
   CONTENT_ATTRIBUTE_ANCHOR,
@@ -24,7 +28,7 @@ test('convertToMarkdown handles HEADING containers correctly', () => {
                 attributeType: CONTENT_ATTRIBUTE_TEXT,
                 textData: {
                   textContent: 'Is ',
-                  textStyle: {textSize: pb.optimization_guide.proto.TextSize.TEXT_SIZE_L},
+                  textStyle: {textSize: TextSize.L},
                 },
               },
             },
@@ -46,8 +50,7 @@ test('convertToMarkdown handles HEADING containers correctly', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -81,8 +84,7 @@ test('convertToMarkdown cleans up spaces before punctuation', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -119,8 +121,7 @@ test('convertToMarkdown converts same-page links to fragments', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -156,8 +157,7 @@ test('convertToMarkdown removes spaces inside backticks', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -202,8 +202,7 @@ test('convertToMarkdown handles bold backticks correctly', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);

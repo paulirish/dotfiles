@@ -1,10 +1,17 @@
-import * as pb from './proto/common_quality_data_pbjs.js';
+import { fromBinary } from "@bufbuild/protobuf";
+import {
+  AnnotatedPageContentSchema,
+  AnnotatedRole,
+  ContentAttributeType,
+  TextSize,
+  TableRowType
+} from './proto/common_quality_data_pb.js';
+import type { ContentNode, AnnotatedPageContent, ContentAttributes } from './proto/common_quality_data_pb.js';
 
 function normalizeWhitespace(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
 }
 
-const {ContentAttributeType, TextSize, TableRowType, AnnotatedRole} = pb.optimization_guide.proto;
 const {
   CONTENT_ATTRIBUTE_TEXT,
   CONTENT_ATTRIBUTE_IMAGE,
@@ -16,31 +23,26 @@ const {
   CONTENT_ATTRIBUTE_HEADING,
   CONTENT_ATTRIBUTE_CONTAINER
 } = ContentAttributeType;
-type AnyNode = pb.optimization_guide.proto.ContentNode.$Properties;
-type IAnnotatedPageContent = pb.optimization_guide.proto.AnnotatedPageContent.$Properties;
+
+type AnyNode = ContentNode;
+type IAnnotatedPageContent = AnnotatedPageContent;
 
 const HEADING_PREFIXES: Record<number, string> = {
-  [TextSize.TEXT_SIZE_XL]: '## ',
-  [TextSize.TEXT_SIZE_L]: '### ',
-  [TextSize.TEXT_SIZE_M_DEFAULT]: '#### ',
-  [TextSize.TEXT_SIZE_S]: '##### ',
-  [TextSize.TEXT_SIZE_XS]: '##### ',
+  [TextSize.XL]: '## ',
+  [TextSize.L]: '### ',
+  [TextSize.M_DEFAULT]: '#### ',
+  [TextSize.S]: '##### ',
+  [TextSize.XS]: '##### ',
 };
 
 export function decodeAnnotatedPageContent(base64String: string): IAnnotatedPageContent {
   const buffer = Buffer.from(base64String, 'base64');
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.decode(buffer);
-  return pb.optimization_guide.proto.AnnotatedPageContent.toObject(message, {
-    longs: String,
-
-    arrays: true,
-    objects: true,
-  });
+  return fromBinary(AnnotatedPageContentSchema, buffer);
 }
 
-function findNodeByRoles(node: AnyNode, roles: pb.optimization_guide.proto.AnnotatedRole[]): AnyNode | null {
-  const attrs = node.contentAttributes || {};
-  if (attrs.annotatedRoles) {
+function findNodeByRoles(node: AnyNode, roles: AnnotatedRole[]): AnyNode | null {
+  const attrs = node.contentAttributes;
+  if (attrs?.annotatedRoles) {
     for (const r of roles) {
       if (attrs.annotatedRoles.includes(r)) {
         return node;
@@ -59,25 +61,35 @@ function findNodeByRoles(node: AnyNode, roles: pb.optimization_guide.proto.Annot
 
 function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, insideHeading?: boolean, currentUrl?: string | null}): string {
   let md = '';
-  const attrs = node.contentAttributes || {};
+  const attrs = node.contentAttributes;
+
+  if (!attrs) {
+    if (node.childrenNodes) {
+      for (const child of node.childrenNodes) {
+        md += recursiveToMarkdown(child, state);
+      }
+    }
+    return md;
+  }
 
   if (attrs.isAdRelated) {
     return '';
   }
 
-  if (attrs.attributeType === CONTENT_ATTRIBUTE_TEXT && attrs.textData) {
-    let text = attrs.textData.textContent || '';
+  if (attrs.contentData.case === "textData") {
+    const textData = attrs.contentData.value;
+    let text = textData.textContent || '';
     const isCodeFence = text.includes('```');
     text = text.trim();
     if (text) {
-      if (attrs.textData.textStyle?.hasEmphasis && text !== '`') {
+      if (textData.textStyle?.hasEmphasis && text !== '`') {
         text = `**${text}**`;
       }
-      if (attrs.textData.textStyle?.textSize) {
-        const size = attrs.textData.textStyle.textSize;
-        if (size === TextSize.TEXT_SIZE_XL || size === TextSize.TEXT_SIZE_L) {
+      if (textData.textStyle?.textSize) {
+        const size = textData.textStyle.textSize;
+        if (size === TextSize.XL || size === TextSize.L) {
           if (!state.insideHeading) {
-            const prefix = size === TextSize.TEXT_SIZE_XL ? '##' : '###';
+            const prefix = size === TextSize.XL ? '##' : '###';
             text = `\n\n${prefix} ${text}\n\n`;
           }
         }
@@ -90,16 +102,18 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
         md += ' ';
       }
     }
-  } else if (attrs.attributeType === CONTENT_ATTRIBUTE_IMAGE && attrs.imageData) {
-    const caption = attrs.imageData.imageCaption || 'image';
-    if (attrs.imageData.url) {
-      md += `\n![${caption}](${attrs.imageData.url})\n`;
+  } else if (attrs.contentData.case === "imageData") {
+    const imageData = attrs.contentData.value;
+    const caption = imageData.imageCaption || 'image';
+    if (imageData.url) {
+      md += `\n![${caption}](${imageData.url})\n`;
     } else {
       const ref = `image${String(state.imageIndex++).padStart(2, '0')}`;
       md += `\n![${caption}][${ref}]\n`;
     }
-  } else if (attrs.attributeType === CONTENT_ATTRIBUTE_ANCHOR && attrs.anchorData) {
-    const url = attrs.anchorData.url || '';
+  } else if (attrs.contentData.case === "anchorData") {
+    const anchorData = attrs.contentData.value;
+    const url = anchorData.url || '';
     let resolvedUrl = url;
     if (state.currentUrl && url.startsWith(state.currentUrl + '#')) {
       resolvedUrl = url.substring(state.currentUrl.length);
@@ -143,14 +157,15 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
     return listMd + '\n';
   } else if (attrs.attributeType === CONTENT_ATTRIBUTE_TABLE) {
     let tableMd = '\n\n';
-    if (attrs.tableData?.tableName) {
-      tableMd += `**Table: ${attrs.tableData.tableName}**\n\n`;
+    const tableData = attrs.contentData.case === "tableData" ? attrs.contentData.value : undefined;
+    if (tableData?.tableName) {
+      tableMd += `**Table: ${tableData.tableName}**\n\n`;
     }
     let isFirstRow = true;
     if (node.childrenNodes) {
       for (const row of node.childrenNodes) {
-        const rowAttrs = row.contentAttributes || {};
-        if (rowAttrs.attributeType !== CONTENT_ATTRIBUTE_TABLE_ROW) continue;
+        const rowAttrs = row.contentAttributes;
+        if (!rowAttrs || rowAttrs.attributeType !== CONTENT_ATTRIBUTE_TABLE_ROW) continue;
 
         let rowText = '|';
         let sepText = '|';
@@ -168,7 +183,8 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
           }
         }
         tableMd += rowText + '\n';
-        if (isFirstRow || (rowAttrs.tableRowData && rowAttrs.tableRowData.type === TableRowType.TABLE_ROW_TYPE_HEADER)) {
+        const rowType = rowAttrs.contentData.case === "tableRowData" ? rowAttrs.contentData.value.type : undefined;
+        if (isFirstRow || rowType === TableRowType.HEADER) {
           if (isFirstRow) {
             tableMd += sepText + '\n';
           }
@@ -178,11 +194,12 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
     }
     return tableMd + '\n';
   } else if (attrs.attributeType === CONTENT_ATTRIBUTE_HEADING) {
-    let maxTextSize = TextSize.TEXT_SIZE_M_DEFAULT;
+    let maxTextSize = TextSize.M_DEFAULT;
     if (node.childrenNodes) {
       for (const child of node.childrenNodes) {
-        if (child.contentAttributes?.textData?.textStyle?.textSize) {
-          const size = child.contentAttributes.textData.textStyle.textSize;
+        const childAttrs = child.contentAttributes;
+        if (childAttrs?.contentData.case === "textData" && childAttrs.contentData.value.textStyle?.textSize) {
+          const size = childAttrs.contentData.value.textStyle.textSize;
           if (size > maxTextSize) {
             maxTextSize = size;
           }
@@ -213,7 +230,7 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
   // because search input fields or search-related context might be useful for understanding page utility.
   if (
     attrs.annotatedRoles &&
-    (attrs.annotatedRoles.includes(AnnotatedRole.ANNOTATED_ROLE_NAV) || attrs.annotatedRoles.includes(AnnotatedRole.ANNOTATED_ROLE_FOOTER))
+    (attrs.annotatedRoles.includes(AnnotatedRole.NAV) || attrs.annotatedRoles.includes(AnnotatedRole.FOOTER))
   ) {
     return ''; // Skip rendering kids of nav/footer
   }
@@ -234,13 +251,13 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
 function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHeading?: boolean, currentUrl?: string | null}): string {
   let md = recursiveToMarkdownInternal(node, state);
 
-  const attrs = node.contentAttributes || {};
-  const roles = attrs.annotatedRoles;
+  const attrs = node.contentAttributes;
+  const roles = attrs?.annotatedRoles;
 
   if (roles && roles.length > 0) {
-    const hasPaid = roles.includes(AnnotatedRole.ANNOTATED_ROLE_PAID_CONTENT);
-    const hasHidden = roles.includes(AnnotatedRole.ANNOTATED_ROLE_CONTENT_HIDDEN);
-    const hasAside = roles.includes(AnnotatedRole.ANNOTATED_ROLE_ASIDE);
+    const hasPaid = roles.includes(AnnotatedRole.PAID_CONTENT);
+    const hasHidden = roles.includes(AnnotatedRole.CONTENT_HIDDEN);
+    const hasAside = roles.includes(AnnotatedRole.ASIDE);
 
     if (hasPaid || hasHidden || hasAside) {
       let trimmed = md.trim();
@@ -268,7 +285,7 @@ export function convertToMarkdown(decodedProto: IAnnotatedPageContent): string {
 
   // Try to find the narrowest main content area to avoid outer shells
   const contentRoot =
-    findNodeByRoles(root, [AnnotatedRole.ANNOTATED_ROLE_ARTICLE, AnnotatedRole.ANNOTATED_ROLE_MAIN]) || root;
+    findNodeByRoles(root, [AnnotatedRole.ARTICLE, AnnotatedRole.MAIN]) || root;
 
   let prefix = '';
   if (decodedProto.mainFrameData?.title) {

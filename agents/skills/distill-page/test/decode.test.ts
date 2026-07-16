@@ -1,9 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import * as pb from '../scripts/proto/common_quality_data_pbjs.js';
+import { fromJson, toBinary } from '@bufbuild/protobuf';
+import {
+  AnnotatedPageContentSchema,
+  AnnotatedRole,
+  ContentAttributeType,
+  TextSize,
+  TableRowType
+} from '../scripts/proto/common_quality_data_pb.js';
 import {decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/distill-page.ts';
 
-const {ContentAttributeType, AnnotatedRole, TextSize} = pb.optimization_guide.proto;
 const {
   CONTENT_ATTRIBUTE_TEXT,
   CONTENT_ATTRIBUTE_IMAGE,
@@ -12,8 +18,7 @@ const {
 } = ContentAttributeType;
 
 function getMarkdown(payload: any): string {
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
   const decoded = decodeAnnotatedPageContent(base64);
   return convertToMarkdown(decoded);
@@ -27,8 +32,7 @@ test('Decoding base64 string into AnnotatedPageContent object', () => {
 
 
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -53,7 +57,7 @@ test('convertToMarkdown adds newlines around headlines', () => {
             textData: {
               textContent: 'Headline Text',
               textStyle: {
-                textSize: pb.optimization_guide.proto.TextSize.TEXT_SIZE_XL,
+                textSize: TextSize.XL,
               },
             },
           },
@@ -68,8 +72,7 @@ test('convertToMarkdown adds newlines around headlines', () => {
     },
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -104,8 +107,7 @@ test('convertToMarkdown renders image with URL', () => {
     }
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -161,8 +163,7 @@ test('convertToMarkdown renders dialog content', () => {
     }
   };
 
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.create(payload);
-  const buffer = pb.optimization_guide.proto.AnnotatedPageContent.encode(message).finish();
+  const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload as any));
   const base64 = Buffer.from(buffer).toString('base64');
 
   const decoded = decodeAnnotatedPageContent(base64);
@@ -199,7 +200,7 @@ test('convertToMarkdown prepends table name before rows if tableData.tableName i
       childrenNodes: [
         {
           contentAttributes: {
-            attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_TABLE,
+            attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_TABLE,
             tableData: {
               tableName: 'My Cool Table',
             },
@@ -207,7 +208,7 @@ test('convertToMarkdown prepends table name before rows if tableData.tableName i
           childrenNodes: [
             {
               contentAttributes: {
-                attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_TABLE_ROW,
+                attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_TABLE_ROW,
               },
               childrenNodes: [
                 {
@@ -243,7 +244,7 @@ test('convertToMarkdown skips nodes and children if isAdRelated is true', () => 
         },
         {
           contentAttributes: {
-            attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
+            attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
             isAdRelated: true,
           },
           childrenNodes: [
@@ -268,8 +269,8 @@ test('convertToMarkdown prepends a warning before paid content', () => {
       childrenNodes: [
         {
           contentAttributes: {
-            attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
-            annotatedRoles: [pb.optimization_guide.proto.AnnotatedRole.ANNOTATED_ROLE_PAID_CONTENT],
+            attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
+            annotatedRoles: [AnnotatedRole.PAID_CONTENT],
           },
           childrenNodes: [
             {
@@ -293,8 +294,8 @@ test('convertToMarkdown wraps ANNOTATED_ROLE_CONTENT_HIDDEN in details element',
       childrenNodes: [
         {
           contentAttributes: {
-            attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
-            annotatedRoles: [pb.optimization_guide.proto.AnnotatedRole.ANNOTATED_ROLE_CONTENT_HIDDEN],
+            attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
+            annotatedRoles: [AnnotatedRole.CONTENT_HIDDEN],
           },
           childrenNodes: [
             {
@@ -318,8 +319,8 @@ test('convertToMarkdown wraps ANNOTATED_ROLE_ASIDE in aside element', () => {
       childrenNodes: [
         {
           contentAttributes: {
-            attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
-            annotatedRoles: [pb.optimization_guide.proto.AnnotatedRole.ANNOTATED_ROLE_ASIDE],
+            attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_CONTAINER,
+            annotatedRoles: [AnnotatedRole.ASIDE],
           },
           childrenNodes: [
             {
@@ -344,7 +345,7 @@ test('convertToMarkdown maps TextSize values dynamically to heading levels', () 
         childrenNodes: [
           {
             contentAttributes: {
-              attributeType: pb.optimization_guide.proto.ContentAttributeType.CONTENT_ATTRIBUTE_HEADING,
+              attributeType: ContentAttributeType.CONTENT_ATTRIBUTE_HEADING,
             },
             childrenNodes: [
               {
@@ -365,11 +366,11 @@ test('convertToMarkdown maps TextSize values dynamically to heading levels', () 
     assert.strictEqual(md, `${expectedPrefix} Heading Text`);
   };
 
-  checkHeading(pb.optimization_guide.proto.TextSize.TEXT_SIZE_XL, '##');
-  checkHeading(pb.optimization_guide.proto.TextSize.TEXT_SIZE_L, '###');
-  checkHeading(pb.optimization_guide.proto.TextSize.TEXT_SIZE_M_DEFAULT, '####');
-  checkHeading(pb.optimization_guide.proto.TextSize.TEXT_SIZE_S, '#####');
-  checkHeading(pb.optimization_guide.proto.TextSize.TEXT_SIZE_XS, '#####');
+  checkHeading(TextSize.XL, '##');
+  checkHeading(TextSize.L, '###');
+  checkHeading(TextSize.M_DEFAULT, '####');
+  checkHeading(TextSize.S, '#####');
+  checkHeading(TextSize.XS, '#####');
 });
 
 // TODO: Try to set up a real ad integration test using a live page like https://privacy-sandbox-demos-news.dev/pa-multiple-ad

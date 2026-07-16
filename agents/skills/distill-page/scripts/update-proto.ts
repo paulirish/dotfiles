@@ -11,8 +11,8 @@ const __dirname = path.dirname(__filename);
 const PROTO_URL = 'https://chromium.googlesource.com/chromium/src/+/main/components/optimization_guide/proto/features/common_quality_data.proto?format=TEXT';
 const PROTO_DIR = path.resolve(__dirname, 'proto');
 const PROTO_FILE = path.join(PROTO_DIR, 'common_quality_data.proto');
-const JS_FILE = path.join(PROTO_DIR, 'common_quality_data_pbjs.js');
-const TS_FILE = path.join(PROTO_DIR, 'common_quality_data_pbjs.d.ts');
+const JS_FILE = path.join(PROTO_DIR, 'common_quality_data_pb.js');
+const TS_FILE = path.join(PROTO_DIR, 'common_quality_data_pb.d.ts');
 
 async function fetchProto() {
   console.log(`Fetching latest proto from ${PROTO_URL}...`);
@@ -31,27 +31,14 @@ async function fetchProto() {
   console.log(`Saved proto to ${PROTO_FILE}`);
 }
 
-function generatePbjs() {
-  console.log('Generating pbjs files...');
+function generateBuf() {
+  console.log('Generating buf files...');
   
-  // Run pbjs to generate static module with size optimizations (keeping encode/create for tests)
-  const pbjsCmd = `npx --yes --registry=https://registry.npmjs.org/ --package protobufjs-cli pbjs -t static-module -w esm --no-verify --no-delimited --no-service --no-typeurl -o ${JS_FILE} ${PROTO_FILE}`;
-  console.log(`$ ${pbjsCmd}`);
-  execSync(pbjsCmd, { stdio: 'inherit' });
-
-  // Post-process the generated JS file to fix the protobufjs import if needed.
-  let jsContent = fs.readFileSync(JS_FILE, 'utf8');
-  
-  // Replace the default generated import "protobufjs/minimal.js" with "protobufjs" to remain consistent with our existing code imports.
-  jsContent = jsContent.replace(/import\s+\$protobuf\s+from\s+['"]protobufjs\/minimal\.js['"];/, 'import $protobuf from "protobufjs";');
-  
-  fs.writeFileSync(JS_FILE, jsContent, 'utf8');
-  console.log('Fixed import in JS file.');
-
-  // Run pbts to generate TypeScript definitions
-  const pbtsCmd = `npx --yes --registry=https://registry.npmjs.org/ --package protobufjs-cli pbts -o ${TS_FILE} ${JS_FILE}`;
-  console.log(`$ ${pbtsCmd}`);
-  execSync(pbtsCmd, { stdio: 'inherit' });
+  const templateFile = path.join(PROTO_DIR, 'buf.gen.yaml');
+  // Run buf generate using @bufbuild/buf and @bufbuild/protoc-gen-es
+  const bufCmd = `npx --yes --registry=https://registry.npmjs.org/ -p @bufbuild/buf -p @bufbuild/protoc-gen-es buf generate ${PROTO_FILE} --template ${templateFile} -o ${PROTO_DIR}`;
+  console.log(`$ ${bufCmd}`);
+  execSync(bufCmd, { stdio: 'inherit' });
   
   console.log('Generation complete.');
 }
@@ -59,7 +46,7 @@ function generatePbjs() {
 async function main() {
   try {
     await fetchProto();
-    generatePbjs();
+    generateBuf();
   } catch (error: any) {
     console.error('Error:', error.message);
     process.exit(1);

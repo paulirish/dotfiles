@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { convertToMarkdown } from '../scripts/distill-page.ts';
-import * as pb from '../scripts/proto/common_quality_data_pbjs.js';
+import { fromJson } from '@bufbuild/protobuf';
+import { AnnotatedPageContentSchema } from '../scripts/proto/common_quality_data_pb.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,18 +15,9 @@ test('convertToMarkdown with large fixture payload', () => {
   const fixtureData = fs.readFileSync(fixturePath, 'utf8');
   const payload = JSON.parse(fixtureData);
 
-  // Convert JSON payload to Protobuf message to resolve string enums to numbers
-  const message = pb.optimization_guide.proto.AnnotatedPageContent.fromObject(payload);
-  
-  // Convert back to object with options matching decodeAnnotatedPageContent
-  const normalizedPayload = pb.optimization_guide.proto.AnnotatedPageContent.toObject(message, {
-    longs: String,
-    defaults: true,
-    arrays: true,
-    objects: true,
-  });
+  const message = fromJson(AnnotatedPageContentSchema, payload);
 
-  const md = convertToMarkdown(normalizedPayload as any);
+  const md = convertToMarkdown(message);
 
   assert.ok(md, 'Markdown output should not be empty');
   assert.strictEqual(typeof md, 'string');
