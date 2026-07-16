@@ -49,9 +49,13 @@ function findNodeByRoles(node: AnyNode, roles: string[]): AnyNode | null {
   return null;
 }
 
-function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHeading?: boolean, currentUrl?: string | null}): string {
+function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, insideHeading?: boolean, currentUrl?: string | null}): string {
   let md = '';
   const attrs = node.contentAttributes || {};
+
+  if (attrs.isAdRelated) {
+    return '';
+  }
 
   if (attrs.attributeType === CONTENT_ATTRIBUTE_TEXT && attrs.textData) {
     let text = attrs.textData.textContent || '';
@@ -127,6 +131,9 @@ function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHe
     return listMd + '\n';
   } else if (attrs.attributeType === CONTENT_ATTRIBUTE_TABLE) {
     let tableMd = '\n\n';
+    if (attrs.tableData?.tableName) {
+      tableMd += `**Table: ${attrs.tableData.tableName}**\n\n`;
+    }
     let isFirstRow = true;
     if (node.childrenNodes) {
       for (const row of node.childrenNodes) {
@@ -183,10 +190,14 @@ function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHe
     headingText = normalizeWhitespace(headingText);
     if (headingText) {
       let prefix = '## ';
-      if (maxTextSize === TextSize.TEXT_SIZE_L) {
-        prefix = '### ';
-      } else if (maxTextSize === TextSize.TEXT_SIZE_XL) {
+      if (maxTextSize === TextSize.TEXT_SIZE_XL) {
         prefix = '## ';
+      } else if (maxTextSize === TextSize.TEXT_SIZE_L) {
+        prefix = '### ';
+      } else if (maxTextSize === TextSize.TEXT_SIZE_M_DEFAULT) {
+        prefix = '#### ';
+      } else if (maxTextSize === TextSize.TEXT_SIZE_S || maxTextSize === TextSize.TEXT_SIZE_XS) {
+        prefix = '##### ';
       }
       return `\n\n${prefix}${headingText}\n\n`;
     }
@@ -194,6 +205,9 @@ function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHe
 
   }
 
+  // Policy decision: We skip rendering navigation (NAV) and footer (FOOTER) elements
+  // because they contain boilerplate links. However, we keep search elements (ANNOTATED_ROLE_SEARCH)
+  // because search input fields or search-related context might be useful for understanding page utility.
   if (
     attrs.annotatedRoles &&
     ((attrs.annotatedRoles || []).includes(AnnotatedRole.ANNOTATED_ROLE_NAV) || (attrs.annotatedRoles || []).includes(AnnotatedRole.ANNOTATED_ROLE_FOOTER))
@@ -214,6 +228,35 @@ function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHe
   return md;
 }
 
+function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHeading?: boolean, currentUrl?: string | null}): string {
+  let md = recursiveToMarkdownInternal(node, state);
+
+  const attrs = node.contentAttributes || {};
+  const trimmed = md.trim();
+  if (trimmed) {
+    const roles = attrs.annotatedRoles || [];
+    
+    // Paywalls: prepend a warning
+    if (roles.includes(AnnotatedRole.ANNOTATED_ROLE_PAID_CONTENT)) {
+      md = `> [!IMPORTANT]\n> **Paid Content**: The following section is behind a paywall.\n\n${md}`;
+    }
+
+    // Accordions: wrap in details
+    if (roles.includes(AnnotatedRole.ANNOTATED_ROLE_CONTENT_HIDDEN)) {
+      md = `<details><summary>Collapsed Content</summary>\n\n${trimmed}\n</details>`;
+    }
+
+    // Policy decision: Asides are wrapped in HTML <aside> tags instead of markdown blockquotes.
+    // This prevents breaking the narrative heading flows (since markdown blockquotes can sometimes
+    // obscure the heading hierarchy or be styled identically to quotes).
+    if (roles.includes(AnnotatedRole.ANNOTATED_ROLE_ASIDE)) {
+      md = `<aside>\n\n${trimmed}\n</aside>`;
+    }
+  }
+
+  return md;
+}
+
 export function convertToMarkdown(decodedProto: IAnnotatedPageContent): string {
   const root = decodedProto.rootNode;
   if (!root) return '';
@@ -221,6 +264,11 @@ export function convertToMarkdown(decodedProto: IAnnotatedPageContent): string {
   // Try to find the narrowest main content area to avoid outer shells
   const contentRoot =
     findNodeByRoles(root, [AnnotatedRole.ANNOTATED_ROLE_ARTICLE as unknown as string, AnnotatedRole.ANNOTATED_ROLE_MAIN as unknown as string]) || root;
+
+  let prefix = '';
+  if (decodedProto.mainFrameData?.title) {
+    prefix = `# ${decodedProto.mainFrameData.title}\n\n`;
+  }
 
   let rawMd = recursiveToMarkdown(contentRoot, {imageIndex: 1, currentUrl: decodedProto.mainFrameData?.url});
 
@@ -233,5 +281,5 @@ export function convertToMarkdown(decodedProto: IAnnotatedPageContent): string {
     .replace(/\s+`/g, '`')
     .replace(/^\s+|\s+$/g, '');
 
-  return rawMd;
+  return prefix + rawMd;
 }

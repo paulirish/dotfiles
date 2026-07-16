@@ -1,12 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import {fetchDistilledBase64} from '../scripts/distill-page.ts';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {fetchDistilledBase64, decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/distill-page.ts';
 
-test('CDP Page.getAnnotatedPageContent returns base64 content', async () => {
-  const content = await fetchDistilledBase64('https://example.com');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+test('CDP Page.getAnnotatedPageContent on mock-page.html', async () => {
+  const mockPagePath = path.resolve(__dirname, 'fixtures/mock-page.html');
+  const mockPageUrl = `file://${mockPagePath}`;
+  
+  const content = await fetchDistilledBase64(mockPageUrl);
   assert.ok(content, 'Content should not be empty');
-  assert.strictEqual(typeof content, 'string', 'Content should be a string');
-  // Simple check for base64: length is a multiple of 4, only valid chars
-  assert.match(content, /^[a-zA-Z0-9+/]*={0,2}$/, 'Content should be base64 encoded');
+
+  const decoded = decodeAnnotatedPageContent(content);
+  const md = convertToMarkdown(decoded);
+
+  assert.ok(md.includes('# Mock Page Title'), 'Should prepend title');
+  assert.ok(md.includes('**Table: Mock Table Caption**'), 'Should prepend table name/caption');
+  assert.ok(md.includes('<aside>'), 'Should wrap aside content in <aside> tag');
+  assert.ok(md.includes('<details><summary>Collapsed Content</summary>'), 'Should wrap hidden content in details element');
 });
+
