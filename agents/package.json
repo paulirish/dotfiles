@@ -11,8 +11,9 @@
     "node": ">=24.11.0"
   },
   "scripts": {
-    "test": "pnpm -r run test",
-    "typecheck": "pnpm -r run typecheck",
+    "typecheck": "tsc --noEmit",
+    "test:distill": "node --test \"skills/distill-page/test/!(*cdp).test.ts\" && node --test skills/distill-page/test/cdp.test.ts && node --test skills/distill-page/test/turndown-cdp.test.ts",
+    "test": "pnpm run test:distill && pnpm --filter !turndown -r run test",
     "preflight": "pnpm typecheck && pnpm test"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "protobufjs": "^8.7.1"
   },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "@types/node": "^25.9.5",
+    "typescript": "^5.8.2"
   }
 }

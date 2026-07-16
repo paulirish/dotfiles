@@ -21,8 +21,11 @@ importers:
         specifier: ^8.7.1
         version: 8.7.1
     devDependencies:
+      '@types/node':
+        specifier: ^25.9.5
+        version: 25.9.5
       typescript:
-        specifier: ^5.0.0
+        specifier: ^5.8.2
         version: 5.9.3
 
 packages:

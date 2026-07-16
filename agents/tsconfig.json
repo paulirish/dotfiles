@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": [
+    "skills/distill-page/scripts/**/*",
+    "skills/distill-page/test/**/*"
+  ],
+  "exclude": [
+    "skills/distill-page/scripts/proto/common_quality_data_pbjs.js",
+    "skills/distill-page/turndown_tmp/**/*"
+  ]
+}

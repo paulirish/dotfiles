@@ -30,7 +30,7 @@ export async function fetchDistilledBase64(url: string) {
     browser = await chromium.launch({
       headless: false,
       args: [
-
+        '--headless=new',
         '--enable-features=OptimizationHints,PageContentAnnotation,OptimizationGuideModelDownloading',
         '--enable-dom-distiller',
         '--no-sandbox',
@@ -86,7 +86,7 @@ function outputResult(decodedProto: any, toMarkdown: boolean) {
 import {fileURLToPath} from 'node:url';
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const toMarkdown = process.argv.includes('--markdown');
+  const toMarkdown = !process.argv.includes('--json');
   const isBase64Stdin = process.argv.includes('--base64-stdin');
 
   if (isBase64Stdin) {
@@ -109,10 +109,11 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
 
     if (!url) {
       console.log(`
-Usage (URL fetches via Playwright): node agents/skills/distill-page/scripts/distill-page.ts [--markdown] <URL>
-Usage (Base64 stdin bypasses Playwright): node agents/skills/distill-page/scripts/distill-page.ts --base64-stdin [--markdown] < base64.txt
+Usage (URL fetches via Playwright): node agents/skills/distill-page/scripts/distill-page.ts [--json] <URL>
+Usage (Base64 stdin bypasses Playwright): node agents/skills/distill-page/scripts/distill-page.ts --base64-stdin [--json] < base64.txt
 
-Example: node agents/skills/distill-page/scripts/distill-page.ts --markdown https://www.debugbear.com/blog/content-visibility-api
+Example (Outputs Markdown): node agents/skills/distill-page/scripts/distill-page.ts https://www.debugbear.com/blog/content-visibility-api
+Example (Outputs JSON): node agents/skills/distill-page/scripts/distill-page.ts --json https://www.debugbear.com/blog/content-visibility-api
       `);
       process.exit(1);
     }

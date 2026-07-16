@@ -16,8 +16,16 @@ const {
   CONTENT_ATTRIBUTE_HEADING,
   CONTENT_ATTRIBUTE_CONTAINER
 } = ContentAttributeType;
-type AnyNode = pb.optimization_guide.proto.IContentNode;
-type IAnnotatedPageContent = pb.optimization_guide.proto.IAnnotatedPageContent;
+type AnyNode = pb.optimization_guide.proto.ContentNode.$Properties;
+type IAnnotatedPageContent = pb.optimization_guide.proto.AnnotatedPageContent.$Properties;
+
+const HEADING_PREFIXES: Record<number, string> = {
+  [TextSize.TEXT_SIZE_XL]: '## ',
+  [TextSize.TEXT_SIZE_L]: '### ',
+  [TextSize.TEXT_SIZE_M_DEFAULT]: '#### ',
+  [TextSize.TEXT_SIZE_S]: '##### ',
+  [TextSize.TEXT_SIZE_XS]: '##### ',
+};
 
 export function decodeAnnotatedPageContent(base64String: string): IAnnotatedPageContent {
   const buffer = Buffer.from(base64String, 'base64');
@@ -30,11 +38,11 @@ export function decodeAnnotatedPageContent(base64String: string): IAnnotatedPage
   });
 }
 
-function findNodeByRoles(node: AnyNode, roles: string[]): AnyNode | null {
+function findNodeByRoles(node: AnyNode, roles: pb.optimization_guide.proto.AnnotatedRole[]): AnyNode | null {
   const attrs = node.contentAttributes || {};
   if (attrs.annotatedRoles) {
     for (const r of roles) {
-      if (attrs.annotatedRoles.includes(r as any)) {
+      if (attrs.annotatedRoles.includes(r)) {
         return node;
       }
     }
@@ -59,6 +67,7 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
 
   if (attrs.attributeType === CONTENT_ATTRIBUTE_TEXT && attrs.textData) {
     let text = attrs.textData.textContent || '';
+    const isCodeFence = text.includes('```');
     text = text.trim();
     if (text) {
       if (attrs.textData.textStyle?.hasEmphasis && text !== '`') {
@@ -72,6 +81,9 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
             text = `\n\n${prefix} ${text}\n\n`;
           }
         }
+      }
+      if (isCodeFence) {
+        text = `\n${text}\n`;
       }
       md += text;
       if (!text.endsWith('\n')) {
@@ -189,16 +201,7 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
     }
     headingText = normalizeWhitespace(headingText);
     if (headingText) {
-      let prefix = '## ';
-      if (maxTextSize === TextSize.TEXT_SIZE_XL) {
-        prefix = '## ';
-      } else if (maxTextSize === TextSize.TEXT_SIZE_L) {
-        prefix = '### ';
-      } else if (maxTextSize === TextSize.TEXT_SIZE_M_DEFAULT) {
-        prefix = '#### ';
-      } else if (maxTextSize === TextSize.TEXT_SIZE_S || maxTextSize === TextSize.TEXT_SIZE_XS) {
-        prefix = '##### ';
-      }
+      const prefix = HEADING_PREFIXES[maxTextSize] || '## ';
       return `\n\n${prefix}${headingText}\n\n`;
     }
     return '';
@@ -210,7 +213,7 @@ function recursiveToMarkdownInternal(node: AnyNode, state: {imageIndex: number, 
   // because search input fields or search-related context might be useful for understanding page utility.
   if (
     attrs.annotatedRoles &&
-    ((attrs.annotatedRoles || []).includes(AnnotatedRole.ANNOTATED_ROLE_NAV) || (attrs.annotatedRoles || []).includes(AnnotatedRole.ANNOTATED_ROLE_FOOTER))
+    (attrs.annotatedRoles.includes(AnnotatedRole.ANNOTATED_ROLE_NAV) || attrs.annotatedRoles.includes(AnnotatedRole.ANNOTATED_ROLE_FOOTER))
   ) {
     return ''; // Skip rendering kids of nav/footer
   }
@@ -232,25 +235,27 @@ function recursiveToMarkdown(node: AnyNode, state: {imageIndex: number, insideHe
   let md = recursiveToMarkdownInternal(node, state);
 
   const attrs = node.contentAttributes || {};
-  const trimmed = md.trim();
-  if (trimmed) {
-    const roles = attrs.annotatedRoles || [];
-    
-    // Paywalls: prepend a warning
-    if (roles.includes(AnnotatedRole.ANNOTATED_ROLE_PAID_CONTENT)) {
-      md = `> [!IMPORTANT]\n> **Paid Content**: The following section is behind a paywall.\n\n${md}`;
-    }
+  const roles = attrs.annotatedRoles;
 
-    // Accordions: wrap in details
-    if (roles.includes(AnnotatedRole.ANNOTATED_ROLE_CONTENT_HIDDEN)) {
-      md = `<details><summary>Collapsed Content</summary>\n\n${trimmed}\n</details>`;
-    }
+  if (roles && roles.length > 0) {
+    const hasPaid = roles.includes(AnnotatedRole.ANNOTATED_ROLE_PAID_CONTENT);
+    const hasHidden = roles.includes(AnnotatedRole.ANNOTATED_ROLE_CONTENT_HIDDEN);
+    const hasAside = roles.includes(AnnotatedRole.ANNOTATED_ROLE_ASIDE);
 
-    // Policy decision: Asides are wrapped in HTML <aside> tags instead of markdown blockquotes.
-    // This prevents breaking the narrative heading flows (since markdown blockquotes can sometimes
-    // obscure the heading hierarchy or be styled identically to quotes).
-    if (roles.includes(AnnotatedRole.ANNOTATED_ROLE_ASIDE)) {
-      md = `<aside>\n\n${trimmed}\n</aside>`;
+    if (hasPaid || hasHidden || hasAside) {
+      let trimmed = md.trim();
+      if (trimmed) {
+        if (hasPaid) {
+          trimmed = `> [!IMPORTANT]\n> **Paid Content**: The following section is behind a paywall.\n\n${trimmed}`;
+        }
+        if (hasHidden) {
+          trimmed = `<details><summary>Collapsed Content</summary>\n\n${trimmed}\n</details>`;
+        }
+        if (hasAside) {
+          trimmed = `<aside>\n\n${trimmed}\n</aside>`;
+        }
+        md = trimmed;
+      }
     }
   }
 
@@ -263,7 +268,7 @@ export function convertToMarkdown(decodedProto: IAnnotatedPageContent): string {
 
   // Try to find the narrowest main content area to avoid outer shells
   const contentRoot =
-    findNodeByRoles(root, [AnnotatedRole.ANNOTATED_ROLE_ARTICLE as unknown as string, AnnotatedRole.ANNOTATED_ROLE_MAIN as unknown as string]) || root;
+    findNodeByRoles(root, [AnnotatedRole.ANNOTATED_ROLE_ARTICLE, AnnotatedRole.ANNOTATED_ROLE_MAIN]) || root;
 
   let prefix = '';
   if (decodedProto.mainFrameData?.title) {
@@ -277,9 +282,8 @@ export function convertToMarkdown(decodedProto: IAnnotatedPageContent): string {
     .replace(/\n{3,}/g, '\n\n')
     .replace(/ \n/g, '\n')
     .replace(/ +([.,!?;:)])/g, '$1')
-    .replace(/`\s+/g, '`')
-    .replace(/\s+`/g, '`')
-    .replace(/^\s+|\s+$/g, '');
+    .replace(/`[ \t]+/g, '`')
+    .replace(/[ \t]+`/g, '`');
 
-  return prefix + rawMd;
+  return (prefix + rawMd).trim();
 }
