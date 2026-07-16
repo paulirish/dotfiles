@@ -29,14 +29,19 @@ Unlike tools like convert page DOM/HTML to markdown, `distill-page` uses Chromiu
    * **paulirish.com homepage**: 7.4KB (`turndown`) &rarr; **2.4KB** (`distill-page`) — **67% savings**
    * This saves valuable context window tokens and reduces processing costs when feeding pages to downstream LLMs.
 3. **Semantic Fidelity Features**:
-   * **Page Titles**: Extracts and prepends the page title as a `# Title` header.
+   * **Page Titles**: Extracts and prepends the page title as a standalone plain text line at the very top.
    * **Table Captions**: Identifies table captions (`TableData.table_name`) and renders them cleanly as bold headers.
    * **Ad Stripping**: Instantly ignores nodes flagged as ads by the browser model (`is_ad_related`).
    * **Accordions**: Detects collapsed elements and wraps them in HTML `<details>` disclosure blocks.
    * **Asides**: Detects sidebars and callouts and wraps them in HTML `<aside>` tags (preventing heading hierarchy breakage).
-   * **Heading Levels**: Dynamic mapping of text size hierarchies to appropriate Markdown headers (H1-H5).
+   * **Heading Levels**: Dynamic mapping of text size hierarchies to appropriate Markdown headers (`XL` &rarr; `# H1`, `L` &rarr; `## H2`, `M` &rarr; `### H3`, etc.).
 
 ## 🛠️ Implementation Details
+
+### Two-Pass Compiler Architecture
+The parser uses a clean two-pass compiler design to decouple tree parsing from markdown serialization formatting:
+1. **Phase 1 (Parse to AST)**: Recursively traverses the Chromium layout annotation protobufs (`AnnotatedPageContent`) and builds a strongly-typed intermediate document AST (`ASTDocument` containing `ASTBlockNode` and `ASTInlineNode` structures).
+2. **Phase 2 (Serialize to Markdown)**: Traverses the AST and formats it into Markdown. This keeps formatting logic (spacing normalization, tag generation, emphasis grouping) separate from structural parsing.
 
 ### Core Mechanism
 The script uses **Playwright** to launch Chromium and establish a direct **CDP Session** to a page. It then calls the experimental `Page.getAnnotatedPageContent` method to extract the ML-annotated layout tree.
@@ -54,6 +59,7 @@ The CDP method returns a base64 string containing a serialized `AnnotatedPageCon
 
 * **Empty Pages**: The CDP method will fail with a protocol error on `about:blank` or pages with negligible content.
 * **Experimental Status**: This is an experimental CDP feature; its behavior may change or be removed in future Chromium versions.
+* **Blockquotes**: The Chromium layout annotator model does not recognize blockquotes and maps `<blockquote>` elements to `AX_ROLE_UNKNOWN` (181). Because of this, Page Distiller does not support blockquote structural nesting or styling (we choose not to handle it because raw DOM injection fixes are fragile and break on nested line boundaries).
 
 ## 🆚 Turndown vs CDP ML Extraction (Tradeoffs)
 
