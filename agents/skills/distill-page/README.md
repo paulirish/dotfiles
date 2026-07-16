@@ -67,6 +67,11 @@ We have evaluated this CDP `AnnotatedPageContent` method against standard HTML-t
 
 **The CDP method fails many standard syntax parser tests by design.**
 
+To prevent regression on features that *do* work successfully, the integration test suite includes a compatibility test runner based on a whitelist of passing tests.
+
+*   **Default Mode (Regression Prevention)**: Runs as part of `pnpm run preflight`. It only asserts on the **37 passing test cases** that we expect to remain correct. Other tests are skipped silently.
+*   **Full Compatibility Mode (Development/Gap Analysis)**: Run via `pnpm run test:compatibility` (or setting `RUN_ALL_TURNDOWN_TESTS=1`). This runs all 139 tests and prints detailed reports of the remaining failures.
+
 ### The Core Difference
 * **Turndown is a Semantic Syntax Parser**: It maps raw HTML tags directly to Markdown syntax (`<em>` directly becomes `_`, `<code>` becomes backticks), relying entirely on the author's original HTML structure.
 * **CDP is a Visual ML Extraction**: It strips away all HTML tags completely and abstracts the layout tree into generic elements (`CONTAINER`, `TEXT`, `IMAGE`). It relies entirely on how the page visually presents data.

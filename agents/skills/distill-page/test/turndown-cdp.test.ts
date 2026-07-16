@@ -1,4 +1,5 @@
 import test from 'node:test';
+import assert from 'node:assert';
 import {chromium} from 'playwright';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -8,10 +9,49 @@ import TurndownService from 'turndown';
 // @ts-expect-error - no types for turndown-plugin-gfm
 import {gfm} from 'turndown-plugin-gfm';
 
+const EXPECTED_PASSING_TESTS = [
+  'p',
+  'multiple ps',
+  'strong',
+  'b',
+  'code',
+  'code containing markdown syntax',
+  'code containing markdown syntax in a span',
+  'h1',
+  'not escaping = outside of a heading',
+  'h1 as atx',
+  'h2',
+  'h2 as atx',
+  'invalid heading',
+  'a with a child',
+  'pre/code block',
+  'multiple pre/code blocks',
+  'fenced pre/code block',
+  'pre/code block fenced with ~',
+  'not escaping ~~~',
+  'comment',
+  'pre/code with comment',
+  'whitespace between inline elements',
+  'blank inline elements',
+  'blank inline element with br',
+  'not escaping # outside of a heading',
+  'not escaping within code',
+  'not escaping . outside of an ol',
+  'not escaping - outside of a ul',
+  'not escaping + outside of a ul',
+  'not escaping > outside of a blockquote',
+  'non-markdown inline elements',
+  'text separated by a space in an element',
+  'triple tildes inside code',
+  'preformatted code with leading whitespace',
+  'preformatted code with trailing whitespace',
+  'preformatted code loosely surrounded'
+];
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-test('Run Turndown cases against CDP getAnnotatedPageContent', async () => {
+test('Run Turndown cases against CDP getAnnotatedPageContent', async (t) => {
   const browser = await chromium.launch({
     headless: false,
     args: [
@@ -47,52 +87,39 @@ test('Run Turndown cases against CDP getAnnotatedPageContent', async () => {
 
   console.log(`Found ${testCases.length} test cases.`);
 
-  // To avoid 200s runtime, we can just run the first 5 tests or specific ones
-  // that we want to try supporting.
-  const SKIPPED_TESTS: string[] = [];
-
-  let passed = 0;
-  let failed = 0;
+  const runAll = process.env.RUN_ALL_TURNDOWN_TESTS === '1';
 
   const page = await context.newPage();
   const client = await page.context().newCDPSession(page);
   await client.send('Page.enable');
 
   for (const tc of testCases) {
-    if (SKIPPED_TESTS.includes(tc.name || '')) {
-      console.log(`\n⏭️ Skipped: ${tc.name}`);
+    const isPassing = EXPECTED_PASSING_TESTS.includes(tc.name || '');
+    if (!runAll && !isPassing) {
       continue;
     }
-    // Navigate to a data URL with the input HTML
-    const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(`<!DOCTYPE html><html><body>${tc.inputHtml}</body></html>`);
-    await page.goto(dataUrl, {waitUntil: 'load'});
-    await page.bringToFront();
 
-    await injectSemanticMarkers(page);
+    await t.test(tc.name || 'unnamed case', async () => {
+      // Navigate to a data URL with the input HTML
+      const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(`<!DOCTYPE html><html><body>${tc.inputHtml}</body></html>`);
+      await page.goto(dataUrl, {waitUntil: 'load'});
+      await page.bringToFront();
 
-    // wait a small bit for CDP to digest
-    await page.waitForTimeout(500);
+      await injectSemanticMarkers(page);
 
-    let actualMd = '';
-    try {
-      const {content} = await client.send('Page.getAnnotatedPageContent');
-      const decoded = decodeAnnotatedPageContent(content);
-      actualMd = convertToMarkdown(decoded) || '';
-    } catch (e) {
-      console.error(`Failed on ${tc.name}`, e);
-    }
+      let actualMd = '';
+      try {
+        const {content} = await client.send('Page.getAnnotatedPageContent');
+        const decoded = decodeAnnotatedPageContent(content);
+        actualMd = convertToMarkdown(decoded) || '';
+      } catch (e) {
+        console.error(`Failed on ${tc.name}`, e);
+      }
 
-    const expectedGfm = turndownGfm.turndown(tc.inputHtml);
-    if (actualMd.trim() === expectedGfm.trim()) {
-      passed++;
-    } else {
-      console.log(`\n❌ Failed: ${tc.name}`);
-      console.log(`EXPECTED (Turndown GFM):\n${expectedGfm}`);
-      console.log(`ACTUAL (Page Distiller):\n${actualMd}`);
-      failed++;
-    }
+      const expectedGfm = turndownGfm.turndown(tc.inputHtml);
+      assert.strictEqual(actualMd.trim(), expectedGfm.trim(), `Output mismatch for case "${tc.name}"`);
+    });
   }
 
   await browser.close();
-  console.log(`\nResults: ${passed} passed, ${failed} failed`);
 });
