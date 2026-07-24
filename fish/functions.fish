@@ -40,12 +40,7 @@ end
 
 
 function killprocess --description 'Kill process that user selects in fzf (from ps aux output)'
-  set -l pid (ps aux | fzf -m --header-lines=1 | awk '{print $2}')
-
-  if test -n "$pid"
-    echo "Killing processes: $pid"
-    kill -9 $pid
-  end
+  ps aux | fzf -m --header-lines=1 | awk '{print $2}' | xargs -r kill -9
 end
 
 
