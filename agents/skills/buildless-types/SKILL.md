@@ -88,6 +88,28 @@ Follow these rules to maintain a build-free environment.
 *   Once implemented, add to project docs/guidelines that agents should NOT use `npx tsx` or `ts-node` to run node scripts; instead, just run them directly: `node script.ts`.
 
 
+## Programmatic Type Stripping API
+
+Node.js (v22.6.0+) exposes its internal TypeScript type stripping engine programmatically via `node:module`. This is useful for tool builders and runtime scripts that need to transpile TypeScript code programmatically.
+
+```javascript
+import { stripTypeScriptTypes } from 'node:module';
+
+const tsCode = 'const user: string = "Alice"; console.log(user);';
+
+// 1. Default mode ('strip'): preserves spacing/offsets, throws error if sourceMap: true is set
+const jsCodeStripped = stripTypeScriptTypes(tsCode);
+// "const user         = \"Alice\"; console.log(user);"
+
+// 2. Transform mode ('transform'): removes extra whitespace, supports inline source maps
+const jsCodeTransformed = stripTypeScriptTypes(tsCode, {
+  mode: 'transform',
+  sourceMap: true,
+  sourceUrl: 'index.ts'
+});
+```
+
+
 ## Type Design & Analysis Principles
 
 When working with types (whether in TS or via JSDoc), apply these principles to ensure high-quality type design:
