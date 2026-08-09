@@ -100,9 +100,9 @@ Been doing this for a while.. forgot how i learned it and nobody has it document
 
 Run on client machine:
 
-    ssh-add -L | grep publickey
+    ssh-add -L | grep ecdsa-sha2-nistp256@
 
-This outputs a `ecdsa-sha2-nistp256` key for me. I know it's registered for my hardware security key. (I don't know how it got registered with the SSH agent but w/e.)
+This outputs a `ecdsa-sha2-nistp256` key for me. I know it's registered for my hardware security key. 
 
 Put that in whatever `authorized_keys` of your remote host. That's it.
 

@@ -110,16 +110,20 @@ string match -q "$TERM_PROGRAM" "vscode"
 and . (code --locate-shell-integration-path fish)
 
 
-# begin gd completion
-gd --completion-fish | source
-# end gd completion
+#  something about this fucks with my shells.
+# # begin gd completion
+# gd --completion-fish | source
+# # end gd completion
 
-# adapt gd for worktrees.
-function gd
-    set -l git_root (git rev-parse --show-toplevel 2>/dev/null)
-    if test -n "$git_root"
-        $git_root/bin/gd.ts $argv
-    else
-        echo "Error: Not in a git repository"
-    end
-end
+# # adapt gd for worktrees.
+# function gd
+#     set -l git_root (git rev-parse --show-toplevel 2>/dev/null)
+#     if test -n "$git_root"
+#         $git_root/bin/gd.ts $argv
+#     else
+#         echo "Error: Not in a git repository"
+#     end
+# end
+
+# Raise file descriptor limit for development
+ulimit -n 102400 2>/dev/null

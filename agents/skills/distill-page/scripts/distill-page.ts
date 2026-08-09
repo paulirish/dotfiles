@@ -86,8 +86,14 @@ function outputResult(decodedProto: any, toMarkdown: boolean) {
 
 // Check if running as a standalone script
 import {fileURLToPath} from 'node:url';
+import fs from 'node:fs';
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+const isMain = process.argv[1] && (
+  fileURLToPath(import.meta.url) === process.argv[1] ||
+  fs.realpathSync(fileURLToPath(import.meta.url)) === fs.realpathSync(process.argv[1])
+);
+
+if (isMain) {
   const toMarkdown = !process.argv.includes('--json');
   const isBase64Stdin = process.argv.includes('--base64-stdin');
 

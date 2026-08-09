@@ -14,6 +14,14 @@ sysctl -a | egrep 'max(files|vnodes|proc)'
 #    kern.maxfilesperproc: 524288
 
 
+#   sudo nano /etc/sysctl.conf
+
+#   Append these lines to the bottom:
+#    kern.maxvnodes=524288
+#    kern.maxfiles=524288
+#    kern.maxfilesperproc=524288
+#    kern.maxproc=16704
+
 # Useful: https://serverfault.com/questions/502053/difference-between-ulimit-launchctl-sysctl
 # launchctl limit maxfiles    # launchctl limit maxproc    
 

@@ -30,7 +30,7 @@
 	#                                                                      ^^ also, 2 vs 3 dots: so important. https://stackoverflow.com/a/48681527
 	diffcommitsfrommain-incl-merges = !"git log origin/$(git mainormaster).."
 
-	# squash unique commits from branch into one commit that keeps commit msgs. The extra \n is very important if this is used multiple times.
+	# squash unique commits from branch (or since origin/main) into one commit that keeps commit msgs. The extra \n is very important if this is used multiple times.
 	squash = !"commit_body=$(git log --graph --pretty=format:'%h (%>(16)%ad %an) %s%w(0,4,4)%+b%w(0,0,0)' --abbrev-commit --date=human --no-color $(git diffbase)..HEAD) && author_date=$(git log -1 --pretty=%aI HEAD) && git reset --soft $(git diffbase) && GIT_AUTHOR_DATE=\"$author_date\" git commit -m \"Squashed:\n\n$commit_body\""
 
 	# I prefer these from my fish abbv's, but for bash we'll keep this as a fallback.
@@ -98,6 +98,7 @@
 	submodule = log
 	# Histogram is best. https://blog.gitbutler.com/how-git-core-devs-configure-git/
 	algorithm = histogram
+	test-key = some value
 
 # special hunk parsing for .pdl. https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitattributes.html#_defining_a_custom_hunk_header
 [diff "pdl"]

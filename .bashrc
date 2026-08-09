@@ -153,3 +153,8 @@ shopt -s dotglob
 if command -v brew > /dev/null; then
     [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh" 2>/dev/null
 fi
+
+# Raise file descriptor limit for development
+ulimit -n 102400 2>/dev/null
+
+
