@@ -10,18 +10,67 @@ import { parseArgs } from 'node:util';
 /**
  * Trims trailing whitespace from files.
  * By default, only trims on modified lines in `git diff origin/main...`.
- * With `--all` flag, trims all lines of modified/added files.
+ * With `--force` flag, trims all lines of modified/added files.
  */
 
 function printHelp() {
-  console.log(`Usage: trim-trailing-whitespace [options] [files...]
+  console.log(`Usage: trim-trailing-whitespace [options] [files/directories...]
 
 Trims trailing whitespace from files.
 By default, only trims on modified lines in 'git diff origin/main...'.
 
 Options:
-  -a, --all   Trim trailing whitespace from all lines of the target files.
-  -h, --help  Show this help message.`);
+  -f, --force  Trim trailing whitespace from all lines of the target files.
+  -h, --help   Show this help message.`);
+}
+
+async function isTextFile(filePath: string): Promise<boolean> {
+  const ext = path.extname(filePath).toLowerCase();
+  const binaryExtensions = new Set([
+    '.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico', '.pdf', '.zip', '.tar', '.gz',
+    '.mp4', '.mp3', '.wav', '.mov', '.avi', '.ttf', '.woff', '.woff2', '.eot', '.db',
+    '.sqlite', '.wasm', '.bin', '.exe', '.dll', '.so', '.dylib', '.pyc'
+  ]);
+  if (binaryExtensions.has(ext)) {
+    return false;
+  }
+
+  try {
+    const fd = await fs.open(filePath, 'r');
+    try {
+      const buffer = Buffer.alloc(512);
+      const { bytesRead } = await fd.read(buffer, 0, 512, 0);
+      for (let i = 0; i < bytesRead; i++) {
+        if (buffer[i] === 0) {
+          return false;
+        }
+      }
+      return true;
+    } finally {
+      await fd.close();
+    }
+  } catch {
+    return false;
+  }
+}
+
+async function getFilesRecursively(dir: string): Promise<string[]> {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const files: string[] = [];
+  for (const entry of entries) {
+    const res = path.resolve(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (['.git', 'node_modules', 'dist', 'build', '.gemini', '.antigravitycli', 'coverage'].includes(entry.name)) {
+        continue;
+      }
+      files.push(...(await getFilesRecursively(res)));
+    } else if (entry.isFile()) {
+      if (await isTextFile(res)) {
+        files.push(res);
+      }
+    }
+  }
+  return files;
 }
 
 export async function main(args: string[]) {
@@ -30,9 +79,9 @@ export async function main(args: string[]) {
     const parsed = parseArgs({
       args,
       options: {
-        all: {
+        force: {
           type: 'boolean',
-          short: 'a',
+          short: 'f',
           default: false,
         },
         help: {
@@ -56,45 +105,69 @@ export async function main(args: string[]) {
     return;
   }
 
-  const useAll = values.all;
-  let filesToProcess = positionals;
+  const useForce = values.force;
+  const inputPaths = positionals;
+  let filesToProcess: string[] = [];
 
-  if (filesToProcess.length === 0) {
+  if (inputPaths.length === 0) {
     try {
       const diffCommand = 'git diff --name-only origin/main...';
       const gitFiles = execSync(diffCommand).toString().trim().split('\n').filter(f => f.length > 0);
-      console.log({gitFiles})
-      filesToProcess = gitFiles;
+      filesToProcess = gitFiles.map(f => path.resolve(f));
       if (filesToProcess.length === 0) {
         console.log('No modified files detected relative to origin/main.');
         return;
       }
-      console.log(`Detected modified files: ${filesToProcess.join(', ')}`);
+      console.log(`Detected modified files: ${filesToProcess.map(f => path.relative(process.cwd(), f)).join(', ')}`);
     } catch (e) {
       console.error('Error detecting modified files from git:', e);
       process.exit(1);
+    }
+  } else {
+    for (const inputPath of inputPaths) {
+      const resolved = path.resolve(inputPath);
+      try {
+        const stat = await fs.stat(resolved);
+        if (stat.isDirectory()) {
+          const dirFiles = await getFilesRecursively(resolved);
+          filesToProcess.push(...dirFiles);
+        } else if (stat.isFile()) {
+          if (await isTextFile(resolved)) {
+            filesToProcess.push(resolved);
+          } else {
+            console.log(`Skipping binary file: ${inputPath}`);
+          }
+        }
+      } catch (e: any) {
+        if (e.code === 'ENOENT') {
+          console.error(`Path does not exist: ${inputPath}`);
+        } else {
+          console.error(`Error processing path ${inputPath}:`, e);
+        }
+      }
     }
   }
 
   for (const file of filesToProcess) {
     try {
-      await processFile(file, useAll);
+      await processFile(file, useForce);
     } catch (e) {
       if (e && typeof e === 'object' && 'code' in e && e.code === 'ENOENT') {
-        console.log(`File skipped (does not exist): ${file}`);
+        console.log(`File skipped (does not exist): ${path.relative(process.cwd(), file)}`);
       } else {
-        console.error(`Error processing ${file}:`, e);
+        console.error(`Error processing ${path.relative(process.cwd(), file)}:`, e);
       }
     }
   }
   console.log('Done.');
 }
 
-async function processFile(filePath: string, useAll: boolean) {
+async function processFile(filePath: string, useForce: boolean) {
   const resolvedPath = path.resolve(filePath);
+  const relativePath = path.relative(process.cwd(), resolvedPath);
 
-  if (useAll) {
-    console.log(`Trimming all lines: ${filePath}...`);
+  if (useForce) {
+    console.log(`Trimming all lines: ${relativePath}...`);
     const content = await fs.readFile(resolvedPath, 'utf8');
     const lines = content.split('\n');
     const trimmedLines = lines.map(line => line.trimEnd());
@@ -102,17 +175,17 @@ async function processFile(filePath: string, useAll: boolean) {
     return;
   }
 
-  console.log(`Trimming modified lines: ${filePath}...`);
+  console.log(`Trimming modified lines: ${relativePath}...`);
   const diffCommand = `git diff -U0 origin/main... -- ${resolvedPath}`;
   let diff = '';
   try {
     diff = execSync(diffCommand).toString();
   } catch (e) {
-    console.log(`No changes detected for ${filePath} in diff.`);
+    console.log(`No changes detected for ${relativePath} in diff.`);
     return;
   }
   if (!diff) {
-    console.log(`No changes detected for ${filePath} in diff.`);
+    console.log(`No changes detected for ${relativePath} in diff.`);
     return;
   }
 
