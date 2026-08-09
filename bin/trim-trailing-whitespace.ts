@@ -166,6 +166,15 @@ async function processFile(filePath: string, useForce: boolean) {
   const resolvedPath = path.resolve(filePath);
   const relativePath = path.relative(process.cwd(), resolvedPath);
 
+  try {
+    const stat = await fs.stat(resolvedPath);
+    if (stat.isDirectory()) {
+      return;
+    }
+  } catch {
+    // Let downstream FS/git operations throw if file is missing/inaccessible
+  }
+
   if (useForce) {
     console.log(`Trimming all lines: ${relativePath}...`);
     const content = await fs.readFile(resolvedPath, 'utf8');
