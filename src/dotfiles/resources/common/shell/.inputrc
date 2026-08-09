@@ -1,0 +1,42 @@
+## ~/.inputrc — managed by dotfiles
+## Readline configuration (Bash line editing).
+
+# Case-insensitive tab completion
+set completion-ignore-case on
+
+# Treat hyphens and underscores as equivalent in completion
+set completion-map-case on
+
+# Show all completions at first Tab press (not just common prefix)
+set show-all-if-ambiguous on
+
+# Immediately add trailing slash when completing symlinks to directories
+set mark-symlinked-directories on
+
+# Prefix-based history search: Up/Down uses already-typed text as the prefix.
+# This is one of the most useful readline bindings — try it.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Do not autocomplete hidden files unless the pattern starts with a dot
+set match-hidden-files off
+
+# Show all completions at once (no paging)
+set page-completions off
+
+# Ask to confirm if more than 200 completions are available
+set completion-query-items 200
+
+# Show extra file information (like `ls -F`): trailing /, *, @ etc.
+set visible-stats on
+
+# Smarter completion: look at text *after* the cursor too
+set skip-completed-text on
+
+# UTF-8 input/output (instead of escaped sequences like $'\0123\0456')
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Alt/Meta + Delete → kill preceding word
+"\e[3;3~": kill-word

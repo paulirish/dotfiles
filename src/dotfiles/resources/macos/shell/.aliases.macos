@@ -1,0 +1,19 @@
+# ~/.aliases.macos — macOS-specific aliases
+# Sourced after ~/.aliases on macOS via the platform overlay mechanism.
+
+# ── File sizes (BSD stat syntax) ─────────────────────────────────────────────
+alias fs="stat -f \"%z bytes\""
+
+# ── Trash & disk cleanup ──────────────────────────────────────────────────────
+# Empties all Trash on mounted volumes + clears the VM sleep image.
+# Add app-specific cache paths to ~/.extra if needed.
+alias emptytrash="\
+    sudo rm -rfv /Volumes/*/.Trashes; \
+    rm -rfv \$HOME/.Trash/*; \
+    sudo rm -f /private/var/vm/sleepimage"
+
+# ── Homebrew maintenance ──────────────────────────────────────────────────────
+alias brew_update="brew -v update; brew upgrade --force-bottle; brew cleanup; brew doctor"
+
+# ── Tab completion for macOS defaults ─────────────────────────────────────────
+complete -W "NSGlobalDomain" defaults

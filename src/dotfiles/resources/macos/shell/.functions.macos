@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+# ~/.functions.macos — macOS-specific shell functions
+# Sourced after ~/.functions on macOS via the platform overlay mechanism.
+
+# ── Finder integration ────────────────────────────────────────────────────────
+
+# cd into the frontmost Finder window
+cdf() {
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+}
+
+# ── Camera ───────────────────────────────────────────────────────────────────
+
+# Show which process is using the FaceTime / iSight camera
+camerausedby() {
+    echo "Checking who is using the camera… 📷"
+    local used
+    used="$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{print $2}' | xargs ps 2>/dev/null)"
+    echo -e "Recent camera uses:\n${used:-none}"
+}
+
+# ── Network ──────────────────────────────────────────────────────────────────
+
+# Show local IP addresses for all network interfaces
+localip() {
+    local purple="\x1B[35m" reset="\x1B[m"
+    networksetup -listallhardwareports | \
+        sed -E "s/Hardware Port: (.*)/${purple}\1${reset}/g" | \
+        sed -E "s/Device: (en.*)$/ipconfig getifaddr \1/e" | \
+        sed -E "s/Ethernet Address:/📘 /g" | \
+        sed -E "s/(VLAN Configurations)|=+//g"
+}
+
+# ── Media conversion ─────────────────────────────────────────────────────────
+# Requires: ffmpeg, gifsicle
+
+# Convert a video to an animated GIF
+# Usage: gifify input.mov [--good]
+gifify() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: gifify <input_movie.mov> [--good]"
+        return 1
+    fi
+    if [[ $2 == '--good' ]]; then
+        ffmpeg -i "$1" -r 10 -vcodec png out-static-%05d.png
+        convert -verbose +dither -layers Optimize -resize 900x900\> out-static*.png GIF:- | \
+            gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > "$1.gif"
+        rm -f out-static*.png
+    else
+        ffmpeg -i "$1" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | \
+            gifsicle --optimize=3 --delay=3 > "$1.gif"
+    fi
+}
+
+# Convert a video to WebM
+# Requires: ffmpeg with libvpx + libvorbis
+webmify() {
+    ffmpeg -i "$1" -vcodec libvpx -acodec libvorbis -isync -copyts \
+        -aq 80 -threads 3 -qmax 30 -y "$2" "$1.webm"
+}
+
+# ── Shell management ──────────────────────────────────────────────────────────
+
+# Switch the default shell (target must be listed in /etc/shells)
+# Example: shellswitch bash
+shellswitch() {
+    chsh -s "$(brew --prefix)/bin/$1"
+}
+
+# ── VPN (Cisco AnyConnect + 1Password) ───────────────────────────────────────
+# Requires: op (1Password CLI), vpn (Cisco AnyConnect CLI)
+# Add OP_UCSD_VPN_ID and OP_SALK_VPN_ID to ~/.extra (never commit those values).
+#
+# Example ~/.extra entry:
+#   export OP_UCSD_VPN_ID="your-1password-item-uuid"
+#   export OP_SALK_VPN_ID="your-1password-item-uuid"
+
+connect() {
+    if [[ $1 == "ucsd" ]]; then
+        local PASS
+        PASS="$(op item get "${OP_UCSD_VPN_ID:?set OP_UCSD_VPN_ID in ~/.extra}" \
+            --reveal --fields password)"
+        printf "0\n%s\n%s\ny" "$USER" "$PASS" | vpn -s connect vpn.ucsd.edu
+    elif [[ $1 == "salk" ]]; then
+        local PASS
+        PASS="$(op item get "${OP_SALK_VPN_ID:?set OP_SALK_VPN_ID in ~/.extra}" \
+            --reveal --fields password)"
+        printf "1\n%s\n%s\ny" "$USER" "$PASS" | vpn -s connect vpnfp.salk.edu
+    else
+        echo "Usage: connect ucsd|salk"
+        return 1
+    fi
+}
+
+# ── SSH Tunnelling ─────────────────────────────────────────────────────────────
+
+# Forward a remote port to localhost
+# Usage: tunnel <hostname> <port>
+tunnel() {
+    ssh "${DOTFILES_USER:-$USER}@$1" -L "$2:localhost:$2"
+}

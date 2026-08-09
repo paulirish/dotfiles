@@ -1,0 +1,22 @@
+# ~/.exports.cluster — HPC/cluster-specific environment variables
+# Sourced after ~/.exports.linux on cluster systems.
+
+# Don't set LC_ALL inside Kubernetes/container environments
+if [ -d /var/run/secrets/kubernetes.io ]; then
+    unset LC_ALL
+fi
+
+# Prefer $HOME/bin for user-installed tools (no sudo on clusters)
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
+
+# micromamba / conda installed to $HOME (no-root HPC install)
+if [ -d "$HOME/conda/bin" ]; then
+    export PATH="$HOME/conda/bin:$PATH"
+fi
+if [ -d "$HOME/micromamba" ]; then
+    export MAMBA_ROOT_PREFIX="$HOME/micromamba"
+    export PATH="$HOME/micromamba/bin:$PATH"
+fi
+
+# Slurm / PBS helpers — uncomment if needed
+# export SBATCH_ACCOUNT="${SBATCH_ACCOUNT:-your-account}"

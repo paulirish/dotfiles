@@ -1,0 +1,14 @@
+# ~/.exports.linux — generic Linux-specific environment variables
+# Sourced after ~/.exports on Linux via the platform overlay mechanism.
+
+# Don't set LC_ALL inside Kubernetes pods — it can break system tools
+if [ -d /var/run/secrets/kubernetes.io ]; then
+    unset LC_ALL
+fi
+
+# gh CLI completion (if installed)
+command -v gh &>/dev/null && eval "$(gh completion -s bash)" 2>/dev/null
+
+# Load system-wide bash completion if not already loaded
+[ -f /etc/bash_completion ] && [ -z "$BASH_COMPLETION_VERSINFO" ] && \
+    source /etc/bash_completion

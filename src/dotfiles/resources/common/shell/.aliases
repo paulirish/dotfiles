@@ -1,0 +1,78 @@
+# ~/.aliases — managed by dotfiles
+# Cross-platform aliases (all platforms).
+
+# ── Navigation ───────────────────────────────────────────────────────────────
+alias ..="cd .."
+alias cd..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~"
+alias -- -="cd -"
+
+# ── Safe file operations ─────────────────────────────────────────────────────
+alias mv='mv -v'
+alias rm='rm -i -v'
+alias cp='cp -v'
+alias ln='ln -v'
+alias chmox='chmod -x'
+
+# ── ls — prefer eza > exa > GNU ls > BSD ls ──────────────────────────────────
+export CLICOLOR_FORCE=1
+
+if command -v eza &>/dev/null; then
+    alias ls='eza --group-directories-first'
+    alias ll='eza -la --git --group-directories-first'
+    alias lsd='eza -D'
+elif command -v exa &>/dev/null; then
+    # exa is unmaintained; eza is the maintained fork — install eza when possible
+    alias ls='exa --group-directories-first'
+    alias ll='exa -la --git --group-directories-first'
+    alias lsd='exa -D'
+else
+    # gls (GNU coreutils via Homebrew on macOS) takes priority over BSD ls
+    if command -v gls &>/dev/null; then
+        alias ls='gls -AFh --color=auto --group-directories-first'
+    elif ls --color &>/dev/null 2>&1; then
+        alias ls='ls -AFh --color=auto --group-directories-first'
+    else
+        alias ls='ls -AFhG'   # BSD (macOS without coreutils)
+    fi
+    alias ll='ls -la'
+    alias lsd='ls -la | grep "^d"'
+fi
+
+# ── Git ──────────────────────────────────────────────────────────────────────
+alias push="git push"
+alias pull="git pull"
+alias g="git"
+
+# Undo the most recent git push (force-pushes HEAD^ to the remote branch)
+alias undopush="git push -f origin HEAD^:HEAD"
+
+# cd to git repo root
+alias gr='[ -n "$(git rev-parse --show-cdup 2>/dev/null)" ] && cd "$(git rev-parse --show-cdup)"'
+
+# Checkout main branch (tries main first, falls back to master)
+alias main="git checkout main 2>/dev/null || git checkout master"
+
+# Shallow clone and cd into result
+clone() {
+    git clone --depth=1 "$1" && cd "$(basename "${1%.git}")"
+}
+
+# ── Tools ─────────────────────────────────────────────────────────────────────
+alias lg="lazygit"
+alias v="vim"
+alias ungz="gunzip -k"
+alias ag='ag -f --hidden'
+alias where=which
+
+# ── Networking ────────────────────────────────────────────────────────────────
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+# ── Housekeeping ──────────────────────────────────────────────────────────────
+alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+alias diskspace_report="df -P -kHl"
+alias free_diskspace_report="diskspace_report"
+alias hosts='sudo "$EDITOR" /etc/hosts'

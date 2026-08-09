@@ -1,0 +1,21 @@
+# ~/.condarc — managed by dotfiles
+# Conda / Mamba configuration.
+
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults        # removes the default Anaconda channel
+
+channel_priority: strict  # never mix packages from different channels
+
+# Keep conda up-to-date, but don't silently update mid-script
+auto_update_conda: false
+show_channel_urls: true
+
+# Activate base environment on every shell startup.
+# Set to false and add `conda activate base` to ~/.extra if you prefer explicit activation.
+auto_activate_base: true
+
+# Point conda-build at the shared build config (macOS SDK, etc.)
+conda_build:
+  config_file: ~/.conda_build_config.yaml

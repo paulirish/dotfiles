@@ -1,0 +1,168 @@
+#!/usr/bin/env bash
+# ~/.functions — managed by dotfiles
+# Cross-platform shell functions (all platforms).
+
+# ── Navigation ────────────────────────────────────────────────────────────────
+
+# Create a directory and cd into it
+md() {
+    mkdir -p "$@" && cd "$@"
+}
+
+# ── File utilities ────────────────────────────────────────────────────────────
+
+# find shorthand (suppress permission errors)
+f() {
+    find . -name "$1" 2>&1 | grep -v 'Permission denied'
+}
+
+# List all files, long format, with octal permissions
+la() {
+    ls -l "$@" | awk '
+    {
+      k=0
+      for (i=0;i<=8;i++)
+        k+=((substr($1,i+2,1)~/[rwx]/) *2^(8-i))
+      if (k)
+        printf("%0o ",k)
+      printf(" %9s  %3s %2s %5s  %6s  %s %s %s\n", $3, $6, $7, $8, $5, $9,$10, $11)
+    }'
+}
+
+# Copy with progress bar (requires rsync)
+cp_p() {
+    rsync -WavP --human-readable --progress "$1" "$2"
+}
+
+# Show original vs gzipped file size
+gz() {
+    echo "orig size    (bytes): $(wc -c < "$1")"
+    echo "gzipped size (bytes): $(gzip -c "$1" | wc -c)"
+}
+
+# Extract common archive formats
+extract() {
+    if [ ! -f "$1" ]; then
+        echo "'$1' is not a valid file"
+        return 1
+    fi
+    local filename foldername fullpath didfolderexist
+    filename="$(basename "$1")"
+    foldername="${filename%%.*}"
+    fullpath="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+    didfolderexist=false
+    if [ -d "$foldername" ]; then
+        didfolderexist=true
+        read -rp "$foldername already exists, overwrite? (y/n) " -n 1
+        echo
+        [[ $REPLY =~ ^[Nn]$ ]] && return
+    fi
+    mkdir -p "$foldername" && cd "$foldername" || return
+    case "$1" in
+        *.tar.bz2)           tar xjf "$fullpath" ;;
+        *.tar.gz)            tar xzf "$fullpath" ;;
+        *.tar.xz)            tar Jxvf "$fullpath" ;;
+        *.tar.Z|*.taz|*.tgz) tar xzf "$fullpath" ;;
+        *.tar)               tar xf "$fullpath" ;;
+        *.tbz|*.tbz2|*.tb2)  tar xjf "$fullpath" ;;
+        *.txz)               tar Jxvf "$fullpath" ;;
+        *.zip)               unzip "$fullpath" ;;
+        *.rar)               command -v unrar &>/dev/null && unrar x "$fullpath" || echo "unrar not installed" ;;
+        *)
+            echo "'$1' cannot be extracted via extract()"
+            cd .. && ! $didfolderexist && rm -r "$foldername"
+            return 1
+            ;;
+    esac
+}
+
+# ── Network utilities ─────────────────────────────────────────────────────────
+
+# Simplified whois (strips boilerplate)
+whois() {
+    local domain="$1"
+    # Strip scheme + path if URL passed
+    [[ "$domain" =~ ^https?:// ]] && domain="$(printf '%s' "$domain" | awk -F/ '{print $3}')"
+    echo "Getting whois record for: $domain …"
+    /usr/bin/whois -h whois.internic.net "$domain" | sed '/NOTICE:/q'
+}
+
+# ── Data utilities ────────────────────────────────────────────────────────────
+
+# Pretty-print a CSV file in the terminal
+csvpreview() {
+    sed 's/,,/, ,/g;s/,,/, ,/g' "$@" | column -s, -t | less -#2 -N -S
+}
+
+# ── Process / shell utilities ────────────────────────────────────────────────
+
+# Redirect stdout + stderr to /dev/null
+nullify() {
+    "$@" >/dev/null 2>&1
+}
+
+# Start a simple HTTP server in the current directory
+server() {
+    local port="${1:-8000}"
+    echo "Serving on http://localhost:${port}/"
+    python3 -m http.server "$port"
+}
+
+# ── Git utilities ─────────────────────────────────────────────────────────────
+
+# Interactive git log browser (requires fzf)
+log() {
+    git log --graph --color=always \
+        --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" | \
+    fzf --ansi --no-sort --reverse --tiebreak=index --toggle-sort=\` \
+        --bind "ctrl-m:execute:
+            echo '{}' | grep -o '[a-f0-9]\{7\}' | head -1 |
+            xargs -I % sh -c 'git show --color=always % | less -R'"
+}
+
+# ── Conda / Mamba ─────────────────────────────────────────────────────────────
+
+# Lazy conda initialization — avoids the slow conda startup on every shell open.
+# Usage: type `cond` once per session, then use conda/mamba normally.
+cond() {
+    local _exe _root
+
+    # Honour CONDA_EXE if set (set by conda itself when it activates base)
+    if [ -n "$CONDA_EXE" ]; then
+        _exe="$CONDA_EXE"
+    elif command -v micromamba &>/dev/null; then
+        eval "$(micromamba shell hook --shell bash 2>/dev/null)"
+        return
+    elif command -v mamba &>/dev/null; then
+        _exe="$(command -v mamba)"
+    elif command -v conda &>/dev/null; then
+        _exe="$(command -v conda)"
+    else
+        echo "conda / mamba / micromamba not found. Check your PATH or run dotfiles install." >&2
+        return 1
+    fi
+
+    _root="$(dirname "$(dirname "$_exe")")"
+    if [ -f "$_root/etc/profile.d/conda.sh" ]; then
+        source "$_root/etc/profile.d/conda.sh"
+    else
+        export PATH="$_root/bin:$PATH"
+    fi
+    unset _exe _root
+}
+
+# ── Safe PATH manipulation ────────────────────────────────────────────────────
+
+# Prepend a directory to PATH (no-op if already present)
+_path_prepend() {
+    case ":${PATH}:" in
+        *:"$1":*) ;;
+        *) export PATH="$1:$PATH" ;;
+    esac
+}
+
+# Remove a directory from PATH
+_path_del() {
+    PATH="$(printf '%s' "$PATH" | awk -v RS=: -v ORS=: -v d="$1" '$0 != d' | sed 's/:$//')"
+    export PATH
+}

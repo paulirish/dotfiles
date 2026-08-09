@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mike-dotfiles"
+version = "0.1.0"
+description = "Cross-platform dotfiles for macOS, Linux, HPC, Codespaces, and Code Ocean"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["dotfiles", "shell", "configuration", "devtools"]
+authors = [
+    { name = "Michael S. Cuoco", email = "mike.cuoco@alleninstitute.org" },
+]
+dependencies = []  # stdlib only
+
+[project.scripts]
+dotfiles = "dotfiles.cli:main"
+
+[project.urls]
+Repository = "https://github.com/mikecuoco/dotfiles"
+Issues = "https://github.com/mikecuoco/dotfiles/issues"
+
+# ── Hatchling build ──────────────────────────────────────────────────────────
+# Resources are inside the package (src/dotfiles/resources/) so they're
+# included automatically in both editable and wheel builds.
+[tool.hatch.build.targets.wheel]
+packages = ["src/dotfiles"]
+
+# ── pytest ───────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
+# ── uv ───────────────────────────────────────────────────────────────────────
+# Install targets:
+#   pip install -e .                                              (development)
+#   uv tool install .                                            (local)
+#   uv tool install git+https://github.com/mikecuoco/dotfiles   (remote)

@@ -1,0 +1,57 @@
+# ~/.gitignore — managed by dotfiles
+# Global gitignore applied to all repositories.
+
+# ── vim working files ────────────────────────────────────────────────────────
+.vim/viminfo
+.vim/swaps/*
+.vim/undo
+*.swp
+*.swo
+
+# ── macOS ────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ── Windows ──────────────────────────────────────────────────────────────────
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+
+# ── dotfiles private config ──────────────────────────────────────────────────
+.extra
+.extrarc
+.gitconfig.local
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# ── Node ─────────────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Jupyter ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── R ────────────────────────────────────────────────────────────────────────
+.Rhistory
+.RData
+.Ruserdata
+
+# ── Fish shell ───────────────────────────────────────────────────────────────
+fishd.*
+.config/fish/fish_history
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.log
+.env
+shilocation

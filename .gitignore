@@ -1,42 +1,29 @@
-*-chrome-mac.zip
-third_party/WebKit/Source/devtools/front_end/audits2/lighthouse/renderer/logger.js
-third_party/WebKit/Source/devtools/front_end/audits2/lighthouse/renderer/report-ui-features.js
-
-# working files
-.vim/viminfo
-.vim/swaps/*
-.vim/undo
-
-# git credential file
-.gitconfig.local
-
-# API keys and other credentials
-.extra
-
-# no thx
-node_modules
-
-# Folder view configuration files
-.DS_Store
-Desktop.ini
-
-# Thumbnail cache files
-._*
-Thumbs.db
-
-# Files that might appear on external disks
-.Spotlight-V100
-.Trashes
-
-# Compiled Python files
+# Python
+__pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+.uv/
 
-# fish shell
-fishd.*
-fish/config.fish.backup
-.config/fish/fish_history
-fish/fish_history
-fish/fish_variables
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
 
-# random
-shilocation
+# Node (legacy ESLint setup, no longer used)
+node_modules/
+package-lock.json
+
+# macOS
+.DS_Store
+
+# Spacemacs (deleted; secret was committed — rotate Google Calendar OAuth token)
+.spacemacs
+
+# Personal overrides — never commit
+.extra
+.extrarc
+.gitconfig.local

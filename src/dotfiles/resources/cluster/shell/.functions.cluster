@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# ~/.functions.cluster — HPC/cluster-specific shell functions
+# Sourced after ~/.functions.linux on cluster systems.
+
+# ── Bioinformatics ────────────────────────────────────────────────────────────
+
+# DNA reverse complement
+# Usage: rc ATCG
+rc() {
+    printf '%s' "$1" | tr 'ACGTacgt' 'TGCAtgca' | rev
+}
+
+# ── Memory management ─────────────────────────────────────────────────────────
+
+# Wait until at least N GB of RAM is free (polls /proc/meminfo — Linux only).
+# Useful before launching memory-intensive jobs on a shared login node.
+# Usage: wait_for_mem_available 32   # wait for 32 GB free
+wait_for_mem_available() {
+    local required_gb="${1:-16}"
+    local required_kb=$(( required_gb * 1024 * 1024 ))
+    local available_kb
+
+    echo "Waiting for ${required_gb} GB free RAM…"
+    while true; do
+        available_kb="$(awk '/MemAvailable/ {print $2}' /proc/meminfo)"
+        if (( available_kb >= required_kb )); then
+            echo "✓ ${required_gb} GB available ($(( available_kb / 1024 / 1024 )) GB free)"
+            return 0
+        fi
+        sleep 10
+    done
+}
+export -f wait_for_mem_available   # make available to subprocesses (e.g. snakemake rules)
+
+# ── Micromamba hook ───────────────────────────────────────────────────────────
+# Initialize micromamba if it's installed and conda isn't already active.
+# This replaces the heavier conda init — no slow startup.
+if command -v micromamba &>/dev/null && [ -z "$CONDA_DEFAULT_ENV" ]; then
+    eval "$(micromamba shell hook --shell bash 2>/dev/null)"
+fi

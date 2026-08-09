@@ -1,0 +1,125 @@
+[alias]
+	c = commit -am
+	fpush = push --force
+	s = status
+	sclone = clone --depth=1
+	amend = commit --amend --all --no-edit
+	undocommit = reset HEAD~
+	hreset = reset --hard
+	co = checkout
+	df = diff --color --color-words --abbrev
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	cherrypick = cherry-pick
+	cherry = cherry-pick
+	cp = cherry-pick
+
+	# Show diff from the merge-base with the default upstream branch
+	diffbranch = !"git diff $(git merge-base HEAD $(git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo origin/main))"
+
+	# Show commits on this branch not yet in the default upstream branch
+	diffcommits = !"git log --no-merges $(git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo origin/main).."
+
+	# Show unified diff between this branch and the default upstream
+	difffrom = !"git diff $(git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo origin/main)..."
+
+	# Show diff between latest commit and current working tree
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+	git = !exec git
+
+[init]
+	defaultBranch = main
+
+[core]
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+	precomposeUnicode = true
+
+[pager]
+	# git-delta provides beautiful diffs: https://github.com/dandavison/delta
+	diff = delta
+	show = delta
+
+[delta]
+	max-line-length = 700
+	max-line-distance = 0.3
+	syntax-theme = base16
+	file-decoration-style = yellow ol ul
+	file-style = bold yellow ul
+	hunk-header-decoration-style = blue
+	hunk-header-line-number-style = purple bold
+
+[color]
+	ui = auto
+
+[color "diff"]
+	meta = yellow bold
+	commit = green bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+	newMoved = cyan dim
+	oldMoved = blue dim
+	newMovedAlternative = cyan italic
+	oldMovedAlternative = blue italic
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = "red bold 52"
+	newNormal = "green bold"
+	newHighlight = "green bold 22"
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[help]
+	autocorrect = 1
+
+[push]
+	default = current
+	followTags = true
+
+[pull]
+	ff = only
+
+[checkout]
+	defaultRemote = origin
+
+[fetch]
+	prune = true
+
+[diff]
+	# Show moved blocks of text distinctly from adds/deletes
+	colorMoved = zebra
+
+[stash]
+	showPatch = true
+
+[log]
+	# ISO 8601 format shows absolute timestamps alongside relative ones
+	date = iso
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+# ── Machine-local settings ───────────────────────────────────────────────────
+# Create ~/.gitconfig.local with:
+#
+#   [user]
+#       name  = Your Name
+#       email = your@email.com
+#
+# Credential helpers and any machine-specific overrides go there too.
+[include]
+	path = ~/.gitconfig.local

@@ -1,0 +1,54 @@
+# ~/.exports.macos — macOS-specific environment variables
+# Sourced after ~/.exports on macOS via the platform overlay mechanism.
+
+# ── Homebrew ──────────────────────────────────────────────────────────────────
+# Initialize Homebrew — Apple Silicon (/opt/homebrew) or Intel (/usr/local)
+if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Silence the "default shell is zsh" warning on macOS Catalina+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# ── iTerm2 shell integration ──────────────────────────────────────────────────
+[ -e "$HOME/.iterm2_shell_integration.bash" ] && \
+    source "$HOME/.iterm2_shell_integration.bash"
+
+# ── grc colorizer ─────────────────────────────────────────────────────────────
+# brew install grc
+if command -v grc &>/dev/null && [ "$TERM" != dumb ]; then
+    alias colourify="grc -es --colour=auto"
+    for _app in diff make gcc g++ ping traceroute; do
+        alias "$_app"="colourify $_app"
+    done
+    unset _app
+fi
+
+# ── Homebrew completion (bash-completion@2) ────────────────────────────────────
+if command -v brew &>/dev/null; then
+    _brew_prefix="$(brew --prefix)"
+    # bash-completion@2 (preferred)
+    if [ -r "$_brew_prefix/etc/profile.d/bash_completion.sh" ]; then
+        source "$_brew_prefix/etc/profile.d/bash_completion.sh"
+    elif [ -r "$_brew_prefix/share/bash-completion/bash_completion" ]; then
+        source "$_brew_prefix/share/bash-completion/bash_completion"
+    fi
+    unset _brew_prefix
+fi
+
+# ── gh completion ─────────────────────────────────────────────────────────────
+command -v gh &>/dev/null && eval "$(gh completion -s bash)" 2>/dev/null
+
+# ── zoxide / z ───────────────────────────────────────────────────────────────
+# Already handled in .bash_profile; this block handles the Homebrew z fallback
+if ! command -v zoxide &>/dev/null && command -v brew &>/dev/null; then
+    _z_path="$(brew --prefix)/etc/profile.d/z.sh"
+    [ -s "$_z_path" ] && source "$_z_path"
+    unset _z_path
+fi
+
+# ── Machine-specific exports ──────────────────────────────────────────────────
+# Add machine-specific paths (e.g. CROMWELL_JAR, tool-specific vars) to ~/.extra

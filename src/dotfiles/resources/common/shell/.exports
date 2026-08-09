@@ -1,0 +1,33 @@
+# ~/.exports — managed by dotfiles
+# Common environment variables for all platforms.
+
+# ── Editor ────────────────────────────────────────────────────────────────────
+# Prefer neovim → vim → vi
+export EDITOR
+EDITOR="$(command -v nvim 2>/dev/null || command -v vim 2>/dev/null || echo 'vi')"
+export VISUAL="$EDITOR"
+
+# Don't clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# ── Locale ────────────────────────────────────────────────────────────────────
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+
+# ── LS_COLORS ─────────────────────────────────────────────────────────────────
+# Uses ~/.dircolors if present; gdircolors (GNU, via Homebrew) falls back to dircolors
+if command -v gdircolors &>/dev/null; then
+    eval "$(gdircolors -b "$HOME/.dircolors" 2>/dev/null)"
+elif command -v dircolors &>/dev/null; then
+    eval "$(dircolors -b "$HOME/.dircolors" 2>/dev/null)"
+fi
+
+# ── PATH additions ────────────────────────────────────────────────────────────
+# Add personal bin directories if they exist
+for _d in "$HOME/bin" "$HOME/.local/bin" "$HOME/code/bin"; do
+    [ -d "$_d" ] && export PATH="$_d:$PATH"
+done
+unset _d
+
+# Cargo / Rust
+[ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"

@@ -1,0 +1,14 @@
+# ~/.exports.codeocean — Code Ocean-specific environment variables
+# Sourced after ~/.exports.linux in Code Ocean environments.
+#
+# Code Ocean manages scientific/system dependencies.
+# This file handles only personal interactive configuration.
+
+# Don't set LC_ALL inside containers (can break system tools)
+if [ -d /var/run/secrets/kubernetes.io ] || [ -n "$CODEOCEAN_ENV" ]; then
+    unset LC_ALL
+fi
+
+# Note: Do not `pip install` personal tools inside the Capsule environment —
+# it may affect reproducibility. Install to a user path or rely on the
+# dotfiles package's own install.

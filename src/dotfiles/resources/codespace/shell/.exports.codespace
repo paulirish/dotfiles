@@ -1,0 +1,11 @@
+# ~/.exports.codespace — GitHub Codespaces-specific environment variables
+# Sourced after ~/.exports.linux in Codespaces environments.
+
+# gh CLI is pre-authenticated in Codespaces; also set completion
+command -v gh &>/dev/null && eval "$(gh completion -s bash)" 2>/dev/null
+
+# uv shell completion (if uv is installed)
+command -v uv &>/dev/null && eval "$(uv generate-shell-completion bash 2>/dev/null)" || true
+
+# Note: Codespaces handles SSH key + GitHub auth automatically.
+# Do not override credential helpers here.

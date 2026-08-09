@@ -1,0 +1,72 @@
+# resources/profiles.toml — dotfiles profile definitions
+#
+# Profiles compose via `inherits`. Links are resolved depth-first (parent
+# first); if the same destination appears in parent and child, the child wins.
+#
+# Overlay naming convention for shell:
+#   .exports.<profile>   .aliases.<profile>   .functions.<profile>
+# ~/.bash_profile sources these automatically based on the active profile.
+
+[profiles.common]
+description = "Core configuration for all platforms"
+inherits = []
+links = [
+  { src = "common/shell/.bashrc",        dst = ".bashrc" },
+  { src = "common/shell/.bash_profile",  dst = ".bash_profile" },
+  { src = "common/shell/.bash_prompt",   dst = ".bash_prompt" },
+  { src = "common/shell/.aliases",       dst = ".aliases" },
+  { src = "common/shell/.exports",       dst = ".exports" },
+  { src = "common/shell/.functions",     dst = ".functions" },
+  { src = "common/shell/.inputrc",       dst = ".inputrc" },
+  { src = "common/git/.gitconfig",       dst = ".gitconfig" },
+  { src = "common/git/.gitignore",       dst = ".gitignore" },
+  { src = "common/git/.gitattributes",   dst = ".gitattributes" },
+  { src = "common/editor/.vimrc",        dst = ".vimrc" },
+  { src = "common/editor/.vim",          dst = ".vim" },
+  { src = "common/conda/.condarc",       dst = ".condarc" },
+  { src = "common/misc/.dircolors",      dst = ".dircolors" },
+  { src = "common/misc/.gemrc",          dst = ".gemrc" },
+  { src = "common/misc/.hushlogin",      dst = ".hushlogin" },
+  { src = "common/claude/CLAUDE.md",     dst = ".claude/CLAUDE.md" },
+  { src = "common/claude/settings.json", dst = ".claude/settings.json" },
+]
+
+[profiles.macos]
+description = "macOS / MacBook"
+inherits = ["common"]
+links = [
+  { src = "macos/shell/.aliases.macos",                     dst = ".aliases.macos" },
+  { src = "macos/shell/.exports.macos",                     dst = ".exports.macos" },
+  { src = "macos/shell/.functions.macos",                   dst = ".functions.macos" },
+  { src = "macos/conda/.conda_build_config.yaml",           dst = ".conda_build_config.yaml" },
+]
+
+[profiles.linux]
+description = "Generic Linux workstation or server"
+inherits = ["common"]
+links = [
+  { src = "linux/shell/.exports.linux", dst = ".exports.linux" },
+]
+
+[profiles.cluster]
+description = "HPC / university cluster (SLURM, PBS, SGE)"
+inherits = ["linux"]
+links = [
+  { src = "cluster/shell/.exports.cluster",   dst = ".exports.cluster" },
+  { src = "cluster/shell/.functions.cluster", dst = ".functions.cluster" },
+  { src = "cluster/r/.Rprofile",              dst = ".Rprofile" },
+]
+
+[profiles.codeocean]
+description = "Code Ocean cloud workstation or container"
+inherits = ["linux"]
+links = [
+  { src = "codeocean/shell/.exports.codeocean", dst = ".exports.codeocean" },
+]
+
+[profiles.codespace]
+description = "GitHub Codespaces"
+inherits = ["linux"]
+links = [
+  { src = "codespace/shell/.exports.codespace", dst = ".exports.codespace" },
+]
