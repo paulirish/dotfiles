@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from "url";
 import { realpathSync } from 'fs';
+import { parseArgs } from 'node:util';
 
 /**
  * Trims trailing whitespace from files.
@@ -12,11 +13,51 @@ import { realpathSync } from 'fs';
  * With `--all` flag, trims all lines of modified/added files.
  */
 
-export async function main(args: string[]) {
-  const useAll = args.includes('--all');
-  const files = args.filter(a => !a.startsWith('--'));
+function printHelp() {
+  console.log(`Usage: trim-trailing-whitespace [options] [files...]
 
-  let filesToProcess = files;
+Trims trailing whitespace from files.
+By default, only trims on modified lines in 'git diff origin/main...'.
+
+Options:
+  -a, --all   Trim trailing whitespace from all lines of the target files.
+  -h, --help  Show this help message.`);
+}
+
+export async function main(args: string[]) {
+  let values, positionals;
+  try {
+    const parsed = parseArgs({
+      args,
+      options: {
+        all: {
+          type: 'boolean',
+          short: 'a',
+          default: false,
+        },
+        help: {
+          type: 'boolean',
+          short: 'h',
+          default: false,
+        },
+      },
+      allowPositionals: true,
+    });
+    values = parsed.values;
+    positionals = parsed.positionals;
+  } catch (err: any) {
+    console.error(err.message);
+    printHelp();
+    process.exit(1);
+  }
+
+  if (values.help) {
+    printHelp();
+    return;
+  }
+
+  const useAll = values.all;
+  let filesToProcess = positionals;
 
   if (filesToProcess.length === 0) {
     try {
