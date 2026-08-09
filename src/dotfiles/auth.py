@@ -116,6 +116,17 @@ def check_aws() -> AuthStatus:
     )
 
 
+def check_openai() -> AuthStatus:
+    """Check OPENAI_API_KEY is set (used by Codex and ChatGPT API)."""
+    if os.environ.get("OPENAI_API_KEY"):
+        return AuthStatus("OpenAI / Codex", True, "OPENAI_API_KEY is set", required=False)
+    return AuthStatus(
+        "OpenAI / Codex", False,
+        "OPENAI_API_KEY not set (optional — skip if not using Codex/ChatGPT API)",
+        required=False,
+    )
+
+
 def check_mem0() -> AuthStatus:
     """Check MEM0_API_KEY is set (optional service)."""
     if os.environ.get("MEM0_API_KEY"):
@@ -130,7 +141,7 @@ def check_mem0() -> AuthStatus:
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def all_statuses() -> list[AuthStatus]:
-    return [check_anthropic(), check_github(), check_aws(), check_mem0()]
+    return [check_anthropic(), check_openai(), check_github(), check_aws(), check_mem0()]
 
 
 def run_auth() -> int:

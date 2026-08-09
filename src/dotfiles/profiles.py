@@ -8,9 +8,16 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class LinkSpec:
-    """A single file-link specification: source path → destination in $HOME."""
-    src: str   # relative to resources/
-    dst: str   # relative to $HOME
+    """A single file-link specification: source path → destination in $HOME.
+
+    mode:
+      "link"   — create a symlink (default); last entry for a dst wins.
+      "append" — concatenate onto whatever the parent linked for this dst;
+                 all append entries are collected in order after the base.
+    """
+    src: str         # relative to resources/
+    dst: str         # relative to $HOME
+    mode: str = "link"
 
 
 @dataclass
@@ -34,7 +41,7 @@ def load_profiles(resources_dir: Path) -> dict[str, Profile]:
             description=pdata.get("description", ""),
             inherits=pdata.get("inherits", []),
             links=[
-                LinkSpec(src=lnk["src"], dst=lnk["dst"])
+                LinkSpec(src=lnk["src"], dst=lnk["dst"], mode=lnk.get("mode", "link"))
                 for lnk in pdata.get("links", [])
             ],
         )
@@ -66,8 +73,14 @@ def resolve_links(profile_name: str, profiles: dict[str, Profile]) -> list[LinkS
 
     all_links = collect(profile_name, set())
 
-    # Deduplicate by dst — last occurrence (child) wins
-    seen: dict[str, LinkSpec] = {}
+    # "link" mode: deduplicate by dst — last occurrence (child) wins.
+    # "append" mode: stack after the base link in declaration order.
+    base: dict[str, LinkSpec] = {}
+    appends: list[LinkSpec] = []
     for lnk in all_links:
-        seen[lnk.dst] = lnk
-    return list(seen.values())
+        if lnk.mode == "append":
+            appends.append(lnk)
+        else:
+            base[lnk.dst] = lnk  # last wins
+
+    return list(base.values()) + appends

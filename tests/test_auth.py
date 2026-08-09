@@ -6,6 +6,7 @@ import pytest
 
 from dotfiles.auth import (
     check_anthropic,
+    check_openai,
     check_github,
     check_aws,
     check_mem0,
@@ -82,6 +83,21 @@ def test_aws_not_required():
     assert s.required is False
 
 
+def test_openai_configured():
+    with patch.dict(os.environ, {"OPENAI_API_KEY": "sk-openai-fake"}, clear=False):
+        s = check_openai()
+    assert s.configured is True
+    assert "sk-openai-fake" not in s.message  # secret must not appear
+
+
+def test_openai_not_configured():
+    env = {k: v for k, v in os.environ.items() if k != "OPENAI_API_KEY"}
+    with patch.dict(os.environ, env, clear=True):
+        s = check_openai()
+    assert s.configured is False
+    assert s.required is False  # optional
+
+
 def test_mem0_optional():
     s = check_mem0()
     assert s.required is False
@@ -90,13 +106,14 @@ def test_mem0_optional():
 # ── Secrets never appear in output ───────────────────────────────────────────
 
 SECRET_VALUES = ["sk-ant-abc123", "ghs_fake_token", "AKIAIOSFODNN7EXAMPLE",
-                 "super_secret_key", "mem0_secret_key"]
+                 "super_secret_key", "mem0_secret_key", "sk-openai-abc123"]
 
 
 @pytest.mark.parametrize("secret", SECRET_VALUES)
 def test_secrets_not_in_auth_output(secret, capsys):
     env_override = {
         "ANTHROPIC_API_KEY": secret,
+        "OPENAI_API_KEY": secret,
         "GH_TOKEN": secret,
         "AWS_ACCESS_KEY_ID": secret,
         "AWS_SECRET_ACCESS_KEY": secret,

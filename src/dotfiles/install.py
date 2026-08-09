@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from collections import defaultdict
 from datetime import datetime, timezone
 from enum import Enum, auto
 from pathlib import Path
@@ -91,14 +92,23 @@ def run_install(
         print(f"Error: {exc}", file=sys.stderr)
         return False
 
-    # Install each link
+    # Group links by dst — base (link mode) + any appends for the same dst
+    base_links: dict[str, LinkSpec] = {}
+    append_links: dict[str, list[LinkSpec]] = defaultdict(list)
+    for lnk in links:
+        if lnk.mode == "append":
+            append_links[lnk.dst].append(lnk)
+        else:
+            base_links[lnk.dst] = lnk
+
+    # Install each link (concat when a dst has append entries)
     reports: list[_Report] = []
-    for link in links:
-        rpt = _install_link(
-            src=resources / link.src,
-            dst=home / link.dst,
-            dry_run=dry_run,
-        )
+    for dst_rel, base in base_links.items():
+        if dst_rel in append_links:
+            srcs = [resources / base.src] + [resources / a.src for a in append_links[dst_rel]]
+            rpt = _install_concat(srcs=srcs, dst=home / dst_rel, dry_run=dry_run)
+        else:
+            rpt = _install_link(src=resources / base.src, dst=home / dst_rel, dry_run=dry_run)
         reports.append(rpt)
         _print_line(rpt)
 
@@ -188,6 +198,39 @@ def _install_link(src: Path, dst: Path, dry_run: bool) -> _Report:
 
     result = Result.BACKED_UP_AND_LINKED if backup else Result.LINKED
     return _Report(result, dst, src, backup=backup)
+
+
+def _install_concat(srcs: list[Path], dst: Path, dry_run: bool) -> _Report:
+    """Write dst as the concatenation of multiple source files.
+
+    Used when a profile appends to a parent's file (e.g. a profile-specific
+    CLAUDE.md appended to the common one).  The result is a regular file, not
+    a symlink, so it is re-generated on every install run.
+    """
+    for src in srcs:
+        if not src.exists():
+            return _Report(Result.ERROR, dst, srcs[0], error=f"Source not found: {src}")
+
+    combined = "\n\n".join(s.read_text() for s in srcs)
+
+    # Idempotent: skip if dst already contains the same generated content
+    if dst.exists() and not dst.is_symlink() and dst.read_text() == combined:
+        return _Report(Result.UNCHANGED, dst, srcs[0])
+
+    backup: Optional[Path] = None
+    if dst.exists() or dst.is_symlink():
+        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        backup = dst.with_name(dst.name + f".dotfiles-backup.{ts}")
+        if not dry_run:
+            dst.rename(backup)
+
+    if dry_run:
+        return _Report(Result.DRY, dst, srcs[0], backup=backup)
+
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_text(combined)
+    result = Result.BACKED_UP_AND_LINKED if backup else Result.LINKED
+    return _Report(result, dst, srcs[0], backup=backup)
 
 
 def _print_line(rpt: _Report) -> None:

@@ -62,6 +62,7 @@ description = "Code Ocean cloud workstation or container"
 inherits = ["linux"]
 links = [
   { src = "codeocean/shell/.exports.codeocean", dst = ".exports.codeocean" },
+  { src = "codeocean/claude/CLAUDE.md",         dst = ".claude/CLAUDE.md", mode = "append" },
 ]
 
 [profiles.codespace]
