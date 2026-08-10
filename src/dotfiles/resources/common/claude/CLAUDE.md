@@ -1,126 +1,49 @@
-# Global Claude Code Preferences
+# Working style
 
-These are my general, cross-project preferences. They apply everywhere;
-a project-specific `CLAUDE.md` takes precedence where they conflict.
+- Lead with the answer. Keep prose concise.
+- Investigate uncertainty; do not guess.
+- Ask only when ambiguity materially affects the result.
+- Be thorough when the task requires it, not by default.
 
----
+# Engineering
 
-## Memory location
+- Read existing code and conventions before changing it.
+- Make the smallest change that solves the problem.
+- Prefer readable code over unnecessary abstraction.
+- Do not refactor unrelated code or add dependencies without reason.
+- Test meaningful changes. Never disable tests to make them pass.
+- Commit or push only when asked. Never force-push shared branches.
+- Reference code as `file:line`. Show commands actually run.
 
-Shared project memory lives at `.claude/memory/` (index in `MEMORY.md`).
-The harness's default auto-memory path `/cfg/projects/-project/memory/` is
-symlinked here, so memory writes from any session land in this directory and
-travel with the repo. Read and update files here — not the cfg path.
+# Python
 
----
+- Respect the project's existing environment manager.
+- For new Python-only projects, prefer uv.
+- Use conda/mamba when native dependencies make it useful.
+- Don't mutate global/base environments; create named envs.
+- Pin dependencies that affect reproducibility.
+- Use pathlib.Path, f-strings, dataclasses, match/case (Python 3.11+).
 
-## Approach
+# Context & agents
 
-- Optimize for correctness and thoroughness over brevity or speed.
-- Be exhaustive in code review, analysis, and agentic coding tasks.
-  Do not stop at the first few findings.
-- Investigate when uncertain rather than guessing.
-- Ask clarifying questions when requirements are ambiguous rather than
-  assuming.
-- Flag uncertainty explicitly instead of presenting guesses as facts.
+- Keep the main context small; retrieve only what is relevant.
+- Use subagents to isolate substantial exploration.
+- Give subagents narrow tasks and request concise findings.
+- Use the cheapest capable model for delegated work:
+  - Haiku: search, discovery, simple inspection.
+  - Sonnet: implementation, debugging, review.
+  - Opus: only when deep reasoning will materially improve the result.
 
----
+# Memory
 
-## Subagent model selection
+- Store durable, non-obvious facts useful to future sessions.
+- Store conclusions, not task transcripts.
+- Keep memories short and factual.
+- Update or remove stale or conflicting memories.
+- Do not store facts already obvious from project files.
 
-- When delegating to subagents or workflows, pick each agent's model to fit
-  its subtask rather than inheriting one model for everything.
-- If unsure which model fits, briefly say so and pick the more capable one
-  for correctness-critical work.
+# Safety
 
----
-
-## Verification
-
-- Run tests and verification after making changes, not just before declaring
-  done.
-- Show diffs or plans before making non-trivial changes.
-- Never disable failing tests to make them pass; fix the underlying issue.
-
----
-
-## Communication & output
-
-- Lead with the answer or result; keep prose tight and skip filler preambles.
-- Reference code as `file:line`, and show the commands actually run.
-- State plainly when something is unverified, skipped, or failed — don't
-  imply success.
-- Discuss tradeoffs directly; do not soft-pedal important downsides.
-
----
-
-## Code & repo conventions
-
-- Match the surrounding style; don't introduce new dependencies or frameworks
-  without asking.
-- Prefer small, reviewable diffs; don't reformat unrelated code.
-- Commit or push only when asked; never force-push shared branches.
-- Inspect existing project conventions before introducing new patterns.
-
-### Python
-
-- Target Python 3.11+ unless the project constrains the version.
-- Use `pathlib.Path` for all filesystem code; avoid `os.path`.
-- Prefer `tomllib` (stdlib 3.11+), dataclasses, `match/case`, f-strings.
-- Prefer `subprocess.run(..., check=True)` over bare `os.system()`.
-
-### Python environment policy
-
-Pick the tool that fits the work — don't mix managers within a project:
-
-- **Python application or tooling** → `uv` (`uv tool install`, `uv run`, `pyproject.toml`).
-- **Scientific work requiring non-Python binaries or conda-only packages** → `micromamba`/`conda` + a `*.yaml` env file per environment (prefer `mamba`/`micromamba` for installs).
-- **Existing project** → use whatever it already uses; don't introduce a new manager.
-
-When using conda:
-- Prefer `conda`/`mamba install` over `pip`; add any pip-only deps under a `pip:` block in the env yaml.
-- Don't `pip install` into the base env; create and activate a named env first.
-- Pin versions for anything that affects results.
-- Always include `nodefaults` in the channels list.
-
-### Shell / bash
-
-- Prefer `command -v` over `which` for portability.
-- Quote all variables: `"$var"`, not `$var`.
-- Use `[ -f ... ]` and `[ -d ... ]` rather than bare `test`.
-- Prefer `set -euo pipefail` in new scripts.
-
----
-
-## Sandbox / safe execution
-
-- Prefer running commands in **sandbox mode** by default (read-only filesystem
-  + no network) so commands can't accidentally mutate state or reach the
-  network.
-- Only disable the sandbox when a command genuinely needs it (installing deps,
-  network fetch, writing outside the workspace) — and say why when doing so.
-
----
-
-## Data integrity
-
-- Never modify source/primary data in place.
-- Distinguish derived data from primary data clearly.
-- Never put credentials, secrets, API keys, or tokens in Git — not even in
-  comments.
-- Prefer environment-variable injection for secrets; refer users to `~/.extra`.
-
----
-
-## Authentication references
-
-| Service          | Env var                                         | Notes                        |
-|------------------|-------------------------------------------------|------------------------------|
-| Anthropic/Claude | `ANTHROPIC_API_KEY`                             | Never log or print the value |
-| OpenAI/Codex     | `OPENAI_API_KEY`                                | Optional                     |
-| GitHub           | `GH_TOKEN`                                      | Or `gh auth login`           |
-| AWS              | `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY`   | Standard provider chain      |
-| Mem0             | `MEM0_API_KEY`                                  | Optional                     |
-
-Set these in `~/.extra` (never committed) or via your environment's secret
-injection mechanism.
+- Never expose or commit secrets; use environment variable injection.
+- Never modify primary/source data in place.
+- Keep derived and primary data clearly separate.

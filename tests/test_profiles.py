@@ -88,8 +88,8 @@ def test_append_mode_concat(tmp_path):
     assert claude_md.exists()
     assert not claude_md.is_symlink()          # generated file, not symlink
     content = claude_md.read_text()
-    assert "Global Claude Code Preferences" in content   # from common
-    assert "Code Ocean Capsule Conventions" in content   # from codeocean append
+    assert "Working style" in content       # from common global
+    assert "Code Ocean" in content          # from codeocean append
 
 
 def test_unknown_profile_raises(profiles):

@@ -102,6 +102,18 @@ Rust folks have made a few things that are changing things.
 
  also interested in https://github.com/dandavison/open-in-editor
 
+## Claude Code integration
+
+The dotfiles install a global `~/.claude/CLAUDE.md` (universal working-style
+rules, kept deliberately small) and, for environment-specific profiles such as
+Code Ocean, an appended overlay with environment invariants.
+
+The context architecture follows a progressive-disclosure hierarchy:
+global → profile overlay → project CLAUDE.md → rules/skills → auto-memory.
+
+See [`docs/claude-context.md`](docs/claude-context.md) for the full design,
+memory policy, and how to check context budgets with `dotfiles claude-stats`.
+
 ## TO-DO 
 
 - [ ] add git configuration

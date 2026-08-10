@@ -70,6 +70,12 @@ def main() -> None:
         help="List available profiles",
     )
 
+    # ── claude-stats ─────────────────────────────────────────────────────────
+    sub.add_parser(
+        "claude-stats",
+        help="Report Claude context budget (lines, words, estimated tokens per CLAUDE.md)",
+    )
+
     args = parser.parse_args()
 
     match args.command:
@@ -94,6 +100,10 @@ def main() -> None:
 
         case "profiles":
             _list_profiles()
+
+        case "claude-stats":
+            from .claude_stats import run_claude_stats
+            sys.exit(run_claude_stats())
 
 
 def _list_profiles() -> None:
