@@ -64,7 +64,7 @@ Ensure the project is an ES Module and defines standard scripts inspired by Paul
   "env": {
     "node": true,
     "browser": true,
-    "es2021": true
+    "builtin": true
   },
   "rules": {
     "no-unused-vars": [

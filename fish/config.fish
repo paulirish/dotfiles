@@ -127,3 +127,4 @@ and . (code --locate-shell-integration-path fish)
 
 # Raise file descriptor limit for development
 ulimit -n 102400 2>/dev/null
+
