@@ -26,15 +26,8 @@ travel with the repo. Read and update files here — not the cfg path.
 
 ---
 
-## Model selection
+## Subagent model selection
 
-- Dynamically select the model best suited to the task at hand rather than
-  defaulting to one model. Match model capability to task demand:
-  - Use the most capable models (e.g. Opus) for hard reasoning, architecture,
-    tricky debugging, and thorough code review.
-  - Use faster/cheaper models (e.g. Sonnet, Haiku) for routine, mechanical,
-    or well-scoped work (simple edits, boilerplate, quick lookups, bulk
-    parallel subagents).
 - When delegating to subagents or workflows, pick each agent's model to fit
   its subtask rather than inheriting one model for everything.
 - If unsure which model fits, briefly say so and pick the more capable one
@@ -74,22 +67,21 @@ travel with the repo. Read and update files here — not the cfg path.
 - Target Python 3.11+ unless the project constrains the version.
 - Use `pathlib.Path` for all filesystem code; avoid `os.path`.
 - Prefer `tomllib` (stdlib 3.11+), dataclasses, `match/case`, f-strings.
-- Use `uv` for package/env management when practical; prefer
-  `subprocess.run(..., check=True)` over bare `os.system()`.
+- Prefer `subprocess.run(..., check=True)` over bare `os.system()`.
 
-### Python / conda environments
+### Python environment policy
 
-- Manage environments with conda/mamba; capture deps in a `*.yaml` env file
-  (prefer `mamba` for installs — it's faster).
-- When a project needs multiple environments, use a **separate `*.yaml` file
-  per environment** — don't pile unrelated deps into one env.
-- Prefer `conda`/`mamba install` over `pip`; only use `pip` when a package
-  isn't available via conda. Add pip deps to the env `*.yaml` under a `pip:`
-  block.
-- Don't `pip install` into the base env; create and activate a named env
-  first.
-- Pin versions for anything that affects results; avoid hidden global state.
-- Always include `nodefaults` in the channels list of conda yaml files.
+Pick the tool that fits the work — don't mix managers within a project:
+
+- **Python application or tooling** → `uv` (`uv tool install`, `uv run`, `pyproject.toml`).
+- **Scientific work requiring non-Python binaries or conda-only packages** → `micromamba`/`conda` + a `*.yaml` env file per environment (prefer `mamba`/`micromamba` for installs).
+- **Existing project** → use whatever it already uses; don't introduce a new manager.
+
+When using conda:
+- Prefer `conda`/`mamba install` over `pip`; add any pip-only deps under a `pip:` block in the env yaml.
+- Don't `pip install` into the base env; create and activate a named env first.
+- Pin versions for anything that affects results.
+- Always include `nodefaults` in the channels list.
 
 ### Shell / bash
 
@@ -107,11 +99,6 @@ travel with the repo. Read and update files here — not the cfg path.
   network.
 - Only disable the sandbox when a command genuinely needs it (installing deps,
   network fetch, writing outside the workspace) — and say why when doing so.
-- Run `ulimit -c 0` when starting a new shell to disable core dumps — a crash
-  that dumps core can quickly fill the small (~5 GB) root disk.
-- Point `TMPDIR` at scratch when starting a new shell (e.g.
-  `export TMPDIR=/scratch/tmp` after creating it) so temp files land on the
-  large scratch disk instead of the small root.
 
 ---
 

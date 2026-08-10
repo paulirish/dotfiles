@@ -4,6 +4,17 @@ These extend the global `CLAUDE.md` for work inside a Code Ocean capsule.
 
 ---
 
+## Shell environment
+
+When starting a new shell in a Cloud Workstation session:
+
+- Run `ulimit -c 0` to disable core dumps — a crash that fills the ~5 GB root
+  disk is unrecoverable mid-session.
+- `export TMPDIR=/scratch/tmp && mkdir -p "$TMPDIR"` so transient files land
+  on scratch rather than the root disk.
+
+---
+
 ## Capsule layout
 
 - Code lives in `/code`, with an entrypoint `run` (or `run.sh`).

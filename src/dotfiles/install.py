@@ -92,6 +92,10 @@ def run_install(
         print(f"Error: {exc}", file=sys.stderr)
         return False
 
+    # Load previous state to know which files were previously generated
+    existing_state = read_state(home)
+    prev_generated: set[str] = set((existing_state or {}).get("generated", []))
+
     # Group links by dst — base (link mode) + any appends for the same dst
     base_links: dict[str, LinkSpec] = {}
     append_links: dict[str, list[LinkSpec]] = defaultdict(list)
@@ -103,10 +107,16 @@ def run_install(
 
     # Install each link (concat when a dst has append entries)
     reports: list[_Report] = []
+    generated_dsts: list[str] = []
     for dst_rel, base in base_links.items():
         if dst_rel in append_links:
             srcs = [resources / base.src] + [resources / a.src for a in append_links[dst_rel]]
-            rpt = _install_concat(srcs=srcs, dst=home / dst_rel, dry_run=dry_run)
+            rpt = _install_concat(
+                srcs=srcs, dst=home / dst_rel, dry_run=dry_run,
+                previously_generated=(dst_rel in prev_generated),
+            )
+            if rpt.result != Result.ERROR:
+                generated_dsts.append(dst_rel)
         else:
             rpt = _install_link(src=resources / base.src, dst=home / dst_rel, dry_run=dry_run)
         reports.append(rpt)
@@ -114,7 +124,7 @@ def run_install(
 
     # Persist state & profile name
     if not dry_run:
-        _write_state(home, profile_name, resources, links)
+        _write_state(home, profile_name, resources, links, generated_dsts)
         _write_profile_file(home, profile_name)
         _configure_git_credential_helper(profile_name)
 
@@ -145,10 +155,14 @@ def run_status(home: Optional[Path] = None) -> int:
     print(f"Profile:   {state['profile']}")
     print(f"Installed: {state['installed_at']}")
     print(f"Resources: {state['resources_dir']}")
+    generated = set(state.get("generated", []))
     print(f"\nInstalled files ({len(state['links'])}):")
     for dst_rel, src_rel in sorted(state["links"].items()):
         dst = (home or Path.home()) / dst_rel
-        sym = "✓" if (dst.is_symlink()) else "✗"
+        if dst_rel in generated:
+            sym = "~" if dst.exists() else "✗"   # ~ = generated file
+        else:
+            sym = "✓" if dst.is_symlink() else "✗"
         print(f"  {sym} ~/{dst_rel}")
     return 0
 
@@ -200,12 +214,22 @@ def _install_link(src: Path, dst: Path, dry_run: bool) -> _Report:
     return _Report(result, dst, src, backup=backup)
 
 
-def _install_concat(srcs: list[Path], dst: Path, dry_run: bool) -> _Report:
+def _install_concat(
+    srcs: list[Path],
+    dst: Path,
+    dry_run: bool,
+    *,
+    previously_generated: bool = False,
+) -> _Report:
     """Write dst as the concatenation of multiple source files.
 
     Used when a profile appends to a parent's file (e.g. a profile-specific
     CLAUDE.md appended to the common one).  The result is a regular file, not
     a symlink, so it is re-generated on every install run.
+
+    If *previously_generated* is True the existing dst was written by a prior
+    install run and can be replaced without backup.  Otherwise (unmanaged user
+    file) the existing content is backed up first.
     """
     for src in srcs:
         if not src.exists():
@@ -219,10 +243,16 @@ def _install_concat(srcs: list[Path], dst: Path, dry_run: bool) -> _Report:
 
     backup: Optional[Path] = None
     if dst.exists() or dst.is_symlink():
-        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-        backup = dst.with_name(dst.name + f".dotfiles-backup.{ts}")
-        if not dry_run:
-            dst.rename(backup)
+        if previously_generated:
+            # Our own file — remove cleanly, no backup needed
+            if not dry_run:
+                dst.unlink()
+        else:
+            # Unmanaged user file — back it up
+            ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            backup = dst.with_name(dst.name + f".dotfiles-backup.{ts}")
+            if not dry_run:
+                dst.rename(backup)
 
     if dry_run:
         return _Report(Result.DRY, dst, srcs[0], backup=backup)
@@ -260,6 +290,7 @@ def _write_state(
     profile_name: str,
     resources: Path,
     links: list[LinkSpec],
+    generated_dsts: list[str],
 ) -> None:
     state_file = home / _STATE_FILE
     state_file.parent.mkdir(parents=True, exist_ok=True)
@@ -268,6 +299,7 @@ def _write_state(
         "resources_dir": str(resources),
         "installed_at": datetime.now(timezone.utc).isoformat(),
         "links": {lnk.dst: lnk.src for lnk in links},
+        "generated": generated_dsts,
     }
     state_file.write_text(json.dumps(state, indent=2) + "\n")
 

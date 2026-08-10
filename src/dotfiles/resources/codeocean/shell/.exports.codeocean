@@ -9,6 +9,11 @@ if [ -d /var/run/secrets/kubernetes.io ] || [ -n "$CODEOCEAN_ENV" ]; then
     unset LC_ALL
 fi
 
+export CONDA_PKGS_DIRS="/scratch/conda_pkgs"
+export MAMBA_PKGS_DIRS="/scratch/conda_pkgs"
+export PIP_CACHE_DIR="/scratch/pip-cache"
+export TMPDIR="/scratch/tmp"
+
 # Note: Do not `pip install` personal tools inside the Capsule environment —
 # it may affect reproducibility. Install to a user path or rely on the
 # dotfiles package's own install.

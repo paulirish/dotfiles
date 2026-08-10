@@ -100,3 +100,36 @@ def test_resources_dir_exists():
     resources = get_resources_dir()
     assert resources.is_dir()
     assert (resources / "profiles.toml").exists()
+
+
+def test_generated_file_not_backed_up_on_reinstall(fake_home):
+    """Re-running install on a profile with append links must not create backups."""
+    run_install(profile="codeocean", dry_run=False, home=fake_home)
+    claude_md = fake_home / ".claude" / "CLAUDE.md"
+    assert claude_md.exists() and not claude_md.is_symlink()
+
+    # Second install — content unchanged → UNCHANGED, no backup
+    run_install(profile="codeocean", dry_run=False, home=fake_home)
+    backups = list((fake_home / ".claude").glob("CLAUDE.md.dotfiles-backup.*"))
+    assert backups == [], f"Unexpected backup(s) after idempotent reinstall: {backups}"
+
+
+def test_generated_file_updated_without_backup(fake_home, tmp_path):
+    """If a source file changes, the generated file is replaced cleanly — no backup."""
+    run_install(profile="codeocean", dry_run=False, home=fake_home)
+
+    # Patch the codeocean CLAUDE.md source to simulate an upstream edit
+    from dotfiles.install import get_resources_dir
+    co_src = get_resources_dir() / "codeocean" / "claude" / "CLAUDE.md"
+    original = co_src.read_text()
+    try:
+        co_src.write_text(original + "\n\n<!-- test patch -->")
+        run_install(profile="codeocean", dry_run=False, home=fake_home)
+    finally:
+        co_src.write_text(original)
+
+    backups = list((fake_home / ".claude").glob("CLAUDE.md.dotfiles-backup.*"))
+    assert backups == [], f"Backup created for a generated file update: {backups}"
+
+    claude_md = fake_home / ".claude" / "CLAUDE.md"
+    assert "<!-- test patch -->" in claude_md.read_text()

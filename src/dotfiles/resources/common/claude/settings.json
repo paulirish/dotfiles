@@ -5,5 +5,6 @@
   },
   "env": {},
   "cleanupPeriodDays": 30,
-  "includeCoAuthoredBy": true
+  "includeCoAuthoredBy": true,
+  "useAutoModeDuringPlan": true
 }

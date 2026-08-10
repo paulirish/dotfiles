@@ -6,6 +6,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+VALID_MODES = frozenset({"link", "append"})
+
+
 @dataclass(frozen=True)
 class LinkSpec:
     """A single file-link specification: source path → destination in $HOME.
@@ -28,6 +31,17 @@ class Profile:
     links: list[LinkSpec]
 
 
+def _make_link_spec(profile_name: str, lnk: dict) -> LinkSpec:
+    """Validate and construct a LinkSpec from a raw TOML dict."""
+    mode = lnk.get("mode", "link")
+    if mode not in VALID_MODES:
+        raise ValueError(
+            f"Profile '{profile_name}': invalid mode {mode!r} for link "
+            f"{lnk.get('src', '?')!r}. Valid modes: {sorted(VALID_MODES)}"
+        )
+    return LinkSpec(src=lnk["src"], dst=lnk["dst"], mode=mode)
+
+
 def load_profiles(resources_dir: Path) -> dict[str, Profile]:
     """Load all profile definitions from ``resources/profiles.toml``."""
     profiles_path = resources_dir / "profiles.toml"
@@ -41,7 +55,7 @@ def load_profiles(resources_dir: Path) -> dict[str, Profile]:
             description=pdata.get("description", ""),
             inherits=pdata.get("inherits", []),
             links=[
-                LinkSpec(src=lnk["src"], dst=lnk["dst"], mode=lnk.get("mode", "link"))
+                _make_link_spec(name, lnk)
                 for lnk in pdata.get("links", [])
             ],
         )
@@ -82,5 +96,13 @@ def resolve_links(profile_name: str, profiles: dict[str, Profile]) -> list[LinkS
             appends.append(lnk)
         else:
             base[lnk.dst] = lnk  # last wins
+
+    orphans = [a for a in appends if a.dst not in base]
+    if orphans:
+        details = ", ".join(f"{a.src!r} → {a.dst!r}" for a in orphans)
+        raise ValueError(
+            f"Profile '{profile_name}': append link(s) have no base link for "
+            f"their dst: {details}"
+        )
 
     return list(base.values()) + appends

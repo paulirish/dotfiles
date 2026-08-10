@@ -97,6 +97,29 @@ def test_unknown_profile_raises(profiles):
         resolve_links("doesnotexist", profiles)
 
 
+def test_invalid_mode_raises(tmp_path):
+    """A typo in mode should raise ValueError at load time, not silently become a base link."""
+    toml = tmp_path / "profiles.toml"
+    toml.write_text(
+        '[profiles.bad]\ndescription = ""\ninherits = []\n'
+        'links = [{ src = "common/shell/.bashrc", dst = ".bashrc", mode = "apend" }]\n'
+    )
+    with pytest.raises(ValueError, match="invalid mode"):
+        load_profiles(tmp_path)
+
+
+def test_append_without_base_raises(tmp_path):
+    """An append link with no base link for the same dst should raise at resolve time."""
+    toml = tmp_path / "profiles.toml"
+    toml.write_text(
+        '[profiles.orphan]\ndescription = ""\ninherits = []\n'
+        'links = [{ src = "common/claude/CLAUDE.md", dst = ".claude/CLAUDE.md", mode = "append" }]\n'
+    )
+    profs = load_profiles(tmp_path)
+    with pytest.raises(ValueError, match="no base link"):
+        resolve_links("orphan", profs)
+
+
 def test_all_sources_exist(profiles):
     """Every link source referenced in profiles.toml must exist on disk."""
     missing = []
