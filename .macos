@@ -210,7 +210,8 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 defaults write com.apple.BezelServices kDim -bool true
 # Turn off keyboard illumination when computer is not used for 5 minutes
 defaults write com.apple.BezelServices kDimTime -int 300
-
+# Disable emoji keyboard (Globe/Fn key) from popping up randomly
+defaults write com.apple.HIToolbox AppleFnUsageType -int 0
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
