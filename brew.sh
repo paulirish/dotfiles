@@ -11,7 +11,7 @@ PACKAGES=(
   coreutils findutils gnu-sed gnu-tar grep gawk
 
   # Shells & Navigation
-  fish bash-completion z
+  fish bash-completion zoxide
 
   # Git tools
   gh git-delta git-lfs git-filter-repo tig mergiraf

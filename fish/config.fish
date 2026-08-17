@@ -128,3 +128,8 @@ and . (code --locate-shell-integration-path fish)
 # Raise file descriptor limit for development
 ulimit -n 102400 2>/dev/null
 
+# zoxide (fast directory jumper)
+if type -q zoxide
+    zoxide init fish | source
+end
+
