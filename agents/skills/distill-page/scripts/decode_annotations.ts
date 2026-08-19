@@ -128,6 +128,37 @@ export const AnnotationParser = {
     return null;
   },
 
+  findNodesByRole(node: ContentNode, role: AnnotatedRole, matches: ContentNode[] = []): ContentNode[] {
+    if (node.contentAttributes?.annotatedRoles?.includes(role)) {
+      matches.push(node);
+    }
+    for (const child of node.childrenNodes || []) {
+      this.findNodesByRole(child, role, matches);
+    }
+    return matches;
+  },
+
+  findContentRoot(root: ContentNode): ContentNode {
+    // A page can use <article> for small embedded cards. Prefer the explicit
+    // main landmark; if it is absent, the article with the most text is the
+    // best available proxy for the page's primary content.
+    const main = this.findNodeByRoles(root, [AnnotatedRole.MAIN]);
+    if (main) return main;
+
+    const largestArticle = this.findNodesByRole(root, AnnotatedRole.ARTICLE)
+      .reduce<ContentNode | null>((largest, article) => {
+        return !largest || this.extractAllText(article).length > this.extractAllText(largest).length
+          ? article
+          : largest;
+      }, null) || root;
+
+    // When several small article cards are the only ARTICLE landmarks, retain
+    // the page root. The parser already removes NAV and FOOTER subtrees.
+    return this.extractAllText(largestArticle).length >= this.extractAllText(root).length / 2
+      ? largestArticle
+      : root;
+  },
+
   textSizeToHeadingLevel(size: number | undefined): number {
     if (size === TextSize.XL) return 1;
     if (size === TextSize.L) return 2;
@@ -588,7 +619,7 @@ export const AnnotationParser = {
     const root = decodedProto.rootNode;
     if (!root) return {children: []};
 
-    const contentRoot = this.findNodeByRoles(root, [AnnotatedRole.ARTICLE, AnnotatedRole.MAIN]) || root;
+    const contentRoot = this.findContentRoot(root);
 
     const state: ParserState = {
       imageCounter: {value: 1},

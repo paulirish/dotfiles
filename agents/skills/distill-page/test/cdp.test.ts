@@ -4,9 +4,61 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import fs from 'node:fs';
 import {fetchDistilledBase64, decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/distill-page.ts';
+import {AnnotationParser} from '../scripts/decode_annotations.ts';
+import {AnnotatedRole} from '../scripts/proto/common_quality_data_pb.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+test('prefers the main landmark over an earlier inline article card', () => {
+  const articleCard = {
+    childrenNodes: [{
+      childrenNodes: [],
+      contentAttributes: {contentData: {case: 'textData', value: {textContent: 'How I made cookies'}}},
+    }],
+    contentAttributes: {annotatedRoles: [AnnotatedRole.ARTICLE], contentData: {case: undefined}},
+  } as any;
+  const main = {
+    childrenNodes: [{
+      childrenNodes: [],
+      contentAttributes: {contentData: {case: 'textData', value: {textContent: 'The actual page content'}}},
+    }],
+    contentAttributes: {annotatedRoles: [AnnotatedRole.MAIN]},
+  } as any;
+  const root = {childrenNodes: [articleCard, main]} as any;
+
+  assert.strictEqual(AnnotationParser.findContentRoot(root), main);
+});
+
+test('keeps the full proto tree when article landmarks are only small cards', () => {
+  const card = (text: string) => ({
+    childrenNodes: [{
+      childrenNodes: [],
+      contentAttributes: {contentData: {case: 'textData', value: {textContent: text}}},
+    }],
+    contentAttributes: {annotatedRoles: [AnnotatedRole.ARTICLE], contentData: {case: undefined}},
+  }) as any;
+  const root = {
+    childrenNodes: [
+      {childrenNodes: [], contentAttributes: {contentData: {case: 'textData', value: {textContent: 'Actual page content. '.repeat(20)}}}},
+      card('How I made cookies'),
+      card('Yummy cookies'),
+    ],
+    contentAttributes: {contentData: {case: undefined}},
+  } as any;
+
+  assert.strictEqual(AnnotationParser.findContentRoot(root), root);
+});
+
+test('does not let an inline article card truncate browser extraction', async () => {
+  const fixturePath = path.resolve(__dirname, 'fixtures', 'inline-article-cards.html');
+  const content = await fetchDistilledBase64(`file://${fixturePath}`);
+  const markdown = convertToMarkdown(decodeAnnotatedPageContent(content));
+
+  assert.ok(markdown.includes('This introduction is part of the page'), 'Should include content before the card');
+  assert.ok(markdown.includes('This paragraph follows the first demo'), 'Should include content after the first card');
+  assert.ok(markdown.includes('This conclusion confirms that extraction reaches the end'), 'Should include content after every card');
+});
 
 test('CDP Page.getAnnotatedPageContent on mock-page.html', async () => {
   const mockPagePath = path.resolve(__dirname, 'fixtures/mock-page.html');
