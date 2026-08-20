@@ -60,6 +60,22 @@ test('does not let an inline article card truncate browser extraction', async ()
   assert.ok(markdown.includes('This conclusion confirms that extraction reaches the end'), 'Should include content after every card');
 });
 
+test('does not treat large ordered-list text as headings', async () => {
+  const fixturePath = path.resolve(__dirname, 'fixtures', 'large-text-ordered-list.html');
+  const content = await fetchDistilledBase64(`file://${fixturePath}`);
+  const markdown = convertToMarkdown(decodeAnnotatedPageContent(content));
+
+  assert.ok(markdown.includes('1. First, a plain entry'), 'Should keep large ordered-list text without heading markers');
+  assert.ok(
+    markdown.includes('2. You put the `html` in the `markdown`, right'),
+    'Should keep large ordered-list text on one line without heading markers',
+  );
+  assert.ok(
+    markdown.includes('1. ## Actual Heading\n  First paragraph\n  Second!'),
+    'Should preserve explicit headings and multiple paragraphs inside list items',
+  );
+});
+
 test('CDP Page.getAnnotatedPageContent on mock-page.html', async () => {
   const mockPagePath = path.resolve(__dirname, 'fixtures/mock-page.html');
   const mockPageUrl = `file://${mockPagePath}`;
