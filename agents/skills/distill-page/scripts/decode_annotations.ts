@@ -99,6 +99,7 @@ interface ParserState {
   imageCounter: {value: number};
   insideParagraph: boolean;
   insideHeading: boolean;
+  insideListItem: boolean;
   insideCodeBlock: boolean;
   currentUrl?: string | null;
 }
@@ -358,7 +359,12 @@ export const AnnotationParser = {
     const bold = !!(textData.textStyle?.hasEmphasis && !state.insideHeading);
 
     const size = textData.textStyle?.textSize;
-    if ((size === TextSize.XL || size === TextSize.L) && !state.insideHeading && !state.insideParagraph) {
+    if (
+      (size === TextSize.XL || size === TextSize.L) &&
+      !state.insideHeading &&
+      !state.insideParagraph &&
+      !state.insideListItem
+    ) {
       const headingTextRun: ASTTextRun = {
         type: 'text',
         text: trimmed,
@@ -468,7 +474,7 @@ export const AnnotationParser = {
     const items: ASTListItem[] = [];
     if (node.childrenNodes) {
       for (const itemNode of node.childrenNodes) {
-        const childState = {...state, insideParagraph: false};
+        const childState = {...state, insideParagraph: false, insideListItem: true};
         const itemChildren = this.parseChildren(itemNode.childrenNodes || [itemNode], childState);
         if (itemChildren.length > 0) {
           items.push({
@@ -625,6 +631,7 @@ export const AnnotationParser = {
       imageCounter: {value: 1},
       insideParagraph: false,
       insideHeading: false,
+      insideListItem: false,
       insideCodeBlock: false,
       currentUrl: decodedProto.mainFrameData?.url,
     };
