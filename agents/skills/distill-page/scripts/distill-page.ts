@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 import {chromium} from 'playwright';
 import {decodeAnnotatedPageContent, convertToMarkdown} from './decode_annotations.ts';
+import {PRE_CLOSE_MARKER, PRE_OPEN_MARKER} from './semantic_markers.ts';
 
 export {decodeAnnotatedPageContent, convertToMarkdown};
 
 // AnnotatedPageContent has no semantic represnetation of these things. 
 // But they are important enough that we gotta do this.
 export async function injectSemanticMarkers(page: any) {
-  await page.evaluate(() => {
+  await page.evaluate(({preOpenMarker, preCloseMarker}: {preOpenMarker: string; preCloseMarker: string}) => {
     document.querySelectorAll('code').forEach(el => {
       if (!el.closest('pre')) {
         el.insertAdjacentText('afterbegin', '`');
@@ -15,15 +16,15 @@ export async function injectSemanticMarkers(page: any) {
       }
     });
     document.querySelectorAll('pre').forEach(el => {
-      el.insertAdjacentText('afterbegin', '\n```\n');
-      el.insertAdjacentText('beforeend', '\n```\n');
+      el.insertAdjacentText('afterbegin', preOpenMarker);
+      el.insertAdjacentText('beforeend', preCloseMarker);
     });
     document.querySelectorAll('blockquote').forEach(el => {
       const p = document.createElement('span');
       p.textContent = '> ';
       el.prepend(p);
     });
-  });
+  }, {preOpenMarker: PRE_OPEN_MARKER, preCloseMarker: PRE_CLOSE_MARKER});
 }
 
 export async function fetchDistilledBase64(url: string) {

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Field notes: resilient content extraction</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; line-height: 1.55; }
+      body { margin: 0; color: #1e293b; background: #f8fafc; }
+      header, footer { padding: 1rem max(1rem, calc((100% - 68rem) / 2)); background: #0f172a; color: white; }
+      main { max-width: 46rem; margin: 2rem auto; padding: 0 1rem 4rem; }
+      .eyebrow { color: #64748b; font-size: .875rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      .callout, .card, .comparison { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid #cbd5e1; border-radius: .5rem; background: white; }
+      .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+      .card { margin: 0; }
+      .display-copy { margin: 1.5rem 0; color: #7c2d12; font-size: 2.2rem; font-weight: 750; line-height: 1.1; }
+      pre { overflow: auto; padding: 1rem; border-radius: .4rem; background: #172033; color: #e2e8f0; }
+      table { width: 100%; border-collapse: collapse; background: white; }
+      th, td { padding: .65rem; border: 1px solid #cbd5e1; text-align: left; vertical-align: top; }
+      caption { margin-bottom: .5rem; font-weight: 700; text-align: left; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Primary"><a href="#introduction">Field notes</a> · <a href="#comparison">Comparison</a></nav>
+    </header>
+
+    <!-- Deliberately page-like promotional region: common in client-rendered shells. -->
+    <section class="comparison" role="main" aria-label="Newsletter preview">
+      <p class="eyebrow">Newsletter preview</p>
+      <article>
+        <h2>A separate, tempting article</h2>
+        <p>PREVIEW-ONLY-SENTINEL: This short teaser looks like a complete story but is not the field note below.</p>
+      </article>
+    </section>
+
+    <main>
+      <article>
+        <p class="eyebrow">Engineering field notes · 19 August 2026</p>
+        <h1 id="introduction">Designing extraction fixtures from ordinary pages</h1>
+        <p>DOCUMENT-START-SENTINEL: This is the primary article. It explains how real editorial pages mix prose with components that carry their own semantics.</p>
+
+        <section aria-labelledby="cards-heading">
+          <h2 id="cards-heading">A familiar inline component</h2>
+          <p>CARDS-BEFORE-SENTINEL: A reading application should continue through this small recommendation strip.</p>
+          <div class="card-grid">
+            <article class="card">
+              <p class="eyebrow">Related note</p>
+              <h3>How I calibrated a hygrometer</h3>
+              <p>One small card with a date and a short summary.</p>
+              <time datetime="2026-07-31">31 July 2026</time>
+            </article>
+            <article class="card">
+              <p class="eyebrow">Related note</p>
+              <h3>Keeping field notebooks dry</h3>
+              <p>Another self-contained card embedded inside the real article.</p>
+              <time datetime="2026-08-05">5 August 2026</time>
+            </article>
+          </div>
+          <p>CARDS-AFTER-SENTINEL: The full article resumes here, after the inline articles.</p>
+        </section>
+
+        <section aria-labelledby="fences-heading">
+          <h2 id="fences-heading">When prose discusses Markdown</h2>
+          <p>FENCES-BEFORE-SENTINEL: The editor’s instructions literally say: type <code>```shell</code>, paste the command, then type <code>```</code> on a line by itself. Those characters are prose, not a code block boundary.</p>
+          <figure>
+            <figcaption>An actual command from the checklist</figcaption>
+            <pre tabindex="0"><code class="language-shell">rg --files notes | sort
+git status --short</code></pre>
+          </figure>
+          <p>FENCES-AFTER-SENTINEL: This paragraph must remain ordinary narrative after the real code sample.</p>
+        </section>
+
+        <section aria-labelledby="comparison-heading">
+          <h2 id="comparison-heading">A compact comparison</h2>
+          <p>TABLE-BEFORE-SENTINEL: The table below is intentionally wrapped in the same sort of responsive container used by a CMS theme.</p>
+          <div class="table-scroll" role="region" aria-label="Methods comparison" tabindex="0">
+            <table id="comparison">
+              <caption>Observed notebook methods</caption>
+              <thead>
+                <tr><th scope="col">Method</th><th scope="col">Setup</th><th scope="col">Result</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Paper log</th><td>One pencil and a weatherproof book</td><td>Fastest in rain</td></tr>
+                <tr><th scope="row">Phone form</th><td>Offline cache plus a stylus</td><td>Best for searchable records</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><th scope="row">Takeaway</th><td colspan="2">Use the simplest tool that survives the conditions.</td></tr>
+              </tfoot>
+            </table>
+          </div>
+          <p>TABLE-AFTER-SENTINEL: The table was supporting evidence, not the end of the document.</p>
+        </section>
+
+        <section aria-labelledby="display-heading">
+          <h2 id="display-heading">Display text is not always a heading</h2>
+          <p class="display-copy">PROMINENT-COPY-SENTINEL: Write it down before the weather changes.</p>
+          <p>DISPLAY-AFTER-SENTINEL: The large sentence above is a pull quote styled as display copy; it should retain paragraph-like meaning rather than alter the document outline.</p>
+        </section>
+
+        <aside class="callout">
+          <p><strong>Field reminder.</strong> SIDEBAR-SENTINEL: Keep the original page structure available when a machine classification is uncertain.</p>
+        </aside>
+        <p>DOCUMENT-END-SENTINEL: These notes end here, after every component and supporting detail.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>Footer links · archive · contact</p>
+    </footer>
+  </body>
+</html>

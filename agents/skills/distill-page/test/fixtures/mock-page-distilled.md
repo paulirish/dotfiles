@@ -117,7 +117,6 @@ Dotted variable test: `payment.method.id`.
 ## Section 9: Merged Code Block Tab Layout
 
 app/layout.tsx TypeScript TypeScript
-
 ```
 import { Geist } from 'next/font/google'
 const geist = Geist({

@@ -1,6 +1,7 @@
 import {fromBinary, create} from '@bufbuild/protobuf';
 import {AnnotatedPageContentSchema, AnnotatedRole, ContentAttributeType, TextSize, TableRowType, TextStyleSchema, ContentNodeSchema} from './proto/common_quality_data_pb.js';
 import type {ContentNode, AnnotatedPageContent, TextInfo, ImageInfo, AnchorData, TableData} from './proto/common_quality_data_pb.js';
+import {PRE_CLOSE_MARKER, PRE_OPEN_MARKER} from './semantic_markers.ts';
 
 const {
   CONTENT_ATTRIBUTE_TEXT,
@@ -140,24 +141,28 @@ export const AnnotationParser = {
   },
 
   findContentRoot(root: ContentNode): ContentNode {
-    // A page can use <article> for small embedded cards. Prefer the explicit
-    // main landmark; if it is absent, the article with the most text is the
-    // best available proxy for the page's primary content.
-    const main = this.findNodeByRoles(root, [AnnotatedRole.MAIN]);
-    if (main) return main;
+    const textLength = (node: ContentNode) => this.extractAllText(node).length;
+    const largestNodeWithRole = (role: AnnotatedRole): ContentNode | null => {
+      return this.findNodesByRole(root, role)
+        .reduce<ContentNode | null>((largest, candidate) => {
+          return !largest || textLength(candidate) > textLength(largest) ? candidate : largest;
+        }, null);
+    };
+    const dominatesPage = (node: ContentNode | null) => !!node && textLength(node) >= textLength(root) / 2;
 
-    const largestArticle = this.findNodesByRole(root, AnnotatedRole.ARTICLE)
-      .reduce<ContentNode | null>((largest, article) => {
-        return !largest || this.extractAllText(article).length > this.extractAllText(largest).length
-          ? article
-          : largest;
-      }, null) || root;
+    // Landmark roles can appear on small promotional or client-rendered page
+    // shells before the actual content. Select the largest meaningful MAIN,
+    // rather than relying on document traversal order.
+    const largestMain = largestNodeWithRole(AnnotatedRole.MAIN);
+    if (dominatesPage(largestMain)) return largestMain;
+
+    // A page can use <article> for small embedded cards. If no MAIN dominates,
+    // use a dominant article as the next-best proxy for primary content.
+    const largestArticle = largestNodeWithRole(AnnotatedRole.ARTICLE);
 
     // When several small article cards are the only ARTICLE landmarks, retain
     // the page root. The parser already removes NAV and FOOTER subtrees.
-    return this.extractAllText(largestArticle).length >= this.extractAllText(root).length / 2
-      ? largestArticle
-      : root;
+    return dominatesPage(largestArticle) ? largestArticle! : root;
   },
 
   textSizeToHeadingLevel(size: number | undefined): number {
@@ -227,14 +232,12 @@ export const AnnotationParser = {
       if (childAttrs?.contentData.case === 'textData') {
         const text = childAttrs.contentData.value.textContent || '';
 
-        if (text.includes('```')) {
-          const parts = text.split('```');
+        if (text.includes(PRE_OPEN_MARKER) || text.includes(PRE_CLOSE_MARKER)) {
+          const parts = text.split(new RegExp(`(${PRE_OPEN_MARKER}|${PRE_CLOSE_MARKER})`));
 
-          for (let i = 0; i < parts.length; i++) {
-            const part = parts[i];
-
-            if (i > 0) {
-              state.insideCodeBlock = !state.insideCodeBlock;
+          for (const part of parts) {
+            if (part === PRE_OPEN_MARKER || part === PRE_CLOSE_MARKER) {
+              state.insideCodeBlock = part === PRE_OPEN_MARKER;
               if (state.insideCodeBlock) {
                 flushInlines();
                 activeCodeBlock = {type: 'codeblock', code: ''};
@@ -244,6 +247,7 @@ export const AnnotationParser = {
                   activeCodeBlock = null;
                 }
               }
+              continue;
             }
 
             if (part) {
@@ -321,7 +325,7 @@ export const AnnotationParser = {
       const attrs = child.contentAttributes;
       if (attrs?.contentData.case === 'textData') {
         const text = attrs.contentData.value.textContent || '';
-        if (text.includes('```')) {
+        if (text.includes(PRE_OPEN_MARKER) || text.includes(PRE_CLOSE_MARKER)) {
           return true;
         }
       }
@@ -338,10 +342,8 @@ export const AnnotationParser = {
 
   parseTextNode(node: ContentNode, textData: TextInfo, state: ParserState): (ASTBlockNode | ASTInlineNode)[] {
     let text = textData.textContent || '';
-    const isCodeFence = text.includes('```');
-
-    if (isCodeFence) {
-      state.insideCodeBlock = !state.insideCodeBlock;
+    if (text === PRE_OPEN_MARKER || text === PRE_CLOSE_MARKER) {
+      state.insideCodeBlock = text === PRE_OPEN_MARKER;
       return [];
     }
 

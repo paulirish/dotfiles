@@ -23,11 +23,29 @@ test('prefers the main landmark over an earlier inline article card', () => {
       childrenNodes: [],
       contentAttributes: {contentData: {case: 'textData', value: {textContent: 'The actual page content'}}},
     }],
-    contentAttributes: {annotatedRoles: [AnnotatedRole.MAIN]},
+    contentAttributes: {annotatedRoles: [AnnotatedRole.MAIN], contentData: {case: undefined}},
   } as any;
-  const root = {childrenNodes: [articleCard, main]} as any;
+  const root = {childrenNodes: [articleCard, main], contentAttributes: {contentData: {case: undefined}}} as any;
 
   assert.strictEqual(AnnotationParser.findContentRoot(root), main);
+});
+
+test('prefers the largest main landmark over an earlier preview main', () => {
+  const main = (text: string) => ({
+    childrenNodes: [{
+      childrenNodes: [],
+      contentAttributes: {contentData: {case: 'textData', value: {textContent: text}}},
+    }],
+    contentAttributes: {annotatedRoles: [AnnotatedRole.MAIN], contentData: {case: undefined}},
+  }) as any;
+  const preview = main('Preview content.');
+  const primary = main('Actual page content. '.repeat(20));
+  const root = {
+    childrenNodes: [preview, primary],
+    contentAttributes: {contentData: {case: undefined}},
+  } as any;
+
+  assert.strictEqual(AnnotationParser.findContentRoot(root), primary);
 });
 
 test('keeps the full proto tree when article landmarks are only small cards', () => {
@@ -58,6 +76,18 @@ test('does not let an inline article card truncate browser extraction', async ()
   assert.ok(markdown.includes('This introduction is part of the page'), 'Should include content before the card');
   assert.ok(markdown.includes('This paragraph follows the first demo'), 'Should include content after the first card');
   assert.ok(markdown.includes('This conclusion confirms that extraction reaches the end'), 'Should include content after every card');
+});
+
+test('uses the primary main landmark in the stress fixture', async () => {
+  const fixturePath = path.resolve(__dirname, 'fixtures', 'extractor-stress-cases.html');
+  const content = await fetchDistilledBase64(`file://${fixturePath}`);
+  const markdown = convertToMarkdown(decodeAnnotatedPageContent(content));
+
+  assert.ok(markdown.includes('DOCUMENT-START-SENTINEL'), 'Should select the primary main content over the preview');
+  assert.ok(markdown.includes('DOCUMENT-END-SENTINEL'), 'Should extract through the end of the primary main content');
+  assert.ok(!markdown.includes('PREVIEW-ONLY-SENTINEL'), 'Should exclude the competing preview main landmark');
+  assert.ok(markdown.includes('FENCES-AFTER-SENTINEL'), 'Should not treat literal Markdown fences in prose as code-block boundaries');
+  assert.ok(markdown.includes('```\nrg --files notes | sort\ngit status --short\n```'), 'Should preserve the real preformatted code block');
 });
 
 test('does not treat large ordered-list text as headings', async () => {
