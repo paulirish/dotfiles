@@ -1,7 +1,7 @@
 import {fromBinary, create} from '@bufbuild/protobuf';
 import {AnnotatedPageContentSchema, AnnotatedRole, ContentAttributeType, TextSize, TableRowType, TextStyleSchema, ContentNodeSchema} from './proto/common_quality_data_pb.js';
 import type {ContentNode, AnnotatedPageContent, TextInfo, ImageInfo, AnchorData, TableData} from './proto/common_quality_data_pb.js';
-import {PRE_CLOSE_MARKER, PRE_OPEN_MARKER} from './semantic_markers.ts';
+import {INLINE_CODE_CLOSE_MARKER, INLINE_CODE_OPEN_MARKER, PRE_CLOSE_MARKER, PRE_OPEN_MARKER} from './semantic_markers.ts';
 
 const {
   CONTENT_ATTRIBUTE_TEXT,
@@ -21,6 +21,7 @@ export interface ASTTextRun {
   type: 'text';
   text: string;
   style?: TextInfo['textStyle'];
+  isCode?: boolean;
 }
 
 export interface ASTImage {
@@ -102,7 +103,20 @@ interface ParserState {
   insideHeading: boolean;
   insideListItem: boolean;
   insideCodeBlock: boolean;
+  insideInlineCode: boolean;
   currentUrl?: string | null;
+}
+
+const SEMANTIC_MARKERS = [
+  PRE_OPEN_MARKER,
+  PRE_CLOSE_MARKER,
+  INLINE_CODE_OPEN_MARKER,
+  INLINE_CODE_CLOSE_MARKER,
+];
+const semanticMarkerPattern = new RegExp(`(${SEMANTIC_MARKERS.join('|')})`);
+
+function hasSemanticMarker(text: string): boolean {
+  return SEMANTIC_MARKERS.some(marker => text.includes(marker));
 }
 
 export const AnnotationParser = {
@@ -232,8 +246,8 @@ export const AnnotationParser = {
       if (childAttrs?.contentData.case === 'textData') {
         const text = childAttrs.contentData.value.textContent || '';
 
-        if (text.includes(PRE_OPEN_MARKER) || text.includes(PRE_CLOSE_MARKER)) {
-          const parts = text.split(new RegExp(`(${PRE_OPEN_MARKER}|${PRE_CLOSE_MARKER})`));
+        if (hasSemanticMarker(text)) {
+          const parts = text.split(semanticMarkerPattern);
 
           for (const part of parts) {
             if (part === PRE_OPEN_MARKER || part === PRE_CLOSE_MARKER) {
@@ -247,6 +261,10 @@ export const AnnotationParser = {
                   activeCodeBlock = null;
                 }
               }
+              continue;
+            }
+            if (part === INLINE_CODE_OPEN_MARKER || part === INLINE_CODE_CLOSE_MARKER) {
+              state.insideInlineCode = part === INLINE_CODE_OPEN_MARKER;
               continue;
             }
 
@@ -346,6 +364,10 @@ export const AnnotationParser = {
       state.insideCodeBlock = text === PRE_OPEN_MARKER;
       return [];
     }
+    if (text === INLINE_CODE_OPEN_MARKER || text === INLINE_CODE_CLOSE_MARKER) {
+      state.insideInlineCode = text === INLINE_CODE_OPEN_MARKER;
+      return [];
+    }
 
     if (state.insideCodeBlock) {
       return [];
@@ -385,6 +407,7 @@ export const AnnotationParser = {
       type: 'text',
       text: trimmed,
       style: textData.textStyle ? {...textData.textStyle, hasEmphasis: bold} : undefined,
+      isCode: state.insideInlineCode,
     };
     return [run];
   },
@@ -635,6 +658,7 @@ export const AnnotationParser = {
       insideHeading: false,
       insideListItem: false,
       insideCodeBlock: false,
+      insideInlineCode: false,
       currentUrl: decodedProto.mainFrameData?.url,
     };
 
@@ -667,7 +691,7 @@ export const MarkdownSerializer = {
     return !startsWithPunc && !endsWithSkip;
   },
 
-  mergeGroup(group: ASTInlineNode[], bold: boolean): ASTInlineNode {
+  mergeGroup(group: ASTInlineNode[], bold: boolean, isCode: boolean): ASTInlineNode {
     if (group.length === 1) return group[0];
 
     let texts = '';
@@ -689,6 +713,7 @@ export const MarkdownSerializer = {
         type: 'text',
         text: texts,
         style: first.style ? create(TextStyleSchema, {...first.style, hasEmphasis: bold}) : bold ? create(TextStyleSchema, {hasEmphasis: true}) : undefined,
+        isCode,
       };
     }
     return first;
@@ -698,31 +723,36 @@ export const MarkdownSerializer = {
     const grouped: ASTInlineNode[] = [];
     let currentGroup: ASTInlineNode[] = [];
     let currentBold: boolean | undefined = undefined;
+    let currentCode: boolean | undefined = undefined;
 
     for (const child of children) {
       if (child.type === 'text') {
         const isBold = !!(child.style?.hasEmphasis && !insideLink);
+        const isCode = !!child.isCode;
         if (currentBold === undefined) {
           currentBold = isBold;
+          currentCode = isCode;
           currentGroup.push(child);
-        } else if (currentBold === isBold) {
+        } else if (currentBold === isBold && currentCode === isCode) {
           currentGroup.push(child);
         } else {
-          grouped.push(this.mergeGroup(currentGroup, currentBold));
+          grouped.push(this.mergeGroup(currentGroup, currentBold, !!currentCode));
           currentGroup = [child];
           currentBold = isBold;
+          currentCode = isCode;
         }
       } else {
         if (currentGroup.length > 0) {
-          grouped.push(this.mergeGroup(currentGroup, !!currentBold));
+          grouped.push(this.mergeGroup(currentGroup, !!currentBold, !!currentCode));
           currentGroup = [];
           currentBold = undefined;
+          currentCode = undefined;
         }
         grouped.push(child);
       }
     }
     if (currentGroup.length > 0) {
-      grouped.push(this.mergeGroup(currentGroup, !!currentBold));
+      grouped.push(this.mergeGroup(currentGroup, !!currentBold, !!currentCode));
     }
 
     let md = '';
@@ -747,9 +777,19 @@ export const MarkdownSerializer = {
     return `![${caption}](${node.data.url || ''})`;
   },
 
+  serializeCodeSpan(text: string): string {
+    const longestBacktickRun = Math.max(0, ...(text.match(/`+/g) || []).map(run => run.length));
+    const delimiter = '`'.repeat(longestBacktickRun + 1);
+    const content = /^\s|\s$|`/.test(text) ? ` ${text} ` : text;
+    return `${delimiter}${content}${delimiter}`;
+  },
+
   serializeInline(node: ASTInlineNode, insideLink = false): string {
     if (node.type === 'text') {
       let text = node.text;
+      if (node.isCode) {
+        text = this.serializeCodeSpan(text);
+      }
       // Policy decision: Suppress emphasis wrapping (bold) inside link tags.
       // The Chromium layout annotator model flags all link text runs as having
       // emphasis due to visual color/styling differences. Bolding every link

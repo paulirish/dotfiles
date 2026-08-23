@@ -87,6 +87,7 @@ test('uses the primary main landmark in the stress fixture', async () => {
   assert.ok(markdown.includes('DOCUMENT-END-SENTINEL'), 'Should extract through the end of the primary main content');
   assert.ok(!markdown.includes('PREVIEW-ONLY-SENTINEL'), 'Should exclude the competing preview main landmark');
   assert.ok(markdown.includes('FENCES-AFTER-SENTINEL'), 'Should not treat literal Markdown fences in prose as code-block boundaries');
+  assert.ok(markdown.includes('type ```` ```shell````'), 'Should use a safe inline-code delimiter around literal Markdown fences');
   assert.ok(markdown.includes('```\nrg --files notes | sort\ngit status --short\n```'), 'Should preserve the real preformatted code block');
 });
 
