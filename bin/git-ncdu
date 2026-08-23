@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+"""git-ncdu: Interactive ncdu TUI explorer for Git repositories.
+
+Modes:
+  1. Tracked Mode (Default):
+     Explores currently tracked Git files in the working tree (excluding .git,
+     .gitignore, and untracked files).
+
+  2. History Mode (--history / -H):
+     Explores all historical Git blobs and commit objects, attributing both
+     uncompressed size and compressed disk packfile bytes across all revisions.
+
+Usage:
+  git-ncdu              # Browse current git-tracked files
+  git-ncdu -H           # Browse all historical objects/blobs
+  git-ncdu --history
+"""
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+
+
+def check_prerequisites() -> None:
+    if not shutil.which("ncdu"):
+        sys.stderr.write("error: 'ncdu' is not installed. Install it via 'brew install ncdu'.\n")
+        sys.exit(1)
+
+    try:
+        subprocess.check_output(["git", "rev-parse", "--is-inside-work-tree"], stderr=subprocess.DEVNULL)
+    except subprocess.CalledProcessError:
+        sys.stderr.write("error: Not inside a Git repository.\n")
+        sys.exit(1)
+
+
+def build_ncdu_tree(title: str, items: list[dict[str, int | str]]) -> list:
+    root: dict[str, dict] = {"files": {}, "dirs": {}}
+
+    for item in items:
+        path_str = str(item["path"])
+        parts = [p for p in path_str.split("/") if p and p != "."]
+        if not parts:
+            continue
+
+        curr = root
+        for part in parts[:-1]:
+            if part not in curr["dirs"]:
+                curr["dirs"][part] = {"files": {}, "dirs": {}}
+            curr = curr["dirs"][part]
+
+        filename = parts[-1]
+        if filename not in curr["files"]:
+            curr["files"][filename] = {"asize": 0, "dsize": 0}
+
+        curr["files"][filename]["asize"] += int(item["asize"])
+        curr["files"][filename]["dsize"] += int(item["dsize"])
+
+    def to_ncdu_node(name: str, node: dict) -> list:
+        res = [{"name": name}]
+        for fname, sizes in sorted(node["files"].items()):
+            res.append({
+                "name": fname,
+                "asize": sizes["asize"],
+                "dsize": sizes["dsize"],
+            })
+        for dname, child_node in sorted(node["dirs"].items()):
+            res.append(to_ncdu_node(dname, child_node))
+        return res
+
+    return [
+        1,
+        0,
+        {
+            "progname": "git-ncdu",
+            "progver": "1.0",
+            "timestamp": int(time.time()),
+        },
+        to_ncdu_node(title, root),
+    ]
+
+
+def collect_tracked_items() -> list[dict[str, int | str]]:
+    raw_files = subprocess.check_output(
+        ["git", "ls-files"], text=True, errors="replace"
+    ).splitlines()
+
+    items: list[dict[str, int | str]] = []
+    for rel_path in raw_files:
+        rel_path = rel_path.strip()
+        if not rel_path:
+            continue
+        try:
+            sz = os.path.getsize(rel_path)
+        except OSError:
+            sz = 0
+        items.append({
+            "path": rel_path,
+            "asize": sz,
+            "dsize": sz,
+        })
+    return items
+
+
+def collect_history_items() -> list[dict[str, int | str]]:
+    cmd = (
+        'git rev-list --objects --all | '
+        'git cat-file --batch-check="%(objectname) %(objecttype) %(objectsize) %(objectsize:disk) %(rest)"'
+    )
+    raw = subprocess.check_output(cmd, shell=True, text=True, errors="replace").splitlines()
+
+    items: list[dict[str, int | str]] = []
+    for line in raw:
+        parts = line.split(" ", 4)
+        if len(parts) >= 5 and parts[1] == "blob" and parts[4].strip():
+            items.append({
+                "path": parts[4].strip(),
+                "asize": int(parts[2]),
+                "dsize": int(parts[3]),
+            })
+    return items
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        prog="git-ncdu",
+        description="Interactive ncdu TUI disk explorer for Git repositories.",
+    )
+    parser.add_argument(
+        "-H",
+        "--history",
+        action="store_true",
+        help="Explore all historical Git blobs and revisions across commit history (instead of current tracked tree)",
+    )
+    parser.add_argument(
+        "ncdu_args",
+        nargs=argparse.REMAINDER,
+        help="Additional arguments forwarded directly to ncdu (e.g. -e, -q)",
+    )
+
+    args = parser.parse_args()
+    check_prerequisites()
+
+    if args.history:
+        title = "repo (all git history)"
+        items = collect_history_items()
+    else:
+        title = "repo (current tracked files)"
+        items = collect_tracked_items()
+
+    tree_json = json.dumps(build_ncdu_tree(title, items))
+
+    ncdu_cmd = ["ncdu", "-f", "-"]
+    if args.ncdu_args:
+        extra_args = [a for a in args.ncdu_args if a != "--"]
+        ncdu_cmd.extend(extra_args)
+
+    try:
+        proc = subprocess.Popen(ncdu_cmd, stdin=subprocess.PIPE)
+        proc.communicate(input=tree_json.encode("utf-8"))
+    except (KeyboardInterrupt, BrokenPipeError):
+        pass
+
+
+if __name__ == "__main__":
+    main()
