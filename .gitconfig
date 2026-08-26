@@ -218,5 +218,7 @@
 
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	program = /Users/paulirish/bin/git-ssh-sign
 [tag]
 	gpgSign = true

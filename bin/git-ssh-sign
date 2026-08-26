@@ -1,0 +1,3 @@
+#!/bin/sh
+# git-ssh-sign: signs commits with local SSH key without querying ssh-agent / hardware security keys
+exec env SSH_AUTH_SOCK="" /usr/bin/ssh-keygen "$@"
