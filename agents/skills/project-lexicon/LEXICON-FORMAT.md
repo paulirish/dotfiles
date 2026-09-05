@@ -26,7 +26,8 @@ The authoritative ubiquitous language and conceptual model for {Project Name}. A
 ## 1. {Domain / Subsystem Area}
 
 **{Canonical Term}**:
-{1–2 sentence definition stating strictly what it IS, not what it does. If closely adjacent to a sibling concept, explicitly clarifies the boundary in prose.}
+{1–2 sentence definition stating strictly what it IS and its core lifecycle role. If closely adjacent to a sibling concept, explicitly clarifies the boundary in prose.}
+_Code Anchor_: {Optional pointer to primary exported type, interface, or database table. e.g., `src/types/speaker.ts#SpeakerLabel`, `db.session_speaker_labels`}
 _Industry / Literature Synonyms_: {Optional external or academic synonyms, included ONLY when bridging an active gap to literature. Omit if none.}
 _Avoid_: {Rejected synonyms, deprecated historical names from earlier refactors, and colloquial shortcuts.}
 ```
@@ -43,10 +44,14 @@ Every entry must follow this exact layout:
 
 ### Definition Prose
 * **Length**: 1–2 sentences maximum.
-* **Content**: Define what the concept **is**, not what it does or how it is implemented.
+* **Content**: Define what the concept **is** and its essential lifecycle role or architectural boundary. Avoid procedural step-by-step implementation code, but capture behavioral contracts essential to the domain entity.
 * **Boundary Delineation**: If the concept borders a closely related or frequently confused concept, delineate the boundary directly in prose:
   > *"Distinct from [Session Speaker Label], which is temporary and file-local, a Speaker Profile is persistent and globally unique across the entire audio vault."*
-* **Zero Implementation Details**: No mention of specific libraries, SQL tables, transient variables, or function arguments unless the concept itself is a formal data entity.
+
+### `_Code Anchor_` *(Optional)*
+* **Purpose**: Concrete pointers grounding the ubiquitous language in the codebase, preventing coding agents from guessing symbol names.
+* **Format**: Comma-separated list of exported types, interfaces, schema tables, or API contracts (e.g., `src/types/speaker.ts#SpeakerProfile`, `db.speaker_profiles`).
+* **Constraint**: Point only to high-level canonical types or primary persistence tables, not ephemeral utility helpers.
 
 ### `_Industry / Literature Synonyms_` *(Optional)*
 * **Purpose**: Bridges internal terminology with external academic papers, industry standards, or third-party documentation.
@@ -62,22 +67,27 @@ Every entry must follow this exact layout:
 
 ---
 
-## 3. The Code Naming & Adjective Rule
+## 3. The Code Naming & Identifier Scope Rule
 
-A frequent failure mode in agentic coding is rigid paralysis around naming variables: agents either invent completely new words or fear using canonical terms because they need an adjective modifier.
+A frequent failure mode in agentic coding is rigid paralysis around naming variables: agents either invent completely new words or fear using canonical terms because they need an adjective modifier, or they produce unreadable Java-style bloat in local loops.
 
-### The Standard Rule:
-1. **Adjective Prefixes Are Allowed**:
+### Scope Delineation:
+
+1. **Boundary Identifiers (Strict)**:
+   - Exported types, interfaces, classes, database tables/columns, and public API fields **must** use the canonical compound noun.
+   - Example: `type SessionSpeakerLabel = ...`, `db.session_speaker_labels`
+   - Noun truncation at boundary surfaces is strictly forbidden (`SessionSpeakerLabel` cannot be truncated to `Speaker` or `Label` in an exported API).
+
+2. **Local Scope Identifiers (Permissive)**:
+   - Inside an unambiguous lexical scope (e.g., inside a method on `SessionSpeakerLabel`, a loop over labels, or a small helper function), idiomatic short names are explicitly allowed.
+   - Example: `labels.map(l => l.id)`, `function format(label: SessionSpeakerLabel) { return label.text; }`
+   - Do NOT force unreadable bloat like `currentSessionSpeakerLabel.sessionSpeakerLabelId`.
+
+3. **Adjective Prefixes & State Modifiers (Encouraged Everywhere)**:
    - Canonical Term: `Speaker Profile`
    - Allowed Code Identifiers: `active_speaker_profile`, `unnamedSpeakerProfile`, `speakerProfileId`
-2. **State Modifiers Are Allowed**:
    - Canonical Term: `Verified Exemplar`
    - Allowed Code Identifiers: `is_verified_exemplar`, `has_verified_exemplar`
-3. **Noun Truncation Is Strictly Forbidden**:
-   - Canonical Term: `Exemplar Coreset`
-   - Forbidden Identifiers: `coreset` (drops root context if ambiguous), `cluster`, `buffer`, `group`
-   - Canonical Term: `Session Speaker Label`
-   - Forbidden Identifiers: `speaker`, `id`, `label`
 
 ---
 

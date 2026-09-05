@@ -74,12 +74,15 @@ Use this mode when establishing a new lexicon, adding concepts after an architec
 
 ### Workflow Steps
 
-1. **Subagent-Driven Initial Survey (Parallel & Sharded)**:
-   Do NOT read all codebase files directly in the orchestrator context. Instead, delegate the survey to parallel subagents to keep the orchestrator's context window lean:
+1. **Subagent-Driven Initial Survey (High-Leverage & Parallel)**:
+   Do NOT read all codebase files directly in the orchestrator context. Instead, delegate the survey to parallel subagents focused exclusively on **high-leverage sources of truth** (avoiding trivial utility code):
    - **Documentation**: Spawn `lexicon-doc-surveyor` to scan `docs/`, `README.md`, specs, guides, and PR notes.
-   - **Code & Schemas**: Spawn one or more `lexicon-code-surveyor` subagents. For large codebases, shard the work by directory or architectural layer (e.g., Subagent 1: `src/core/`, Subagent 2: `src/api/`, Subagent 3: `src/ui/` or `database/`).
+   - **Code & Schemas**: Spawn one or more `lexicon-code-surveyor` subagents targeted strictly at high-leverage files:
+     - Database schemas and migrations (`schema.prisma`, SQL migrations, ORM models).
+     - Public interface and type contracts (`types.ts`, protobufs, OpenAPI/GraphQL specs).
+     - For large monorepos, shard by architectural package or subsystem (e.g., Subagent 1: `packages/billing`, Subagent 2: `packages/auth`).
    - The surveyors return structured candidate lists containing:
-     - Identified domain entities and terms in actual use.
+     - Identified domain entities, code anchors, and terms in actual use.
      - Divergent vocabulary observed across files/modules.
      - Conflicting conceptual statements or stale specifications.
 
@@ -95,17 +98,24 @@ Use this mode when establishing a new lexicon, adding concepts after an architec
 4. **Interactive Alignment Session (with Human)**:
    - Present the grounded findings to the user:
      - Identify where concepts conflict or where multiple terms collide.
-     - Cite exact doc or code locations.
+     - Cite exact doc or code locations and proposed `_Code Anchor_` pointers.
      - Propose a single, opinionated canonical term and recommended `_Avoid_` list.
-     - Ask the user to decide the authoritative path forward.
+     - Ask the user to decide the authoritative path forward. The human's decision is final.
 
 5. **Adversarial Co-Review (Subagent)**:
-   - Before writing down a term, run the draft definition past the `lexicon-adversary` subagent.
-   - Ensure definitions state strictly what the concept **is**, not what it does.
-   - Ensure distinct adjacent concepts are explicitly separated in prose.
+   - As terms are drafted, run candidate definitions past `lexicon-adversary` to stress-test clarity:
+     - Ensure definitions state strictly what the concept **is** and its essential lifecycle role (avoiding procedural step-by-step logic).
+     - Ensure distinct adjacent concepts are explicitly separated in prose.
+     - The adversary challenges fuzziness during drafting, but does NOT second-guess explicit human decisions from Step 4.
 
 6. **Persist Lexicon**:
    - Write or update `LEXICON.md` following [LEXICON-FORMAT.md](./LEXICON-FORMAT.md).
+
+7. **Close the Loop in Agent Instructions**:
+   - Ensure the repository's primary agent instructions file (`AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`) contains a concise directive instructing future coding agents to align with the lexicon:
+     ```markdown
+     > **Domain Vocabulary**: All coding and design work must strictly adhere to the canonical terms in [LEXICON.md](./LEXICON.md) (and avoid deprecated aliases listed there).
+     ```
 
 ---
 
@@ -116,8 +126,8 @@ Use this mode for pre-milestone commits, post-refactor cleanup, or regular codeb
 ### Workflow Steps
 
 1. **Spawn `lexicon-auditor` Subagent**:
-   - The subagent parses `LEXICON.md` to extract all canonical terms and `_Avoid_` lists.
-   - Runs static analysis (`ripgrep`) across audited paths to find occurrences of avoided terms and deprecated aliases in code identifiers, comments, and markdown.
+   - The subagent parses `LEXICON.md` to extract all canonical terms, `_Code Anchor_` pointers, and `_Avoid_` lists.
+   - Runs static analysis (`ripgrep`) across audited paths to find occurrences of avoided terms and deprecated aliases in boundary identifiers, comments, and markdown.
    - Compares core specs and guides to detect stale conceptual framings that contradict `LEXICON.md`.
    - **Crucial**: Static analysis runs behind the scenes. Do NOT overwhelm the human with raw regex search dumps.
 
@@ -130,14 +140,18 @@ Use this mode for pre-milestone commits, post-refactor cleanup, or regular codeb
    - **Section B: Lexicon Candidates**:
      - Emerging concepts discovered in code that meet the 3 Gating Criteria and should be formalized.
    - **Section C: Term Misuses & Invented Vocabulary**:
-     - Specific occurrences of `_Avoid_` terms in code and docs.
-     - Linked file path, line number, snippet, and recommended canonical replacement.
+     - Categorized by **Blast-Radius Safety Tier**:
+       - **Tier 1 (Safe / In-Place)**: Markdown documentation, code comments, internal unexported functions.
+       - **Tier 2 (Internal Structural)**: Exported types, internal function calls.
+       - **Tier 3 (Breaking / Hazardous)**: Database columns, wire payloads, event schemas, serialized JSON.
 
-3. **Interactive Remediation**:
+3. **Interactive Remediation & Safe Execution**:
    - Walk through Section A with the user to resolve conceptual decisions.
    - Confirm additions to `LEXICON.md` from Section B.
-   - For Section C (direct term replacements), present a clear refactoring plan.
-   - Execute staged edits across code and documentation using file editing tools.
+   - **Remediation Execution by Tier**:
+     - **Tier 1**: Batch-edit docs and comments directly.
+     - **Tier 2**: Refactor internal code identifiers, followed immediately by running the project typecheck (`pnpm typecheck`, `tsc --noEmit`, or test suite) to guarantee zero regressions.
+     - **Tier 3**: **Strictly forbidden from automated in-place refactor.** For database tables/columns or wire APIs, emit a migration RFC/plan for human review rather than executing an automated find-and-replace.
 
 ---
 
@@ -161,20 +175,20 @@ When running this skill, use `define_subagent` and `invoke_subagent` to spawn th
   5. Return a structured summary report to the orchestrator. Do not make code edits.
   ```
 
-### B. `lexicon-code-surveyor` (Codebase & Schema Shard Explorer)
-* **Role**: Inspects database schemas, types, interfaces, and core business logic in its assigned shard to extract real vocabulary in use.
+### B. `lexicon-code-surveyor` (Codebase & Schema Explorer)
+* **Role**: Inspects database schemas, types, interfaces, and core business contracts in high-leverage files to extract real vocabulary in use.
 * **System Prompt Core**:
   ```text
-  You are a Codebase Lexicon Explorer subagent assigned to a specific directory or architectural shard.
+  You are a Codebase Lexicon Explorer subagent focused on high-leverage architecture files.
 
-  Your mission is to examine code, schemas, and types within your shard to extract actual domain vocabulary in use.
+  Your mission is to examine schemas, public types, and API contracts to extract actual domain vocabulary in use.
 
   Instructions:
-  1. Inspect database migrations, schema definitions, TypeScript interfaces, or data classes in your shard.
-  2. Identify core domain entities and recurring nouns in variable, function, and class identifiers.
+  1. Focus strictly on high-leverage sources of truth: database migrations, schema definitions (Prisma, SQL, ORM), public TypeScript interfaces/types, and API contracts. Avoid deep utility helpers.
+  2. Identify core domain entities and recurring nouns in boundary types and table schemas.
   3. Flag instances of terminology collisions or ad-hoc naming (e.g., turn vs. segment vs. utterance).
   4. Note divergence between code naming and documented terms.
-  5. Return a structured list of candidate entities and observed synonyms. Do not make code edits.
+  5. Return a structured list of candidate entities, proposed code anchors, and observed synonyms. Do not make code edits.
   ```
 
 ### C. `lexicon-adversary` (The Skeptical Principal Reviewer)
@@ -187,10 +201,11 @@ When running this skill, use `define_subagent` and `invoke_subagent` to spawn th
 
   Rules:
   1. Ruthlessly enforce the 3 Gating Criteria: Boundary Crossing, Active Divergence, or Core Domain Entity. If a proposed term is merely an internal helper, a local variable, or generic plumbing (e.g., Handler, Cache, Payload, Manager), REJECT IT with extreme prejudice.
-  2. Enforce the "What it IS, not what it DOES" definition rule. Reject procedural or algorithmic definitions.
+  2. Enforce the definition rule: Define what the concept IS and its core lifecycle role, not procedural step-by-step logic.
   3. Delineate boundaries: If a term looks similar to an existing canonical term, demand an explicit prose distinction explaining why they are not the same concept.
   4. Block synonym bloat: Reject proposals that add obvious or generic synonyms.
   5. Check for invented vocabulary: Call out newly coined terms that unnecessarily replace established project terminology.
+  6. The human user has final authority: Challenge fuzziness during drafting, but do not block or veto explicit human decisions.
   ```
 
 ### D. `lexicon-auditor` (The Repository & Static Scanner)
@@ -202,20 +217,22 @@ When running this skill, use `define_subagent` and `invoke_subagent` to spawn th
   Your mission is to perform static analysis and cross-doc verification to detect terminology misuses, invented vocabulary, and stale conceptual models.
 
   Instructions:
-  1. Read the project's lexicon file (LEXICON.md, TERMS.md, or CONTEXT.md) to extract canonical terms and _Avoid_ lists.
-  2. Use ripgrep to scan the audited paths for exact and word-boundary occurrences of avoided terms in code identifiers, comments, and markdown documents.
+  1. Read the project's lexicon file (LEXICON.md, TERMS.md, or CONTEXT.md) to extract canonical terms, code anchors, and _Avoid_ lists.
+  2. Use ripgrep to scan audited paths for avoided terms in boundary identifiers, comments, and markdown documents, respecting local-scope exemptions.
   3. Filter out false positives (e.g., third-party vendor API signatures, legitimate adjective prefixes allowed by conventions).
-  4. Compare core specifications, schemas, and guides. Flag places where older docs describe obsolete workflows or contradictory mental models.
-  5. Do NOT modify any files. Synthesize your findings into a clean, structured triage report.
+  4. Categorize code findings into Blast-Radius Safety Tiers (Tier 1: Docs/Comments, Tier 2: Internal Structural, Tier 3: Hazardous/Breaking).
+  5. Compare core specifications, schemas, and guides. Flag places where older docs describe obsolete workflows or contradictory mental models.
+  6. Do NOT modify any files. Synthesize your findings into a clean, structured triage report.
   ```
 
 ---
 
 ## 5. Summary Checklist Before Ending Turn
 
-- [ ] Initial survey executed via parallel subagents (`lexicon-doc-surveyor` and sharded `lexicon-code-surveyor`).
+- [ ] Initial survey executed via parallel subagents focused on high-leverage files (`lexicon-doc-surveyor` and `lexicon-code-surveyor`).
 - [ ] Existing or default lexicon file identified (`docs/TERMS.md`, `LEXICON.md`, etc.).
-- [ ] In-document conventions respected (adjective prefix rules applied, noun truncation avoided).
+- [ ] In-document conventions respected (adjective prefix rules applied, boundary vs local scope honored).
 - [ ] Gating criteria strictly enforced on every new term via `lexicon-adversary`.
 - [ ] Conceptual contradictions surfaced to the user with actionable options.
-- [ ] Code and doc edits staged cleanly and committed with descriptive, lowercase commit messages.
+- [ ] Agent instructions (`AGENTS.md`) updated with directive pointing to the lexicon.
+- [ ] Code and doc edits staged cleanly by safety tier (with typecheck verification) and committed with descriptive, lowercase commit messages.
