@@ -58,7 +58,7 @@ To prevent suggestion bloat and keep the lexicon focused on high-signal domain b
          ┌─────────────────────────┴─────────────────────────┐
          ▼                                                   ▼
 [Mode 1: Definition & Alignment]                   [Mode 2: Audit & Sweep]
-- Discover & map concepts                          - Behind-the-scenes static ripgrep scan
+- Subagent Survey (Docs + Sharded Code)            - Behind-the-scenes static ripgrep scan
 - Adversarial Pre-Filter (kills fluff)             - Cross-doc conceptual divergence check
 - High-level spec coherence analysis               - Generate structured Audit Report Artifact
 - Interactive interview with human                 - Guided interactive remediation
@@ -74,17 +74,23 @@ Use this mode when establishing a new lexicon, adding concepts after an architec
 
 ### Workflow Steps
 
-1. **Initial Survey**:
-   - Inspect existing architecture docs, schemas, and core code files.
-   - Extract candidate concepts and compile words currently used for them.
+1. **Subagent-Driven Initial Survey (Parallel & Sharded)**:
+   Do NOT read all codebase files directly in the orchestrator context. Instead, delegate the survey to parallel subagents to keep the orchestrator's context window lean:
+   - **Documentation**: Spawn `lexicon-doc-surveyor` to scan `docs/`, `README.md`, specs, guides, and PR notes.
+   - **Code & Schemas**: Spawn one or more `lexicon-code-surveyor` subagents. For large codebases, shard the work by directory or architectural layer (e.g., Subagent 1: `src/core/`, Subagent 2: `src/api/`, Subagent 3: `src/ui/` or `database/`).
+   - The surveyors return structured candidate lists containing:
+     - Identified domain entities and terms in actual use.
+     - Divergent vocabulary observed across files/modules.
+     - Conflicting conceptual statements or stale specifications.
 
-2. **Adversarial Pre-Filter (Subagent)**:
+2. **Merge & Adversarial Pre-Filter (Subagent)**:
+   - The orchestrator aggregates candidate concepts from the surveyors.
    - Spawn a dedicated `lexicon-adversary` subagent to vet all candidate terms against the 3 Gating Criteria.
    - The subagent ruthlessly rejects low-value implementation helpers, generic programming patterns, and duplicate synonyms *before* presenting anything to the human.
 
 3. **High-Level Conceptual Divergence Analysis**:
-   - Compare key documents (e.g., specs, schemas, guides) against each other.
-   - Identify contradictory assumptions, lifecycle discrepancies, or obsolete mental models preserved in older text.
+   - Synthesize cross-doc findings surfaced by the surveyors.
+   - Map out contradictory assumptions, lifecycle discrepancies, or obsolete mental models preserved in older text.
 
 4. **Interactive Alignment Session (with Human)**:
    - Present the grounded findings to the user:
@@ -137,9 +143,41 @@ Use this mode for pre-milestone commits, post-refactor cleanup, or regular codeb
 
 ## 4. Subagent Specifications
 
-When running this skill, use `define_subagent` and `invoke_subagent` to spawn these two specialized roles.
+When running this skill, use `define_subagent` and `invoke_subagent` to spawn these specialized roles.
 
-### A. `lexicon-adversary` (The Skeptical Principal Reviewer)
+### A. `lexicon-doc-surveyor` (Documentation & Spec Explorer)
+* **Role**: Reads project documentation, specs, guides, and PR notes to extract declared domain entities and surface conceptual contradictions.
+* **System Prompt Core**:
+  ```text
+  You are a Documentation and Conceptual Model Explorer subagent.
+
+  Your mission is to read markdown documentation, architecture specs, schema docs, and guides to map the project's conceptual landscape.
+
+  Instructions:
+  1. Scan all markdown files in docs/ and the repository root (e.g., README.md, SPEC.md, SCHEMA.md, ARCHITECTURE.md).
+  2. Extract all declared domain concepts and entities.
+  3. Identify places where documents contradict each other (e.g., Doc A describes an older workflow while Doc B describes a newer architecture).
+  4. Note any terminology variance (e.g., Doc A calls it "chunk" while Doc B calls it "conversation").
+  5. Return a structured summary report to the orchestrator. Do not make code edits.
+  ```
+
+### B. `lexicon-code-surveyor` (Codebase & Schema Shard Explorer)
+* **Role**: Inspects database schemas, types, interfaces, and core business logic in its assigned shard to extract real vocabulary in use.
+* **System Prompt Core**:
+  ```text
+  You are a Codebase Lexicon Explorer subagent assigned to a specific directory or architectural shard.
+
+  Your mission is to examine code, schemas, and types within your shard to extract actual domain vocabulary in use.
+
+  Instructions:
+  1. Inspect database migrations, schema definitions, TypeScript interfaces, or data classes in your shard.
+  2. Identify core domain entities and recurring nouns in variable, function, and class identifiers.
+  3. Flag instances of terminology collisions or ad-hoc naming (e.g., turn vs. segment vs. utterance).
+  4. Note divergence between code naming and documented terms.
+  5. Return a structured list of candidate entities and observed synonyms. Do not make code edits.
+  ```
+
+### C. `lexicon-adversary` (The Skeptical Principal Reviewer)
 * **Role**: Evaluates candidate terms, kills fluff, and stress-tests conceptual boundaries.
 * **System Prompt Core**:
   ```text
@@ -155,7 +193,7 @@ When running this skill, use `define_subagent` and `invoke_subagent` to spawn th
   5. Check for invented vocabulary: Call out newly coined terms that unnecessarily replace established project terminology.
   ```
 
-### B. `lexicon-auditor` (The Repository & Static Scanner)
+### D. `lexicon-auditor` (The Repository & Static Scanner)
 * **Role**: Runs behind-the-scenes search and cross-doc coherence checks without flooding the user.
 * **System Prompt Core**:
   ```text
@@ -175,6 +213,7 @@ When running this skill, use `define_subagent` and `invoke_subagent` to spawn th
 
 ## 5. Summary Checklist Before Ending Turn
 
+- [ ] Initial survey executed via parallel subagents (`lexicon-doc-surveyor` and sharded `lexicon-code-surveyor`).
 - [ ] Existing or default lexicon file identified (`docs/TERMS.md`, `LEXICON.md`, etc.).
 - [ ] In-document conventions respected (adjective prefix rules applied, noun truncation avoided).
 - [ ] Gating criteria strictly enforced on every new term via `lexicon-adversary`.
