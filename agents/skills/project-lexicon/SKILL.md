@@ -1,238 +1,132 @@
 ---
 name: project-lexicon
-description: Define, audit, and guard the project's canonical domain language and conceptual boundaries. Use when establishing a project lexicon, auditing terminology drift or invented vocabulary across code and docs, resolving conceptual divergence between specs, or refactoring deprecated terms.
+description: Define, refine, audit, and guard a project's canonical domain language and conceptual boundaries. Use when establishing or extending a lexicon, glossary, ubiquitous language, or term list; reconciling competing conceptual framings across docs; auditing terminology drift or invented vocabulary in code and markdown; refactoring deprecated terms; or working directly with a TERMS.md, GLOSSARY.md, LEXICON.md, or CONTEXT.md file.
 ---
 
-# Project Lexicon: Domain Language & Conceptual Guard
+# Project Lexicon
 
-Maintain a razor-sharp, ubiquitous language across the project's code, documentation, schemas, and architectural discussions.
+Maintain a small, opinionated vocabulary for the concepts that humans and agents must understand consistently across the project. Treat terminology disagreements as possible disagreements about the underlying domain model, not merely word-choice problems.
 
-This skill prevents:
-1. **Terminology Drift & Accretion**: Different names accumulating over time for the same concept (`turn` vs. `segment` vs. `utterance`).
-2. **Invented Vocabulary**: Agents or developers spontaneously generating idiosyncratic, ad-hoc terms for established concepts.
-3. **Competing Conceptual Framings**: Stale documentation or schemas preserving obsolete mental models that contradict current architecture.
-4. **Synonym Bloat**: Overloaded "allowable synonyms" lists that clutter understanding and weaken precision.
+Do not generate a broad glossary. Resist speculative synonyms, generic software terms, and entries that do not prevent a demonstrated misunderstanding.
 
----
+## Core rules
 
-## 1. Project Discovery & Configuration
+- Keep one canonical term per concept.
+- Define what a concept **is** and its essential boundary or lifecycle role, not a procedure for operating it.
+- Distinguish adjacent concepts explicitly when readers could confuse them.
+- Ground proposals in code, documentation, schemas, history, or an external source the project actually uses.
+- Preserve explicit human decisions. Challenge ambiguous definitions, but do not silently override adjudicated terminology.
+- Treat static search as evidence to classify, not as a replacement for semantic judgment.
+- Show the user filtered findings and exact supporting locations, not raw search dumps.
 
-When invoked in a project repository, discover the lexicon file in this order:
-1. `docs/TERMS.md`
-2. `TERMS.md`
-3. `CONTEXT.md`
-4. `GLOSSARY.md`
-5. If none exists, default to creating `LEXICON.md` at the repository root.
+## Choose a mode
 
-### In-Document Conventions (`LEXICON.md`)
-Project-specific audit scopes and rules are declared directly in markdown under `## Scope & Conventions` inside the lexicon file:
+Use **definition mode** to create or extend the lexicon, resolve competing terms, or reconcile conflicting conceptual models.
 
-```markdown
-## Scope & Conventions
+Use **audit mode** to find deprecated vocabulary, canonical-term misuse, emerging concepts, or stale mental models across the repository.
 
-- **Audited Paths**: `src/`, `lib/`, `docs/` (ignores `dist/`, `node_modules/`, `fixtures/`)
-- **Code Identifiers & Adjectives**: Descriptive prefixes and adjectives (e.g., `is_verified_by_human`, `session_speaker_label`, `speaker_id`) are explicitly encouraged in variable, function, and database identifiers. Truncating, shortening, or omitting root nouns (e.g., shortening `Exemplar Record` to `Record` or `Row`) is strictly avoided.
-```
+When an audit finds questions requiring domain judgment, collect them and run them through definition mode as one batch after the scan.
 
-See [LEXICON-FORMAT.md](./LEXICON-FORMAT.md) for the complete format specification and entry rules.
+## Discover the lexicon
 
----
+Honor a path explicitly named by the user or repository instructions. Otherwise inspect, in order:
 
-## 2. Gating Criteria: What Earns a Spot in the Lexicon?
+1. `LEXICON.md`, `TERMS.md`, `GLOSSARY.md`, or `CONTEXT.md` at the repository root.
+2. The same filenames under `docs/`.
+3. A substantial Glossary, Terms, Vocabulary, or Domain Language section in `README.md` or the primary agent-instructions file.
 
-To prevent suggestion bloat and keep the lexicon focused on high-signal domain boundaries, a candidate concept **must satisfy at least one** of these three criteria:
+If multiple candidates contain substantive terminology, do not silently choose one. Report the overlap or conflict and ask which is authoritative. If none exists, use `LEXICON.md` at the repository root. If an embedded glossary grows beyond roughly ten entries, propose extracting it to a dedicated file.
 
-1. **Boundary Crossing**: The concept spans 2+ architectural layers (e.g., UI labels, database schema, API/events, or core business logic).
-2. **Active Divergence / Collision**: Multiple words are actively colliding or being used interchangeably in code or documentation.
-3. **Core Domain Entity**: Represents a foundational problem-domain abstraction, not generic software plumbing (rejects terms like `Handler`, `Payload`, `CacheManager`, `Service`).
+Read the entire lexicon before proposing or applying changes, including its project-specific audit guidance. When creating or restructuring one, follow [LEXICON-FORMAT.md](./LEXICON-FORMAT.md).
 
----
+## Admit terms sparingly
 
-## 3. Two Operating Modes
+A candidate earns an entry when either condition holds:
 
-```
-               ┌───────────────────────────────────────┐
-               │         project-lexicon skill         │
-               └───────────────────┬───────────────────┘
-                                   │
-         ┌─────────────────────────┴─────────────────────────┐
-         ▼                                                   ▼
-[Mode 1: Definition & Alignment]                   [Mode 2: Audit & Sweep]
-- Subagent Survey (Docs + Sharded Code)            - Behind-the-scenes static ripgrep scan
-- Adversarial Pre-Filter (kills fluff)             - Cross-doc conceptual divergence check
-- High-level spec coherence analysis               - Generate structured Audit Report Artifact
-- Interactive interview with human                 - Guided interactive remediation
-- Adversarial Co-Reviewer                          - Batch-refactor code & update docs
-- Update `LEXICON.md`                              - Update `LEXICON.md`
-```
+1. **Active divergence:** two or more terms are already used for the same concept in code or documentation; or
+2. **Boundary-crossing domain concept:** the concept is both:
+   - present across at least two meaningful layers, such as UI, persistence, API, domain logic, or project documentation; and
+   - central to the problem domain rather than generic software plumbing.
 
----
+Reject candidates that satisfy neither condition. `Handler`, `Payload`, `Manager`, `Service`, and similar implementation vocabulary do not belong unless the project gives them a specific domain meaning.
 
-## Mode 1: Definition & Alignment (Interactive Discovery)
+## Definition mode
 
-Use this mode when establishing a new lexicon, adding concepts after an architectural shift, or reconciling fuzzy boundaries.
+1. **Discover and load.** Locate the authoritative lexicon and read its audit guidance.
+2. **Survey high-signal sources.** Inspect domain documentation, top-level specifications, schemas, migrations, public types, and API contracts. Avoid exhaustive reading of utility code unless evidence points there.
+3. **Separate three kinds of evidence.** Collect:
+   - recurring domain concepts and their representative anchors;
+   - competing words used for apparently identical concepts; and
+   - documents that encode conflicting ownership, boundaries, states, or lifecycles.
+4. **Apply the admission rule.** Drop candidates that do not meet the criteria above.
+5. **Run a skeptical review.** Test every survivor for domain importance, boundary clarity, invented vocabulary, synonym padding, and unsupported assumptions. Require a reason for accepting each term; do not use a numerical rejection quota.
+6. **Present grounded proposals.** For each surviving term, show a concise definition, collision risks, exact evidence locations, and a recommended canonical name. Present conceptual conflicts as questions for human adjudication rather than choosing silently.
+7. **Persist confirmed decisions.** Update the lexicon only after the user resolves substantive domain questions. When renaming a concept, retain the old, evidenced name in the canonical entry's `_Avoid_` field.
 
-### Workflow Steps
+For a large repository, use independent subagents when available to keep raw source volume out of the main context. Assign distinct, read-only scopes such as documentation, code/schema contracts, and cross-document divergence; ask for structured findings with locations. Give a separate skeptical reviewer only the candidates and their evidence, without advocacy or an intended answer. If subagents are unavailable, perform the same passes locally and keep the outputs separated.
 
-1. **Subagent-Driven Initial Survey (High-Leverage & Parallel)**:
-   Do NOT read all codebase files directly in the orchestrator context. Instead, delegate the survey to parallel subagents focused exclusively on **high-leverage sources of truth** (avoiding trivial utility code):
-   - **Documentation**: Spawn `lexicon-doc-surveyor` to scan `docs/`, `README.md`, specs, guides, and PR notes.
-   - **Code & Schemas**: Spawn one or more `lexicon-code-surveyor` subagents targeted strictly at high-leverage files:
-     - Database schemas and migrations (`schema.prisma`, SQL migrations, ORM models).
-     - Public interface and type contracts (`types.ts`, protobufs, OpenAPI/GraphQL specs).
-     - For large monorepos, shard by architectural package or subsystem (e.g., Subagent 1: `packages/billing`, Subagent 2: `packages/auth`).
-   - The surveyors return structured candidate lists containing:
-     - Identified domain entities, code anchors, and terms in actual use.
-     - Divergent vocabulary observed across files/modules.
-     - Conflicting conceptual statements or stale specifications.
+## Audit mode
 
-2. **Merge & Adversarial Pre-Filter (Subagent)**:
-   - The orchestrator aggregates candidate concepts from the surveyors.
-   - Spawn a dedicated `lexicon-adversary` subagent to vet all candidate terms against the 3 Gating Criteria.
-   - The subagent ruthlessly rejects low-value implementation helpers, generic programming patterns, and duplicate synonyms *before* presenting anything to the human.
+1. **Load scope and rules.** Read the full lexicon, including exclusions, audited paths, canonical terms, code anchors, and `_Avoid_` entries.
+2. **Scan tracked code and markdown.** Search for:
+   - avoided terms;
+   - canonical terms used for neighboring concepts;
+   - unrecorded candidates that meet the admission rule; and
+   - conceptual divergence among current specifications, schemas, and guides.
+3. **Classify before reporting.** Deduplicate findings, inspect surrounding context, honor generated/fixture/vendor exclusions, and separate mechanical candidates from judgment calls.
+4. **Collision-scan every proposed replacement.** Search for legitimate uses of the same token in other domains, compound identifiers, third-party interfaces, serialized strings, logs, and fixtures. If any use makes a global replacement unsafe, classify the token as a judgment call.
+5. **Run skeptical review.** Challenge both terminology proposals and claims that a replacement is mechanical.
+6. **Batch review by token.** For each proposed replacement, show the direction, total count, collision result, safety tier, and representative locations. Obtain approval per token; never treat approval of one example as approval for a heterogeneous batch.
+7. **Resolve semantic questions.** Route new concepts, canonical misuse, and conflicting mental models through definition mode in one batch.
+8. **Apply only approved changes.** Default to proposing a diff or edit list. Make changes only within the user's authorized scope and verify them in proportion to their safety tier.
+9. **Summarize.** Report what was found, approved, changed, verified, and left open. Create a dated repository report only when the user requests one or the project already has that convention.
 
-3. **High-Level Conceptual Divergence Analysis**:
-   - Synthesize cross-doc findings surfaced by the surveyors.
-   - Map out contradictory assumptions, lifecycle discrepancies, or obsolete mental models preserved in older text.
+For broad audits, use independent read-only subagents when available. Split work by axis—avoid-term search, canonical misuse, new candidates, and conceptual divergence—and give each worker the full lexicon plus relevant audit guidance. Keep raw search results inside the worker context and consolidate only classified findings.
 
-4. **Interactive Alignment Session (with Human)**:
-   - Present the grounded findings to the user:
-     - Identify where concepts conflict or where multiple terms collide.
-     - Cite exact doc or code locations and proposed `_Code Anchor_` pointers.
-     - Propose a single, opinionated canonical term and recommended `_Avoid_` list.
-     - Ask the user to decide the authoritative path forward. The human's decision is final.
+## Change safety tiers
 
-5. **Adversarial Co-Review (Subagent)**:
-   - As terms are drafted, run candidate definitions past `lexicon-adversary` to stress-test clarity:
-     - Ensure definitions state strictly what the concept **is** and its essential lifecycle role (avoiding procedural step-by-step logic).
-     - Ensure distinct adjacent concepts are explicitly separated in prose.
-     - The adversary challenges fuzziness during drafting, but does NOT second-guess explicit human decisions from Step 4.
+- **Tier 1 — prose and local:** Markdown prose, comments, tests that assert only internal wording, and unexported local identifiers. Apply approved edits and run focused checks where useful.
+- **Tier 2 — structural:** Exported types, shared internal interfaces, function signatures, and identifiers with cross-module consumers. Apply only after explicit approval, then run typechecking and relevant tests.
+- **Tier 3 — compatibility-sensitive:** Database identifiers, migrations, wire payloads, public APIs, event names, serialized JSON, persisted values, CLI flags, telemetry contracts, or externally consumed log strings. Do not perform an automatic rename. Produce a migration or compatibility plan for human review.
 
-6. **Persist Lexicon**:
-   - Write or update `LEXICON.md` following [LEXICON-FORMAT.md](./LEXICON-FORMAT.md).
+A token's highest-risk occurrence determines how broadly it can be approved. Mixed-risk tokens cannot be treated as a single mechanical replacement.
 
-7. **Close the Loop in Agent Instructions**:
-   - Ensure the repository's primary agent instructions file (`AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`) contains a concise directive instructing future coding agents to align with the lexicon:
-     ```markdown
-     > **Domain Vocabulary**: All coding and design work must strictly adhere to the canonical terms in [LEXICON.md](./LEXICON.md) (and avoid deprecated aliases listed there).
-     ```
+## Evidence rules
 
----
+- Add `_Also known as_` only when an external paper, standard, upstream library, or other source used by project readers employs that alternative. Name the source.
+- Add `_Avoid_` only for a term with demonstrated prior use or an explicit human rejection. Cite a durable source when practical, such as a file location, issue, PR, or commit.
+- Keep deprecated terms in `_Avoid_` after cleanup so future contributors do not reintroduce them.
+- Use code anchors only for canonical boundary symbols or persistence entities, not incidental helpers.
+- Allow concise local variable names in unambiguous lexical scopes. Enforce canonical compound nouns at exported, persisted, or wire boundaries.
+- Allow descriptive state modifiers and adjective prefixes; do not mistake them for competing canonical nouns.
 
-## Mode 2: Audit & Sweep (Static Assist + Refactor Proposal)
+## Repository integration
 
-Use this mode for pre-milestone commits, post-refactor cleanup, or regular codebase maintenance.
+When establishing a dedicated lexicon, recommend a concise pointer from the repository's primary agent-instructions file. Add it only when that file is within the requested edit scope. Do not create instructions for every supported agent brand or duplicate the full lexicon there.
 
-### Workflow Steps
+## Anti-patterns
 
-1. **Spawn `lexicon-auditor` Subagent**:
-   - The subagent parses `LEXICON.md` to extract all canonical terms, `_Code Anchor_` pointers, and `_Avoid_` lists.
-   - Runs static analysis (`ripgrep`) across audited paths to find occurrences of avoided terms and deprecated aliases in boundary identifiers, comments, and markdown.
-   - Compares core specs and guides to detect stale conceptual framings that contradict `LEXICON.md`.
-   - **Crucial**: Static analysis runs behind the scenes. Do NOT overwhelm the human with raw regex search dumps.
+- Padding the lexicon with obvious or speculative synonyms.
+- Adding a term merely because it appears frequently.
+- Treating a word-level mismatch as proof that two concepts are identical.
+- Defining procedures, implementation plans, or generic architecture in term entries.
+- Adding unsupported `_Avoid_` entries for words nobody has used or rejected.
+- Calling a replacement mechanical without a repository-wide collision scan.
+- Replacing database, wire, persisted, or public identifiers in place.
+- Showing the user unclassified `ripgrep` output.
+- Pausing an audit for each semantic question instead of batching them.
+- Silently choosing which of two conflicting documents is authoritative.
+- Forcing a commit, report file, or agent-instructions edit that the user did not request.
 
-2. **Generate Audit Report Artifact**:
-   Save a structured Markdown report in the conversation artifact directory (`lexicon-audit.md`):
-   - **Section A: Conceptual Conflicts & Stale Specs**:
-     - Areas where documentation or schemas contradict the current domain model.
-     - Concise description of the conflicting statements with markdown file links.
-     - Options for user adjudication.
-   - **Section B: Lexicon Candidates**:
-     - Emerging concepts discovered in code that meet the 3 Gating Criteria and should be formalized.
-   - **Section C: Term Misuses & Invented Vocabulary**:
-     - Categorized by **Blast-Radius Safety Tier**:
-       - **Tier 1 (Safe / In-Place)**: Markdown documentation, code comments, internal unexported functions.
-       - **Tier 2 (Internal Structural)**: Exported types, internal function calls.
-       - **Tier 3 (Breaking / Hazardous)**: Database columns, wire payloads, event schemas, serialized JSON.
+## Completion check
 
-3. **Interactive Remediation & Safe Execution**:
-   - Walk through Section A with the user to resolve conceptual decisions.
-   - Confirm additions to `LEXICON.md` from Section B.
-   - **Remediation Execution by Tier**:
-     - **Tier 1**: Batch-edit docs and comments directly.
-     - **Tier 2**: Refactor internal code identifiers, followed immediately by running the project typecheck (`pnpm typecheck`, `tsc --noEmit`, or test suite) to guarantee zero regressions.
-     - **Tier 3**: **Strictly forbidden from automated in-place refactor.** For database tables/columns or wire APIs, emit a migration RFC/plan for human review rather than executing an automated find-and-replace.
+Before finishing, verify that:
 
----
-
-## 4. Subagent Specifications
-
-When running this skill, use `define_subagent` and `invoke_subagent` to spawn these specialized roles.
-
-### A. `lexicon-doc-surveyor` (Documentation & Spec Explorer)
-* **Role**: Reads project documentation, specs, guides, and PR notes to extract declared domain entities and surface conceptual contradictions.
-* **System Prompt Core**:
-  ```text
-  You are a Documentation and Conceptual Model Explorer subagent.
-
-  Your mission is to read markdown documentation, architecture specs, schema docs, and guides to map the project's conceptual landscape.
-
-  Instructions:
-  1. Scan all markdown files in docs/ and the repository root (e.g., README.md, SPEC.md, SCHEMA.md, ARCHITECTURE.md).
-  2. Extract all declared domain concepts and entities.
-  3. Identify places where documents contradict each other (e.g., Doc A describes an older workflow while Doc B describes a newer architecture).
-  4. Note any terminology variance (e.g., Doc A calls it "chunk" while Doc B calls it "conversation").
-  5. Return a structured summary report to the orchestrator. Do not make code edits.
-  ```
-
-### B. `lexicon-code-surveyor` (Codebase & Schema Explorer)
-* **Role**: Inspects database schemas, types, interfaces, and core business contracts in high-leverage files to extract real vocabulary in use.
-* **System Prompt Core**:
-  ```text
-  You are a Codebase Lexicon Explorer subagent focused on high-leverage architecture files.
-
-  Your mission is to examine schemas, public types, and API contracts to extract actual domain vocabulary in use.
-
-  Instructions:
-  1. Focus strictly on high-leverage sources of truth: database migrations, schema definitions (Prisma, SQL, ORM), public TypeScript interfaces/types, and API contracts. Avoid deep utility helpers.
-  2. Identify core domain entities and recurring nouns in boundary types and table schemas.
-  3. Flag instances of terminology collisions or ad-hoc naming (e.g., turn vs. segment vs. utterance).
-  4. Note divergence between code naming and documented terms.
-  5. Return a structured list of candidate entities, proposed code anchors, and observed synonyms. Do not make code edits.
-  ```
-
-### C. `lexicon-adversary` (The Skeptical Principal Reviewer)
-* **Role**: Evaluates candidate terms, kills fluff, and stress-tests conceptual boundaries.
-* **System Prompt Core**:
-  ```text
-  You are an adversarial, skeptical Principal Systems Architect specializing in Domain-Driven Design and ubiquitous language.
-
-  Your mission is to prevent suggestion bloat, reject trivial programming terms, and challenge imprecise conceptual boundaries.
-
-  Rules:
-  1. Ruthlessly enforce the 3 Gating Criteria: Boundary Crossing, Active Divergence, or Core Domain Entity. If a proposed term is merely an internal helper, a local variable, or generic plumbing (e.g., Handler, Cache, Payload, Manager), REJECT IT with extreme prejudice.
-  2. Enforce the definition rule: Define what the concept IS and its core lifecycle role, not procedural step-by-step logic.
-  3. Delineate boundaries: If a term looks similar to an existing canonical term, demand an explicit prose distinction explaining why they are not the same concept.
-  4. Block synonym bloat: Reject proposals that add obvious or generic synonyms.
-  5. Check for invented vocabulary: Call out newly coined terms that unnecessarily replace established project terminology.
-  6. The human user has final authority: Challenge fuzziness during drafting, but do not block or veto explicit human decisions.
-  ```
-
-### D. `lexicon-auditor` (The Repository & Static Scanner)
-* **Role**: Runs behind-the-scenes search and cross-doc coherence checks without flooding the user.
-* **System Prompt Core**:
-  ```text
-  You are a meticulous, read-only Lexicon and Conceptual Coherence Auditor.
-
-  Your mission is to perform static analysis and cross-doc verification to detect terminology misuses, invented vocabulary, and stale conceptual models.
-
-  Instructions:
-  1. Read the project's lexicon file (LEXICON.md, TERMS.md, or CONTEXT.md) to extract canonical terms, code anchors, and _Avoid_ lists.
-  2. Use ripgrep to scan audited paths for avoided terms in boundary identifiers, comments, and markdown documents, respecting local-scope exemptions.
-  3. Filter out false positives (e.g., third-party vendor API signatures, legitimate adjective prefixes allowed by conventions).
-  4. Categorize code findings into Blast-Radius Safety Tiers (Tier 1: Docs/Comments, Tier 2: Internal Structural, Tier 3: Hazardous/Breaking).
-  5. Compare core specifications, schemas, and guides. Flag places where older docs describe obsolete workflows or contradictory mental models.
-  6. Do NOT modify any files. Synthesize your findings into a clean, structured triage report.
-  ```
-
----
-
-## 5. Summary Checklist Before Ending Turn
-
-- [ ] Initial survey executed via parallel subagents focused on high-leverage files (`lexicon-doc-surveyor` and `lexicon-code-surveyor`).
-- [ ] Existing or default lexicon file identified (`docs/TERMS.md`, `LEXICON.md`, etc.).
-- [ ] In-document conventions respected (adjective prefix rules applied, boundary vs local scope honored).
-- [ ] Gating criteria strictly enforced on every new term via `lexicon-adversary`.
-- [ ] Conceptual contradictions surfaced to the user with actionable options.
-- [ ] Agent instructions (`AGENTS.md`) updated with directive pointing to the lexicon.
-- [ ] Code and doc edits staged cleanly by safety tier (with typecheck verification) and committed with descriptive, lowercase commit messages.
+- the authoritative lexicon and audit scope are identified;
+- every proposed term passes the admission rule;
+- definitions separate easily confused concepts;
+- aliases and avoided terms have evidence;
+- every replacement has a collision scan and safety tier;
+- human decisions are recorded without reopening settled choices;
+- applied Tier 1 or Tier 2 changes have appropriate verification; and
+- Tier 3 changes remain plans rather than automatic renames.
