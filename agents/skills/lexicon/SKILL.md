@@ -13,19 +13,14 @@ Maintain a small, opinionated vocabulary for concepts that humans and agents mus
 - Admit a term only when grounded in code, documentation, schemas, history, or a relevant external source.
 - Define what a concept is and distinguish easily confused neighbors; do not turn entries into procedures or miniature specifications.
 - Let the user adjudicate conceptual conflicts. Challenge ambiguity, but never silently choose an authority or reopen an explicit decision.
-- Classify search evidence before presenting it. Show useful findings with locations, not raw search dumps.
 
-## Locate the lexicon
+## Locate any existing lexicon
 
-Honor a path named by the user or repository instructions. Otherwise inspect, in order:
+Look for any existing glossary of terms. eg `LEXICON.md`, `TERMS.md`, `GLOSSARY.md`, or `CONTEXT.md` in the repo, or a substantial Glossary, Terms, Vocabulary, or Domain Language section in `README.md`, etc.
 
-1. `LEXICON.md`, `TERMS.md`, `GLOSSARY.md`, or `CONTEXT.md` at the repository root.
-2. The same filenames under `docs/`.
-3. A substantial Glossary, Terms, Vocabulary, or Domain Language section in `README.md` or the primary agent-instructions file.
+If multiple candidates contain substantive terminology, report the overlap and ask which is authoritative. If none exists, use `LEXICON.md` at the repository root.
 
-If multiple candidates contain substantive terminology, report the overlap and ask which is authoritative. If none exists, use `LEXICON.md` at the repository root. Propose extracting an embedded glossary when it grows beyond roughly ten entries.
-
-Read the entire lexicon, including its project-specific audit guidance, before proposing or applying changes.
+Read the entire lexicon file before proposing or applying changes.
 
 ## Admit terms sparingly
 
@@ -38,21 +33,22 @@ Reject candidates that satisfy neither condition. Frequency alone is not evidenc
 
 ## Definition mode
 
-1. **Discover and load.** Locate the authoritative lexicon and read its audit guidance.
-2. **Delegate the survey.** Treat a task as exempt only when the user explicitly scopes it to one known concept or a small named set of files. For every other repository-wide or multi-subsystem task, **use two or more parallel read-only subagents** when collaboration tools are available. This is required; do not substitute serial inspection in the main context. If delegation is exempted or unavailable, state why before surveying. Assign separate passes for:
+1. **Discover and load.** Locate and read the authoritative lexicon.
+2. **Delegate the survey.** Treat a task as exempt only when the user explicitly scopes it to one known concept or a small named set of files. For every other repository-wide or multi-subsystem task, **use two or more parallel read-only subagents**. This is required; do not substitute serial inspection in the main context. If delegation is exempted or unavailable, state why before surveying. Assign separate passes for:
    - domain docs and top-level specifications;
    - schemas, migrations, public types, APIs, and recurring domain nouns; and
    - conflicts in ownership, boundaries, states, or lifecycles across documents.
-   Require structured candidates with exact evidence locations, not raw file dumps.
-3. **Gate, then run independent adversarial review.** Apply the admission rule. Before presenting any candidate terms or definitions, **give the surviving batch to a fresh skeptical subagent** when collaboration tools are available. Independent review is mandatory whenever there are candidates. Provide only the candidates, evidence, and source locations—not the main agent's advocacy or intended decision. Ask it to challenge domain importance, boundary clarity, invented vocabulary, and synonym padding. Do not present the batch until this review completes. Skip only when there are no candidates or subagents are unavailable; disclose the reason.
+     Require structured candidates with exact evidence locations, not raw file dumps.
+3. **Gate, then run independent adversarial review.** Apply the admission rule. Before presenting any candidate terms or definitions, **give the surviving batch to a fresh skeptical subagent**. Independent review is mandatory whenever there are candidates. Provide only the candidates, evidence, and source locations—not the main agent's advocacy or intended decision. Ask it to challenge domain importance, boundary clarity, invented vocabulary, and synonym padding. Do not present the batch until this review completes. Skip only when there are no candidates or subagents are unavailable; disclose the reason.
 4. **Adjudicate.** Present surviving terms with concise definitions, collision risks, evidence, and a recommended canonical name. Present conceptual conflicts as questions for the user rather than choosing silently.
-5. **Persist.** Record confirmed decisions. When renaming a concept, retain the old evidenced name under `_Avoid_`. When establishing a dedicated lexicon, recommend a concise link from the primary agent-instructions file, but edit that file only when it is in scope.
+5. **Persist.** Record confirmed decisions. When renaming a concept, retain the old evidenced name under `_Avoid_`. 
+   1. When establishing a dedicated lexicon, add a concise reference to it from the AGENTS.md.
 
 ## Audit mode
 
-1. **Load scope and rules.** Read the lexicon's canonical terms, `_Avoid_` entries, implementation anchors, audited paths, and exceptions.
-2. **Delegate the scan.** For every repository-wide audit, **use two or more parallel read-only subagents** when collaboration tools are available. This is required; do not perform the full sweep solely in the main context. Give each subagent the lexicon and audit guidance, split the work into avoid-term usage, canonical misuse, new candidates, and conceptual divergence, and require classified findings with locations rather than raw search output. If subagents are unavailable, disclose that before scanning and perform visibly separate local passes.
-3. **Classify and collision-check.** Deduplicate results; exclude generated, fixture, and vendor cases as directed; assign a safety tier; and inspect every proposed replacement for legitimate uses in other domains, compound identifiers, third-party interfaces, serialized strings, logs, and fixtures. Any collision makes the token a judgment call rather than a mechanical replacement.
+1. **Load scope and rules.** Read the lexicon's canonical terms, `_Avoid_` entries, and implementation anchors.
+2. **Delegate the scan.** For every repository-wide audit, **use two or more parallel read-only subagents**. This is required; do not perform the full sweep solely in the main context. Give each subagent the lexicon, split the work into avoid-term usage, canonical misuse, new candidates, and conceptual divergence, and require classified findings with locations rather than raw search output. If subagents are unavailable, disclose that before scanning and perform visibly separate local passes.
+3. **Classify and collision-check.** Deduplicate results and assign a safety tier. Exclude generated, vendored, fixture, and compatibility surfaces as appropriate; surface uncertain exclusions rather than assuming. Inspect every proposed replacement for legitimate uses in other domains, compound identifiers, third-party interfaces, serialized strings, logs, and fixtures. Any collision makes the token a judgment call rather than a mechanical replacement.
 4. **Run independent adversarial review, then adjudicate.** Before presenting candidate terms, definitions, or replacement classifications, **give the batch to a fresh skeptical subagent** when collaboration tools are available. Independent review is mandatory whenever there are findings to present. Provide only the findings, evidence, source locations, and classifications—not the main agent's advocacy or intended decision. Do not present the batch until this review completes. Skip only when there is nothing to review or subagents are unavailable; disclose the reason. Then batch findings by token, show replacement direction, count, collision result, tier, and representative locations, and obtain approval per token. Route new concepts and conflicting models through definition mode as one batch.
 5. **Apply and verify.** Default to proposing a diff or edit list. Apply only approved changes, verify them according to their tier, and summarize what changed and what remains open. Create a dated report only when requested or already conventional in the project.
 
@@ -73,12 +69,6 @@ Use this shape when creating or materially restructuring a lexicon. Preserve an 
 
 The canonical domain language for this project and the conceptual boundaries
 those terms represent.
-
-## Audit Guidance
-
-- **Audited paths:** `src/`, `lib/`, `docs/`
-- **Excluded paths:** generated output, vendored sources, and frozen fixtures
-- **Project rules:** note intentional vocabulary exceptions and required cross-checks
 
 ## <Domain or subsystem>
 
@@ -105,5 +95,3 @@ Use H3 headings to delimit entries. Use domain sections only when they aid navig
 ### Identifier scope
 
 Enforce canonical compound nouns in exported, persisted, public, and wire identifiers. Permit concise names in an unambiguous local scope and descriptive modifiers such as `activeSpeakerProfile`, `speakerProfileId`, or `isVerifiedExemplar`.
-
-Keep project-specific scan paths, exclusions, intentional vocabulary exceptions, and required document cross-checks under `## Audit Guidance`.
