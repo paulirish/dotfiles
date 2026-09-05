@@ -1,4 +1,4 @@
-# Project Lexicon Format
+# Lexicon File Format
 
 Use this format when creating or materially restructuring a project lexicon. Existing project conventions may take precedence when they preserve the same semantics.
 
@@ -18,16 +18,18 @@ those terms represent.
 
 ## <Domain or subsystem>
 
-**Canonical Term**
+### Canonical Term
+
 One or two sentences stating what the concept is and its essential boundary or
 lifecycle role. If needed: "Not to be confused with X; X differs because ..."
 
-_Code anchor:_ `src/domain/types.ts#CanonicalTerm`
-_Also known as:_ External Term — used by Specific Standard or Upstream Project
-_Avoid:_ OldTerm — deprecated in PR #123
+* _Impl anchor_: `src/domain/types.ts#CanonicalTerm`
+* _AKA_: External Term — used by Specific Standard or Upstream Project
+* _Avoid_: OldTerm — deprecated in PR #123
+
 ```
 
-Use domain sections only when they make the lexicon easier to navigate. Do not add empty metadata fields.
+Use domain sections only when they make the lexicon easier to navigate. Omit metadata bullets that have no value; do not add empty fields.
 
 ## Entry rules
 
@@ -44,14 +46,14 @@ Use domain sections only when they make the lexicon easier to navigate. Do not a
 - Do not turn the entry into a workflow, implementation guide, or miniature specification.
 - Name an adjacent concept and explain the distinction when collision is likely.
 
-### Code anchor
+### Impl anchor
 
 - Omit when no stable canonical symbol exists.
 - Point to a public type, interface, schema entity, persistence table, or API contract.
 - Do not point to local variables or incidental utility helpers.
 - Treat the anchor as evidence and navigation, not as a substitute for the definition.
 
-### Also known as
+### AKA
 
 - Omit unless the alternate term bridges to an external source project readers actually use.
 - Name the paper, standard, upstream library, or other source.

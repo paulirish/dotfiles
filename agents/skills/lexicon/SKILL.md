@@ -1,9 +1,9 @@
 ---
-name: project-lexicon
+name: lexicon
 description: Define, refine, audit, and guard a project's canonical domain language and conceptual boundaries. Use when establishing or extending a lexicon, glossary, ubiquitous language, or term list; reconciling competing conceptual framings across docs; auditing terminology drift or invented vocabulary in code and markdown; refactoring deprecated terms; or working directly with a TERMS.md, GLOSSARY.md, LEXICON.md, or CONTEXT.md file.
 ---
 
-# Project Lexicon
+# Lexicon
 
 Maintain a small, opinionated vocabulary for the concepts that humans and agents must understand consistently across the project. Treat terminology disagreements as possible disagreements about the underlying domain model, not merely word-choice problems.
 
@@ -37,7 +37,7 @@ Honor a path explicitly named by the user or repository instructions. Otherwise 
 
 If multiple candidates contain substantive terminology, do not silently choose one. Report the overlap or conflict and ask which is authoritative. If none exists, use `LEXICON.md` at the repository root. If an embedded glossary grows beyond roughly ten entries, propose extracting it to a dedicated file.
 
-Read the entire lexicon before proposing or applying changes, including its project-specific audit guidance. When creating or restructuring one, follow [LEXICON-FORMAT.md](./LEXICON-FORMAT.md).
+Read the entire lexicon before proposing or applying changes, including its project-specific audit guidance. When creating or restructuring one, follow [lexicon-file-format.md](./lexicon-file-format.md).
 
 ## Admit terms sparingly
 
@@ -67,7 +67,7 @@ For a large repository, use independent subagents when available to keep raw sou
 
 ## Audit mode
 
-1. **Load scope and rules.** Read the full lexicon, including exclusions, audited paths, canonical terms, code anchors, and `_Avoid_` entries.
+1. **Load scope and rules.** Read the full lexicon, including exclusions, audited paths, canonical terms, implementation anchors, and `_Avoid_` entries.
 2. **Scan tracked code and markdown.** Search for:
    - avoided terms;
    - canonical terms used for neighboring concepts;
@@ -93,10 +93,10 @@ A token's highest-risk occurrence determines how broadly it can be approved. Mix
 
 ## Evidence rules
 
-- Add `_Also known as_` only when an external paper, standard, upstream library, or other source used by project readers employs that alternative. Name the source.
+- Add `_AKA_` only when an external paper, standard, upstream library, or other source used by project readers employs that alternative. Name the source.
 - Add `_Avoid_` only for a term with demonstrated prior use or an explicit human rejection. Cite a durable source when practical, such as a file location, issue, PR, or commit.
 - Keep deprecated terms in `_Avoid_` after cleanup so future contributors do not reintroduce them.
-- Use code anchors only for canonical boundary symbols or persistence entities, not incidental helpers.
+- Use `_Impl anchor_` only for canonical boundary symbols or persistence entities, not incidental helpers.
 - Allow concise local variable names in unambiguous lexical scopes. Enforce canonical compound nouns at exported, persisted, or wire boundaries.
 - Allow descriptive state modifiers and adjective prefixes; do not mistake them for competing canonical nouns.
 
