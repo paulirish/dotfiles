@@ -1,6 +1,6 @@
 ---
 name: lexicon
-description: Define, review, and audit a project's domain vocabulary across code and documentation. Use when creating or editing a lexicon, glossary, ubiquitous language, or term list; evaluating names in an artifact, API, module, or workflow for clarity; reconciling competing terminology or conceptual models; checking terminology drift or invented vocabulary; or planning deprecated-term refactors.
+description: Define, review, and audit a project's domain vocabulary across code and documentation. Use when creating or editing a lexicon, glossary, ubiquitous language, or term list; evaluating terminology across a project for clarity; reconciling competing terminology or conceptual models; checking terminology drift or invented vocabulary; or planning deprecated-term refactors.
 ---
 
 # Lexicon
@@ -32,7 +32,7 @@ If multiple candidates contain substantive terminology, report the overlap and a
 
 Read the entire lexicon file before proposing or applying changes.
 
-## Admit terms sparingly
+## Term admission rules
 
 A candidate earns an entry when either condition holds:
 
@@ -41,20 +41,20 @@ A candidate earns an entry when either condition holds:
 
 Reject candidates that satisfy neither condition. Frequency alone is not evidence that a term belongs in the lexicon.
 
-## Review and resolution workflow
+## Review and resolution procedure
 
-Run this workflow on findings from Lexicon authoring, a Focused terminology review, or a Terminology audit.
+Run this procedure on findings from Lexicon authoring, a Focused terminology review, or a Terminology audit.
 
 1. **Partition the findings.** Apply the admission rule to new terms, then separate:
    - **Accepted lexicon candidates:** one name and meaning are consistent across sources, boundaries are clear, and a lexicon update is in scope.
-   - **Local terminology improvements:** clearer terms for a bounded artifact that do not need a canonical lexicon entry.
+   - **Local terminology improvements:** clearer terms for a file that do not need a canonical lexicon entry.
    - **Candidates requiring a decision:** terms with terminology drift, narrow semantic boundaries, conflicting sources, multiple plausible names, or a substantive reviewer objection.
    - **Nonconforming occurrences:** findings from a Terminology audit that violate an existing canonical decision without introducing semantic ambiguity.
    - **Rejected or irrelevant matches:** candidates that fail admission or matches that do not describe the canonical concept.
 2. **Challenge consequential findings.** For repository-wide Lexicon authoring and Terminology audits, give a fresh skeptical subagent proposed lexicon additions or changes, close conceptual distinctions, and replacements classified as mechanical. This review is required when the batch contains any such finding. For a Focused terminology review, require it only when a proposed change affects canonical vocabulary or has an ambiguous boundary. Provide only the findings, evidence, and source locations—not the main agent's advocacy or intended decision. Ask the reviewer to challenge domain importance, boundary clarity, invented vocabulary, synonym padding, and mechanical-replacement claims. Incorporate substantive objections into the classifications before proceeding.
 3. **Write accepted lexicon candidates.** Add accepted lexicon candidates immediately, then tell the user what was added in a concise bulleted list.
-4. **Propose local improvements.** For a Focused terminology review, present the smallest high-value replacements, distinguish genuine problems from harmless prose variation, and apply only user-approved edits to the artifact.
-5. **Resolve candidates requiring a decision.** Present conceptual conflicts as questions for the user rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or reviewed artifact as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
+4. **Propose local improvements.** For a Focused terminology review, present the smallest high-value replacements, distinguish genuine problems from harmless prose variation, and apply only user-approved edits to the file.
+5. **Resolve candidates requiring a decision.** Present conceptual conflicts as questions for the user rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or reviewed file as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
 6. **Prepare fixes.** For a Terminology audit, batch nonconforming occurrences by term and show the replacement direction, count, outcome of the ambiguous-use check, safety tier, and representative locations. Obtain approval per term.
 
 ## Lexicon authoring
@@ -67,16 +67,16 @@ Use Lexicon authoring to bootstrap a lexicon or intentionally extend its documen
    - schemas, migrations, public types, APIs, and recurring domain nouns; and
    - conceptual conflicts in ownership, boundaries, states, or lifecycles across documents.
    Require structured candidates with exact evidence locations, not raw file dumps.
-3. **Review and resolve.** Run the Review and resolution workflow on the survey findings.
+3. **Review and resolve.** Run the Review and resolution procedure on the survey findings.
 4. **Connect the lexicon.** When establishing a dedicated lexicon, add a concise reference to it from `AGENTS.md`.
 
 ## Focused terminology review
 
-Use a Focused terminology review to improve the vocabulary of a bounded artifact, API, module, or workflow without assuming every naming improvement belongs in the project lexicon.
+Use a Focused terminology review to improve the vocabulary of a file without assuming every naming improvement belongs in the project lexicon.
 
-1. **Load the artifact.** Read the complete artifact and any existing lexicon entries or authoritative sources relevant to its concepts.
+1. **Load the file.** Read the complete file and any existing lexicon entries or authoritative sources relevant to its concepts.
 2. **Inspect the terminology.** Identify misleading, overloaded, inconsistent, or idiosyncratic terms; multiple names for one idea; one name covering multiple ideas; and nonparallel category names. Distinguish genuine conceptual problems from harmless prose variation.
-3. **Review and resolve.** Run the Review and resolution workflow. Treat proposed replacements as local terminology improvements unless the concept independently passes the admission rule and updating the lexicon is in scope.
+3. **Review and resolve.** Run the Review and resolution procedure. Treat proposed replacements as local terminology improvements unless the concept independently passes the admission rule and updating the lexicon is in scope.
 
 ## Terminology audit
 
@@ -85,10 +85,10 @@ Use a Terminology audit periodically to find and reconcile terminology drift. Ex
 1. **Load the standard.** Read the lexicon's canonical terms, `_Avoid_` entries, and implementation references.
 2. **Delegate the scan.** For every repository-wide audit, **use two or more parallel read-only subagents**. This is required; do not perform the full audit solely in the main context. Tell each subagent to read the full lexicon, split the work into avoided-term usage, canonical misuse, new candidates, and conceptual conflicts, and require classified findings with locations rather than raw search output. If subagents are unavailable, disclose that before scanning and perform visibly separate local passes.
 3. **Classify and check for ambiguous uses.** Deduplicate results and assign a safety tier. Exclude generated, vendored, fixture, and compatibility surfaces as appropriate; surface uncertain exclusions rather than assuming. Inspect every proposed replacement for legitimate uses in other domains, compound identifiers, third-party interfaces, serialized strings, logs, and fixtures. Any ambiguous occurrence makes the term a semantic question rather than a mechanical replacement.
-4. **Review and resolve.** Run the Review and resolution workflow on all classified findings.
+4. **Review and resolve.** Run the Review and resolution procedure on all classified findings.
 5. **Apply and verify.** Default to proposing a diff or edit list. Apply only approved fixes, verify them according to their tier, and summarize what changed and what remains open. Create a dated report only when requested or already conventional in the project.
 
-## Change safety
+## Change safety tiers
 
 - **Tier 1 — prose and local:** Apply approved changes to prose, comments, and unexported local identifiers; run focused checks when useful.
 - **Tier 2 — structural:** Change shared types, interfaces, signatures, and cross-module identifiers only with explicit approval; then typecheck and test.
