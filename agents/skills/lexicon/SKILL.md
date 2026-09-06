@@ -45,17 +45,15 @@ Reject candidates that satisfy neither condition. Frequency alone is not evidenc
 
 Run this procedure on findings from Lexicon authoring, a Focused terminology review, or a Terminology audit.
 
-1. **Partition the findings.** Apply the admission rule to new terms, then separate:
-   - **Accepted lexicon candidates:** one name and meaning are consistent across sources, boundaries are clear, and a lexicon update is in scope.
-   - **Local terminology improvements:** clearer terms for a file that do not need a canonical lexicon entry.
-   - **Candidates requiring a decision:** terms with terminology drift, narrow semantic boundaries, conflicting sources, multiple plausible names, or a substantive reviewer objection.
-   - **Nonconforming occurrences:** findings from a Terminology audit that violate an existing canonical decision without introducing semantic ambiguity.
-   - **Rejected or irrelevant matches:** candidates that fail admission or matches that do not describe the canonical concept.
+1. **Classify each finding by next action.** Apply the admission rules to new terms.
+   - **Add to the lexicon:** a clear concept that passes the admission rules.
+   - **Discuss with the user:** terminology drift, competing names, unclear boundaries, conflicting evidence, or a substantive reviewer objection.
+   - **Propose an edit:** a local terminology improvement or an unambiguous violation of an existing lexicon decision.
+   - **Discard:** a candidate that fails the admission rules or a match that does not describe the relevant concept.
 2. **Challenge consequential findings.** For repository-wide Lexicon authoring and Terminology audits, give a fresh skeptical subagent proposed lexicon additions or changes, close conceptual distinctions, and replacements classified as mechanical. This review is required when the batch contains any such finding. For a Focused terminology review, require it only when a proposed change affects canonical vocabulary or has an ambiguous boundary. Provide only the findings, evidence, and source locations—not the main agent's advocacy or intended decision. Ask the reviewer to challenge domain importance, boundary clarity, invented vocabulary, synonym padding, and mechanical-replacement claims. Incorporate substantive objections into the classifications before proceeding.
-3. **Write accepted lexicon candidates.** Add accepted lexicon candidates immediately, then tell the user what was added in a concise bulleted list.
-4. **Propose local improvements.** For a Focused terminology review, present the smallest high-value replacements, distinguish genuine problems from harmless prose variation, and apply only user-approved edits to the file.
-5. **Resolve candidates requiring a decision.** Present conceptual conflicts as questions for the user rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or reviewed file as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
-6. **Prepare fixes.** For a Terminology audit, batch nonconforming occurrences by term and show the replacement direction, count, outcome of the ambiguous-use check, safety tier, and representative locations. Obtain approval per term.
+3. **Write accepted terms.** Add terms classified **Add to the lexicon** immediately, then tell the user what was added in a concise bulleted list.
+4. **Resolve questions.** Present findings classified **Discuss with the user** as questions rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or reviewed file as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
+5. **Propose edits.** For a Focused terminology review, present the smallest high-value replacements and distinguish genuine problems from harmless prose variation. For a Terminology audit, batch violations by term and show the replacement direction, count, outcome of the ambiguous-use check, safety tier, and representative locations. Apply only user-approved edits; obtain approval per term for audit fixes.
 
 ## Lexicon authoring
 
