@@ -14,6 +14,16 @@ Maintain a small, opinionated vocabulary for concepts that humans and agents mus
 - Define what a concept is and distinguish easily confused neighbors; do not turn entries into procedures or miniature specifications.
 - Let the user adjudicate conceptual conflicts. Challenge ambiguity, but never silently choose which source is authoritative or reopen an explicit decision.
 
+## Choose the workflow
+
+The skill has three primary workflows:
+
+- **Lexicon authoring:** create or extend a lexicon.
+- **Focused terminology review:** review and improve terminology.
+- **Terminology audit:** compare the repository's current language with an existing lexicon and identify drift, violations, and new conflicts.
+
+Infer the workflow when the request makes it clear. If more than one workflow is plausible, ask the user which outcome they want before surveying or editing.
+
 ## Locate any existing lexicon
 
 Look for any existing glossary of terms. eg `LEXICON.md`, `TERMS.md`, `GLOSSARY.md`, or `CONTEXT.md` in the repo, or a substantial Glossary, Terms, Vocabulary, or Domain Language section in `README.md`, etc.
