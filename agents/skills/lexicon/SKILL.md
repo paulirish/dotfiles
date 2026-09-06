@@ -45,13 +45,13 @@ Reject candidates that satisfy neither condition. Frequency alone is not evidenc
 
 Run this workflow on findings from Lexicon authoring, a Focused terminology review, or a Terminology audit.
 
-1. **Gate and challenge.** Apply the admission rule to new terms. Before presenting any findings, **give the batch to a fresh skeptical subagent**. Independent review is mandatory whenever there is something to present. Provide only the candidates or classifications, evidence, and source locations—not the main agent's advocacy or intended decision. Ask it to challenge domain importance, boundary clarity, invented vocabulary, synonym padding, and claims that a replacement is mechanical. Do not proceed until review completes. Skip only when there are no findings or subagents are unavailable; disclose the reason.
-2. **Partition the findings.** Separate:
-   - **Accepted lexicon candidates:** one name and meaning are consistent across sources, boundaries are clear, the reviewer raises no substantive objection, and a lexicon update is in scope.
+1. **Partition the findings.** Apply the admission rule to new terms, then separate:
+   - **Accepted lexicon candidates:** one name and meaning are consistent across sources, boundaries are clear, and a lexicon update is in scope.
    - **Local terminology improvements:** clearer terms for a bounded artifact that do not need a canonical lexicon entry.
    - **Candidates requiring a decision:** terms with terminology drift, narrow semantic boundaries, conflicting sources, multiple plausible names, or a substantive reviewer objection.
    - **Nonconforming occurrences:** findings from a Terminology audit that violate an existing canonical decision without introducing semantic ambiguity.
    - **Rejected or irrelevant matches:** candidates that fail admission or matches that do not describe the canonical concept.
+2. **Challenge consequential findings.** For repository-wide Lexicon authoring and Terminology audits, give a fresh skeptical subagent proposed lexicon additions or changes, close conceptual distinctions, and replacements classified as mechanical. This review is required when the batch contains any such finding. For a Focused terminology review, require it only when a proposed change affects canonical vocabulary or has an ambiguous boundary. Provide only the findings, evidence, and source locations—not the main agent's advocacy or intended decision. Ask the reviewer to challenge domain importance, boundary clarity, invented vocabulary, synonym padding, and mechanical-replacement claims. Incorporate substantive objections into the classifications before proceeding.
 3. **Write accepted lexicon candidates.** Add accepted lexicon candidates immediately, then tell the user what was added in a concise bulleted list.
 4. **Propose local improvements.** For a Focused terminology review, present the smallest high-value replacements, distinguish genuine problems from harmless prose variation, and apply only user-approved edits to the artifact.
 5. **Resolve candidates requiring a decision.** Present conceptual conflicts as questions for the user rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or reviewed artifact as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
