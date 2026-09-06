@@ -1,6 +1,6 @@
 ---
 name: lexicon
-description: Define, review, and audit a project's domain vocabulary across code and documentation. Use when creating or editing a lexicon, glossary, ubiquitous language, or term list; critiquing names in an API, subsystem, feature, or document for clarity; auditing a repository against a lexicon for drift and deprecated terms; reconciling competing conceptual models; or planning naming refactors.
+description: Define, review, and audit a project's domain vocabulary across code and documentation. Use when creating or editing a lexicon, glossary, ubiquitous language, or term list; critiquing a project's current vernacular for clarity; auditing a repository against a lexicon for drift, invented vocabulary, and deprecated terms; reconciling competing conceptual models; or planning naming refactors.
 ---
 
 # Lexicon
@@ -19,8 +19,8 @@ Maintain a small, opinionated vocabulary for concepts that humans and agents mus
 The skill has three primary workflows:
 
 - **Lexicon authoring:** create or extend a project lexicon.
-- **Naming critique:** evaluate and improve names, concepts, and domain clarity for an API, subsystem, feature, or document.
-- **Lexicon audit:** sweep the codebase against an existing lexicon to detect and fix drift, rule violations, and deprecated terms.
+- **Naming critique:** evaluate and improve the project's current vernacular.
+- **Lexicon audit:** sweep the project against an existing lexicon to detect drift, invented vocabulary, and deprecated terms.
 
 Infer the workflow when the request makes it clear. If more than one workflow is plausible, ask the user which outcome they want before surveying or editing.
 
@@ -28,7 +28,7 @@ Infer the workflow when the request makes it clear. If more than one workflow is
 
 Look for any existing glossary of terms. eg `LEXICON.md`, `TERMS.md`, `GLOSSARY.md`, or `CONTEXT.md` in the repo, or a substantial Glossary, Terms, Vocabulary, or Domain Language section in `README.md`, etc.
 
-If multiple candidates contain substantive terminology, report the overlap and ask which is authoritative. If none exists, use `LEXICON.md` at the repository root.
+If multiple candidates contain substantive terminology, report the overlap and ask which is authoritative. When authoring creates a new lexicon, use `LEXICON.md` at the repository root.
 
 Read the entire lexicon file before proposing or applying changes.
 
@@ -48,11 +48,11 @@ Run this procedure on findings from Lexicon authoring, a Naming critique, or a L
 1. **Classify each finding by next action.** Apply the admission rules to new terms.
    - **Add to the lexicon:** a clear concept that passes the admission rules.
    - **Discuss with the user:** terminology drift, competing names, unclear boundaries, conflicting evidence, or a substantive reviewer objection.
-   - **Propose an edit:** a scoped naming improvement or an unambiguous violation of an existing lexicon decision.
+   - **Propose an edit:** a naming improvement or an unambiguous violation of an existing lexicon decision.
    - **Discard:** a candidate that fails the admission rules or a match that does not describe the relevant concept.
-2. **Challenge consequential findings.** For repository-wide Lexicon authoring and Lexicon audits, give a fresh skeptical subagent proposed lexicon additions or changes, close conceptual distinctions, and replacements classified as mechanical. This review is required when the batch contains any such finding. For a Naming critique, require it only when a proposed change affects canonical vocabulary or has an ambiguous boundary. Provide only the findings, evidence, and source locations—not the main agent's advocacy or intended decision. Ask the reviewer to challenge domain importance, boundary clarity, invented vocabulary, synonym padding, and mechanical-replacement claims. Incorporate substantive objections into the classifications before proceeding.
+2. **Challenge consequential findings.** For Lexicon authoring and Lexicon audits, give a fresh skeptical subagent proposed lexicon additions or changes, close conceptual distinctions, and replacements classified as mechanical. This review is required when the batch contains any such finding. For a Naming critique, require it only when a proposed change affects canonical vocabulary or has an ambiguous boundary. Provide only the findings, evidence, and source locations—not the main agent's advocacy or intended decision. Ask the reviewer to challenge domain importance, boundary clarity, invented vocabulary, synonym padding, and mechanical-replacement claims. Incorporate substantive objections into the classifications before proceeding.
 3. **Write accepted terms.** Add terms classified **Add to the lexicon** immediately, then tell the user what was added in a concise bulleted list.
-4. **Resolve questions.** Present findings classified **Discuss with the user** as questions rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or reviewed target as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
+4. **Resolve questions.** Present findings classified **Discuss with the user** as questions rather than choosing silently. Focus the discussion on boundaries and meaning, then update the lexicon or project as each decision resolves. When renaming a canonical concept, retain the old evidenced name under `_Avoid_`.
 5. **Propose edits.** For a Naming critique, present the smallest high-value replacements and distinguish genuine problems from harmless prose variation. For a Lexicon audit, batch violations by term and show the replacement direction, count, outcome of the ambiguous-use check, safety tier, and representative locations. Apply only user-approved edits; obtain approval per term for audit fixes.
 
 ## Lexicon authoring
@@ -60,7 +60,7 @@ Run this procedure on findings from Lexicon authoring, a Naming critique, or a L
 Use Lexicon authoring to bootstrap a lexicon or intentionally extend its documented domain vocabulary.
 
 1. **Discover and load.** Locate and read any authoritative lexicon.
-2. **Delegate the survey.** Treat a task as exempt only when the user explicitly scopes it to one known concept or a small named set of files. For every other repository-wide or multi-subsystem task, **use two or more parallel read-only subagents**. This is required; do not substitute serial inspection in the main context. If delegation is exempted or unavailable, state why before surveying. Assign separate passes for:
+2. **Delegate the survey.** For every Lexicon authoring survey, **use two or more parallel read-only subagents**. This is required; do not substitute serial inspection in the main context. If delegation is unavailable, state why before surveying. Assign separate passes for:
    - domain docs and top-level specifications;
    - schemas, migrations, public types, APIs, and recurring domain nouns; and
    - conceptual conflicts in ownership, boundaries, states, or lifecycles across documents.
@@ -70,18 +70,19 @@ Use Lexicon authoring to bootstrap a lexicon or intentionally extend its documen
 
 ## Naming critique
 
-Use a Naming critique to evaluate and improve the vocabulary of an API, subsystem, feature, or document without assuming every naming improvement belongs in the project lexicon.
+Use a Naming critique to evaluate the project's current vernacular and recommend clearer names or conceptual framings without assuming every improvement belongs in the project lexicon.
 
-1. **Load the target.** Read the relevant code, interfaces, or documentation, along with any existing lexicon entries or authoritative sources relevant to its concepts.
-2. **Inspect the terminology.** Identify misleading, overloaded, inconsistent, or idiosyncratic terms; multiple names for one idea; one name covering multiple ideas; and nonparallel category names. Distinguish genuine conceptual problems from harmless prose variation.
-3. **Review and resolve.** Run the Review and resolution procedure. Treat proposed replacements as local naming improvements unless the concept independently passes the admission rules and updating the lexicon is in scope.
+1. **Load the current vernacular.** Read the existing lexicon when present. Otherwise, infer the project's vernacular from the user's request and recurring terminology in authoritative project sources.
+2. **Survey the project.** When Naming critique follows Lexicon authoring in the same run, reuse that survey. Otherwise, use two or more parallel read-only subagents and follow the source divisions and evidence requirements under Lexicon authoring.
+3. **Inspect the terminology.** Identify misleading, overloaded, inconsistent, or idiosyncratic terms; multiple names for one idea; one name covering multiple ideas; and nonparallel category names. Distinguish genuine conceptual problems from harmless prose variation.
+4. **Review and resolve.** Run the Review and resolution procedure. Treat proposed replacements as naming improvements unless the concept independently passes the admission rules and updating the lexicon is in scope.
 
 ## Lexicon audit
 
 Use a Lexicon audit periodically to find and reconcile terminology drift across the repository. Expect both straightforward conformance fixes and new semantic questions requiring human decisions.
 
 1. **Load the standard.** Read the lexicon's canonical terms, `_Avoid_` entries, and implementation references.
-2. **Delegate the scan.** For every repository-wide audit, **use two or more parallel read-only subagents**. This is required; do not perform the full audit solely in the main context. Tell each subagent to read the full lexicon, split the work into avoided-term usage, canonical misuse, new candidates, and conceptual conflicts, and require classified findings with locations rather than raw search output. If subagents are unavailable, disclose that before scanning and perform visibly separate local passes.
+2. **Delegate the scan.** For every Lexicon audit, **use two or more parallel read-only subagents**. This is required; do not perform the full audit solely in the main context. Tell each subagent to read the full lexicon, split the work into avoided-term usage, canonical misuse, new candidates, and conceptual conflicts, and require classified findings with locations rather than raw search output. If subagents are unavailable, disclose that before scanning and perform visibly separate local passes.
 3. **Classify and check for ambiguous uses.** Deduplicate results and assign a safety tier. Exclude generated, vendored, fixture, and compatibility surfaces as appropriate; surface uncertain exclusions rather than assuming. Inspect every proposed replacement for legitimate uses in other domains, compound identifiers, third-party interfaces, serialized strings, logs, and fixtures. Any ambiguous occurrence makes the term a semantic question rather than a mechanical replacement.
 4. **Review and resolve.** Run the Review and resolution procedure on all classified findings.
 5. **Apply and verify.** Default to proposing a diff or edit list. Apply only approved fixes, verify them according to their tier, and summarize what changed and what remains open. Create a dated report only when requested or already conventional in the project.
