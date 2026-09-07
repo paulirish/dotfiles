@@ -1,21 +1,17 @@
 ---
 name: lexicon
-description: Define, review, and audit a project's domain vocabulary across code and documentation. Use when creating or editing a lexicon, glossary, or term list; critiquing project vernacular; auditing against a lexicon for drift and deprecated terms; reconciling conceptual models; or planning naming refactors.
+description: Define, review, and audit a project's domain vocabulary across code and documentation. Use when creating or editing a lexicon, glossary, or term list; auditing against a lexicon for drift, invented vocabulary, and deprecated terms; critiquing project vernacular; reconciling conceptual models; or planning naming refactors.
 ---
 
 # Lexicon
 
 Maintain a small, opinionated vocabulary for concepts humans and agents must understand consistently.
 
-This skill prevents:
-1. **Terminology drift & accretion:** Different names accumulating over time for the same concept.
-2. **Invented vocabulary:** Spontaneously generating idiosyncratic, ad-hoc terms for established concepts.
-3. **Competing conceptual framings:** Stale docs or schemas preserving obsolete mental models that contradict current architecture.
-4. **Synonym bloat:** Overloaded "allowable synonyms" lists that weaken domain precision.
+Prevent terminology drift, invented vocabulary, obsolete conceptual framings, and synonym bloat.
 
 ## Invariants
 
-- **One term per concept:** Keep one canonical term; reject generic terms and speculative synonyms.
+- **One term per concept:** Keep one canonical term; reject generic terms and speculative synonyms. Never invent a compromise name that fuses competing alternatives.
 - **Evidence-based:** Admit terms grounded in code, documentation, schemas, or authoritative standards.
 - **Boundaries, not specs:** Define what a concept is and distinguish neighbors; avoid procedural specs.
 - **User authority:** Let the user adjudicate conceptual conflicts. Never silently pick a winner or reopen explicit decisions.
@@ -25,8 +21,8 @@ This skill prevents:
 Select based on user intent (ask if ambiguous):
 
 1. **Lexicon authoring:** Create or expand `LEXICON.md`.
-2. **Naming critique:** Evaluate the project's current vernacular for clarity and suggest better domain terms.
-3. **Lexicon audit:** Sweep the codebase against `LEXICON.md` to catch drift, violations, and deprecated terms.
+2. **Lexicon audit:** Sweep the codebase against `LEXICON.md` to catch drift, invented vocabulary, and deprecated terms.
+3. **Naming critique:** Evaluate the project's current vernacular for clarity and suggest better domain terms.
 
 ### 1. Lexicon authoring
 - **Load:** Read existing `LEXICON.md`, `GLOSSARY.md`, or relevant `README.md` sections (default to repo root `LEXICON.md`). Report overlaps and ask if authority is unclear.
@@ -34,16 +30,17 @@ Select based on user intent (ask if ambiguous):
 - **Resolve:** Run the [Review and resolution procedure](#review-and-resolution-procedure).
 - **Link:** Reference the lexicon in `AGENTS.md` when newly created.
 
-### 2. Naming critique
-- **Survey:** Reuse the authoring survey if run together; otherwise use 2+ parallel subagents across specs, schemas, and core code.
-- **Inspect:** Flag misleading, overloaded, inconsistent, or nonparallel names. Distinguish genuine conceptual issues from harmless prose variation.
-- **Resolve:** Run the Review and resolution procedure.
-
-### 3. Lexicon audit
+### 2. Lexicon audit
 - **Load standard:** Read canonical terms, implementation references, and `_Avoid_` entries.
-- **Scan:** Use 2+ parallel subagents to search for avoided terms, canonical misuse, and conceptual conflicts. Exclude generated/vendored files.
+- **Scan:** Use 2+ parallel subagents to search for avoided terms, canonical misuse, new or invented vocabulary, and conceptual conflicts. Exclude generated/vendored files.
 - **Check safety:** Flag ambiguous occurrences (multi-domain words, serialized data) for human decision; classify clear violations by safety tier.
 - **Resolve:** Run the Review and resolution procedure.
+- **Apply and verify:** Apply only approved fixes, verify per their safety tier, and summarize what changed and what remains open.
+
+### 3. Naming critique
+- **Survey:** Reuse the authoring survey or audit scan if run together; otherwise use 2+ parallel subagents across specs, schemas, and core code.
+- **Inspect:** Flag misleading, overloaded, inconsistent, or nonparallel names. Distinguish genuine conceptual issues from harmless prose variation.
+- **Resolve:** Run the Review and resolution procedure. Treat findings as naming improvements, not lexicon changes, unless the concept independently passes admission rules *and* the user asked for lexicon edits.
 
 ## Term admission rules
 
@@ -58,12 +55,12 @@ Reject implementation details, generic software terms, and frequency-only candid
 1. **Classify findings by next action:**
    - **Add to the lexicon:** Clear concept passing admission rules.
    - **Discuss with the user:** Drift, competing names, boundary conflicts, or ambiguous uses.
-   - **Propose an edit:** Scoped naming improvement or unambiguous lexicon violation.
+   - **Propose a project edit:** Naming improvement or unambiguous lexicon violation.
    - **Discard:** Fails admission rules or irrelevant match.
 2. **Challenge consequential findings:** For authoring additions, audit mechanical replacements, and close boundary distinctions, invoke a fresh skeptical subagent with candidates and evidence (no advocacy). Incorporate objections before proceeding.
 3. **Write accepted terms:** Add **Add to the lexicon** terms immediately; notify user with a concise list.
 4. **Resolve questions:** Present **Discuss with the user** items as questions on boundaries and meaning. Retain replaced canonical terms under `_Avoid_`.
-5. **Propose edits:** Present diffs with safety tiers; apply only user-approved changes (batch audit fixes by term).
+5. **Propose project edits:** Present diffs with safety tiers; apply only user-approved changes (batch audit fixes by term).
 
 ## Change safety tiers
 
@@ -93,4 +90,6 @@ One or two sentences stating what the concept is and its boundary or lifecycle r
 ```
 
 - **Scope:** Canonical compound nouns for exported, persisted, and public identifiers; concise names and descriptive modifiers (`activeUser`, `userId`) allowed in local scope.
+- **AKA restraint:** Only list alternatives used by an external source (standard, paper, upstream library). Exclude English synonyms and competing internal names.
+- **Avoid restraint:** Only list evidenced deprecated names or alternatives explicitly rejected by the user; retain them after cleanup.
 - Omit metadata bullets (`_Reference_`, `_AKA_`, `_Avoid_`) when not applicable.
