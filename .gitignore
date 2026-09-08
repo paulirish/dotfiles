@@ -24,3 +24,6 @@ Thumbs.db
 
 # Compiled Python files
 *.pyc
+
+**/.claude/settings.local.json
+**/.conductor/settings.local.toml
