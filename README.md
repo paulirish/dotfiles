@@ -20,7 +20,6 @@ Some applications are worth installing manually since a Brew install will mess w
 - Slack
 - VSCode
 - Spotify
-- [Hyper](https://hyper.is/)
 - [BeardedSpice](https://beardedspice.github.io/) for media controls
 
 #### Let's go!
@@ -49,7 +48,7 @@ Some applications are worth installing manually since a Brew install will mess w
 - homebrew apps:
   - git
   - jq
-  - z
+  - zoxide
   - bat
 - homebrew cask
   - rectangle for window management
@@ -60,9 +59,16 @@ Some applications are worth installing manually since a Brew install will mess w
   - history substring search
   - autosuggestions
   - syntax highlighting on terminal commands
-- [z](https://github.com/rupa/z)
+- [zoxide](https://github.com/ajeetdsouza/zoxide)
 - functions:
   - `mkdc`: create directory and `cd` into it
+- `bin/` scripts (symlinked to `~/bin`, which is on `PATH`):
+  - `git-archive-merged-branches`: tags and deletes local branches already
+    merged into main — including squash-merged ones — usable as
+    `git archive-merged-branches`
+  - `macos-prefs-diff.sh`: diffs live `defaults` state against every
+    `defaults write` line in `.osx`, to catch drift between the script and
+    reality. Read-only.
 
 ## Migration
 

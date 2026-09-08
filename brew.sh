@@ -52,7 +52,8 @@ brew install git
 # brew install kdiff3
 # jq is like sed but for json
 brew install jq
-brew install z
+# z beats cd most of the time. successor to the unmaintained rupa/z.
+brew install zoxide
 # cat on steroids!
 brew install bat
 

@@ -7,3 +7,11 @@ mkcd() {
 delete-merged-branches() {
     git branch --merged | grep -Ev "(^\*|master|main|dev)" | xargs git branch -d
 }
+
+# Interactive rebase from the repo's default branch (falls back to master)
+grim() {
+    local base
+    base=$(git mainormaster 2>/dev/null)
+    base=${base:-master}
+    git rebase -i "$(git merge-base "$base" HEAD)"
+}

@@ -12,6 +12,10 @@
 	co = checkout
 	fix = "!f() { git commit --fixup ${1}; git rebase -i ${1}~; }; f"
 
+	# Is it a `main` or a `master` repo? Requires origin/HEAD to be set
+	# (git remote set-head origin -a), which a plain `git clone` sets up.
+	mainormaster = !"git rev-parse --abbrev-ref origin/HEAD | sed 's|^origin/||'"
+
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 

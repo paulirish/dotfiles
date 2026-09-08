@@ -61,7 +61,10 @@ plugins=(git history-substring-search zsh-autosuggestions)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# Personal scripts, symlinked from dotfiles/bin. `git-*` scripts here become
+# `git <subcommand>` for free.
+export PATH="$HOME/bin:$PATH"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -169,8 +172,10 @@ if [ -x "$__brew_bin" ]; then
 fi
 
 # z beats cd most of the time.
-#   github.com/rupa/z
-. /opt/homebrew/etc/profile.d/z.sh
+#   github.com/ajeetdsouza/zoxide (successor to the unmaintained rupa/z)
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
 
 export YVM_DIR=/opt/homebrew/opt/yvm
 if [[ -r "$YVM_DIR/yvm.sh" ]]; then

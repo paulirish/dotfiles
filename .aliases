@@ -1,5 +1,2 @@
 # Which process is using a port?
 alias who_port="lsof -i -P | grep LISTEN | grep"
-
-# Aut-interactive rebase from main
-alias grim="git rebase -i $(git merge-base main HEAD)"
