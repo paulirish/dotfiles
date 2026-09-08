@@ -7,6 +7,9 @@
 # git credential file
 .gitconfig.local
 
+# per-user work identity override, see .gitconfig.local
+.gitconfig-work
+
 # local configs, aliases, paths etc
 .extra
 
