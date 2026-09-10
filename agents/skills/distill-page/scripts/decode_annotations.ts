@@ -1,6 +1,6 @@
 import {fromBinary, create} from '@bufbuild/protobuf';
 import {AnnotatedPageContentSchema, AnnotatedRole, ContentAttributeType, TextSize, TableRowType, TextStyleSchema, ContentNodeSchema} from './proto/common_quality_data_pb.js';
-import type {ContentNode, AnnotatedPageContent, TextInfo, ImageInfo, AnchorData, TableData} from './proto/common_quality_data_pb.js';
+import type {ContentNode, AnnotatedPageContent, TextInfo, ImageInfo, AnchorData, TableData, IframeData} from './proto/common_quality_data_pb.js';
 import {INLINE_CODE_CLOSE_MARKER, INLINE_CODE_OPEN_MARKER, PRE_CLOSE_MARKER, PRE_OPEN_MARKER} from './semantic_markers.ts';
 
 const {
@@ -37,7 +37,13 @@ export interface ASTLink {
   children: ASTInlineNode[];
 }
 
-export type ASTInlineNode = ASTTextRun | ASTLink | ASTImage;
+export interface ASTEmbed {
+  type: 'embed';
+  url: string;
+  label: string;
+}
+
+export type ASTInlineNode = ASTTextRun | ASTLink | ASTImage | ASTEmbed;
 
 export interface ASTParagraph {
   type: 'paragraph';
@@ -188,7 +194,7 @@ export const AnnotationParser = {
   },
 
   isInlineNode(node: ASTBlockNode | ASTInlineNode): node is ASTInlineNode {
-    return node.type === 'text' || node.type === 'link' || node.type === 'image';
+    return node.type === 'text' || node.type === 'link' || node.type === 'image' || node.type === 'embed';
   },
 
   parseChildrenFlat(nodes: ContentNode[], state: ParserState): (ASTBlockNode | ASTInlineNode)[] {
@@ -287,7 +293,7 @@ export const AnnotationParser = {
                 const nodeState = {...state};
                 const items = this.parseNode(virtualTextNode, nodeState);
                 for (const item of items) {
-                  if (item.type === 'text' || item.type === 'link' || item.type === 'image') {
+                  if (item.type === 'text' || item.type === 'link' || item.type === 'image' || item.type === 'embed') {
                     inlineAccumulator.push(item);
                   } else if (item.type === 'paragraph') {
                     inlineAccumulator.push(...item.children);
@@ -453,6 +459,30 @@ export const AnnotationParser = {
       return [link];
     }
     return [];
+  },
+
+  parseIframeNode(node: ContentNode, iframeData: IframeData, state: ParserState): (ASTBlockNode | ASTInlineNode)[] {
+    const defaultParsed = this.parseDefaultNode(node, state);
+
+    // Failed iframes will have the hostname and 'refused to connect.' as adjacent text nodes.
+    // Convert these into links to what was embedded.
+    const refusedIndex = defaultParsed.findIndex(n => n.type === 'text' && n.text === 'refused to connect.');
+    const possibleHostnameNode = defaultParsed[refusedIndex - 1];
+    if (refusedIndex > 0 && possibleHostnameNode.type === 'text' && iframeData.data.case === 'frameData') {
+      const possibleHostname = possibleHostnameNode.text;
+      const frameUrl = iframeData.data.value.url;
+      const parsedUrl = URL.parse(iframeData.data.value.url);
+
+      if (parsedUrl?.hostname === possibleHostname) {
+        return [{
+          type: 'embed',
+          url: frameUrl,
+          label: `Link to ${parsedUrl.hostname} embed`,
+        }];
+      }
+    }
+
+    return defaultParsed;
   },
 
   parseParagraphNode(node: ContentNode, state: ParserState): ASTParagraph[] {
@@ -623,6 +653,8 @@ export const AnnotationParser = {
         return this.parseImageNode(node, attrs.contentData.value, state);
       case 'anchorData':
         return this.parseAnchorNode(node, attrs.contentData.value, state);
+      case 'iframeData':
+        return this.parseIframeNode(node, attrs.contentData.value, state);
     }
 
     // 2. Dispatch by structural attribute type
@@ -808,6 +840,9 @@ export const MarkdownSerializer = {
     }
     if (node.type === 'image') {
       return this.serializeImage(node);
+    }
+    if (node.type === 'embed') {
+      return `[${node.label}](${node.url})`;
     }
     return '';
   },
