@@ -26,6 +26,9 @@ export async function injectSemanticMarkers(page: any) {
       }
     });
     document.querySelectorAll('pre').forEach(el => {
+      // Syntax highlighters can produce nested <pre> elements. Mark the
+      // outermost block once so nested markers do not become code content.
+      if (el.parentElement?.closest('pre')) return;
       el.insertAdjacentText('afterbegin', preOpenMarker);
       el.insertAdjacentText('beforeend', preCloseMarker);
     });
