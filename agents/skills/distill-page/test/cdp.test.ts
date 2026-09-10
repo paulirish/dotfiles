@@ -88,6 +88,10 @@ test('uses the primary main landmark in the stress fixture', async () => {
   assert.ok(!markdown.includes('PREVIEW-ONLY-SENTINEL'), 'Should exclude the competing preview main landmark');
   assert.ok(markdown.includes('FENCES-AFTER-SENTINEL'), 'Should not treat literal Markdown fences in prose as code-block boundaries');
   assert.ok(markdown.includes('type ```` ```shell````'), 'Should use a safe inline-code delimiter around literal Markdown fences');
+  assert.ok(
+    markdown.includes('NESTED-INLINE-CODE-SENTINEL: `outer inner tail`.'),
+    'Should preserve nested inline code as one code span',
+  );
   assert.ok(markdown.includes('```\nrg --files notes | sort\ngit status --short\n```'), 'Should preserve the real preformatted code block');
   assert.ok(
     markdown.includes('```\n/* NESTED-PRE-CODE-SENTINEL */\n.nested-pre { color: darkseagreen; }\n```'),
