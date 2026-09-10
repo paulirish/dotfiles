@@ -107,6 +107,19 @@ test('does not treat large ordered-list text as headings', async () => {
   );
 });
 
+test('replaces a failed iframe with a link', async () => {
+  const fixturePath = path.resolve(__dirname, 'fixtures', 'blocked-iframe.html');
+  const content = await fetchDistilledBase64(`file://${fixturePath}`);
+  const markdown = convertToMarkdown(decodeAnnotatedPageContent(content));
+
+  assert.ok(
+    markdown.includes('[Link to codepen.io embed](https://codepen.io/web-dot-dev/embed/preview/WNRemxN?editable=true)'),
+    'Should replace the failed embed with a link to the CodePen',
+  );
+  assert.ok(!markdown.includes('refused to connect'), 'Should omit the iframe failure message');
+  assert.ok(markdown.includes('Content after the embed.'), 'Should preserve content after the iframe');
+});
+
 test('CDP Page.getAnnotatedPageContent on mock-page.html', async () => {
   const mockPagePath = path.resolve(__dirname, 'fixtures/mock-page.html');
   const mockPageUrl = `file://${mockPagePath}`;
