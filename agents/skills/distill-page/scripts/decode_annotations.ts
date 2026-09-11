@@ -787,10 +787,36 @@ export const MarkdownSerializer = {
       grouped.push(this.mergeGroup(currentGroup, !!currentBold, !!currentCode));
     }
 
+    const isEmphasizedText = (node: ASTInlineNode): node is ASTTextRun => {
+      // Policy decision: Suppress emphasis wrapping (bold) inside link tags.
+      // The Chromium layout annotator model flags all link text runs as having
+      // emphasis due to visual color/styling differences. Bolding every link
+      // creates significant visual clutter.
+      return node.type === 'text' && !!node.style?.hasEmphasis && !insideLink;
+    }
+
     let md = '';
-    for (let i = 0; i < grouped.length; i++) {
+    for (let i = 0; i < grouped.length;) {
       const child = grouped[i];
-      const chunk = this.serializeInline(child, insideLink);
+      let chunk = '';
+
+      // Embolden text once per run of successive emphasized text nodes, rather than child by child.
+      if (isEmphasizedText(child)) {
+        let contents = '';
+        while (i < grouped.length) {
+          const run = grouped[i];
+          if (!isEmphasizedText(run)) break;
+          const part = this.serializeText(run);
+          if (this.shouldInsertSpace(contents, part)) contents += ' ';
+          contents += part;
+          i++;
+        }
+        chunk = `**${contents}**`;
+      } else {
+        chunk = this.serializeInline(child);
+        i++;
+      }
+
       if (!chunk) continue;
 
       if (this.shouldInsertSpace(md, chunk)) {
@@ -799,6 +825,10 @@ export const MarkdownSerializer = {
       md += chunk;
     }
     return md.trim();
+  },
+
+  serializeText(node: ASTTextRun): string {
+    return node.isCode ? this.serializeCodeSpan(node.text) : node.text;
   },
 
   serializeImage(node: ASTImage): string {
@@ -816,20 +846,9 @@ export const MarkdownSerializer = {
     return `${delimiter}${content}${delimiter}`;
   },
 
-  serializeInline(node: ASTInlineNode, insideLink = false): string {
+  serializeInline(node: ASTInlineNode): string {
     if (node.type === 'text') {
-      let text = node.text;
-      if (node.isCode) {
-        text = this.serializeCodeSpan(text);
-      }
-      // Policy decision: Suppress emphasis wrapping (bold) inside link tags.
-      // The Chromium layout annotator model flags all link text runs as having
-      // emphasis due to visual color/styling differences. Bolding every link
-      // creates significant visual clutter.
-      if (node.style?.hasEmphasis && !insideLink) {
-        text = `**${text}**`;
-      }
-      return text;
+      return this.serializeText(node);
     }
     if (node.type === 'link') {
       const linkText = this.serializeInlineChildren(node.children, true);
@@ -873,7 +892,7 @@ export const MarkdownSerializer = {
               return this.serializeInlineChildren(child.children);
             }
             if (child.type === 'text' || child.type === 'link') {
-              return this.serializeInline(child);
+              return this.serializeInlineChildren([child]);
             }
             return this.serializeBlock(child as ASTBlockNode);
           })
