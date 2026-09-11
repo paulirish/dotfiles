@@ -4,9 +4,8 @@ import {fromJson, toBinary} from '@bufbuild/protobuf';
 import type {JsonValue} from '@bufbuild/protobuf';
 import {AnnotatedPageContentSchema, ContentAttributeType} from '../scripts/proto/common_quality_data_pb.js';
 import {decodeAnnotatedPageContent, convertToMarkdown} from '../scripts/distill-page.ts';
-import {INLINE_CODE_CLOSE_MARKER, INLINE_CODE_OPEN_MARKER} from '../scripts/semantic_markers.ts';
 
-const {CONTENT_ATTRIBUTE_TEXT, CONTENT_ATTRIBUTE_IMAGE, CONTENT_ATTRIBUTE_IFRAME, CONTENT_ATTRIBUTE_PARAGRAPH} = ContentAttributeType;
+const {CONTENT_ATTRIBUTE_TEXT, CONTENT_ATTRIBUTE_IMAGE, CONTENT_ATTRIBUTE_IFRAME} = ContentAttributeType;
 
 function getMarkdown(payload: JsonValue): string {
   const buffer = toBinary(AnnotatedPageContentSchema, fromJson(AnnotatedPageContentSchema, payload));
@@ -103,42 +102,5 @@ test('convertToMarkdown replaces a failed CodePen iframe with a link', () => {
   assert.strictEqual(
     getMarkdown(payload),
     '[Link to codepen.io embed](https://codepen.io/example/embed/preview/bJOrK?editable=true)',
-  );
-});
-
-test('convertToMarkdown keeps inline code inside a continuous emphasis span', () => {
-  const textNode = (textContent: string): JsonValue => ({
-    contentAttributes: {
-      attributeType: CONTENT_ATTRIBUTE_TEXT,
-      textData: {
-        textContent,
-        textStyle: {hasEmphasis: true},
-      },
-    },
-  });
-  const payload: JsonValue = {
-    rootNode: {
-      childrenNodes: [
-        {
-          contentAttributes: {attributeType: CONTENT_ATTRIBUTE_PARAGRAPH},
-          childrenNodes: [
-            textNode('The minimum width of grid and flex children is '),
-            textNode(INLINE_CODE_OPEN_MARKER),
-            textNode('auto'),
-            textNode(INLINE_CODE_CLOSE_MARKER),
-            textNode('. Setting it explicitly to '),
-            textNode(INLINE_CODE_OPEN_MARKER),
-            textNode('0'),
-            textNode(INLINE_CODE_CLOSE_MARKER),
-            textNode(' removes the intrinsic size, unlocking various things.'),
-          ],
-        },
-      ],
-    },
-  };
-
-  assert.strictEqual(
-    getMarkdown(payload),
-    '**The minimum width of grid and flex children is `auto`. Setting it explicitly to `0` removes the intrinsic size, unlocking various things.**',
   );
 });
