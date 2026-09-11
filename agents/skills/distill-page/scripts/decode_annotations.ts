@@ -1,5 +1,5 @@
 import {fromBinary, create} from '@bufbuild/protobuf';
-import {AnnotatedPageContentSchema, AnnotatedRole, ContentAttributeType, TextSize, TableRowType, TextStyleSchema, ContentNodeSchema} from './proto/common_quality_data_pb.js';
+import {AnnotatedPageContentSchema, AnnotatedRole, ContentAttributeType, TextSize, TableRowType, ContentNodeSchema} from './proto/common_quality_data_pb.js';
 import type {ContentNode, AnnotatedPageContent, TextInfo, ImageInfo, AnchorData, TableData, IframeData} from './proto/common_quality_data_pb.js';
 import {INLINE_CODE_CLOSE_MARKER, INLINE_CODE_OPEN_MARKER, PRE_CLOSE_MARKER, PRE_OPEN_MARKER} from './semantic_markers.ts';
 
@@ -44,6 +44,7 @@ export interface ASTEmbed {
 }
 
 export type ASTInlineNode = ASTTextRun | ASTLink | ASTImage | ASTEmbed;
+export type ASTNonTextInlineNode = Exclude<ASTInlineNode, ASTTextRun>;
 
 export interface ASTParagraph {
   type: 'paragraph';
@@ -723,112 +724,73 @@ export const MarkdownSerializer = {
     return !startsWithPunc && !endsWithSkip;
   },
 
-  mergeGroup(group: ASTInlineNode[], bold: boolean, isCode: boolean): ASTInlineNode {
-    if (group.length === 1) return group[0];
-
-    let texts = '';
-    for (let i = 0; i < group.length; i++) {
-      const node = group[i];
-      if (node.type !== 'text') continue;
-      const chunk = node.text;
-      if (!chunk) continue;
-
-      if (this.shouldInsertSpace(texts, chunk)) {
-        texts += ' ';
-      }
-      texts += chunk;
-    }
-
-    const first = group[0];
-    if (first.type === 'text') {
-      return {
-        type: 'text',
-        text: texts,
-        style: first.style ? create(TextStyleSchema, {...first.style, hasEmphasis: bold}) : bold ? create(TextStyleSchema, {hasEmphasis: true}) : undefined,
-        isCode,
-      };
-    }
-    return first;
+  append(appendee: string, appendix: string) {
+    if (!appendix) return appendee;
+    const spacer = this.shouldInsertSpace(appendee, appendix) ? ' ' : '';
+    return appendee + spacer + appendix;
   },
 
   serializeInlineChildren(children: ASTInlineNode[], insideLink = false): string {
-    const grouped: ASTInlineNode[] = [];
-    let currentGroup: ASTInlineNode[] = [];
-    let currentBold: boolean | undefined = undefined;
-    let currentCode: boolean | undefined = undefined;
-
-    for (const child of children) {
-      if (child.type === 'text') {
-        const isBold = !!(child.style?.hasEmphasis && !insideLink);
-        const isCode = !!child.isCode;
-        if (currentBold === undefined) {
-          currentBold = isBold;
-          currentCode = isCode;
-          currentGroup.push(child);
-        } else if (currentBold === isBold && currentCode === isCode) {
-          currentGroup.push(child);
-        } else {
-          grouped.push(this.mergeGroup(currentGroup, currentBold, !!currentCode));
-          currentGroup = [child];
-          currentBold = isBold;
-          currentCode = isCode;
-        }
-      } else {
-        if (currentGroup.length > 0) {
-          grouped.push(this.mergeGroup(currentGroup, !!currentBold, !!currentCode));
-          currentGroup = [];
-          currentBold = undefined;
-          currentCode = undefined;
-        }
-        grouped.push(child);
-      }
-    }
-    if (currentGroup.length > 0) {
-      grouped.push(this.mergeGroup(currentGroup, !!currentBold, !!currentCode));
-    }
-
-    const isEmphasizedText = (node: ASTInlineNode): node is ASTTextRun => {
+    const isBold = (node: ASTTextRun): boolean => {
       // Policy decision: Suppress emphasis wrapping (bold) inside link tags.
       // The Chromium layout annotator model flags all link text runs as having
       // emphasis due to visual color/styling differences. Bolding every link
       // creates significant visual clutter.
-      return node.type === 'text' && !!node.style?.hasEmphasis && !insideLink;
-    }
+      return !!node.style?.hasEmphasis && !insideLink;
+    };
+    const appendCodeOrText = (base: string, text: string, isCode: boolean): string => {
+      const serialized = isCode ? this.serializeCodeSpan(text) : text;
+      return this.append(base, serialized);
+    };
+    const appendBoldOrText = (base: string, text: string, isBold: boolean): string => {
+      const serialized = isBold ? `**${text}**` : text;
+      return this.append(base, serialized);
+    };
 
     let md = '';
-    for (let i = 0; i < grouped.length;) {
-      const child = grouped[i];
-      let chunk = '';
+    for (let i = 0; i < children.length;) {
+      const childPeek = children[i];
 
-      // Embolden text once per run of successive emphasized text nodes, rather than child by child.
-      if (isEmphasizedText(child)) {
-        let contents = '';
-        while (i < grouped.length) {
-          const run = grouped[i];
-          if (!isEmphasizedText(run)) break;
-          const part = this.serializeText(run);
-          if (this.shouldInsertSpace(contents, part)) contents += ' ';
-          contents += part;
-          i++;
-        }
-        chunk = `**${contents}**`;
-      } else {
-        chunk = this.serializeInline(child);
+      // Not text, so just append and move on.
+      if (childPeek.type !== 'text') {
+        const serialized = this.serializeNonTextInline(childPeek);
+        md = this.append(md, serialized);
         i++;
+        continue;
       }
 
-      if (!chunk) continue;
+      // We want to only add enter and exit markers for inline bold and code text when needed, so
+      // sibling text in the same state of each should be merged before putting markers around them.
+      // Find code sub-runs inside each run of bold (or not) text, so they can contain multiple
+      // code segments.
+      // - the outer loop looks for boldness runs: consecutive text nodes with the same isBold state
+      // - within boldness runs, the inner loop looks for "codeness" segments: consecutive nodes of the same isCode state
+      const isBoldRun = isBold(childPeek);
+      let boldnessRun = '';
+      let isCodeSegment = !!childPeek.isCode;
+      let codenessSegment = '';
 
-      if (this.shouldInsertSpace(md, chunk)) {
-        md += ' ';
+      // Go until we run out of text in a isBoldRun state.
+      for (; i < children.length; i++) {
+        const next = children[i];
+        if (next.type !== 'text' || isBold(next) !== isBoldRun) break;
+
+        // Flush codenessSegment to the boldnessRun when isCode changes.
+        const isCode = !!next.isCode;
+        if (isCodeSegment !== isCode) {
+          boldnessRun = appendCodeOrText(boldnessRun, codenessSegment, isCodeSegment);
+          codenessSegment = '';
+          isCodeSegment = isCode;
+        }
+        // For each same-isCode text, accumulate in codenessSegment.
+        codenessSegment = this.append(codenessSegment, next.text);
       }
-      md += chunk;
+      boldnessRun = appendCodeOrText(boldnessRun, codenessSegment, isCodeSegment);
+
+      md = appendBoldOrText(md, boldnessRun, isBoldRun);
     }
-    return md.trim();
-  },
 
-  serializeText(node: ASTTextRun): string {
-    return node.isCode ? this.serializeCodeSpan(node.text) : node.text;
+    return md.trim();
   },
 
   serializeImage(node: ASTImage): string {
@@ -846,10 +808,7 @@ export const MarkdownSerializer = {
     return `${delimiter}${content}${delimiter}`;
   },
 
-  serializeInline(node: ASTInlineNode): string {
-    if (node.type === 'text') {
-      return this.serializeText(node);
-    }
+  serializeNonTextInline(node: ASTNonTextInlineNode): string {
     if (node.type === 'link') {
       const linkText = this.serializeInlineChildren(node.children, true);
       if (linkText && node.data.url) {
@@ -863,7 +822,9 @@ export const MarkdownSerializer = {
     if (node.type === 'embed') {
       return `[${node.label}](${node.url})`;
     }
-    return '';
+
+    node satisfies never;
+    throw new Error('Unsupported inline node');
   },
 
   serializeBlock(node: ASTBlockNode): string {

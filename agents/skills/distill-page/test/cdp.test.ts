@@ -101,6 +101,10 @@ test('uses the primary main landmark in the stress fixture', async () => {
     'Should preserve spaces at the boundaries of emphasis containing inline code',
   );
   assert.ok(
+    markdown.includes('EMPHASIS-CODE-EDGES-BEFORE **`leading` bold middle `trailing`** EMPHASIS-CODE-EDGES-AFTER.'),
+    'Should preserve an emphasis run that starts and ends with inline code',
+  );
+  assert.ok(
     markdown.includes('CODE-LINK-SENTINEL: Read [`API.method()`](https://example.com/api) for details.'),
     'Should preserve inline code nested inside a link',
   );
