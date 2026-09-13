@@ -89,6 +89,26 @@ test('uses the primary main landmark in the stress fixture', async () => {
   assert.ok(markdown.includes('FENCES-AFTER-SENTINEL'), 'Should not treat literal Markdown fences in prose as code-block boundaries');
   assert.ok(markdown.includes('type ```` ```shell````'), 'Should use a safe inline-code delimiter around literal Markdown fences');
   assert.ok(
+    markdown.includes('**EMPHASIS-CODE-SENTINEL: Inline `auto`. Then `0` remains inside one emphasized sentence.**'),
+    'Should keep inline code inside a continuous emphasis span',
+  );
+  assert.ok(
+    markdown.includes('**CSS-EMPHASIS-CODE-SENTINEL: Inline `min-content` remains inside CSS-derived emphasis.**'),
+    'Should keep inline code inside CSS-derived emphasis',
+  );
+  assert.ok(
+    markdown.includes('EMPHASIS-BOUNDARIES-BEFORE **bold before `nested` bold after** EMPHASIS-BOUNDARIES-AFTER.'),
+    'Should preserve spaces at the boundaries of emphasis containing inline code',
+  );
+  assert.ok(
+    markdown.includes('EMPHASIS-CODE-EDGES-BEFORE **`leading` bold middle `trailing`** EMPHASIS-CODE-EDGES-AFTER.'),
+    'Should preserve an emphasis run that starts and ends with inline code',
+  );
+  assert.ok(
+    markdown.includes('CODE-LINK-SENTINEL: Read [`API.method()`](https://example.com/api) for details.'),
+    'Should preserve inline code nested inside a link',
+  );
+  assert.ok(
     markdown.includes('NESTED-INLINE-CODE-SENTINEL: `outer inner tail`.'),
     'Should preserve nested inline code as one code span',
   );
