@@ -62,11 +62,17 @@
 
         <section aria-labelledby="fences-heading">
           <h2 id="fences-heading">When prose discusses Markdown</h2>
+          <p>NESTED-INLINE-CODE-SENTINEL: <code>outer <code>inner</code> tail</code>.</p>
           <p>FENCES-BEFORE-SENTINEL: The editor’s instructions literally say: type <code>```shell</code>, paste the command, then type <code>```</code> on a line by itself. Those characters are prose, not a code block boundary.</p>
           <figure>
             <figcaption>An actual command from the checklist</figcaption>
             <pre tabindex="0"><code class="language-shell">rg --files notes | sort
 git status --short</code></pre>
+          </figure>
+          <figure>
+            <figcaption>A syntax-highlighted block with nested pre elements</figcaption>
+            <pre><code class="language-css"><pre class="shiki"><code><span class="line">/* NESTED-PRE-CODE-SENTINEL */</span>
+<span class="line">.nested-pre { color: darkseagreen; }</span></code></pre></code></pre>
           </figure>
           <p>FENCES-AFTER-SENTINEL: This paragraph must remain ordinary narrative after the real code sample.</p>
         </section>

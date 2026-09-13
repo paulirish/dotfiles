@@ -20,12 +20,14 @@ export async function injectSemanticMarkers(page: any) {
     inlineCodeCloseMarker: string;
   }) => {
     document.querySelectorAll('code').forEach(el => {
-      if (!el.closest('pre')) {
-        el.insertAdjacentText('afterbegin', inlineCodeOpenMarker);
-        el.insertAdjacentText('beforeend', inlineCodeCloseMarker);
-      }
+      if (el.closest('pre') || el.parentElement?.closest('code')) return;
+      el.insertAdjacentText('afterbegin', inlineCodeOpenMarker);
+      el.insertAdjacentText('beforeend', inlineCodeCloseMarker);
     });
     document.querySelectorAll('pre').forEach(el => {
+      // Syntax highlighters can produce nested <pre> elements. Mark the
+      // outermost block once so nested markers do not become code content.
+      if (el.parentElement?.closest('pre')) return;
       el.insertAdjacentText('afterbegin', preOpenMarker);
       el.insertAdjacentText('beforeend', preCloseMarker);
     });
