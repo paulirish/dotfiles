@@ -1,6 +1,7 @@
 ---
 name: heap-snapshot-inspection
 description: Investigating memory issues and leaks in Chromium-based environments (Chrome, Node.js, Electron) using heap snapshots and the @paulirish/agents CLI.
+disable-model-invocation: true
 ---
 
 # Heap Snapshot Inspection Skill

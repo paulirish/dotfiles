@@ -1,6 +1,7 @@
 ---
 name: Hot Reloading for Chrome Extensions
 description: Set up hot-reloading for chrome extensions. Provides a zero-dependency solution for automatic extension refreshing during development.
+disable-model-invocation: true
 version: 0.1.0
 ---
 
