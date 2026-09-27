@@ -13,7 +13,8 @@ Prevent terminology drift, invented vocabulary, obsolete conceptual framings, an
 
 - **One term per concept:** Keep one canonical term; reject generic terms and speculative synonyms. Never invent a compromise name that fuses competing alternatives.
 - **Evidence-based:** Admit terms grounded in code, documentation, schemas, project history, or relevant external sources.
-- **Boundaries, not specs:** Define what a concept is and distinguish easily confused neighbors; do not turn entries into procedures or miniature specifications.
+- **Terminology authority:** The lexicon governs terminology. Ground definitions in established project meaning; do not use entries to introduce or adjudicate architecture, implementation choices, or project status. Surface unresolved domain decisions to the user.
+- **Boundaries, not specs:** Include only the facts needed to identify a concept and distinguish easily confused neighbors; do not turn entries into procedures or miniature specifications. Link to authoritative documentation for implementation, operational details, and decision history.
 - **User authority:** Let the user adjudicate conceptual conflicts. Never silently pick a winner or reopen explicit decisions.
 
 ## Workflows
@@ -26,7 +27,7 @@ Select based on user intent (ask if ambiguous):
 
 ### 1. Lexicon authoring
 - **Load:** Locate and read the entire authoritative lexicon. Check `LEXICON.md`, `TERMS.md`, `GLOSSARY.md`, `CONTEXT.md`, and relevant `README.md` sections; report overlaps and ask if authority is unclear. Default new lexicons to root `LEXICON.md`.
-- **Survey:** Use 2+ parallel read-only subagents to extract domain terms from (a) specs/docs, (b) schemas/APIs/public types, and (c) conflicts in ownership, boundaries, states, or lifecycles. Require candidates with exact evidence locations, not raw search dumps.
+- **Survey:** Use 2+ parallel read-only subagents to extract domain terms from (a) specs/docs, (b) schemas/APIs/public types, and (c) conceptual conflicts affecting terminology. Require each candidate to state the terminology problem and exact evidence locations, not raw search dumps.
 - **Resolve:** Run the [Review and resolution procedure](#review-and-resolution-procedure).
 - **Link:** Reference the lexicon in `AGENTS.md` when newly created.
 
@@ -45,11 +46,11 @@ Select based on user intent (ask if ambiguous):
 
 ## Term admission rules
 
-A concept earns a lexicon entry only when:
-1. **Terminology drift:** Two or more terms are already used for the same concept; or
-2. **Shared domain concept:** Central to the problem domain and used across multiple subsystems.
+Admit a term when its entry resolves an evidenced ambiguity in naming or meaning, or explains a project-specific distinction readers need to use the term correctly.
 
-Reject implementation details, generic software terms, and frequency-only candidates.
+For each candidate, answer: **What naming or interpretation error does this entry prevent?** State the terminology problem and its evidence, including for candidates found during audits or naming critiques. Do not invent competing names to justify an entry.
+
+Prominence, frequency, and architectural importance are insufficient. Reject entries that merely identify a project or technology, repeat a standard definition, or document implementation or project history.
 
 ## Review and resolution procedure
 
@@ -94,5 +95,5 @@ One or two sentences stating what the concept is and its boundary or lifecycle r
 
 - **Scope:** Canonical compound nouns for exported, persisted, public, and wire identifiers; concise names and descriptive modifiers (`activeUser`, `userId`) allowed in unambiguous local scope.
 - **AKA restraint:** Only list alternatives used by an external source (standard, paper, upstream library). Exclude English synonyms and competing internal names.
-- **Avoid restraint:** Only list evidenced deprecated names or alternatives explicitly rejected by the user; retain them after cleanup.
+- **Avoid restraint:** Only list evidenced deprecated names or alternatives explicitly rejected by the user for this concept; retain them after cleanup. Replacing a technology or component does not by itself make its name a deprecated synonym.
 - Omit metadata bullets (`_Reference_`, `_AKA_`, `_Avoid_`) when not applicable.
