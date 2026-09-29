@@ -126,6 +126,7 @@ When setting up a new project, provide these instructions to the user in strict 
     *   **Repository**: `YOUR_REPO`
     *   **Workflow filename**: `publish.yml`
     *   **Environment**: Leave blank (unless explicitly requested).
+    *   **Allowed actions**: Check the **"Allow npm publish"** checkbox. It is unchecked by default (npm defaults to staged publishing only), and `npm publish` will fail without it.
 5.  **No Secrets Needed**: Remind the user that `NPM_TOKEN` is NO LONGER REQUIRED in GitHub Secrets.
 
 ## Additional Resources
