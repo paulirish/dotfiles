@@ -15,6 +15,7 @@ Prevent terminology drift, invented vocabulary, obsolete conceptual framings, an
 - **Evidence-based:** Admit terms grounded in code, documentation, schemas, project history, or relevant external sources.
 - **Terminology authority:** The lexicon governs terminology. Ground definitions in established project meaning; do not use entries to introduce or adjudicate architecture, implementation choices, or project status. Surface unresolved domain decisions to the user.
 - **Boundaries, not specs:** Include only the facts needed to identify a concept and distinguish easily confused neighbors; do not turn entries into procedures or miniature specifications. Link to authoritative documentation for implementation, operational details, and decision history.
+- **Definition test:** Could this fact change while the term still meant the same thing? If so, omit it from the definition and link to its authoritative source when useful. Retain conditions, relationships, or lifecycle facts only when necessary to distinguish the concept.
 - **User authority:** Let the user adjudicate conceptual conflicts. Never silently pick a winner or reopen explicit decisions.
 
 ## Workflows
@@ -59,7 +60,7 @@ Prominence, frequency, and architectural importance are insufficient. Reject ent
    - **Discuss with the user:** Drift, competing names, boundary conflicts, or ambiguous uses.
    - **Propose a project edit:** Naming improvement or unambiguous lexicon violation.
    - **Discard:** Fails admission rules or irrelevant match.
-2. **Challenge consequential findings:** For authoring additions, audit mechanical replacements, and close boundary distinctions, invoke a fresh skeptical subagent with candidates and evidence (no advocacy). Incorporate objections before proceeding.
+2. **Challenge consequential findings:** For authoring additions, audit mechanical replacements, and close boundary distinctions, invoke a fresh skeptical subagent with candidates, proposed definitions, and evidence (no advocacy). Have the reviewer check both term admission and whether each sentence of a proposed definition passes the definition test. Incorporate objections before proceeding.
 3. **Write accepted terms:** Add **Add to the lexicon** terms immediately; notify user with a concise list.
 4. **Resolve questions:** Present **Discuss with the user** items as questions on boundaries and meaning. Retain replaced canonical terms under `_Avoid_`.
 5. **Propose project edits:** For naming critiques, present the smallest high-value replacements. For audits, batch fixes by term and report the replacement direction, count, ambiguity-check result, safety tier, and representative locations. Apply only user-approved changes.
