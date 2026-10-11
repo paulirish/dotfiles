@@ -2,18 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Large-text ordered list</title>
+    <title>Large text and headings</title>
     <style>
       .large-text {
         font-size: 26px;
       }
+
+      .large-text-callout {
+        position: relative;
+        padding-top: 24px;
+        font-size: 26px;
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
+    <h2>Default sized h2</h2>
+    <div class="large-text">STANDALONE-LARGE-TEXT</div>
+
     <ol class="large-text">
       <li>First, a plain entry</li>
       <li>You put the <code>html</code> in the <code>markdown</code>, right</li>
     </ol>
+
+    <div class="large-text-callout"><strong>LARGE-INLINE-CALLOUT</strong>: Text before <a href="https://example.com/callout.html">LARGE-INLINE-LINK</a> continues after the link.</div>
 
     <ol>
       <li>

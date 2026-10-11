@@ -120,16 +120,30 @@ test('uses the primary main landmark in the stress fixture', async () => {
   assert.ok(!markdown.includes('distill-page-pre-'), 'Should not leak preformatted-block semantic markers');
 });
 
-test('does not treat large ordered-list text as headings', async () => {
-  const fixturePath = path.resolve(__dirname, 'fixtures', 'large-text-ordered-list.html');
+test('does not treat large non-heading text as headings', async () => {
+  const fixturePath = path.resolve(__dirname, 'fixtures', 'large-text-and-headings.html');
   const content = await fetchDistilledBase64(`file://${fixturePath}`);
   const markdown = convertToMarkdown(decodeAnnotatedPageContent(content));
 
+  assert.ok(markdown.includes('## Default sized h2'), 'Should treat heading as heading');
+  assert.doesNotMatch(
+    markdown,
+    /^#{1,6} .*STANDALONE-LARGE-TEXT/m,
+    'Should not infer a heading from standalone large text',
+  );
   assert.ok(markdown.includes('1. First, a plain entry'), 'Should keep large ordered-list text without heading markers');
   assert.ok(
     markdown.includes('2. You put the `html` in the `markdown`, right'),
     'Should keep large ordered-list text on one line without heading markers',
   );
+  const calloutLine = markdown.split('\n').find(line => line.includes('LARGE-INLINE-CALLOUT'));
+  assert.ok(calloutLine, 'Should distill the large inline callout');
+  assert.match(
+    calloutLine,
+    /LARGE-INLINE-CALLOUT.*Text before.*\[LARGE-INLINE-LINK\]\(https:\/\/example\.com\/callout\.html\).*continues after the link\./,
+    'Should keep a large inline callout and its link together on one line',
+  );
+  assert.ok(!calloutLine?.startsWith('#'), 'Should not treat the large inline callout as a heading');
   assert.ok(
     markdown.includes('1. ## Actual Heading\n  First paragraph\n  Second!'),
     'Should preserve explicit headings and multiple paragraphs inside list items',

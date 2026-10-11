@@ -106,9 +106,7 @@ export interface ASTDocument {
 
 interface ParserState {
   imageCounter: {value: number};
-  insideParagraph: boolean;
   insideHeading: boolean;
-  insideListItem: boolean;
   insideCodeBlock: boolean;
   insideInlineCode: boolean;
   currentUrl?: string | null;
@@ -389,27 +387,6 @@ export const AnnotationParser = {
 
     const bold = !!(textData.textStyle?.hasEmphasis && !state.insideHeading);
 
-    const size = textData.textStyle?.textSize;
-    if (
-      (size === TextSize.XL || size === TextSize.L) &&
-      !state.insideHeading &&
-      !state.insideParagraph &&
-      !state.insideListItem
-    ) {
-      const headingTextRun: ASTTextRun = {
-        type: 'text',
-        text: trimmed,
-        style: textData.textStyle ? {...textData.textStyle, hasEmphasis: bold} : undefined,
-      };
-      const level = this.textSizeToHeadingLevel(size);
-      const headingBlock: ASTHeading = {
-        type: 'heading',
-        level,
-        children: [headingTextRun],
-      };
-      return [headingBlock];
-    }
-
     const run: ASTTextRun = {
       type: 'text',
       text: trimmed,
@@ -487,7 +464,7 @@ export const AnnotationParser = {
   },
 
   parseParagraphNode(node: ContentNode, state: ParserState): ASTParagraph[] {
-    const childState = {...state, insideParagraph: true};
+    const childState = {...state};
     const inlineChildren = this.parseInlineChildren(node.childrenNodes || [], childState);
     if (inlineChildren.length > 0) {
       const p: ASTParagraph = {
@@ -530,7 +507,7 @@ export const AnnotationParser = {
     const items: ASTListItem[] = [];
     if (node.childrenNodes) {
       for (const itemNode of node.childrenNodes) {
-        const childState = {...state, insideParagraph: false, insideListItem: true};
+        const childState = {...state};
         const itemChildren = this.parseChildren(itemNode.childrenNodes || [itemNode], childState);
         if (itemChildren.length > 0) {
           items.push({
@@ -561,7 +538,7 @@ export const AnnotationParser = {
         const cells: ASTTableCell[] = [];
         if (rowNode.childrenNodes) {
           for (const cellNode of rowNode.childrenNodes) {
-            const childState = {...state, insideParagraph: true};
+            const childState = {...state};
             const cellInlines = this.parseInlineChildren(cellNode.childrenNodes || [], childState);
             const rowType = rowAttrs.contentData.case === 'tableRowData' ? rowAttrs.contentData.value.type : undefined;
             const header = rowType === TableRowType.HEADER;
@@ -592,7 +569,6 @@ export const AnnotationParser = {
   parseCalloutNode(node: ContentNode, subtype: 'paid' | 'hidden' | 'aside', state: ParserState): ASTCallout[] {
     const childState = {
       ...state,
-      insideParagraph: false,
       insideHeading: false,
     };
     const blockChildren = this.parseChildren(node.childrenNodes || [], childState);
@@ -687,9 +663,7 @@ export const AnnotationParser = {
 
     const state: ParserState = {
       imageCounter: {value: 1},
-      insideParagraph: false,
       insideHeading: false,
-      insideListItem: false,
       insideCodeBlock: false,
       insideInlineCode: false,
       currentUrl: decodedProto.mainFrameData?.url,
