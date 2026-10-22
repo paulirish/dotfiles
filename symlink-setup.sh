@@ -143,6 +143,7 @@ print_success() {
 # finds all .dotfiles in this folder
 FILES_TO_SYMLINK=($(find . -type f -maxdepth 1 -name ".*" -not -name .DS_Store -not -name .git -not -name .osx | sed -e 's|//|/|' | sed -e 's|./.|.|' | sort))
 FILES_TO_SYMLINK+=("bin") # symlink the whole bin/ dir too
+FILES_TO_SYMLINK+=(".config/borders/bordersrc")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -156,7 +157,8 @@ main() {
     for i in ${FILES_TO_SYMLINK[@]}; do
 
         sourceFile="$(pwd)/$i"
-        targetFile="$HOME/$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
+        targetFile="$HOME/$i"
+        mkdir -p "$(dirname "$targetFile")"
 
         if [ -e "$targetFile" ]; then
             if [ "$(readlink "$targetFile")" != "$sourceFile" ]; then

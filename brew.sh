@@ -66,5 +66,10 @@ brew install thefuck
 
 brew install git-absorb
 
+# coloured border around the focused window, config in .config/borders/bordersrc
+brew tap FelixKratz/formulae
+brew install borders
+brew services start borders
+
 # Remove outdated versions from the cellar
 brew cleanup
