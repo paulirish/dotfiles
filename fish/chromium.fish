@@ -254,7 +254,7 @@ end
 
 alias upload 'git cl format --js && git status --porcelain=v2 && git cl upload'
 
-abbr gcert 'gcert-local'
+
 # copy a diff-looking thing (like our karma diffs) to clipboard and this'll run em through delta.  Could be improved for multiline strings but.. requires lotta lines.
 abbr deltapb 'printf "%s\n" "@@ -1,1 +1,1 @@" (pbpaste) | delta --max-line-length 1024 --minus-style "white #2b0000" --plus-style "white #001900"'
 
