@@ -90,3 +90,5 @@
   path = ~/.gitconfig.local
 [pull]
 	rebase = false
+[checkout]
+	workers = 0
