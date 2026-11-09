@@ -113,24 +113,27 @@ bindkey "^[^[[C" forward-word
 # Load nvm (Homebrew on Apple Silicon)
 export NVM_DIR="$HOME/.nvm"
 
-# Lazy-load nvm only when needed
-__NVM_LOADED=0
+# Lazy-load nvm only when needed.
+# nvm.sh itself calls bare `node`/`npm` (often in $(...) subshells), which hits
+# the wrappers below. __NVM_BUSY makes those nested calls fall straight through
+# to the real binary; without it every nested call re-sourced nvm.sh and forked
+# zsh endlessly. These functions also end up in non-interactive shells (e.g.
+# Claude Code's shell snapshot), where something else may source nvm.sh first.
 __load_nvm() {
-  if [[ $__NVM_LOADED -eq 1 ]]; then
-    return
-  fi
+  typeset -f nvm_ls_current >/dev/null && return
+  local __NVM_BUSY=1
   if [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]]; then
     source "/opt/homebrew/opt/nvm/nvm.sh"
   elif [[ -s "$NVM_DIR/nvm.sh" ]]; then
     source "$NVM_DIR/nvm.sh"
   fi
-  __NVM_LOADED=1
 }
 
-
 __ensure_nvm() {
+  [[ -n ${__NVM_BUSY:-} ]] && return
+  local __NVM_BUSY=1
   __load_nvm
-  if ! command -v nvm >/dev/null 2>&1; then
+  if ! typeset -f nvm_ls_current >/dev/null; then
     return
   fi
   if [[ -f .nvmrc ]]; then
