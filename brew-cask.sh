@@ -13,7 +13,9 @@
 #brew cask install rescuetime
 # cask install flux
 brew install --cask rectangle
-brew install raycast --cask
+#brew install raycast --cask
+brew install --cask simonauner/tap/lotsen
+
 
 # dev
 brew install --cask iterm2
