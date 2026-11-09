@@ -15,3 +15,15 @@ grim() {
     base=${base:-master}
     git rebase -i "$(git merge-base "$base" HEAD)"
 }
+
+# Claude Code: ~/.claude is the personal account (default); work repos use
+# ~/.claude-work.
+# Log in once per config dir with /login.
+claude() {
+  case "$PWD" in
+    "$HOME"/code/work|"$HOME"/code/work/*)
+      CLAUDE_CONFIG_DIR="$HOME/.claude-work" command claude "$@" ;;
+    *)
+      GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token 2>/dev/null)" command claude "$@" ;;
+  esac
+}

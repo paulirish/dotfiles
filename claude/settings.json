@@ -1,0 +1,27 @@
+{
+  "effortLevel": "high",
+  "enabledPlugins": {
+    "cubic@cubic": true,
+    "ponytail@ponytail": true
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "extraKnownMarketplaces": {
+    "cubic": {
+      "source": {
+        "repo": "mrge-io/cubic-claude-plugin",
+        "source": "github"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/DietrichGebert/ponytail.git"
+      }
+    }
+  },
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "workflowSizeGuideline": "small"
+}

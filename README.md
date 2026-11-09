@@ -42,6 +42,27 @@ Some applications are worth installing manually since a Brew install will mess w
 
 - [Make iTerm2 open split tabs in same directory](https://apple.stackexchange.com/questions/337377/iterm2-split-vertically-with-current-profile-with-same-working-directory/337386#337386)
 
+#### Claude Code: personal and work accounts
+
+The `claude()` function in `.functions` picks the account by folder:
+
+- anywhere under `~/code/work` → work account, config in `~/.claude-work`
+- everywhere else → personal account, config in `~/.claude`
+
+`claude/settings.json` (symlinked by `symlink-setup.sh`) is the personal one.
+The work account keeps its own `~/.claude-work/settings.json` locally, outside
+this repo; on a new machine, copy it over by hand. Secrets such as
+`CUBIC_API_KEY` go in `~/.extra`, never in a settings file.
+
+Log in once per account:
+
+```
+cd ~ && claude                  # then /login with the personal account
+cd ~/code/work/<repo> && claude # then /login with the work account
+```
+
+The Claude desktop app ignores this and uses whichever account it is logged in to.
+
 ### What you get
 
 - Mac OSX default settings (Paul Irish's)

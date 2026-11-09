@@ -144,6 +144,13 @@ print_success() {
 FILES_TO_SYMLINK=($(find . -type f -maxdepth 1 -name ".*" -not -name .DS_Store -not -name .git -not -name .osx | sed -e 's|//|/|' | sed -e 's|./.|.|' | sort))
 FILES_TO_SYMLINK+=("bin") # symlink the whole bin/ dir too
 FILES_TO_SYMLINK+=(".config/borders/bordersrc")
+# Claude Code, as "source:target". ~/.claude is personal (default), ~/.claude-work
+# is used under ~/code/work (see claude() in .functions) and keeps its own local
+# settings.json, outside this repo.
+# Secrets go in ~/.extra, logins via /login. Kept out of a .claude/ folder so this
+# repo doesn't pick it up as project settings.
+FILES_TO_SYMLINK+=("claude/settings.json:.claude/settings.json")
+FILES_TO_SYMLINK+=("claude/skills/recover-disk-space:.claude/skills/recover-disk-space" "claude/skills/recover-disk-space:.claude-work/skills/recover-disk-space")
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -156,8 +163,8 @@ main() {
 
     for i in ${FILES_TO_SYMLINK[@]}; do
 
-        sourceFile="$(pwd)/$i"
-        targetFile="$HOME/$i"
+        sourceFile="$(pwd)/${i%%:*}"
+        targetFile="$HOME/${i#*:}"
         mkdir -p "$(dirname "$targetFile")"
 
         if [ -e "$targetFile" ]; then
