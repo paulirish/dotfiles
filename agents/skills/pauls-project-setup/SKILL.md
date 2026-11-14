@@ -12,6 +12,7 @@ When setting up a new project or initializing a repository, use this modern stac
 We use this specific stack to maximize execution speed, minimize configuration overhead, and avoid slow build steps during development.
 
 - **Package Manager**: `pnpm` (for strict dependency resolution and speed)
+- **Runtime**: Node.js 24+ (`"engines": { "node": ">=24" }` in `package.json`) for native TypeScript execution, `Map.groupBy`, and modern V8 features.
 - **Type Checking**: `buildless-types` standard (JSDoc or Erasable Syntax with `tsc --noEmit` to get type safety without the overhead of a build step)
 - **Testing**: Node.js native test runner (`node --test`)`. We avoid Jest entirely because it is notoriously slow and requires complex transpilation pipelines.
 - **Bundler / Dev Server**: `esbuild` (for fast Node.js tooling compilation).
@@ -30,7 +31,7 @@ Ensure the project is an ES Module and defines standard scripts inspired by Paul
 {
   "type": "module",
   "engines": {
-    "node": ">=24.11.0"
+    "node": ">=24"
   },
   "scripts": {
     "test": "pnpm run typecheck && pnpm run test:node",
