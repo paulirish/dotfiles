@@ -2,18 +2,31 @@ name: Test
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   shellcheck:
+    name: Shellcheck & Fish syntax check
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    # I tried 4 of the top shellcheck actions. They all kinda suck. Not providing much output, not letting me run it on all files, etc. On this one for now, but happy to change it later.
-    - uses: Azbagheri/shell-linter@latest
-      with:
-        severity: error
-        path: ".exports,.functions,.macos,.aliases,.bash_prompt,.bash_profile,.bashrc"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # I tried 4 of the top shellcheck actions. They all kinda suck. Not providing much output, not letting me run it on all files, etc. On this one for now, but happy to change it later.
+      - uses: Azbagheri/shell-linter@30a9cf3f6cf25c08fc98f10d7dc4167f7b5c0c00 # v0.8.0
+        with:
+          severity: error
+          path: ".exports,.functions,.macos,.aliases,.bash_prompt,.bash_profile,.bashrc"
 
-    - name: Fish - install fish shell
-      uses: fish-shop/install-fish-shell@v1
-    - name: Fish - syntax check
-      uses: fish-shop/syntax-check@v2
+      - name: Fish - install fish shell
+        uses: fish-shop/install-fish-shell@6457fc454bc52bcd0e657eeb5b3c5ba41ae8ad3e # v2.1.35
+      - name: Fish - syntax check
+        uses: fish-shop/syntax-check@05158fd9e980284b7f0d698919f5fdefc836a38a # v2.2.124
