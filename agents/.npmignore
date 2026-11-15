@@ -1,9 +1,0 @@
-# No ignore for heap-snapshot-toolkit if we want to bundle it or ensure it's available.
-# Actually, if it's a 'file:' dependency, npm pack might handle it differently.
-# But for now, let's keep the clis and skills.
-clis/
-skills/
-package.json
-!clis/**
-!skills/**
-!package.json
